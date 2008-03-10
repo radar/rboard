@@ -1,0 +1,30 @@
+<table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
+  <thead>
+    <tr>
+      <td align='left' width='40%'><b>Login</b></td>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr>
+    <td align='left'>
+      <%= link_to "Don't have an account?", :controller => "accounts", :action => "signup" %>
+   <% form_tag do %>
+        <p><label for="login">Login</label><br/>
+        <%= text_field_tag 'login' %></p>
+      
+        <p><label for="password">Password</label><br/>
+        <%= password_field_tag 'password' %></p>
+      
+        <p><label for="remember_me">Remember me:</label>
+        <%= check_box_tag 'remember_me' %></p>
+      
+        <p><%= submit_tag 'Log in' %></p>
+      <% end %>
+    </td>
+  </tbody>
+  
+  <tfoot>
+  </tfoot>
+</table>
+

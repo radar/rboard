@@ -1,0 +1,37 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+admins_only:
+  id: 1
+  title: Administrators Only!
+  description: Top secret admin stuff goes here!
+  is_visible_to: 3
+  topics_created_by: 3
+  position: 1
+
+moderators_only:
+  id: 2
+  title: Moderators Only!
+  description: top secret moderator discussion!
+  is_visible_to: 2
+  topics_created_by: 2
+  position: 2
+
+everybody:
+  id: 3
+  title: General Discussion!
+  description: Anything and everyone is welcome to discuss whatever!
+  is_visible_to: 1
+  topics_created_by: 1
+  position: 3
+
+sub_of_everybody:
+  id: 4
+  title: Unmoderated Discussion
+  description: Totally unmoderated!
+  is_visible_to: 1
+  topics_created_by: 1
+  position: 4
+  parent_id: 3
+
+invalid:
+  id: 5
+

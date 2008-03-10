@@ -1,0 +1,8 @@
+<tbody>
+  <tr><td width='100px'>
+  <b>Subject:</b></td><td> <%= text_field "topic","subject" %></td></tr>
+  <tr><td valign='top'><b>Post:</b> </td><td><%= text_area "post","text", :cols => "80" %></td></tr>
+  <% if is_admin? %>
+  <tr><td><b>Sticky?</b></td><td><%= check_box "topic", "sticky" %></td></tr>
+<% end %>
+</tbody>

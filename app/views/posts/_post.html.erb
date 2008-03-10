@@ -1,0 +1,38 @@
+<table cellspacing='0' cellpadding='5' width='100%' class='posts' id='post_<%= post.id %>'>
+<thead>
+<tr><td rowspan='2' valign='top' width='15%'><b><%= post.user.login %></b></td>
+<td valign='top'>#<%= post_counter + 1 %> - <%= post.created_at.strftime(time_display) %></td>
+<td align='right' valign='top'>
+	<% if !@topic.locked || is_admin? %>
+<%= link_to("Reply", reply_forum_topic_path(@topic.forum.id,@topic.id)) %> |
+<%= link_to("Quote", :controller => "topics", :action => "reply", :id => @topic.id, :quote => post.id) %> 
+<% if is_owner_or_admin?(post.id) %>
+ | <%= link_to_remote("Edit", :url => edit_post_path(post.id), :update => "post[#{post.id}]", :method => "get") %> |
+<%= link_to_remote("Delete", :url => post_path(post.id), :method => "delete", :confirm => "Are you sure you want to delete this post?") %>
+<% end %>
+<% else %>
+Locked!
+<% end %>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr><td valign='top'>
+<b><%= post.user.rank %><br></b>
+<% if !post.user.email.blank? %>
+<%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=") %><br>
+<% end %>
+<b>Posts:</b> <%= post.user.posts.size %><br>
+
+<b>Date Joined:</b> <%= post.user.created_at.strftime("%d-%m-%y") %></td><td valign='top' colspan='2' valign='top' id='post[<%= post.id %>]'>
+			<%= textilize_without_paragraph(bbcode(sanitize(post.text))) %><% unless post.user.signature.blank? %><br>
+			____________<br>
+			<%= bbcode(sanitize(post.user.signature)) %>
+			<% end %>
+			<% if post.updated_at.nil? %>
+			<br><br>
+			<span class='edit-note'>This post was edited by <%= post.editor.login %> <%= time_ago_in_words(post.updated_at) %> ago.</span>
+			<% end %></td>
+</tr>
+</tbody>
+</table>

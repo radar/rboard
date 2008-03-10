@@ -1,0 +1,40 @@
+<table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
+  <% unless @forums.empty? %>
+    <thead>
+      <tr>
+        <td align='left' width='40%'><b>Forum</b></td>
+        <td align='center' width='100px'><b>Topics</b></td>
+        <td align='center' width='100px'><b>Posts</b></td>
+        <td align='right'><b>Last Post</b></td>
+      </tr>
+    </thead>
+<tbody>
+  <%= render :partial => "forum", :collection => @forums %>
+</tbody>
+  <% else %>
+    <thead>
+      <tr><td colspan='5' align='center'><b>There are no forums. <% unless is_admin? %>Maybe an administrator should create one.<% else %><%= link_to "Maybe you should create a forum.", new_admin_forum_path %><% end %></b></td>
+    </thead>
+  <% end %>
+  
+  <tfoot>
+  </tfoot>
+</table><br>
+<% if logged_in? %>
+  <table cellspacing='0' cellpadding='5' class='info-box' width='100%' rules='groups'>
+    <thead>
+      <tr><td>Forum Statistics</td></tr>
+    </thead>
+    <tbody>
+      <tr><td>
+          <span class='right'>
+            <b>Posts: </b><%= @posts %><br>
+            <b>Topics: </b><%= @topics %><br>
+            <b>Posts/Topic: </b><%= @ppt %><br>
+          </span>
+          <b>Registered users:</b> <%= @users %> <br>
+          <b>Users on in the last 15 minutes:</b> <%= @lusers.blank? ? "None" : @lusers %>
+      </td></tr>
+    </tbody>
+  </table>
+<% end %>

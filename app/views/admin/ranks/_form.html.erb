@@ -1,0 +1,6 @@
+<tbody>
+<tr><td colspan='2' class='errors'><%= error_messages_for :rank %></td></tr>
+<tr><td><b>Name:</b></td><td><%= @f.text_field "name" %></td></tr>
+<tr><td><b>Posts Required:</b></td><td><%= @f.text_field "posts_required", :size => 3 %></td></tr>
+<tr><td><b>Custom Rank?</b></td><td><%= @f.check_box "custom" %></td></tr>
+</tbody>

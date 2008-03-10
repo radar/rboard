@@ -1,0 +1,10 @@
+<table cellspacing='0' cellpadding='5' width='100%' class='action-box'>
+<thead>
+<tr><td>Message from <%= @message.from.login %> sent <%= time_ago_in_words(@message.created_at) %> ago</td></tr>
+</thead>
+<tbody>
+<tr><td align='left'><%= link_to("Reply", reply_message_path(@message.id)) %></td></tr>
+<tr><td><%= textilize(bbcode(@message.text)) %></td></tr>
+<tr><td align='left'><%= link_to("Reply", reply_message_path(@message.id)) %></td></tr>
+</tbody>
+</table>

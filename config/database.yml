@@ -1,0 +1,10 @@
+development:
+  username: root
+  password: 7b10fbb
+  database: railsforum
+  adapter: mysql
+test:
+  username: root
+  password: 7b10fbb
+  database: railsforum_test
+  adapter: mysql

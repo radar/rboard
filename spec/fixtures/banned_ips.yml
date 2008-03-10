@@ -1,0 +1,5 @@
+nothing:
+  ip: 127.0.0.1
+  reason: Testing
+  banned_by: 1
+  ban_time: <%= (Time.now + 5.years).to_s(:db) %>

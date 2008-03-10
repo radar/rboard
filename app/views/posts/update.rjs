@@ -1,0 +1,6 @@
+if @post.errors.empty?
+page.replace_html "post[#{@post.id}]", textilize(bbcode(@post.text))
+page.show 'flash'
+#page.call 'Effect.ScrollTo', :flash
+page.replace_html 'flash', flash[:notice]
+end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  text: F1R5+ P05+!
+  user_id: 3
+  topic_id: 3
+
+admin:
+  id: 2
+  text: Top secret!
+  user_id: 3
+  topic_id: 1
+
+invalid:
+  id: 3

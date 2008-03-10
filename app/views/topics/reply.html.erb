@@ -1,0 +1,29 @@
+  <%= error_messages_for 'post' %>
+<% form_tag posts_path do %>
+<% if logged_in? %>
+<%= hidden_field("post","user_id", :value => current_user.id) %>
+<% else %>
+<%= hidden_field("post","user_id", :value => -1) %>
+<% end %>
+<%= hidden_field("post","topic_id", :value => @topic.id) %>
+<table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
+<thead><tr><td colspan='2'><h2>Replying to topic: <%= @topic.subject %></h2></td></tr></thead>
+<tbody>
+<tr><td valign='top'>
+<b>Post:</b></td>
+<td>
+<% if params["quote"] %>
+<%= text_area("post","text", :cols => "80", :value => "[quote=\"" + @post.user.login + "\"]" + @post.text + "[/quote]") %>
+<% else %>
+<%= text_area("post","text", :cols => "80") %>
+<% end %>
+</td></tr></tbody>
+<tfoot><tr><td colspan='2'>
+<%= submit_tag("Create") %>
+</td></tr>
+</tfoot>
+</table>
+<% end %>
+<table cellspacing='0' cellpadding='5' width='100%' class='posts'>
+<%= render :partial => "posts/post", :collection => @posts %>
+</table>

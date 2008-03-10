@@ -1,0 +1,500 @@
+# Logfile created on Mon Mar 10 23:10:54 +1030 2008  [4;36;1mSQL (0.000000)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mTheme Columns (0.000000)[0m   [0mSHOW FIELDS FROM `themes`[0m
+  [4;36;1mTheme Load (0.000000)[0m   [0;1mSELECT * FROM `themes` WHERE (`themes`.`is_default` = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing ForumsController#show (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"1", "controller"=>"forums"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;35;1mTopic Load (0.000000)[0m   [0mSELECT * FROM `topics` WHERE (forum_id = 1) ORDER BY sticky DESC, id DESC LIMIT 0, 30[0m
+  [4;36;1mTopic Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM `topics`[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `topics` WHERE (forum_id = 1) [0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing ForumsController#show (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"3", "controller"=>"forums"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mTopic Load (0.000000)[0m   [0;1mSELECT * FROM `topics` WHERE (forum_id = 3) ORDER BY sticky DESC, id DESC LIMIT 0, 30[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `topics` WHERE (forum_id = 3) [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing ForumsController#show (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"1", "controller"=>"forums"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/forums
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x4589248 @filter=:is_visible?>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.01600 (15999%) | 302 Found [http://test.host/forums/1]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2) [0m
+
+
+Processing ForumsController#index (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"forums"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 2) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 1, `created_at` = '2008-03-10 23:10:57', `login` = 'Plebian', `crypted_password` = 'a561a12d86ed27a6c6adf52a327979fcf74c1f3c', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '8de4e91a969b7049ab1a53d57afbab578cc78021', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 2[0m
+  [4;35;1mBannedIp Load (0.016000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 1, `created_at` = '2008-03-10 23:10:57', `login` = 'Plebian', `crypted_password` = 'a561a12d86ed27a6c6adf52a327979fcf74c1f3c', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '8de4e91a969b7049ab1a53d57afbab578cc78021', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 2[0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (login_time > '2008-03-10 22:55:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mPost Columns (0.000000)[0m   [0;1mSHOW FIELDS FROM `posts`[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `posts` [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `topics` [0m
+  [4;35;1mSQL (0.016000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 1) [0m
+  [4;36;1mTopic Load (0.000000)[0m   [0;1mSELECT * FROM `topics` WHERE (`topics`.`id` = 1) [0m
+
+
+Processing TopicsController#show (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"show", "id"=>"1", "controller"=>"topics"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mTopic Load (0.000000)[0m   [0mSELECT * FROM `topics` WHERE (`topics`.`id` = 1) [0m
+Redirected to http://test.host/forums
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x45ac248 @filter=:is_viewable?>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.03200 (32000%) | 302 Found [http://test.host/topics/show/1]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 1) [0m
+  [4;35;1mTopic Load (0.000000)[0m   [0mSELECT * FROM `topics` WHERE (`topics`.`id` = 1) [0m
+
+
+Processing TopicsController#create (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"topic"=>{"subject"=>"Test!"}, "action"=>"create", "post"=>{"text"=>"Testing!"}, "controller"=>"topics", "forum_id"=>"1"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+Redirected to http://test.host/forums
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x45abe10 @filter=:create_topic_redirect>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/forums/1/topics?post%5Btext%5D=Testing%21&topic%5Bsubject%5D=Test%21]
+  [4;35;1mSQL (0.016000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 1) [0m
+  [4;36;1mTopic Load (0.000000)[0m   [0;1mSELECT * FROM `topics` WHERE (`topics`.`id` = 1) [0m
+
+
+Processing TopicsController#new (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"topics", "forum_id"=>"1"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Rendering template within layouts/application
+Rendering topics/new
+Completed in 0.00010 (10000 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01600 (15999%) | 200 OK [http://test.host/forums/1/topics/new]
+  [4;36;1mSQL (0.032000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 1) [0m
+  [4;35;1mTopic Load (0.000000)[0m   [0mSELECT * FROM `topics` WHERE (`topics`.`id` = 1) [0m
+
+
+Processing TopicsController#new (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"topics", "forum_id"=>"1"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+  [4;36;1mBannedIp Load (0.015000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+Redirected to http://test.host/forums
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x45abe10 @filter=:create_topic_redirect>] rendered_or_redirected.
+Completed in 0.01500 (66 reqs/sec) | DB: 0.04700 (313%) | 302 Found [http://test.host/forums/1/topics/new]
+  [4;35;1mSQL (0.016000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 1) [0m
+  [4;36;1mTopic Load (0.000000)[0m   [0;1mSELECT * FROM `topics` WHERE (`topics`.`id` = 1) [0m
+
+
+Processing TopicsController#new (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"new", "controller"=>"topics", "forum_id"=>"1"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/login
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x45ac8d8 @filter=:login_required>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.01600 (16000%) | 302 Found [http://test.host/forums/1/topics/new]
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mTopic Load (0.000000)[0m   [0mSELECT * FROM `topics` WHERE (`topics`.`id` = 4) [0m
+  [4;36;1mPost Load (0.000000)[0m   [0;1mSELECT * FROM `posts` WHERE (posts.topic_id = 4) ORDER BY created_at asc[0m
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#ip_is_banned (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"ip_is_banned", "controller"=>"accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/forums
+Completed in 0.11000 (9 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/accounts/ip_is_banned]
+  [4;35;1mSQL (0.015000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#index (for 127.0.0.1 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/accounts/ip_is_banned
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x47e350c @filter=:ip_banned_redirect>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.01500 (14999%) | 302 Found [http://test.host/accounts]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#logout (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"logout", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.hostlogin
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/logout]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#logout (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"logout", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+  [4;35;1mSQL (0.015000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 3[0m
+Cookie set: auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT
+Redirected to http://test.host/forums
+Completed in 0.01500 (66 reqs/sec) | DB: 0.01500 (100%) | 302 Found [http://test.host/logout]
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#user (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"user", "id"=>"administrator", "controller"=>"accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`login` IS NULL) LIMIT 1[0m
+Redirected to http://test.host/forums
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/accounts/user/administrator]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#profile (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"user"=>{"signature"=>"Please respect the rules.", "password_confirmation"=>"[FILTERED]", "password"=>"[FILTERED]"}, "action"=>"profile", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Rendering template within layouts/application
+Rendering accounts/profile
+Completed in 0.10900 (9 reqs/sec) | Rendering: 0.01500 (13%) | DB: 0.00000 (0%) | 200 OK [http://test.host/accounts/profile?user%5Bpassword%5D=godly1&user%5Bpassword_confirmation%5D=godly&user%5Bsignature%5D=Please+respect+the+rules.]
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#profile (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"profile", "controller"=>"accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Rendering template within layouts/application
+Rendering accounts/profile
+Completed in 0.01600 (62 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://test.host/accounts/profile]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#profile (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"profile", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/login
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x45ffa74 @filter=:login_required>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/accounts/profile]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#profile (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"profile", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Rendering template within layouts/application
+Rendering accounts/profile
+Completed in 0.01600 (62 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://test.host/accounts/profile]
+  [4;35;1mSQL (0.031000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#signup (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"signup", "controller"=>"accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Redirected to http://test.host/forums
+Completed in 0.01600 (62 reqs/sec) | DB: 0.03100 (193%) | 302 Found [http://test.host/signup]
+  [4;36;1mSQL (0.016000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#signup (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"password_confirmation"=>"[FILTERED]", "action"=>"signup", "controller"=>"accounts", "login"=>"administrator", "password"=>"[FILTERED]"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Rendering template within layouts/application
+Rendering accounts/signup
+Completed in 0.00010 (10000 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01600 (16000%) | 200 OK [http://test.host/signup?login=administrator&password=hackingthematrix&password_confirmation=hackingthematrix]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#signup (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"password_confirmation"=>"[FILTERED]", "action"=>"signup", "controller"=>"accounts", "login"=>"The One", "password"=>"[FILTERED]"}
+  [4;36;1mBannedIp Load (0.015000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/forums
+Completed in 0.01500 (66 reqs/sec) | DB: 0.01500 (100%) | 302 Found [http://test.host/signup?login=The+One&password=hackingthematrix&password_confirmation=hackingthematrix]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#login (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"action"=>"login", "controller"=>"accounts", "login"=>"Administrator", "password"=>"[FILTERED]"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/forums
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/login?login=Administrator&password=godly]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#login (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"action"=>"login", "controller"=>"accounts", "login"=>"Administrator", "password"=>"[FILTERED]"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Rendering template within layouts/application
+Rendering accounts/login
+Completed in 0.00010 (10000 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.00000 (0%) | 200 OK [http://test.host/login?login=Administrator&password=dud_password]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#login (for 0.0.0.0 at 2008-03-10 23:10:57) [POST]
+  Session ID: 
+  Parameters: {"action"=>"login", "controller"=>"accounts", "login"=>"Administrator", "password"=>"[FILTERED]", "remember_me"=>"1"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Cookie set: auth_token=; path=/
+Redirected to http://test.host/forums
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/login?login=Administrator&password=godly&remember_me=1]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#login (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"login", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mUser Load (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Redirected to http://test.host/forums
+Completed in 0.01500 (66 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/login]
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.016000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#index (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 3, `created_at` = '2008-03-10 23:10:57', `login` = 'administrator', `crypted_password` = 'b5859b5094f6747b8a7f11918e336bb524ec5f38', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = 'a22702db41bc60286a75d8b0d8bb416a2b9707e4', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = 1, `login_time` = '2008-03-10 23:10:57', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:57' WHERE `id` = 1[0m
+Rendering template within layouts/application
+Rendering accounts/index
+Completed in 0.00010 (10000 reqs/sec) | Rendering: 0.00000 (0%) | DB: 0.01600 (16000%) | 200 OK [http://test.host/accounts]
+  [4;36;1mSQL (0.016000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+
+
+Processing AccountsController#index (for 0.0.0.0 at 2008-03-10 23:10:57) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"accounts"}
+  [4;36;1mBannedIp Load (0.000000)[0m   [0;1mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:57') [0m
+Redirected to http://test.host/login
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x45ffa74 @filter=:login_required>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.01600 (16000%) | 302 Found [http://test.host/accounts]
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mPost Load (0.000000)[0m   [0;1mSELECT * FROM `posts` WHERE (`posts`.`id` = 1) [0m
+  [4;35;1mTopic Load (0.000000)[0m   [0mSELECT * FROM `topics` WHERE (`topics`.`id` = 3) [0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 3) [0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 3) [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mPost Load (0.000000)[0m   [0;1mSELECT * FROM `posts` WHERE (`posts`.`id` = 3) [0m
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 3) [0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 4) [0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`parent_id` IS NULL) [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 3) [0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 4) [0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (forums.parent_id = 3) [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `forums` WHERE (forums.parent_id = 4) [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 3) [0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 4) [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `topics` WHERE (topics.forum_id = 4) [0m
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+  [4;35;1mForum Load (0.000000)[0m   [0mSELECT * FROM `forums` WHERE (`forums`.`id` = 3) [0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 4) [0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `topics` WHERE (topics.forum_id = 3) [0m
+  [4;36;1mTopic Load (0.015000)[0m   [0;1mSELECT * FROM `topics` WHERE (topics.forum_id = 3) ORDER BY created_at DESC[0m
+  [4;35;1mPost Load (0.000000)[0m   [0mSELECT * FROM `posts` WHERE (posts.topic_id = 3) ORDER BY created_at asc[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mROLLBACK[0m
+  [4;35;1mSQL (0.000000)[0m   [0mBEGIN[0m
+  [4;36;1mForum Load (0.000000)[0m   [0;1mSELECT * FROM `forums` WHERE (`forums`.`id` = 5) [0m
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#ban_ip (for 0.0.0.0 at 2008-03-10 23:10:58) [POST]
+  Session ID: 
+  Parameters: {"action"=>"ban_ip", "controller"=>"admin/accounts", "banned_ip"=>{"ban_time"=>Mon Mar 10 23:15:58 +1030 2008, "banned_by"=>1, "ip"=>"127.0.0.1"}}
+  [4;35;1mSQL (0.000000)[0m   [0mROLLBACK[0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mBEGIN[0m
+
+
+Processing AccountsController#index (for 0.0.0.0 at 2008-03-10 23:10:58) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"admin/accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:58') [0m
+  [4;36;1mUser Load (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) LIMIT 1[0m
+  [4;35;1mSQL (0.000000)[0m   [0mSELECT count(*) AS count_all FROM `users` [0m
+  [4;36;1mUser Update (0.000000)[0m   [0;1mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:58', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:58' WHERE `id` = 3[0m
+Redirected to http://test.host/login
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x47cea58 @filter=:is_admin_redirect>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.01500 (15000%) | 302 Found [http://test.host/admin/accounts]
+
+
+Processing AccountsController#index (for 0.0.0.0 at 2008-03-10 23:10:58) [GET]
+  Session ID: 
+  Parameters: {"action"=>"index", "controller"=>"admin/accounts"}
+  [4;35;1mBannedIp Load (0.000000)[0m   [0mSELECT * FROM `banned_ips` WHERE (ban_time > '2008-03-10 23:10:58') [0m
+  [4;36;1mSQL (0.000000)[0m   [0;1mSELECT count(*) AS count_all FROM `users` [0m
+  [4;35;1mUser Update (0.000000)[0m   [0mUPDATE `users` SET `user_level_id` = 2, `created_at` = '2008-03-10 23:10:57', `login` = 'moderator', `crypted_password` = 'a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977', `remember_token_expires_at` = NULL, `ban_times` = 0, `salt` = '510bef3ba3999d017bcb041919f97f624806ec65', `ban_time` = NULL, `location` = NULL, `time_display` = '%d %B %Y %I:%M:%S%P', `ban_reason` = NULL, `remember_token` = NULL, `rank_id` = NULL, `login_time` = '2008-03-10 23:10:58', `ip` = NULL, `email` = NULL, `theme_id` = NULL, `description` = NULL, `signature` = NULL, `banned_by` = NULL, `website` = NULL, `previous_login` = NULL, `updated_at` = '2008-03-10 23:10:58' WHERE `id` = 3[0m
+Redirected to http://test.host/login
+Filter chain halted as [#<ActionController::Filters::ClassMethods::SymbolFilter:0x47cea58 @filter=:is_admin_redirect>] rendered_or_redirected.
+Completed in 0.00010 (10000 reqs/sec) | DB: 0.00000 (0%) | 302 Found [http://test.host/admin/accounts]
+  [4;36;1mSQL (0.015000)[0m   [0;1mROLLBACK[0m

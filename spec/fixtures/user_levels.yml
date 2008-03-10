@@ -1,0 +1,11 @@
+user:
+  id: 1
+  name: User
+
+moderator:
+  id: 2
+  name: Moderator
+
+administrator:
+  id: 3
+  name: Administrator

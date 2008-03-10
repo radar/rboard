@@ -1,0 +1,19 @@
+<h2>Sent Messages</h2>
+<%= link_to "Send New Message", new_message_path %> | <%= link_to "Inbox", messages_path %>
+<table cellspacing='0' cellpadding='5' width='100%' class='forums'>
+	<thead>
+		<tr>
+			<td align='center' width='20'>Read</td>
+			<td align='center' width='40'>Delete</td>
+			<td align='center'>From</td>
+			<td align='center'>Time Sent</td>
+			</tr>
+	</thead>
+	<tbody>
+		<% unless @messages.empty? %>
+		<%= render :partial => "message", :collection => @messages %>
+		<% else %>
+		<tr><td colspan='4' align='center'><b>You have no messages.</b></td></tr>
+		<% end %>
+	</tbody>
+</table>

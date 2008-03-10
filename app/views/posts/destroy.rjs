@@ -1,0 +1,6 @@
+page.hide "post_#{params[:id]}"
+page.show 'flash'
+page.replace_html 'flash', flash[:notice]
+if @post.topic.posts.size.zero?
+page.redirect_to forum_path(@post.forum.id)
+end

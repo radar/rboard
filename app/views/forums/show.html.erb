@@ -1,0 +1,75 @@
+<%= link_to("rBoard", forums_path) %> <%= breadcrumb(@forum) %>
+  <% unless @forums.empty? %>
+<h2>Subforums for <%= @forum.title %></h2>
+<table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
+    <thead>
+      <tr>
+        <td align='left' width='40%'><b>Forum</b></td>
+        <td align='center' width='100px'><b>Topics</b></td>
+        <td align='center' width='100px'><b>Posts</b></td>
+        <td align='right'><b>Last Post</b></td>
+      </tr>
+    </thead>
+<tbody>
+<%= render :partial => "forum", :collection => @forums %>
+</tbody>
+</table>
+<% end %>
+<br>
+<h2>Viewing Forum: <%= @forum.title %></h2>
+<%= will_paginate @topics %>
+<% if can_create_topics? %>
+<%= link_to("New Topic", new_forum_topic_path(@forum)) %>
+<% end %>
+<table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
+	<% unless @topics.empty? %>
+	<% form_tag moderate_forum_topics_path(@forum.id) do %>
+	<thead><tr>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+	<td align='left'>Topic</td>
+	<td align='center'>Replies</td>
+	<td align='center'>Views</td>
+	<td align='center'>Author</td>
+	<td align='right'>Last Post</td>
+	</tr></thead>
+	<tbody>
+	<% for topic in @topics %>
+	<tr>
+	<td><% if is_admin? %><%= check_box_tag "moderated_topics[]", topic.id %><% end %></td>
+<td>
+<% if topic.sticky? %>
+<%= theme_image_tag("sticky.jpg") %>
+<% elsif logged_in? && !current_user.previous_login.nil? && topic.posts.last.created_at > current_user.previous_login && !topic.locked %>
+<%= theme_image_tag("new.jpg") %>
+<% elsif topic.locked? %>
+<%= theme_image_tag("locked.jpg") %>
+<% else %>
+<%= theme_image_tag("old.jpg") %>
+<% end %>
+</td>
+<td><b>
+    <%= topic.sticky != true ? link_to(topic.subject, forum_topic_path(topic.forum, topic)) : link_to("<b>STICKY:</b> " + topic.subject, forum_topic_path(topic.forum, topic)) %>
+</b></td>
+<td align='center'><%= topic.posts.size - 1 %></td>
+<td align='center'><%= topic.views %></td>
+<td align='center'><%= link_to(topic.user.login, :controller => "accounts", :action => "user", :id => topic.user.login) %></td>
+<td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> ago by <%= link_to topic.posts.last.user.login, :controller => "accounts", :action => "user", :id => topic.posts.last.user.login %></td>
+</tr>
+<% end %>
+<% if is_admin? %>
+<tfoot>
+<tr><td align='right' colspan='8'>
+<%= submit_tag("Lock") + submit_tag("Unlock") + submit_tag("Delete") +  submit_tag("Sticky") + submit_tag("Unsticky") %>
+</td></tr>
+</tfoot>
+<% end %>
+<% end %>
+<% else %>
+<thead>
+<tr><td align='center'><b>There are no topics for this forum.  <%= "Why not " << link_to("create one?", new_forum_topic_path(@forum)) if can_create_topics? %></b></td></tr>
+</thead>
+<% end %>
+</tbody>
+</table>
+<%= will_paginate @topics %>

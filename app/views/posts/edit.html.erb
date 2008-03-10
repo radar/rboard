@@ -1,0 +1,4 @@
+<% remote_form_for :post, @post, :url => post_path(@post), :html => { :method => :put } do %>
+<%= render :partial => "form" %>
+<%= submit_tag "Update" %>
+<% end %>

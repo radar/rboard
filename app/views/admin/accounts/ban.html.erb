@@ -1,0 +1,15 @@
+<%= form_tag %>
+<table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
+  <thead><tr><td colspan='2'><h2>Banning <%= @user.login %></h2></td></tr></thead>
+  <tbody>
+    <tr><td><b>Ban Reason</b></td><td><%= text_field("user","ban_reason") %></td></tr>
+    <tr><td><b>Ban Until</b></td><td><%= text_field("user","ban_time") %>
+        <%= observe_field("user_ban_time", :url => { :controller => "chronic", :action => "time" }, :with => "duration", :frequency => 0.5) %>
+        <div id='date'></div>
+    </td></tr>
+  </tbody>
+  <tfoot>
+    <tr><td colspan='2'><%= submit_tag("Ban!") %></td></tr>
+  </tfoot>
+</table>
+<%= end_form_tag %>

@@ -1,0 +1,27 @@
+<%= link_to "Administration Section", :controller => "/admin" %> -> Themes
+<h2>Theme</h2>
+<table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Default?</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @themes.empty? %>
+        <% for theme in @themes %>
+        <tr>
+          <td><%= theme.name %></td>
+          <td><% if theme.is_default? %>
+              Yes
+            <% else %>
+              <%= link_to "Make Default", make_default_admin_theme_path(theme), :method => "put" %>
+            <% end %></td>
+      
+        </tr>
+      <% end %>
+    <% else %>
+      <tr><td colspan='4'>There are no themes</td></tr>
+    <% end%>
+  </tbody>
+</table>
