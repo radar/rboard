@@ -11,15 +11,16 @@ class TopicsController < ApplicationController
   
   def create
     Topic.transaction do
-      @topic = current_user.topics.create(params[:topic].merge(:forum_id => params[:forum_id]))
-      @post = @topic.posts.create(params[:post].merge(:user_id => current_user.id ))
-      #FIXME: Have to do this because counter_cache is so truly pathetic:
+      @topic = current_user.topics.create!(params[:topic].merge(:forum_id => params[:forum_id]))
+      @post = @topic.posts.create!(params[:post].merge(:user_id => current_user.id ))
       @topic.sticky = true if params[:topic][:sticky] == 1
     end
     flash[:notice] = "Topic has been created."
     redirect_to forum_topic_path(@topic.forum.id,@topic.id)
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => @e
     flash[:notice] = "Topic was not created."
+    #So it doesn't forget the post text
+    @post = Post.create(params[:post].merge(:user_id => current_user.id ))
     render :template => "topics/new"
   end
   

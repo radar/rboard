@@ -3,5 +3,6 @@ tmp/*
 db/schema.rb
 config/database.yml
 nbproject/**/*
+nbproject/project.*
 
 

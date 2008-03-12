@@ -1,11 +1,14 @@
 <tr><td align='left'><h1><%= link_to(forum.title, forum_path(forum.id)) %></h1><%= forum.description %></td>
-<td align='center'><%= forum.topics.size %></td>
-<td align='center'><%= forum.posts.size %></td>
-<td align='right'><% if !forum.topics.empty? %>
-    <%= time_ago_in_words(forum.last_post.created_at) %> ago
-    by <%= link_to(forum.last_post.user.login, :controller => "accounts", :action => "user", :id => forum.last_post.user.login)  %>
-    in <%= link_to(forum.last_post.topic.subject, forum_topic_path(forum,forum.last_post.topic)) %>
-  <% else %>
-    None
-  <% end %>
-</td></tr>
+  <td align='center'><%= forum.topics.size %></td>
+  <td align='center'><%= forum.posts.size %></td>
+  <td align='right'><% if !forum.last_post.nil? %>
+      <%= time_ago_in_words(forum.last_post.created_at) %> ago
+      by <%= link_to(forum.last_post.user.login, :controller => "accounts", :action => "user", :id => forum.last_post.user.login)  %>
+      in <%= link_to(forum.last_post.topic.subject, forum_topic_path(forum,forum.last_post.topic)) %>
+      <% if !forum.last_post_forum.nil? %>
+        in <%= link_to(forum.last_post_forum, forum_path(forum.last_post_forum)) %>
+        <% end %>
+      <% else %>
+        None
+      <% end %>
+  </td></tr>
