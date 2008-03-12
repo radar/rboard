@@ -34,7 +34,8 @@
 	<td align='right'>Last Post</td>
 	</tr></thead>
 	<tbody>
-	<% for topic in @topics %>
+
+	<% for topic in @topics  %>
 	<tr>
 	<td><% if is_admin? %><%= check_box_tag "moderated_topics[]", topic.id %><% end %></td>
 <td>

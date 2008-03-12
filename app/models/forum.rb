@@ -7,8 +7,14 @@ class Forum < ActiveRecord::Base
   belongs_to :visible_to, :class_name => "UserLevel", :foreign_key => "is_visible_to"
   belongs_to :creator_of_topics, :class_name => "UserLevel", :foreign_key => "topics_created_by"
   
+  alias_method :old_topics, :topics
+  
+  def topics
+    old_topics.sort_by { |t| t.posts.last.created_at }.reverse
+  end
+  
   def last_post
-    topics.empty? ? nil : topics.first.posts.last
+    posts.last
   end
   
   def descendants

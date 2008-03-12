@@ -20,7 +20,8 @@
         <%= link_to "Home", forums_path %> |
         <% unless logged_in? %>
           <%= link_to "Login", :controller => "accounts", :action => "login" %> |
-          <a href='/accounts/signup'>Signup</a>
+          <%= link_to "Signup", :controller => "accounts", :action => "signup" %>
+         
         <% else %>
           Logged in as <%= link_to current_user.login, :controller => "accounts", :login => current_user.login %> |
           <%= link_to("Profile", :controller => "/accounts", :action => "profile") %> |

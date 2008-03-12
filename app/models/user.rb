@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   
   #permission checking 
   def make_admin
-    self.user_level = UserLevel.find_by_name("Administrator") if User.count == 0
+    self.user_level = UserLevel.find_by_name("Administrators") if User.count == 0
   end
   
   def admin?

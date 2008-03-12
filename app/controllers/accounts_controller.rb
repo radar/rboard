@@ -39,7 +39,7 @@ class AccountsController < ApplicationController
     self.current_user = @user
     redirect_back_or_default(forums_path)
     flash[:notice] = "Thanks for signing up!"
-  rescue ActiveRecord::RecordNotSaved
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::InvalidRecord
     flash[:notice] = "There was a problem during signup."
     render :action => 'signup'
   end
