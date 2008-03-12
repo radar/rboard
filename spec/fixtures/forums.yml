@@ -1,4 +1,3 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 admins_only:
   id: 1
   title: Administrators Only!
@@ -22,6 +21,7 @@ everybody:
   is_visible_to: 1
   topics_created_by: 1
   position: 3
+  last_post_id: 1
 
 sub_of_everybody:
   id: 4

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::AccountsController do
-  fixtures :users
+  fixtures :users, :banned_ips
 
   before do
     @user = mock("user")
@@ -11,14 +11,20 @@ describe Admin::AccountsController do
     
   end
   
-  it "should redirect non-admins away" do
+  it "should redirect standard users away" do
     get 'index', {}, { :user => 3 }
     response.should redirect_to("login")
     flash[:notice].should_not be_blank
+  end
+  
+  it "should redirect moderators away" do
     get 'index', {}, { :user => 2}
     response.should redirect_to("login")
     flash[:notice].should_not be_blank
-    get 'index', {}, { :user => 1}
+  end
+  
+  it "should allow admins free reign" do
+    get 'index', {}, { :user => 1 }
     response.should_not redirect_to("login")
     flash[:notice].should be_blank
   end

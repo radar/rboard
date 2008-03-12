@@ -22,7 +22,7 @@ describe Topic, "creation" do
     #presence of user_id
     
     @topic.save.should be_false
-    @toppic.errors_on(:user_id).should_not be_empty
+    @topic.errors_on(:user_id).should_not be_empty
   end
   
 

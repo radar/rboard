@@ -7,7 +7,7 @@ class Topic < ActiveRecord::Base
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
   validates_length_of :subject, :minimum => 4
-  validates_presence_of :subject, :forum_id
+  validates_presence_of :subject, :forum_id, :user_id
   attr_protected :sticky, :locked
   
   #silence the error messages

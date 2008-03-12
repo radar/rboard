@@ -23,12 +23,12 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :messages, :member => { :reply => :get }, :collection => { :send_reply => :post, :sent => :get }
   map.resources :posts
+  
 
 
   map.connect ':controller/:action/:id'
   map.connect 'accounts/:page', :controller => "accounts", :action => "index"
   map.connect 'forums/:id/:page', :controller => "forums", :action => "show"
-  map.connect 'accounts/:login', :controller => 'accounts', :action => 'user'
 
   
 end

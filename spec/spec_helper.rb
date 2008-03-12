@@ -4,8 +4,6 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
- (Dir.entries('spec/test_helpers') - [".","..",".svn"]).each { |file| require "spec/test_helpers/" << file } 
-
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record

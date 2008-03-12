@@ -23,7 +23,7 @@
           <%= link_to "Signup", :controller => "accounts", :action => "signup" %>
          
         <% else %>
-          Logged in as <%= link_to current_user.login, :controller => "accounts", :login => current_user.login %> |
+          Logged in as <%= link_to current_user.login, :controller => "accounts", :action => "user", :id => current_user.login %> |
           <%= link_to("Profile", :controller => "/accounts", :action => "profile") %> |
           <%= link_to("Member List", :controller => "/accounts", :action => "index") %> |
           <%= link_to(pluralize(@current_user.inbox_messages.size,"new message"), messages_path) %> |

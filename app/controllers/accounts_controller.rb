@@ -39,7 +39,7 @@ class AccountsController < ApplicationController
     self.current_user = @user
     redirect_back_or_default(forums_path)
     flash[:notice] = "Thanks for signing up!"
-  rescue ActiveRecord::RecordNotSaved, ActiveRecord::InvalidRecord
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] = "There was a problem during signup."
     render :action => 'signup'
   end
@@ -54,6 +54,7 @@ class AccountsController < ApplicationController
   end
   
   def profile
+    @user = current_user
     if request.post?
       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])  if params[:user][:password] == params[:user][:password_confirmation] && !params[:user][:password].blank? 
       flash[:notice] = "Password has been changed. Please remember to use this password from now on. Your profile has been updated." unless params[:user][:crypted_password].nil?
@@ -63,8 +64,7 @@ class AccountsController < ApplicationController
   end
 
   def user
-    puts params.inspect
-    @user = User.find_by_login(params[:login])
+    @user = User.find_by_login(params[:id])
     if !@user.nil?
       @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
     else
@@ -75,7 +75,6 @@ class AccountsController < ApplicationController
   
   def ip_is_banned
     unless ip_banned?
-      puts "I am not banned!"
       flash[:notice] = "Your IP is not banned!"
       redirect_to forums_path
     end
