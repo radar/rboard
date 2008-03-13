@@ -70,7 +70,7 @@ module AuthenticatedSystem
   end
   
   def is_owner_or_admin?(id)
-    logged_in? && (current_user.user_level == UserLevel.find_by_name("Administrator") || Post.find(id).user == current_user)
+    logged_in? && (current_user.user_level == UserLevel.find_by_name("Administrators") || Post.find(id).user == current_user)
   end
   
   # Filter method to enforce a login requirement.

@@ -2,6 +2,8 @@
 #ApplicationController complains that it can't find ApplicationController unless it's named application_controller.
 #ruby script/console will complain that it can't find application.rb, so we need both!
 
+#here's a secret message for tom!
+
 class ApplicationController < ActionController::Base
   #Never, ever show password in the logs. Ever!
   filter_parameter_logging "password"
