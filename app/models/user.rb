@@ -16,7 +16,9 @@ class User < ActiveRecord::Base
   #has
   has_many :posts
   has_many :topics
-  has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = 0 AND to_deleted = 0"]
+  has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = 0"], :order => "id DESC"
+  has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = 0"], :order => "id DESC"
+  has_many :unread_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = 0 AND to_deleted = 0"]
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
   has_many :banned_ips, :foreign_key => "banned_by"
   

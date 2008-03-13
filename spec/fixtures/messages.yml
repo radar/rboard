@@ -1,0 +1,25 @@
+one:
+  id: 1
+  to_read: false
+  from_read: false
+  to_deleted: false
+  from_deleted: false
+  to_id: 1
+  from_id: 2
+  text: Really!
+  created_at: <%= Time.now.to_s(:db) %>
+
+two:
+  id: 2
+  to_read: false
+  from_read: false
+  to_deleted: false
+  from_deleted: false
+  to_id: 1
+  from_id: 2
+  text: O rly?
+  created_at: <%= (Time.now - 10.minutes).to_s(:db) %>
+
+
+invalid:
+  id: 3 

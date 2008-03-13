@@ -12,7 +12,6 @@ module AuthenticatedSystem
   end
   
   def is_admin_redirect
-    puts current_user.inspect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
       redirect_back_or_default(:controller => "/accounts", :action => "login")
