@@ -36,16 +36,17 @@ class Forum < ActiveRecord::Base
   end
   
   def root
-    parent_id.nil? ? self : self.parent.ancestor
+    parent_id.nil? ? self : self.parent
   end
   
   def ancestors(list=[])
-    if parent.parent.nil?
+    if parent.nil?
       list << parent
     else
       list << parent
       parent.ancestors(list)
     end
+    list.compact
   end
   
   def sub?

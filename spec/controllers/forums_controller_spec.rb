@@ -14,23 +14,6 @@ describe ForumsController do
     get 'index', { }, { :user => users(:plebian).id }
     response.should render_template("index")
   end
-  #    #This test fails when it should pass!
-  #  it "should now show the moderator forum" do
-  #    Forum.should_receive(:find_all_without_parent).and_return(@forums)
-  #    @forum.should_receive(:is_visible_to).and_return(2)
-  #    @forums.size.should eql(2)
-  #    get 'index', { }, { :user => users(:moderator).id }
-  #    response.should render_template("index")
-  #  end
-  #  #This test fails when it should pass!
-  #  
-  #  it "should now show the administrator forum" do
-  #    Forum.should_receive(:find_all_without_parent).and_return(@forums)
-  #    @forum.should_receive(:is_visible_to).and_return(3)
-  #    @forums.size.should eql(3)
-  #    get 'index', { }, { :user => users(:administrator).id }
-  #    response.should render_template("index")
-  #  end
  
   it "should not show the admin forum to anonymous users" do
     Forum.should_receive(:find).and_return(@forum)

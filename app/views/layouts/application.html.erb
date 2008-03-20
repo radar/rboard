@@ -1,4 +1,6 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <title>rBoard - <%= params[:controller].capitalize %> - <%= params[:action].capitalize %> </title>
     <style type='text/css'>
@@ -9,48 +11,49 @@
   <body>
     <div align='center'>
     <div class='content'>
-    <div class='title-bar'>
-      <%= link_to theme_image_tag("logo.jpg"), :class => "logo", :controller => "forums"  %>
-    </div>
-    <div class='flash' id='flash' <%= "style='display:none'" if flash[:notice].blank? %>>
-         <%= flash[:notice] %>
-         </div>
-      
-      <div class='menu-bar'>
-        <%= link_to "Home", forums_path %> |
-        <% unless logged_in? %>
-          <%= link_to "Login", :controller => "accounts", :action => "login" %> |
-          <%= link_to "Signup", :controller => "accounts", :action => "signup" %>
-         
-        <% else %>
-          Logged in as <%= link_to current_user.login, :controller => "accounts", :action => "user", :id => current_user.login %> |
-          <%= link_to("Profile", :controller => "/accounts", :action => "profile") %> |
-          <%= link_to("Member List", :controller => "/accounts", :action => "index") %> |
-          <%= link_to(pluralize(@current_user.unread_messages.size,"new message"), messages_path) %> |
-          <%= link_to("Logout", :controller => "/accounts", :action => "logout")  %>
-       <% end %>
+      <div class='title-bar'>
+        <%= link_to theme_image_tag("logo.jpg", :alt => "logo"), :class => "logo", :controller => "forums" %>
       </div>
-      <div class='time-now'>
+      <div class='flash' id='flash' <%= "style='display:none'" if flash[:notice].blank? %>>
+           <%= flash[:notice] %>
+           </div>
         
-      The time is now <%= Time.now.strftime(time_display) %> </div><br><br>
-      <% if user_banned? %>
-        <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1><%= current_user.banned_by.login %> banned you and stated "<%= current_user.ban_reason %>" as the reason. Your ban expires in <%= time_ago_in_words(current_user.ban_time) %><br><br></div>
-      <% elsif flash[:ip] %>
-        <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1>This ban will expire in <%= time_ago_in_words(flash[:ip].ban_time) %> and was set by <%= flash[:ip].user.login %>
-          <% unless flash[:ip].reason.blank? %>
-            stating  <%= flash[:ip].reason %> as the reason.
+        <div class='menu-bar'>
+          <%= link_to "Home", forums_path %> |
+          <% unless logged_in? %>
+              <%= link_to "Login", :controller => "accounts", :action => "login" %> |
+              <%= link_to "Signup", :controller => "accounts", :action => "signup" %>
+           
           <% else %>
-            without stating a reason.
-          <% end %>
-        <br> </div>
-      <% else %>
-        <%= yield %>
-      <% end %>
-       <% if is_admin? %>
-        <div align='center'>
-          <%= link_to("Administration Section", :controller => "/admin") %>
+            Logged in as <%= link_to current_user.login, :controller => "accounts", :action => "user", :id => current_user.login %> |
+            <%= link_to("Profile", :controller => "/accounts", :action => "profile") %> |
+            <%= link_to("Member List", :controller => "/accounts", :action => "index") %> |
+            <%= link_to(pluralize(@current_user.unread_messages.size,"new message"), messages_path) %> |
+            <%= link_to("Logout", :controller => "/accounts", :action => "logout")  %>
+       <% end %>
         </div>
-      </div>
-    <% end %>
+        <div class='time-now'>
+          
+        The time is now <%= Time.now.strftime(time_display) %> </div><br /><br />
+        <% if user_banned? %>
+          <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1><%= current_user.banned_by.login %> banned you and stated "<%= current_user.ban_reason %>" as the reason. Your ban expires in <%= time_ago_in_words(current_user.ban_time) %><br /><br /></div>
+        <% elsif flash[:ip] %>
+          <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1>This ban will expire in <%= time_ago_in_words(flash[:ip].ban_time) %> and was set by <%= flash[:ip].user.login %>
+            <% unless flash[:ip].reason.blank? %>
+              stating  <%= flash[:ip].reason %> as the reason.
+            <% else %>
+              without stating a reason.
+            <% end %>
+          <br /> </div>
+        <% else %>
+            <%= yield %>
+        <% end %>
+         <% if is_admin? %>
+          <div align='center'>
+            <%= link_to("Administration Section", :controller => "/admin") %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </body>
 </html>

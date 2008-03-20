@@ -13,6 +13,7 @@ class Admin::ForumsController < Admin::ApplicationController
       redirect
     else
       flash[:notice] = "Forum has not been created."
+      @forums = Forum.find(:all, :order => "title")
       render :action => "new"
     end
   end
@@ -35,6 +36,13 @@ class Admin::ForumsController < Admin::ApplicationController
       flash[:notice] = "Forum has not been updated."
       render :action => "edit"
     end
+  end
+  
+  def destroy
+    @forum = Forum.find(params[:id])
+    @forum.destroy
+    flash[:notice] = "#{@forum} has been deleted."
+    redirect
   end
   
   def move_up

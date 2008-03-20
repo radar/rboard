@@ -23,3 +23,14 @@ two:
 
 invalid:
   id: 3 
+
+to_deleted:
+  id: 4
+  to_read: 0
+  from_read: 0
+  to_deleted: 1
+  from_deleted: 0
+  to_id: 1
+  from_id: 2
+  text: I am deleted by the to user!
+  created_at: <%= (Time.now - 10.minutes).to_s(:db) %>

@@ -14,7 +14,7 @@
       <br />
       
       <% if !@user.email.blank? %>
-            <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br>
+            <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br />
         <% end %>
         
     </td>
@@ -23,16 +23,16 @@
     <td></td>
     <td valign='top' colspan='2'>
       <b>Date Joined:</b> <%= @user.created_at.strftime("%d-%m-%y") %> <br />
-      <b>Posts:</b> <%= @user.posts_count %>, about <%= @posts_percentage %>% of all posts on this forum.<br />
-      <b>IP:</b> <%= @user.ip %>
+      <b>Posts:</b> <%= @user.posts.size %>, about <%= @posts_percentage %>% of all posts on this forum.<br />
+      <b>IP:</b> <%= @user.ip %><br />
       <b>Bans:</b> <%= @user.login %> has been banned <%= @user.ban_times  %> times. <br />
       <% if !@user.ban_time.nil? && @user.ban_time > Time.now %>
         <h2><%= @user.login %> is currently banned!</h2>
-        This user was banned by <%= @user.banned_by.login %> and their ban expires in <%= time_ago_in_words(@user.ban_time) %>.<br><br>
-        The reason stated was: <i>"<%= @user.ban_reason %>"</i><br><br>
+        This user was banned by <%= @user.banned_by.login %> and their ban expires in <%= time_ago_in_words(@user.ban_time) %>.<br /><br />
+        The reason stated was: <i>"<%= @user.ban_reason %>"</i><br /><br />
       <% end %>
-      <% unless @user.signature.blank? %><br>
-        ____________<br>
+      <% unless @user.signature.blank? %><br />
+        ____________<br />
         <%= bbcode(sanitize(@user.signature)) %>
       <% end %>
     </td>

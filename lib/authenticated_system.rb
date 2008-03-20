@@ -11,7 +11,7 @@ module AuthenticatedSystem
     logged_in? && current_user.user_level_id == 3
   end
   
-  def is_admin_redirect
+  def non_admin_redirect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
       redirect_back_or_default(:controller => "/accounts", :action => "login")
@@ -24,7 +24,7 @@ module AuthenticatedSystem
   
   def ip_banned?
     @ips = BannedIp.find(:all, :conditions => ["ban_time > ?",Time.now]).select do |ip|
-      !Regexp.new(ip.ip).match(request.remote_addr).nil?
+      !Regexp.new(ip.ip).match(request.remote_addr).nil? unless ip.nil?
     end
     flash[:ip] = @ips.first unless @ips.empty?
   end

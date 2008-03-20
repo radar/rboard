@@ -18,19 +18,19 @@ Locked!
 </thead>
 <tbody>
 <tr><td valign='top'>
-<b><%= post.user.rank %><br></b>
+<b><%= post.user.rank %><br /></b>
 <% if !post.user.email.blank? %>
-<%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=") %><br>
+<%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=") %><br />
 <% end %>
-<b>Posts:</b> <%= post.user.posts.size %><br>
+<b>Posts:</b> <%= post.user.posts.size %><br />
 
 <b>Date Joined:</b> <%= post.user.created_at.strftime("%d-%m-%y") %></td><td valign='top' colspan='2' valign='top' id='post[<%= post.id %>]'>
-			<%= textilize_without_paragraph(bbcode(sanitize(post.text))) %><% unless post.user.signature.blank? %><br>
-			____________<br>
+			<%= textilize_without_paragraph(bbcode(sanitize(post.text))) %><% unless post.user.signature.blank? %><br />
+			____________<br />
 			<%= bbcode(sanitize(post.user.signature)) %>
 			<% end %>
 			<% if post.updated_at.nil? %>
-			<br><br>
+			<br /><br />
 			<span class='edit-note'>This post was edited by <%= post.editor.login %> <%= time_ago_in_words(post.updated_at) %> ago.</span>
 			<% end %></td>
 </tr>

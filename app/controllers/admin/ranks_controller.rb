@@ -33,9 +33,10 @@ class Admin::RanksController < Admin::ApplicationController
   def destroy
 	  @rank = Rank.find(params[:id]).destroy
 	  flash[:notice] = "#{@rank.name} has been destroyed."
-	  redirect_to admin_ranks_path
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = "#{@rank.name} could not be found."
+    flash[:notice] = "The rank you were looking for could not be found."
+  ensure 
+    redirect_to admin_ranks_path
   end
 
   def index

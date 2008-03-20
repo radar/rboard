@@ -21,21 +21,22 @@ class Admin::AccountsController < Admin::ApplicationController
   end
   
   def ban
-    @user = User.find(:first)
-    if request.post?
+    @user = User.find(params[:id])
+    flash[:notice] = "You have selected to ban yourself. If you have no problem with this, go ahead." if @user == current_user
+    if request.put?
       params[:user][:banned_by] = current_user
       params[:user][:ban_time] = Chronic.parse(params[:user][:ban_time])
       @user.update_attributes(params[:user])
       @user.increment!('ban_times')
       flash[:notice] = "User has been banned!"
-      redirect_back_or_default(:action => "list")
+      redirect_back_or_default(admin_accounts_path)
     end
   end
   
   def remove_banned_ip
     @banned_ip = BannedIp.find(params[:id]).destroy
     flash[:notice] = "The IP range has been unbanned."
-    redirect_to :action => :ban_ip
+    redirect_back_or_default ban_ip_admin_accounts_path
   end
   
   def index
@@ -50,9 +51,12 @@ class Admin::AccountsController < Admin::ApplicationController
   
   def update
     @user = User.find(params[:id])
-    @user.update_attributes(params[:user])
-    flash[:notice] = "This user has been updated."
-    redirect_back_or_default(admin_accounts_path)
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "This user has been updated."
+    else
+      flash[:notice] = "This user could not be updated."
+      redirect_back_or_default(admin_accounts_path)
+    end
   end
   
   def user

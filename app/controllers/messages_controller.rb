@@ -48,11 +48,10 @@ class MessagesController < ApplicationController
     @message = Message.find(params[:id])
     if !@message.belongs_to_user(current_user.id)
       flash[:notice] = "That message does not belong to you."
-      redirect_back_or_default(messages_path)
-    elsif @message.to_id == current_user.id
-      @message.update_attribute("to_read",true)
-    elsif @message.from_id == current_user.id
-      @message.update_attribute("from_read",true)
+      redirect_back_or_default(messages_path) and return
+    else
+      @message.update_attribute("to_read",true)  if @message.to == current_user
+      @message.update_attribute("from_read",true) if @message.from == current_user
     end
   end
   

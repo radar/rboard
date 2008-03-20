@@ -17,7 +17,6 @@ class Post < ActiveRecord::Base
     post.forum.last_post_id = post.id
     if post.forum.sub? 
       for ancestor in post.forum.ancestors
-        puts "CYCLING!"
         ancestor.last_post_id = post.id
         ancestor.last_post_forum_id = post.forum.id
         ancestor.save

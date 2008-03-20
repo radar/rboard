@@ -33,7 +33,8 @@ class TopicsController < ApplicationController
     @topic = Topic.find(params[:id])
     #is there an easier way to do this?
     @posts = @topic.posts.reverse.last(10)
-    @post = Post.find(params[:quote]) if params[:quote]
+    @quoting_post = Post.find(params[:quote]) if params[:quote]
+    @post = Post.new(:topic_id => params[:id])
   end
   
   def moderate

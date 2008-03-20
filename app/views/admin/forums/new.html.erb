@@ -1,4 +1,5 @@
 <%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to("Forums", admin_forums_path) %> -> Creating a new Forum
+<%= error_messages_for :forum %>
 <% form_for [:admin, @forum] do |@f|%>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
     <thead><tr><td colspan='2'><h2>Create a Forum</h2></td></tr></thead>

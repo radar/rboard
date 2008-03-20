@@ -19,7 +19,7 @@
   
   <tfoot>
   </tfoot>
-</table><br>
+</table><br />
 <% if logged_in? %>
   <table cellspacing='0' cellpadding='5' class='info-box' width='100%' rules='groups'>
     <thead>
@@ -28,11 +28,11 @@
     <tbody>
       <tr><td>
           <span class='right'>
-            <b>Posts: </b><%= @posts %><br>
-            <b>Topics: </b><%= @topics %><br>
-            <b>Posts/Topic: </b><%= @ppt %><br>
+            <b>Posts: </b><%= @posts %><br />
+            <b>Topics: </b><%= @topics %><br />
+            <b>Posts/Topic: </b><%= @ppt %><br />
           </span>
-          <b>Registered users:</b> <%= @users %> <br>
+          <b>Registered users:</b> <%= @users %> <br />
           <b>Users on in the last 15 minutes:</b> <%= @lusers.blank? ? "None" : @lusers %>
       </td></tr>
     </tbody>

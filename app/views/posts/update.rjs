@@ -1,6 +1,9 @@
 if @post.errors.empty?
-page.replace_html "post[#{@post.id}]", textilize(bbcode(@post.text))
-page.show 'flash'
-#page.call 'Effect.ScrollTo', :flash
-page.replace_html 'flash', flash[:notice]
+  page.replace_html "post[#{@post.id}]", textilize(bbcode(@post.text))
+else 
+  page.replace_html 'errors', error_messages_for(:post)
+  page << "$('post[#{@post.id}]').className = 'fieldWithErrors'"
 end
+
+page.show 'flash'
+page.replace_html 'flash', flash[:notice]

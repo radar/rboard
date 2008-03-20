@@ -24,4 +24,21 @@ describe Post, "general" do
   it "should be able to find its forum" do
     @post.forum.should eql(forums(:everybody))
   end
+  
+  it "should be able to update a forum with the proper last post" do
+    @new_post = Post.new(:topic_id => 1, :user_id => 1, :text => "Woot")
+    @new_post.forum.last_post_id.should be_nil
+    @new_post.save
+    @new_post.forum.last_post_id.should eql(@new_post.id)
+  end
+  
+  it "should update the forum and its ancestors with the latest post" do 
+    @new_topic = Topic.new(:forum_id => 4, :user_id => 1, :subject => "Hello")
+    @new_post = @new_topic.posts.build(:topic_id => 1, :user_id => 1, :text => "Woot")
+    @new_post.forum.last_post_id.should be_nil
+    @new_topic.save.should be_true
+    @new_post.forum.last_post_id.should eql(@new_post.id)
+    @new_post.forum.ancestors.each { |ancestor| ancestor.last_post_id.should eql(@new_post.id) }
+  end
 end
+

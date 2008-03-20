@@ -8,20 +8,22 @@ ActionController::Routing::Routes.draw do |map|
  
   map.namespace :admin do |admin|
     admin.resources :ranks
-    admin.resources :accounts, :collection => { :ban_ip => :any }
+    admin.resources :accounts, :collection => { :ban_ip => :any }, :member => { :ban => :any }
     admin.resources :themes, :member => { :make_default => :put }
-    admin.resources :forums, :collection => { :list => :get }, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put  }
+    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put  }
   end
   
   #FIXME
   map.connect '/admin/chronic', :controller => "/admin/chronic"
  
-  map.resources :forums, :collection => { :list => :get } do |forums|
-    forums.resources :topics, :collection => { :moderate => :post }, :member => { :reply => :get, :unlock => :get, :lock => :get } do |topics|
-      topics.resources :posts
-    end
+  map.resources :forums, :collection => { :list => :get } do |forum|
+    forum.resources :topics, :collection => { :moderate => :post }, :member => { :reply => :get, :unlock => :get, :lock => :get }
   end
-  map.resources :messages, :member => { :reply => :get }, :collection => { :send_reply => :post, :sent => :get }
+  
+  map.resources :topics do |topic|
+    topic.resources :posts
+  end
+  map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
   map.resources :posts
   
 
