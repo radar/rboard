@@ -38,7 +38,7 @@ module AuthenticatedSystem
   end
   
   def theme
-    logged_in? ? Theme.find(:first) : Theme.find(:first)
+    logged_in? ? current_user.theme : Theme.find(:first)
   end
   
   def active_user

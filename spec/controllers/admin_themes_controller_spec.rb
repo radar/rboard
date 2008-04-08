@@ -14,10 +14,8 @@ describe Admin::ThemesController do
     Theme.should_receive(:create).at_least(@existing_themes).times.and_return(@theme)
     @theme.should_receive(:name).and_return("Blue")
     Theme.should_receive(:find).with(:all).and_return(@themes)
-    @theme.should_receive(:destroy).at_least(1).times.and_return(@theme)
+    @theme.stub!(:destroy)
     get 'index'
-    
-    
   end
 
 end

@@ -5,8 +5,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     unless is_post_owner_or_admin?(params[:id])
       flash[:notice] = "You do not own that post."
-      redirect_back_or_default(forums_path) and return
-      render :layout => false    
+      redirect_back_or_default(forums_path)
     end
   end
   

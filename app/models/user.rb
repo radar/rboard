@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
   has_many :banned_ips, :foreign_key => "banned_by"
   
-  has_one :theme
+  belongs_to :theme
   
   #belongs
   belongs_to :banned_by, :class_name => "User", :foreign_key => "banned_by"
@@ -32,6 +32,11 @@ class User < ActiveRecord::Base
   #before
   before_save :encrypt_password
   before_save :make_admin
+  
+  #force the default theme on all new users
+  before_create do |record|
+    record.theme = Theme.find(:first)
+  end
   
   #after
   
@@ -45,6 +50,7 @@ class User < ActiveRecord::Base
   def make_admin
     self.user_level = UserLevel.find_by_name("Administrators") if User.count == 0
   end
+  
   
   def admin?
     self.user_level.to_s == "Administrator"

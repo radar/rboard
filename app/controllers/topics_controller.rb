@@ -95,7 +95,7 @@ class TopicsController < ApplicationController
   end
   
   def find_forum
-    @forum = Forum.find(params[:forum_id])
+    @forum = Forum.find(params[:forum_id]) if params[:forum_id]
   end
   
 end

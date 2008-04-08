@@ -56,7 +56,7 @@ describe TopicsController, "for logged in user" do
   end
   
   it "should not show a restricted topic" do
-    Forum.should_receive(:find).twice.and_return(@forum)
+    Forum.should_receive(:find).and_return(@forum)
     @forum.should_receive(:is_visible_to).and_return(3)
     get 'show', { :id => @admin_topic.id }
     response.should redirect_to(forums_path)
