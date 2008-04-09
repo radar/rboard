@@ -7,6 +7,11 @@ module AuthenticatedSystem
     logged_in? ? current_user.time_display : TIME_DISPLAY
   end
   
+  #how the user has selected they want to display the date  
+  def date_display
+    logged_in? ? current_user.time_display : DATE_DISPLAY
+  end
+  
   def is_admin?
     logged_in? && current_user.user_level_id == 3
   end

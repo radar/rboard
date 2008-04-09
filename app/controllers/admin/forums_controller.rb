@@ -4,6 +4,7 @@ class Admin::ForumsController < Admin::ApplicationController
   def new
     @forum = Forum.new
     @forums = Forum.find(:all, :order => "title")
+    @user_levels = UserLevel.find(:all, :order => "id DESC")
   end
   
   def create
@@ -25,6 +26,7 @@ class Admin::ForumsController < Admin::ApplicationController
   def edit
     @forum = Forum.find(params[:id])
     @forums = Forum.find(:all, :order => "title") - [@forum] - @forum.descendants
+    @user_levels = UserLevel.find(:all, :order => "id DESC")
   end
   
   def update

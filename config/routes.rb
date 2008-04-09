@@ -17,10 +17,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/admin/chronic', :controller => "/admin/chronic"
  
   map.resources :forums, :collection => { :list => :get } do |forum|
-    forum.resources :topics, :collection => { :moderate => :post }, :member => { :reply => :get, :unlock => :get, :lock => :get }
+    forum.resources :topics, :collection => { :moderate => :post } 
   end
   
-  map.resources :topics do |topic|
+  map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
     topic.resources :posts
   end
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }

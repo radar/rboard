@@ -26,10 +26,10 @@
            
           <% else %>
             Logged in as <%= link_to current_user.login, :controller => "accounts", :action => "user", :id => current_user.login %> |
-            <%= link_to("Profile", :controller => "/accounts", :action => "profile") %> |
-            <%= link_to("Member List", :controller => "/accounts", :action => "index") %> |
-            <%= link_to(pluralize(@current_user.unread_messages.size,"new message"), messages_path) %> |
-            <%= link_to("Logout", :controller => "/accounts", :action => "logout")  %>
+            <%= link_to "Profile", :controller => "/accounts", :action => "profile" %> |
+            <%= link_to "Member List", :controller => "/accounts", :action => "index" %> |
+            <%= link_to pluralize(@current_user.unread_messages.size,"new message"), messages_path %> |
+            <%= link_to "Logout", :controller => "/accounts", :action => "logout"  %>
        <% end %>
         </div>
         <div class='time-now'>
@@ -50,7 +50,7 @@
         <% end %>
          <% if is_admin? %>
           <div align='center'>
-            <%= link_to("Administration Section", :controller => "/admin") %>
+            <%= link_to "Administration Section", :controller => "/admin" %>
           </div>
         </div>
       <% end %>

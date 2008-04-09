@@ -22,7 +22,7 @@
   <tr>
     <td></td>
     <td valign='top' colspan='2'>
-      <b>Date Joined:</b> <%= @user.created_at.strftime("%d-%m-%y") %> <br />
+      <b>Date Joined:</b> <%= @user.created_at.strftime(date_display) %> <br />
       <b>Posts:</b> <%= @user.posts.size %>, about <%= @posts_percentage %>% of all posts on this forum.<br />
       <b>IP:</b> <%= @user.ip %><br />
       <b>Bans:</b> <%= @user.login %> has been banned <%= @user.ban_times  %> times. <br />
@@ -33,7 +33,7 @@
       <% end %>
       <% unless @user.signature.blank? %><br />
         ____________<br />
-        <%= bbcode(sanitize(@user.signature)) %>
+        <%= bbcode sanitize(@user.signature) %>
       <% end %>
     </td>
   </tr>

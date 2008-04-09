@@ -17,7 +17,7 @@
     <% for user in @users %>
       <tr>
         <td align='center'><%= link_to(user.login, :controller => "accounts", :action => user.login) %></td>
-        <td align='center'><%= user.created_at.strftime("%d-%m-%y") %></td>
+        <td align='center'><%= user.created_at.strftime(date_display) %></td>
         <td align='center'><%= user.posts.size %></td>
         <td align='center'><%= !user.ban_time.nil? && user.ban_time > Time.now ? "Yes" : "No" %></td>
         <td align='center'><%= user.ban_time.nil? ? "Never" : user.ban_time.ordinalize %></td>

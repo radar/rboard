@@ -1,8 +1,8 @@
 <tbody>
   <tr><td width='200px'><b>Title:</b></td><td>  <%= @f.text_field "title" %></td></tr>
   <tr><td width='200px' valign='top'><b>Description:</b></td><td><%= @f.text_area "description", :cols => 40, :rows => 5 %></td></tr>
-  <tr><td width='200px'><b>Is Visible To:</b></td><td><%= @f.select "is_visible_to", USERLEVELS.map { |u| [u[:name],u[:id]] } %></td></tr>
-  <tr><td width='200px'><b>Topics Creatable By:</b></td><td><%= @f.select "topics_created_by", USERLEVELS.map { |u| [u[:name],u[:id]] } %></td></tr>
+  <tr><td width='200px'><b>Is Visible To:</b></td><td><%= @f.select "is_visible_to", @user_levels.map { |u| [u[:name],u[:id]] } %></td></tr>
+  <tr><td width='200px'><b>Topics Creatable By:</b></td><td><%= @f.select "topics_created_by", @user_levels.map { |u| [u[:name],u[:id]] } %></td></tr>
  <% unless @forums.empty? %>
    <tr><td width='200px'><b>Child Of:</b></td><td><%= @f.select "parent_id", @forums.map { |f| [select_display(f),f.id] }, :include_blank => true %></td></tr>
 <% end %>

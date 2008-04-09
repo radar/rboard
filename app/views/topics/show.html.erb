@@ -3,23 +3,23 @@
 <h2><%= @topic.subject %></h2>
 <% if logged_in? %>
 <% if can_create_topics? %>
-<%= link_to("New Topic", new_forum_topic_path(@topic.forum)) %> |
+<%= link_to "New Topic", new_forum_topic_path(@topic.forum) %> |
 <% end %>
 <% if can_reply? && !@topic.locked? %>
 
-   <%= link_to("New Reply", reply_topic_path(@topic)) %>
+   <%= link_to "New Reply", reply_topic_path(@topic) %>
+   <% end %>
   
   <% if is_admin? %>
     |
     <% if @topic.locked? %> 
-      <%= link_to("Unlock this topic", unlock_forum_topic_path(@topic.forum,@topic)) %>
+      <%= link_to "Unlock this topic", unlock_topic_path(@topic), :method => :put %>
     <% else %>
-      <%= link_to("Lock this topic", lock_forum_topic_path(@topic.forum,@topic)) %>
+      <%= link_to "Lock this topic", lock_topic_path(@topic), :method => :put %>
     <% end %>
   <% end %>
 <% else %>
   Locked!
 <% end %>
-<% end %>
 <br />
-<%= render :partial => "posts/post", :collection => @topic.posts %>
+<%= render :partial => @topic.posts %>

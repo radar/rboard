@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
   def signup
     if logged_in?
       flash[:notice] = "You are already logged in. You cannot signup again."
-      redirect_back_or_default(forums_path)
+      redirect_back_or_default(forums_path) and return false
     end
     @user = User.new(params[:user])
     return unless request.post?
@@ -41,7 +41,6 @@ class AccountsController < ApplicationController
     flash[:notice] = "Thanks for signing up!"
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] = "There was a problem during signup."
-    render :action => 'signup'
   end
   
   def logout
@@ -55,6 +54,7 @@ class AccountsController < ApplicationController
   
   def profile
     @user = current_user
+    @themes = Theme.find(:all, :order => "name ASC")
     if request.post?
       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])  if params[:user][:password] == params[:user][:password_confirmation] && !params[:user][:password].blank? 
       flash[:notice] = "Password has been changed. Please remember to use this password from now on. Your profile has been updated." unless params[:user][:crypted_password].nil?

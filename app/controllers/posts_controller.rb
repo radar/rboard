@@ -7,6 +7,8 @@ class PostsController < ApplicationController
       flash[:notice] = "You do not own that post."
       redirect_back_or_default(forums_path)
     end
+    render :layout => false
+    
   end
   
   def update
@@ -20,13 +22,14 @@ class PostsController < ApplicationController
   
   def create
     @topic = Topic.find(params[:topic_id])
+    @posts = @topic.posts
     @post = @topic.posts.build(params[:post])
     if @post.save
       flash[:notice] = "Post has been created."
       redirect_to forum_topic_path(@post.forum.id,@post.topic.id)
     else
-      @posts = @topic.posts.reverse.last(11) - [@post]
-      @quoting_post = Post.find(params[:quote]) if !params[:quote].blank?
+      @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
+      @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
       flash[:notice] = "This post could not be created."
       render :action => "../topics/reply"
     end
