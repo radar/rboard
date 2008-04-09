@@ -7,11 +7,10 @@
 <% end %>
 <% if can_reply? && !@topic.locked? %>
 
-   <%= link_to "New Reply", reply_topic_path(@topic) %>
+   <%= link_to "New Reply", reply_topic_path(@topic) %> |
    <% end %>
   
   <% if is_admin? %>
-    |
     <% if @topic.locked? %> 
       <%= link_to "Unlock this topic", unlock_topic_path(@topic), :method => :put %>
     <% else %>
