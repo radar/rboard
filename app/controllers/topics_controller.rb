@@ -13,19 +13,19 @@ class TopicsController < ApplicationController
     Topic.transaction do
       @topic = current_user.topics.create!(params[:topic].merge(:forum_id => params[:forum_id]))
       @post = @topic.posts.create!(params[:post].merge(:user_id => current_user.id ))
-      @topic.sticky = true if params[:topic][:sticky] == 1
+      @topic.sticky = true if params[:topic][:sticky] == 1 && is_admin?
     end
     flash[:notice] = "Topic has been created."
-    redirect_to forum_topic_path(@topic.forum.id,@topic.id)
+    redirect_to forum_topic_path(@topic.forum, @topic)
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => @e
     flash[:notice] = "Topic was not created."
     #So it doesn't forget the post text
-    @post = Post.create(params[:post].merge(:user_id => current_user.id ))
+    @post = current_user.posts.new(params[:post])
     render :template => "topics/new"
   end
   
   def show
-    @topic = Topic.find(params[:id])
+    @topic ||= Topic.find(params[:id], :include => [:forum])
     @topic.increment!("views")
   end
   
@@ -62,14 +62,14 @@ class TopicsController < ApplicationController
     topic = Topic.find(params[:id])
     topic.update_attribute("locked",true)
     flash[:notice] = "This topic has been locked."
-    redirect_to topic_path(topic.id)
+    redirect_to topic_path(topic)
   end
   
   def unlock
     topic = Topic.find(params[:id])
     topic.update_attribute("locked",false)
     flash[:notice] = "This topic has been unlocked."
-    redirect_to topic_path(topic.id)
+    redirect_to topic_path(topic)
   end
 
   private
@@ -79,8 +79,9 @@ class TopicsController < ApplicationController
   end
   
   def is_viewable?
-    @topic = Topic.find(params[:id])
-    unless (logged_in? && @topic.forum.is_visible_to < current_user.user_level_id) || @topic.forum.is_visible_to == 1
+    @topic = Topic.find(params[:id], :include => [:forum])
+    @forum = @topic.forum
+    unless (logged_in? && @forum.is_visible_to < current_user.user_level_id) || @forum.is_visible_to == 1
       flash[:notice] = "You do not have the permissions to access that topic."
       redirect_back_or_default(forums_path)
     end

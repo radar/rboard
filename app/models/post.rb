@@ -9,21 +9,21 @@ class Post < ActiveRecord::Base
   after_destroy :find_latest_post
   
   def update_forum
-    forum.last_post_id = id
+    forum.last_post = self
     Post.update_latest_post(self)
   end
   
   def self.update_latest_post(post)
-    post.forum.last_post_id = post.id
+    post.forum.last_post = post
     if post.forum.sub? 
       for ancestor in post.forum.ancestors
-        ancestor.last_post_id = post.id
-        ancestor.last_post_forum_id = post.forum.id
+        ancestor.last_post = post
+        ancestor.last_post_forum = post.forum
         ancestor.save
       end
     end
-    post.forum.last_post_id = post.id
-    post.forum.last_post_forum_id = nil
+    post.forum.last_post = post
+    post.forum.last_post_forum = nil
     post.forum.save
   end
   
@@ -32,8 +32,8 @@ class Post < ActiveRecord::Base
     if !last.nil?
       update_latest_post(last)
     else
-      forum.last_post_id = nil
-      forum.last_post_forum_id = nil
+      forum.last_post = nil
+      forum.last_post_forum = nil
       forum.save
     end
 

@@ -34,7 +34,7 @@ describe ForumsController do
   
   it "should show the admin forum to the administrator" do
     Forum.should_receive(:find).and_return(@forum)
-    @forum.should_receive(:is_visible_to).and_return(3)
+    @forum.should_receive(:is_visible_to).and_return(users(:plebian).id)
     @forum.should_receive(:children).and_return(@forums)
     @forum.stub!(:position)
     get 'show', { :id => 1 }, { :user => 1 }

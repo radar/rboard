@@ -6,7 +6,8 @@ class Forum < ActiveRecord::Base
   validates_presence_of :title, :description
   belongs_to :visible_to, :class_name => "UserLevel", :foreign_key => "is_visible_to"
   belongs_to :creator_of_topics, :class_name => "UserLevel", :foreign_key => "topics_created_by"
-  #has_one :last_post, :class_name => "Post"
+  belongs_to :last_post, :class_name => "Post", :foreign_key => "last_post_id"
+  belongs_to :last_post_forum, :class_name => "Forum", :foreign_key => "last_post_forum_id"
     
   def to_s
     title
@@ -17,14 +18,6 @@ class Forum < ActiveRecord::Base
   alias_method :old_topics, :topics
   def topics
     old_topics.sort_by { |t| t.posts.last.created_at }.reverse
-  end
-  
-  def last_post
-    Post.find_by_id(last_post_id)
-  end
-  
-  def last_post_forum
-    Forum.find_by_id(last_post_forum_id)
   end
   
   def descendants

@@ -29,6 +29,6 @@ banned_noob:
   login: Ree Tard
   banned_by: 1
   ban_time: <%= (Time.now + 1.week).to_s(:db) %> 
-  ban_reason: A nuisance.
+  ban_reason: A nusiance.
 
  

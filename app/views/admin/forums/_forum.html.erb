@@ -1,6 +1,6 @@
 <tr>
-  <td class='icon'><%= link_to theme_image_tag("edit.jpg"), edit_admin_forum_path(forum.id) %>
-  <%= link_to theme_image_tag("delete.jpg"), admin_forum_path(forum.id), :method => "delete", :confirm => "Are you sure you want to delete '#{forum.title}'" %></td>
+  <td class='icon'><%= link_to theme_image_tag("edit.jpg"), edit_admin_forum_path(forum) %>
+  <%= link_to theme_image_tag("delete.jpg"), admin_forum_path(forum), :method => "delete", :confirm => "Are you sure you want to delete '#{forum.title}'" %></td>
   <td style='text-align:left !important'> <%= theme_image_tag("extender.jpg", :style => "padding-left:#{depth*20}") if extender %>
 <%= link_to forum.title, forum_path(forum) %></td>
   <td><%= forum.visible_to %></td>
@@ -8,7 +8,7 @@
   <td><%= forum.topics.size %></td>
   <td><%= forum.posts.size %></td>
   <td>
-<%= link_to theme_image_tag("top.jpg"), move_to_top_admin_forum_path(forum), :method => :put%>
+<%= link_to theme_image_tag("top.jpg"), move_to_top_admin_forum_path(forum), :method => :put %>
 <%= link_to theme_image_tag("up.jpg"), move_up_admin_forum_path(forum), :method => :put %>
     <%= forum.position %>
     <%= link_to theme_image_tag("down.jpg"), move_down_admin_forum_path(forum), :method => :put %>

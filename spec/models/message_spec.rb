@@ -11,8 +11,8 @@ describe Message, "general stuff" do
   end
   
   it "should check if a user owns a message" do
-    @message.belongs_to_user(3).should eql(false)
-    @message.belongs_to_user(2).should eql(true)
-    @message.belongs_to_user(1).should eql(true)
+    @message.belongs_to?(users(:moderator).id).should eql(false)
+    @message.belongs_to?(users(:plebian).id).should eql(true)
+    @message.belongs_to?(users(:administrator).id).should eql(true)
   end
 end

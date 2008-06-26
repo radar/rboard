@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
   end
   
   def new
-    @message = Message.new
+    @message = current_user.outbox_messages.new
     @users = User.find(:all, :order => "login ASC") - [current_user]
     if @users.empty?
       flash[:notice] = "There's nobody else to send a message to!"
@@ -16,8 +16,7 @@ class MessagesController < ApplicationController
   end
   
   def create
-    params[:message][:from_id] = session[:user]
-    @message = Message.new(params[:message])
+    @message = current_user.outbox_messages.new(params[:message])
     if @message.save
       flash[:notice] = "The message has been sent."
       redirect_back_or_default(messages_path)
@@ -28,14 +27,9 @@ class MessagesController < ApplicationController
   end
  
   def destroy
-    #refactor! if if else end if end else end... this can be done so much better.
-    @message = Message.find(params[:id])
-    if @message.belongs_to_user(current_user.id)
-      if @message.from_id == current_user.id
-        @message.update_attribute("from_deleted",true)
-      else
-        @message.update_attribute("to_deleted",true)
-      end
+    @message = Message.find(params[:id]) 
+    if @message.belongs_to?(current_user.id)
+      @message.update_attribute("#{@message.from_id == current_user.id ? "from" : "to"}_deleted",true) 
       @message.destroy if @message.from_deleted == @message.to_deleted
       flash[:notice] = "This message has been deleted."
     else
@@ -46,7 +40,7 @@ class MessagesController < ApplicationController
   
   def show
     @message = Message.find(params[:id])
-    if !@message.belongs_to_user(current_user.id)
+    if !@message.belongs_to?(current_user.id)
       flash[:notice] = "That message does not belong to you."
       redirect_back_or_default(messages_path) and return
     else

@@ -5,7 +5,6 @@ db/*.sqlite3
 config/database.yml
 nbproject/**/*
 nbproject/project.*
-commit
 test
 coverage
 coverage/*

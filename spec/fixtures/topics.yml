@@ -2,7 +2,7 @@ admin:
   id: 1
   subject: First topic!
   created_at: <%= Time.now.to_s(:db) %>
-  forum_id: 1
+  forum: admins_only
   user_id: 1
 
 moderator:

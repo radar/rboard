@@ -8,6 +8,10 @@ require 'spec/rails'
 def login_as(user)
   request.session[:user] = users(user).id
 end
+
+def logout
+  request.session[:user] = nil
+end
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record

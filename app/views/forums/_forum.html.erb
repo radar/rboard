@@ -1,4 +1,4 @@
-<tr><td align='left'><h1><%= link_to(forum.title, forum_path(forum.id)) %></h1><%= forum.description %></td>
+<tr><td align='left'><h1><%= link_to(forum.title, forum_path(forum)) %></h1><%= forum.description %></td>
   <td align='center'><%= forum.topics.size %></td>
   <td align='center'><%= forum.posts.size %></td>
   <td align='right'><% if !forum.last_post.nil? %>

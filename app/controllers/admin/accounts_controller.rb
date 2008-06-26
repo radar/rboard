@@ -16,7 +16,6 @@ class Admin::AccountsController < Admin::ApplicationController
     else
       @banned_ip = BannedIp.new(params[:banned_ip])
     end
-
     @banned = BannedIp.find(:all, :conditions => ["ban_time > ?",Time.now])
   end
   
