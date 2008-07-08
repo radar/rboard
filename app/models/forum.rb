@@ -16,6 +16,7 @@ class Forum < ActiveRecord::Base
   #we do this because we want to order the topics by the last posts created_at date.
   #There's no easy way to do it
   alias_method :old_topics, :topics
+  
   def topics
     old_topics.sort_by { |t| t.posts.last.created_at }.reverse
   end

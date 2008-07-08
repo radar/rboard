@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 TIME_DISPLAY = "%d %B %Y %I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
 # Bootstrap the Rails environment, frameworks, and default configuration
@@ -19,7 +19,7 @@ Rails::Initializer.run do |config|
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
   # config.frameworks -= [ :action_web_service, :action_mailer ]
-config.action_controller.session = { :session_key => "railsforum_secret", :secret => "this is a super secret passphrase that protects railsforum" }
+config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
 

@@ -1,0 +1,3 @@
+[submodule "vendor/plugins/acts_as_snook"]
+	path = vendor/plugins/acts_as_snook
+	url = git://github.com/rsl/acts_as_snook.git
