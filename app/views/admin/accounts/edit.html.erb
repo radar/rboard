@@ -1,19 +1,49 @@
 <%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to("Users", admin_accounts_path) %> -> Editing <%= @user.login %>
 <% form_for [:admin, @user], :url => admin_account_path(@user) do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
-  <thead><tr><td colspan='2'><h2>Editing <%= @user.login %></h2></td></tr></thead>
-  <tbody>
-  <tr><td><b>Login</b></td><td><%= f.text_field "login" %></td></tr>
-  <tr><td><b>New Password</b></td><td><%= f.password_field "password", :value => "" %></td></tr>
-  <tr><td><b>Signature</b></td><td><%= f.text_area "signature", :cols => 80, :rows => 5 %></td></tr>
-  <tr><td><b>Email</b></td><td><%= f.text_field "email" %></td></tr>
-  <% unless @ranks.empty? %>
-    <tr><td><b>Custom Rank</b></td><td><%= f.select"rank_id", @ranks.map { |r| [r.name,r.id] }, :include_blank => true %></td></tr>
-  <% end %>
-  <tr><td><b>User Level</b></td><td><%= f.select "user_level_id", @userlevels.map { |ul| [ul.name,ul.id] }, :selected => @user.user_level_id %></td></tr>
-  </tbody>
-  <tfoot>
-    <tr><td colspan='2'><%= submit_tag("Update") %></td></tr>
-  </tfoot>
+    <thead>
+      <tr>
+        <td colspan='2'><h2>Editing <%= @user.login %></h2></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Login</b></td>
+        <td><%= f.text_field "login" %></td>
+      </tr>
+      
+      <tr>
+        <td><b>New Password</b></td>
+        <td><%= f.password_field "password", :value => "" %></td>
+      </tr>
+      
+      <tr>
+        <td><b>Signature</b></td>
+        <td><%= f.text_area "signature", :cols => 80, :rows => 5 %></td>
+      </tr>
+      
+      <tr>
+        <td><b>Email</b></td>
+        <td><%= f.text_field "email" %></td>
+      </tr>
+      
+      <% unless @ranks.empty? %>
+        <tr>
+          <td><b>Custom Rank</b></td>
+          <td><%= f.select"rank_id", @ranks.map { |r| [r.name,r.id] }, :include_blank => true %></td>
+        </tr>
+      <% end %>
+      
+      <tr>
+        <td><b>User Level</b></td>
+        <td><%= f.select "user_level_id", @userlevels.map { |ul| [ul.name,ul.id] }, :selected => @user.user_level_id %></td>
+      </tr>
+  
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan='2'><%= submit_tag("Update") %></td>
+      </tr>
+    </tfoot>
   </table>
 <% end %>

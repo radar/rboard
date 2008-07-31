@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => "forums"
-  map.connect 'login', :controller => 'accounts', :action => 'login'
-  map.connect 'logout', :controller => 'accounts', :action => 'logout'
-  map.connect 'signup', :controller => 'accounts', :action => 'signup'
-  map.connect 'admin', :controller => "admin/index", :action => "index"
+  map.login 'login', :controller => 'accounts', :action => 'login'
+  map.logout 'logout', :controller => 'accounts', :action => 'logout'
+  map.signup 'signup', :controller => "accounts", :action => 'signup'
+  map.admin_index 'admin/index', :controller => "admin/index", :action => "index"
   map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
  
   map.namespace :admin do |admin|

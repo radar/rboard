@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::AccountsController, "as an admin" do
-  fixtures :users, :banned_ips
+  fixtures :users, :banned_ips, :user_levels
 
   before do
     login_as(:administrator)

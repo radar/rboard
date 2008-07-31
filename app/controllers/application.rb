@@ -5,12 +5,23 @@
 class ApplicationController < ActionController::Base
   #Never, ever show password in the logs. Ever!
   filter_parameter_logging "password"
-  session :session_key => '_forum_session_id'
+
   include AuthenticatedSystem
+  
   require 'chronic'
   require 'custom_methods'
+  
   before_filter :login_from_cookie
   before_filter :ip_banned_redirect
   before_filter :active_user
+  
   @default_theme = Theme.find_by_is_default(true)
+  
+  def moderator_login_required
+    if !is_admin? || !is_moderator
+      flash[:notice] = "You do not have permissions to do that."
+      redirect_back_or_default(forums_path)
+    end
+  end
+  
 end

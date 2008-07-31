@@ -1,0 +1,34 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/lib/spec/rails/extensions/spec
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2007-12-14T19:43:11.926255Z
+3158
+btakita
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+matchers
+dir
+
+example
+dir
+

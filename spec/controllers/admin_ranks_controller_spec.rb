@@ -1,29 +1,30 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::RanksController, "non-admins" do
-  fixtures :users
+  fixtures :users, :user_levels
   
   it "should not be allowed in if not logged in" do
     get 'index'
-    response.should redirect_to("login")
+    response.should redirect_to(login_path)
   end
   
-  it "should be denied access if logged in" do
+  it "should be denied access if logged in as a non_admin" do
     login_as(:plebian)
     get 'index'
-    response.should redirect_to("login")
+    response.should redirect_to(login_path)
   end
   
   
 end
 
 describe Admin::RanksController do
-  fixtures :users, :ranks
+  fixtures :users, :ranks, :user_levels
   
   before do
     login_as(:administrator)
     @rank = mock("rank")
     @ranks = mock("ranks")
+    @god = ranks(:god)
   end
   
 
@@ -35,7 +36,6 @@ describe Admin::RanksController do
   it "should be able to create a rank" do
     Rank.should_receive(:new).and_return(@rank)
     @rank.should_receive(:save).and_return(true)
-    @rank.should_receive(:name).and_return("Slave")
     post 'create', { :rank => { :name => "Slave", :posts_required => 5} }
     response.should redirect_to(admin_ranks_path)
     flash[:notice].should_not be_blank
@@ -50,39 +50,36 @@ describe Admin::RanksController do
   end
   
   it "should be able to begin to edit a rank" do
-    Rank.should_receive(:find).with("1").and_return(@rank)
-    get 'edit', { :id => 1 }
+    Rank.should_receive(:find).and_return(@rank)
+    get 'edit', { :id => @god.id }
   end
   
   it "should be able to update a rank" do
-    Rank.should_receive(:find).with("1").and_return(@rank)
+    Rank.should_receive(:find).and_return(@rank)
     @rank.should_receive(:update_attributes).and_return(true)
-    @rank.should_receive(:name).and_return("Slave")
-    put 'update', { :id => 1, :rank => { :name => "Slave" }}
+    put 'update', { :id => @god.id, :rank => { :name => "Slave" }}
     flash[:notice].should_not be_nil
     response.should redirect_to(admin_ranks_path)
   end
   
-  it "shouldn't be able to update a forum with invalid attributes" do
-    Rank.should_receive(:find).with("1").and_return(@rank)
-    @rank.should_receive(:name).and_return("Slave")
+  it "shouldn't be able to update a rank with invalid attributes" do
+    Rank.should_receive(:find).and_return(@rank)
     @rank.should_receive(:update_attributes).and_return(false)
-    put 'update', { :id => 1, :rank  => { :name => "" } }
+    put 'update', { :id => @god.id, :rank => { :name => "" } }
     response.should render_template("edit")
   end
   
   it "should be able to destroy a rank" do
-    Rank.should_receive(:find).with("1").and_return(@rank)
+    Rank.should_receive(:find).and_return(@rank)
     @rank.should_receive(:destroy).and_return(@rank)
-    @rank.should_receive(:name).and_return("God")
-    delete 'destroy', { :id => 1 }
+    delete 'destroy', { :id => @god.id }
     flash[:notice].should_not be_blank
     response.should redirect_to(admin_ranks_path)
   end
   
   it "shouldn't be able to destroy a non-existant rank" do
-    Rank.should_receive(:find).with("1").and_raise(ActiveRecord::RecordNotFound)
-    delete 'destroy', { :id => 1 }
+    Rank.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+    delete 'destroy', { :id => @god.id }
     flash[:notice].should_not be_blank
     response.should redirect_to(admin_ranks_path)
   end

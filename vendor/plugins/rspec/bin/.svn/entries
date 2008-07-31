@@ -1,0 +1,54 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec/bin
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2008-01-12T18:00:10.290397Z
+3222
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+spec_translator
+file
+
+
+
+
+2008-07-28T04:37:17.000000Z
+7dafc01f2afc828f66101f48a4ad21c1
+2007-08-27T22:14:17.742698Z
+2470
+tastapod
+has-props
+
+spec
+file
+
+
+
+
+2008-07-28T04:37:17.000000Z
+6e4aeaba9e75ff3811eeecb622e4b3e9
+2008-01-12T18:00:10.290397Z
+3222
+dchelimsky
+has-props
+

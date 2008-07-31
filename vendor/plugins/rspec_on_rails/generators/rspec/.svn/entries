@@ -1,0 +1,55 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/generators/rspec
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2008-01-31T03:52:35.860683Z
+3269
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+rspec_generator.rb
+file
+
+
+
+
+2008-07-28T04:37:30.000000Z
+25ea67d7ce3e0db62cd8fbb671bb085a
+2007-11-15T09:43:03.172843Z
+2890
+aslak_hellesoy
+
+CHANGES
+file
+
+
+
+
+2008-07-28T04:37:30.000000Z
+adb960ee3c661df732004d42dc0e9587
+2006-12-04T20:55:47.193713Z
+1231
+dchelimsky
+
+templates
+dir
+

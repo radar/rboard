@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 80
+pkg
+warnings.txt
+previous_failures.txt
+translated_specs
+.project
+.loadpath
+.hg*
+
+END

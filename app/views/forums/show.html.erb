@@ -1,41 +1,43 @@
 <%= link_to("rBoard", forums_path) %> <%= breadcrumb(@forum) %>
   <% unless @forums.empty? %>
-<h2>Subforums for <%= @forum.title %></h2>
-<table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
-    <thead>
-      <tr>
-        <td align='left' width='40%'><b>Forum</b></td>
-        <td align='center' width='100px'><b>Topics</b></td>
-        <td align='center' width='100px'><b>Posts</b></td>
-        <td align='right'><b>Last Post</b></td>
-      </tr>
-    </thead>
-<tbody>
-<%= render :partial => "forum", :collection => @forums %>
-</tbody>
-</table>
-<% end %>
+    <h2>Subforums for <%= @forum.title %></h2>
+    <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
+      <thead>
+        <tr>
+          <td align='left' width='40%'><b>Forum</b></td>
+          <td align='center' width='100px'><b>Topics</b></td>
+          <td align='center' width='100px'><b>Posts</b></td>
+          <td align='right'><b>Last Post</b></td>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render :partial => "forum", :collection => @forums %>
+      </tbody>
+    </table>
+  <% end %>
 <br />
 <h2>Viewing Forum: <%= @forum.title %></h2>
 <%= will_paginate @topics %>
 <% if can_create_topics? %>
-<%= link_to("New Topic", new_forum_topic_path(@forum)) %>
+  <%= link_to("New Topic", new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
 	<% unless @topics.empty? %>
-	<% form_tag moderate_forum_topics_path(@forum.id) do %>
-	<thead><tr>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
-	<td align='left'>Topic</td>
-	<td align='center'>Replies</td>
-	<td align='center'>Views</td>
-	<td align='center'>Author</td>
-	<td align='right'>Last Post</td>
-	</tr></thead>
-	<tbody>
+	  <% form_tag moderate_forum_topics_path(@forum) do %>
+	  <thead>
+  	  <tr>
+  	    <td>&nbsp;</td>
+      	<td>&nbsp;</td>
+      	<td align='left'>Topic</td>
+      	<td align='center'>Replies</td>
+      	<td align='center'>Views</td>
+      	<td align='center'>Author</td>
+      	<td align='right'>Last Post</td>
+  	  </tr>
+  	</thead>
+	  <tbody>
 
-	<% for topic in @topics  %>
+	<% for topic in @topics %>
 	<tr>
 	<td><% if is_admin? %><%= check_box_tag "moderated_topics[]", topic.id %><% end %></td>
 <td>

@@ -1,18 +1,27 @@
-first:
-  id: 1
-  text: F1R5+ P05+!
-  user: plebian
-  topic_id: 3
-
 admin:
   text: Top secret!
   user: administrator
-  topic_id: 1
+  topic: admin
   
 admin2:
   text: Really top secret!
   user: administrator
-  topic_id: 1
+  topic: admin
+  
+moderator:
+  text: Moderator only
+  user: moderator
+  topic: moderator
+  
+user:
+  text: user only
+  user: plebian
+  topic: user
+  
+user_2:
+  text: user2 only
+  user: plebian
+  topic: user_2
   
 invalid:
   id: 3

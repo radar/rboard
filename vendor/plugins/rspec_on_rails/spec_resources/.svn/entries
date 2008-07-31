@@ -1,0 +1,37 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/spec_resources
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2008-01-25T13:41:37.951757Z
+3256
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+helpers
+dir
+
+controllers
+dir
+
+views
+dir
+

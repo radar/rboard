@@ -1,5 +1,5 @@
 <%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to("Forums", admin_forums_path) %> -> Editing <%= @forum.title %>
-<% form_for [:admin, @forum] do |@f| %>
+<% form_for [:admin, @forum] do |f| %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead><tr><td colspan='2'><h2>Editing a Forum</h2></td></tr></thead>
     <%= render :partial => "form" %>

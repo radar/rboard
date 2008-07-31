@@ -1,23 +1,23 @@
 admin:
-  id: 1
   subject: First topic!
-  created_at: <%= Time.now.to_s(:db) %>
   forum: admins_only
-  user_id: 1
+  user: administrator
 
 moderator:
-  id: 2
   subject: Second topic!
-  created_at: <%= Time.now.to_s(:db) %>
-  user_id: 2
-  forum_id: 2
+  user: moderator
+  forum: moderators_only
 
 user:
-  id: 3
   subject: Third topic!
-  created_at: <%= Time.now.to_s(:db) %>
-  user_id: 3
-  forum_id: 3
+  user: plebian
+  forum: everybody
+
+user_2:
+  subject: Fourth topic!
+  user: plebian
+  forum: everybody
+  created_at: <%= (Time.now + 5.minutes).to_s(:db) %> 
 
 invalid:
   id: 4

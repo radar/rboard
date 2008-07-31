@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
   def signup
     if logged_in?
       flash[:notice] = "You are already logged in. You cannot signup again."
-      redirect_back_or_default(forums_path) and return false
+      redirect_back_or_default(forums_path)
     end
     @user = User.new(params[:user])
     return unless request.post?

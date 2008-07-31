@@ -1,0 +1,52 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/spec/rails/autotest
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2008-01-31T12:08:39.707616Z
+3271
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+rails_rspec_spec.rb
+file
+
+
+
+
+2008-07-28T04:37:30.000000Z
+419f88062d7f5597b7f214ae074e2bff
+2007-08-12T22:39:14.809700Z
+2331
+dchelimsky
+
+mappings_spec.rb
+file
+
+
+
+
+2008-07-28T04:37:30.000000Z
+cf366a0c64cf47e95d8e9965a7e89798
+2008-01-31T12:08:39.707616Z
+3271
+dchelimsky
+

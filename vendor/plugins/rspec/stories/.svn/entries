@@ -1,0 +1,64 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec/stories
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2008-01-20T05:46:50.885257Z
+3242
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+interop
+dir
+
+helper.rb
+file
+
+
+
+
+2008-07-28T04:37:13.000000Z
+6c263e3c2887fd3487b2bd1b22807078
+2007-12-06T09:50:48.618164Z
+3060
+aslak_hellesoy
+
+example_groups
+dir
+
+resources
+dir
+
+all.rb
+file
+
+
+
+
+2008-07-28T04:37:13.000000Z
+44f16f8b5f10006aad91353331dd5563
+2007-11-26T02:16:13.793139Z
+2993
+dchelimsky
+
+pending_stories
+dir
+

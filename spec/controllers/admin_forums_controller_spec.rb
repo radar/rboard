@@ -10,7 +10,7 @@ describe Admin::ForumsController, "not an admin" do
 end
 
 describe Admin::ForumsController do
-  fixtures :users
+  fixtures :users, :user_levels
   before do
     @forum = mock("forum")
     @forums = [@forum]
@@ -21,6 +21,7 @@ describe Admin::ForumsController do
     Forum.should_receive(:new).and_return(@forum)
     Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
     get 'new'
+    response.should_not redirect_to(login_path)
   end
   
   it "should create a new forum" do

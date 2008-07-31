@@ -38,22 +38,28 @@ class User < ActiveRecord::Base
     record.theme = Theme.find(:first)
   end
   
-  #after
   
   #misc. user information
   def rank
-	rank = Rank.find(:first, :conditions => ["posts_required <= ? AND custom = 0",posts.size], :order => "posts_required DESC")
-	rank.nil? ? "User" : rank.name
+	  rank = Rank.find(:first, :conditions => ["posts_required <= ? AND custom = 0",posts.size], :order => "posts_required DESC")
+	  rank.nil? ? "User" : rank.name
   end
   
   #permission checking 
   def make_admin
-    self.user_level = UserLevel.find_by_name("Administrators") if User.count == 0
+    user_level = UserLevel.find_by_name("Administrators") if User.count == 0
   end
   
-  
   def admin?
-    self.user_level.to_s == "Administrator"
+    user_level.to_s == "Administrator"
+  end
+  
+  def moderator?
+    user_level.to_s == "Moderator"
+  end
+  
+  def user?
+    user_level.to_s == "User"
   end
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

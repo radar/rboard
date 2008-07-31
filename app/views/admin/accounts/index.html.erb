@@ -1,4 +1,4 @@
-<%= link_to "Administration Section", :controller => "/admin" %> -> Users
+<%= link_to "Administration Section", admin_index_path %> -> Users
 <h2>Users</h2>
 <table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'><thead>
     <tr><td>&nbsp;</td>
@@ -14,16 +14,16 @@
   <tbody>
     <% for user in @users %>
       <tr>
-        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), { :action => "delete", :id => user.id }, :confirm => "Are you sure you want to delete #{user.login}?" %>
-          <%= link_to theme_image_tag("edit.jpg"), :action => "edit", :id => user.id %>
-          <%= link_to theme_image_tag("ban.jpg"), { :action => "ban", :id => user.id }, :confirm => "Are you sure you want to ban this user?"  %></td>
-        <td><%= link_to user.login, :controller => "accounts", :action => "user", :id => user.login %></td>
+        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_account_path(user), :method => :delete, :confirm => "Are you sure you want to delete #{user.login}?" %>
+          <%= link_to theme_image_tag("edit.jpg"), edit_admin_account_path(user) %>
+          <%= link_to theme_image_tag("ban.jpg"), ban_admin_account_path(user), :confirm => "Are you sure you want to ban this user?"  %></td>
+        <td><%= link_to user.login, admin_account_path(user.login) %></td>
         <td><%= user.created_at.strftime date_display %></td>
         <td><%= user.posts.size %></td>
         <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? "Yes" : "No" %></td>
         <td><%= user.ban_time.nil? ? "Never" : user.ban_time.ordinalize %></td>
         <td><%= user.ban_times %></td>
-        <td><%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), :action => "ban_ip", :banned_ip => { :ip => user.ip } %></td>
+        <td><%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), ban_ip_admin_account_path(user.ip) %></td>
       </tr>
     <% end %>
   </tbody>

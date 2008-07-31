@@ -6,6 +6,17 @@ class MessagesController < ApplicationController
     @messages = current_user.inbox_messages
   end
   
+  def show
+    @message = Message.find(params[:id])
+    if !@message.belongs_to?(current_user.id) && !current_user.admin?
+      flash[:notice] = "That message does not belong to you."
+      redirect_back_or_default(messages_path)
+    else
+      @message.update_attribute("to_read",true)  if @message.to == current_user
+      @message.update_attribute("from_read",true) if @message.from == current_user
+    end
+  end
+  
   def new
     @message = current_user.outbox_messages.new
     @users = User.find(:all, :order => "login ASC") - [current_user]
@@ -36,17 +47,6 @@ class MessagesController < ApplicationController
       flash[:notice] = "This message does not belong to you."
     end
     redirect_back_or_default(messages_path)	
-  end
-  
-  def show
-    @message = Message.find(params[:id])
-    if !@message.belongs_to?(current_user.id)
-      flash[:notice] = "That message does not belong to you."
-      redirect_back_or_default(messages_path) and return
-    else
-      @message.update_attribute("to_read",true)  if @message.to == current_user
-      @message.update_attribute("from_read",true) if @message.from == current_user
-    end
   end
   
   def reply

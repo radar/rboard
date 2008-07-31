@@ -1,11 +1,11 @@
 user:
-  id: 1
   name: User
+  position: 1
 
 moderator:
-  id: 2
   name: Moderator
+  position: 2
 
 administrator:
-  id: 3
   name: Administrator
+  position: 3

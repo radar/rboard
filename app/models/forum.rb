@@ -4,10 +4,10 @@ class Forum < ActiveRecord::Base
   has_many :topics, :order => "created_at DESC", :dependent => :destroy
   has_many :posts, :through => :topics, :source => :posts
   validates_presence_of :title, :description
-  belongs_to :visible_to, :class_name => "UserLevel", :foreign_key => "is_visible_to"
-  belongs_to :creator_of_topics, :class_name => "UserLevel", :foreign_key => "topics_created_by"
-  belongs_to :last_post, :class_name => "Post", :foreign_key => "last_post_id"
-  belongs_to :last_post_forum, :class_name => "Forum", :foreign_key => "last_post_forum_id"
+  belongs_to :is_visible_to, :class_name => "UserLevel"
+  belongs_to :topics_created_by, :class_name => "UserLevel"
+  belongs_to :last_post, :class_name => "Post"
+  belongs_to :last_post_forum, :class_name => "Forum"
     
   def to_s
     title
@@ -30,7 +30,7 @@ class Forum < ActiveRecord::Base
   end
   
   def root
-    parent_id.nil? ? self : self.parent
+    parent.nil? ? self : (parent.root == parent ? parent : parent.root)
   end
   
   def ancestors(list=[])
@@ -47,4 +47,7 @@ class Forum < ActiveRecord::Base
     !parent_id.nil?
   end
   
+  def viewable?(logged_in=true, user=nil)
+    (logged_in && is_visible_to.position > user.user_level.position) || (!logged_in && is_visible_to.position == UserLevel.find_by_name("User").position)
+  end
 end

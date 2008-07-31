@@ -1,0 +1,55 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec/pre_commit/spec
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2008-01-26T18:26:15.696936Z
+3257
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+spec_suite.rb
+file
+
+
+
+
+2008-07-28T04:37:15.000000Z
+540606ccc25ea5cbcb816285b5631378
+2008-01-26T18:26:15.696936Z
+3257
+dchelimsky
+
+spec_helper.rb
+file
+
+
+
+
+2008-07-28T04:37:15.000000Z
+6e8244448135b34004b04a529bd9fe52
+2008-01-26T18:26:15.696936Z
+3257
+dchelimsky
+
+pre_commit
+dir
+

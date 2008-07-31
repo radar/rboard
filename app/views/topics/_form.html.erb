@@ -1,8 +1,20 @@
 <tbody>
-  <tr><td width='100px'>
-  <b>Subject:</b></td><td> <%= text_field "topic","subject" %></td></tr>
-  <tr><td valign='top'><b>Post:</b> </td><td><%= text_area "post","text", :cols => "80" %></td></tr>
+  <tr>
+    <td width='100px'><b>Subject:</b></td>
+    <td><%= f.text_field 'subject' %></td>
+  </tr>
+  
+  <% fields_for @post do |post| %>
+    <tr>
+      <td valign='top'><b>Post:</b></td>
+      <td><%= post.text_area "text", :cols => "80" %></td>
+    </tr>
+  <% end %>
+  
   <% if is_admin? %>
-  <tr><td><b>Sticky?</b></td><td><%= check_box "topic", "sticky" %></td></tr>
-<% end %>
+    <tr>
+      <td><b>Sticky?</b></td>
+      <td><%= f.check_box "sticky" %></td>
+    </tr>
+  <% end %>
 </tbody>

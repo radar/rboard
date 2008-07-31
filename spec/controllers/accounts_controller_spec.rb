@@ -14,12 +14,14 @@ describe AccountsController, "the whole shebang" do
   end
   
   it "should display a list of users to logged in people" do
+    login_as(:administrator)
     User.should_receive("paginate").with(:per_page=>30, :order=>"login ASC", :page=>nil).and_return(@users)
-    get 'index', {}, { :user => 1 }
+    get 'index', {}
   end
   
   it "should redirect an already logged in user away from the login page" do
-    get 'login', {}, { :user => 1 }
+    login_as(:plebian)
+    get 'login', {}
     response.should redirect_to(forums_path)
   end
   
@@ -65,13 +67,15 @@ describe AccountsController, "the whole shebang" do
   end
   
   it "should not be able to sign up a user when user is already logged in" do
-    get 'signup', {}, { :user => 1 }
+    login_as(:administrator)
+    get 'signup', {}
     flash[:notice].should eql("You are already logged in. You cannot signup again.")
     response.should redirect_to(forums_path)
   end
   
   it "a logged in user should be able to edit their profile" do
-    get 'profile', { }, { :user => 1 }
+    login_as(:administrator)
+    get 'profile', { }
     response.should render_template("profile")
   end
   
@@ -81,14 +85,16 @@ describe AccountsController, "the whole shebang" do
   end
   
   it "should be able to update a user's profile" do
-    get 'profile', { }, { :user => 1 }
+    login_as(:administrator)
+    get 'profile', { }
     response.should render_template("profile")
   end
   
   it "should update a users profile" do
-    User.should_receive(:find).twice.and_return(@user)
-    post 'profile', { :user => { :password => "godly1", :password_confirmation => "godly", :signature => "Please respect the rules." }}, { :user => 1 }
+    login_as(:administrator)
+    post 'profile', { :user => { :password => "godly1", :password_confirmation => "godly", :signature => "Please respect the rules." }}
     flash[:notice].should_not be_blank
+    response.should_not redirect_to(login_path)
   end
   
   it "should be able to get the user page of Administrator" do
@@ -104,8 +110,9 @@ describe AccountsController, "the whole shebang" do
   
   
   it "should be able to logout a user" do
-    get 'logout', { }, { :user => 3 }
-    flash.should_not be_blank
+    login_as(:plebian)
+    get 'logout', { }
+    flash[:notice].should_not be_blank
     response.should redirect_to(forums_path)
   end
   
@@ -114,8 +121,9 @@ describe AccountsController, "the whole shebang" do
   end
   
   it "should show a user that they're banned" do
+    login_as(:banned_noob)
     @request.remote_addr = "127.0.0.1"
-    get 'index', { }, { :user => 4 }
+    get 'index', { }
     response.should redirect_to("accounts/ip_is_banned")
   end
   

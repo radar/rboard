@@ -19,7 +19,7 @@ describe Post, "general" do
   fixtures :posts, :topics, :forums, :users
   
   before do
-    @post = posts(:first)
+    @post = posts(:user)
   end
   
   it "should be able to find its forum" do
@@ -28,7 +28,7 @@ describe Post, "general" do
   
   it "should be able to update a forum with the proper last post" do
     @new_post = Post.new(:topic => topics(:user), :user => users(:plebian), :text => "Woot")
-    @new_post.forum.last_post.should eql(posts(:first))
+    @new_post.forum.last_post.should eql(posts(:user))
     @new_post.save
     @new_post.forum.last_post.should eql(@new_post)
   end
@@ -38,7 +38,7 @@ describe Post, "general" do
   it "should update the forum and its ancestors with the latest post" do 
     @new_topic = Topic.new(:forum => forums(:sub_of_everybody), :user => users(:plebian), :subject => "Hello")
     @new_post = @new_topic.posts.build(:topic => topics(:user), :user => users(:plebian), :text => "Woot")
-    @new_post.forum.last_post.should eql(posts(:first))
+    @new_post.forum.last_post.should eql(posts(:user))
     @new_topic.save.should be_true
     @new_post.forum.last_post.should eql(@new_post)
     @new_post.forum.ancestors.each do |ancestor| 

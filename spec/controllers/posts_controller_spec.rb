@@ -10,11 +10,12 @@ describe PostsController, "as plebian" do
     @topic = mock("topic")
     @real_topic = topics(:user)
     @forum = mock("forum")
+    @first_post = posts(:user)
   end
   it "should be able to edit a post" do
-    Post.should_receive(:find).at_least(3).times.and_return(@post)
+    Post.should_receive(:find).twice.and_return(@post)
     @post.should_receive(:user).and_return(@user)
-    get 'edit', :id => posts(:first).id
+    get 'edit', :id => @first_post.id
   end
   
   it "shouldn't be able to edit a post that doesn't belong to them" do
@@ -26,9 +27,9 @@ describe PostsController, "as plebian" do
   end
   
   it "should be able to update a post" do
-    Post.should_receive(:find).twice.and_return(@post)
+    Post.should_receive(:find).and_return(@post)
     @post.should_receive(:update_attributes).and_return(true)
-    put 'update', :id => posts(:first).id, :post => { }
+    put 'update', :id => @first_post.id, :post => { }
     flash[:notice].should_not be_nil
   end
   
@@ -38,23 +39,23 @@ describe PostsController, "as plebian" do
   end
   
   it "should not be able to update a post with invalid data" do
-    Post.should_receive(:find).twice.and_return(@post)
+    Post.should_receive(:find).and_return(@post)
     @post.should_receive(:update_attributes).and_return(false)
-    put 'update', :id => posts(:first).id, :post => { :text => "" }
+    put 'update', :id => @first_post.id, :post => { :text => "" }
     flash[:notice].should eql("This post could not be updated.")
   end
   
   it "should not be able to edit any body else's post" do
-    Post.should_receive(:find).at_least(3).times.and_return(@post)
+    Post.should_receive(:find).twice.and_return(@post)
     @post.should_receive(:user).and_return(users(:moderator))
-    get 'edit', :id => posts(:first).id
+    get 'edit', :id => @first_post.id
     flash[:notice].should eql("You do not own that post.")
     response.should redirect_to(forums_path)
   end
   
   it "should not be able to edit a post that does not exist" do
     Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
-    get 'edit', :id => 1234567890
+    get 'edit', :id => 'post'
     flash[:notice].should eql("The post you were looking for could not be found.")
     response.should redirect_to(forums_path)
   end
@@ -82,14 +83,14 @@ describe PostsController, "as plebian" do
   end
   
   it "should be able to destroy a post, but not the topic" do
-    Post.should_receive(:find).twice.and_return(@post)
+    Post.should_receive(:find).and_return(@post)
     @post.should_receive(:destroy).and_return(@post)
     @post.should_receive(:topic).at_least(3).times.and_return(@topic)
     @post.should_receive(:forum).twice.and_return(@forum)
     @topic.should_receive(:posts).and_return(@posts)
     @posts.should_receive(:size).and_return(1)
     @topic.should_not_receive(:destroy)
-    delete 'destroy', :id => posts(:first).id
+    delete 'destroy', :id => @first_post.id
     response.should redirect_to(forum_topic_path(@post.forum, @post.topic))
     flash[:notice].should eql("Post was deleted.")
   end

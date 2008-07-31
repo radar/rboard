@@ -13,13 +13,13 @@ module AuthenticatedSystem
   end
   
   def is_admin?
-    logged_in? && current_user.user_level_id == 3
+    logged_in? && current_user.admin?
   end
   
   def non_admin_redirect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
-      redirect_back_or_default(:controller => "/accounts", :action => "login")
+      redirect_back_or_default(login_path)
     end
   end
   
@@ -70,11 +70,11 @@ module AuthenticatedSystem
   rescue ActiveRecord::RecordNotFound
     forum = Forum.find(params[:forum_id])
   ensure
-    (logged_in? && forum.topics_created_by <= current_user.user_level_id) || forum.topics_created_by == 1
+    (logged_in? && forum.topics_created_by.position <= current_user.user_level.position) || (!logged_in? && forum.topics_created_by.position == UserLevel.find_by_name("User").position)
   end
   
   def is_owner_or_admin?(id)
-    logged_in? && (current_user.user_level == UserLevel.find_by_name("Administrators") || Post.find(id).user == current_user)
+    logged_in? && (current_user.user_level == UserLevel.find_by_name("Administrator") || Post.find(id).user == current_user)
   end
   
   # Filter method to enforce a login requirement.

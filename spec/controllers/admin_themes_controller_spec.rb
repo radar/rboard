@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::ThemesController do
-  fixtures :users, :themes
+  fixtures :users, :themes, :user_levels
   before do
     login_as(:administrator)
     @theme = mock(:theme)

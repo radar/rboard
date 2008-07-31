@@ -1,0 +1,34 @@
+8
+
+dir
+3333
+svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec/examples
+svn://rubyforge.org/var/svn/rspec
+
+
+
+2007-12-29T04:16:00.207024Z
+3205
+dchelimsky
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+410327ef-2207-0410-a325-f78bbcb22a5a
+
+stories
+dir
+
+pure
+dir
+
