@@ -3,6 +3,8 @@ module Spec
 
     module ExampleGroupMethods
       class << self
+        attr_accessor :matcher_class
+
         def description_text(*args)
           args.inject("") do |result, arg|
             result << " " unless (result == "" || arg.to_s =~ /^(\s|\.|#)/)
@@ -34,10 +36,17 @@ module Spec
       #   end
       #
       def describe(*args, &example_group_block)
+        args << {} unless Hash === args.last
         if example_group_block
-          self.subclass("Subclass") do
-            describe(*args)
-            module_eval(&example_group_block)
+          params = args.last
+          params[:spec_path] = eval("caller(0)[1]", example_group_block) unless params[:spec_path]
+          if params[:shared]
+            SharedExampleGroup.new(*args, &example_group_block)
+          else
+            self.subclass("Subclass") do
+              describe(*args)
+              module_eval(&example_group_block)
+            end
           end
         else
           set_description(*args)
@@ -45,6 +54,7 @@ module Spec
           self
         end
       end
+      alias :context :describe
 
       # Use this to pull in examples from shared example groups.
       # See Spec::Runner for information about shared example groups.
@@ -107,11 +117,12 @@ module Spec
       def xit(description=nil, opts={}, &block)
         Kernel.warn("Example disabled: #{description}")
       end
+      alias_method :xspecify, :xit
 
       def run
         examples = examples_to_run
+        reporter.add_example_group(self) unless examples_to_run.empty?
         return true if examples.empty?
-        reporter.add_example_group(self)
         return dry_run(examples) if dry_run?
 
         plugin_mock_framework
@@ -150,15 +161,17 @@ module Spec
         @description_text = ExampleGroupMethods.description_text(*args)
         @spec_path = File.expand_path(options[:spec_path]) if options[:spec_path]
         if described_type.class == Module
-          include described_type
+          @described_module = described_type
         end
         self
       end
+      
+      attr_reader :described_module
 
       def examples #:nodoc:
         examples = example_objects.dup
         add_method_examples(examples)
-        rspec_options.reverse ? examples.reverse : examples
+        Spec::Runner.options.reverse ? examples.reverse : examples
       end
 
       def number_of_examples #:nodoc:
@@ -239,15 +252,15 @@ module Spec
 
       def register(&registration_binding_block)
         @registration_binding_block = registration_binding_block
-        rspec_options.add_example_group self
+        Spec::Runner.options.add_example_group self
       end
 
       def unregister #:nodoc:
-        rspec_options.remove_example_group self
+        Spec::Runner.options.remove_example_group self
       end
 
       def registration_backtrace
-        eval("caller", registration_binding_block.binding)
+        eval("caller", registration_binding_block)
       end
 
       def run_before_each(example)
@@ -265,8 +278,8 @@ module Spec
     private
       def dry_run(examples)
         examples.each do |example|
-          rspec_options.reporter.example_started(example)
-          rspec_options.reporter.example_finished(example)
+          Spec::Runner.options.reporter.example_started(example)
+          Spec::Runner.options.reporter.example_finished(example)
         end
         return true
       end
@@ -289,7 +302,7 @@ module Spec
 
         after_all_instance_variables = instance_variables
         examples.each do |example_group_instance|
-          success &= example_group_instance.execute(rspec_options, instance_variables)
+          success &= example_group_instance.execute(Spec::Runner.options, instance_variables)
           after_all_instance_variables = example_group_instance.instance_variable_hash
         end
         return [success, after_all_instance_variables]
@@ -311,7 +324,8 @@ module Spec
         all_examples = examples
         return all_examples unless specified_examples?
         all_examples.reject do |example|
-          matcher = ExampleMatcher.new(description.to_s, example.description)
+          matcher = ExampleGroupMethods.matcher_class.
+            new(description.to_s, example.description)
           !matcher.matches?(specified_examples)
         end
       end
@@ -321,15 +335,15 @@ module Spec
       end
 
       def specified_examples
-        rspec_options.examples
+        Spec::Runner.options.examples
       end
 
       def reporter
-        rspec_options.reporter
+        Spec::Runner.options.reporter
       end
 
       def dry_run?
-        rspec_options.dry_run
+        Spec::Runner.options.dry_run
       end
 
       def example_objects
@@ -384,6 +398,7 @@ module Spec
         case scope
         when :each; before_each_parts
         when :all; before_all_parts
+        when :suite; Spec::Runner.options.before_suite_parts
         end
       end
 
@@ -391,6 +406,7 @@ module Spec
         case scope
         when :each; after_each_parts
         when :all; after_all_parts
+        when :suite; Spec::Runner.options.after_suite_parts
         end
       end
 
