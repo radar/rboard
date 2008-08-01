@@ -16,6 +16,10 @@ module AuthenticatedSystem
     logged_in? && current_user.admin?
   end
   
+  def is_moderator?
+    logged_in? && current_user.moderator?
+  end
+  
   def non_admin_redirect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
@@ -65,14 +69,6 @@ module AuthenticatedSystem
     @current_user = new_user
   end
   
-  def can_create_topics?
-    forum = Forum.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    forum = Forum.find(params[:forum_id])
-  ensure
-    (logged_in? && forum.topics_created_by.position <= current_user.user_level.position) || (!logged_in? && forum.topics_created_by.position == UserLevel.find_by_name("User").position)
-  end
-  
   def is_owner_or_admin?(id)
     logged_in? && (current_user.user_level == UserLevel.find_by_name("Administrator") || Post.find(id).user == current_user)
   end
@@ -116,7 +112,18 @@ module AuthenticatedSystem
   # Inclusion hook to make #current_user and #logged_in?
   # available as ActionView helper methods.
   def self.included(base)
-    base.send :helper_method, :current_user, :logged_in?, :is_admin?, :ip_banned?, :user_banned?, :theme, :time_display, :date_display, :can_create_topics?, :is_owner_or_admin?, :can_reply?
+    base.send :helper_method, 
+              :current_user,
+              :logged_in?,
+              :is_admin?,
+              :is_moderator,
+              :ip_banned?,
+              :user_banned?,
+              :theme,
+              :time_display,
+              :date_display,
+              :is_owner_or_admin?,
+              :can_reply?
   end
   
   # When called with before_filter :login_from_cookie will check for an :auth_token

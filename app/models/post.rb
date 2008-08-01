@@ -30,8 +30,9 @@ class Post < ActiveRecord::Base
   def find_latest_post
     last = forum.posts.last
     if !last.nil?
-      update_latest_post(last)
+      Post.update_latest_post(last)
     else
+      #probably does not set the ancestors last_posts correctly
       forum.last_post = nil
       forum.last_post_forum = nil
       forum.save

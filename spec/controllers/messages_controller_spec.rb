@@ -110,21 +110,19 @@ describe MessagesController do
     @message.should_receive(:to).and_return(@administrator)
     @message.should_receive(:from).and_return(@moderator)
     @message.should_receive(:update_attribute).with("from_read", true).and_return(true)
-    get 'show', { :id => @second_message }
+    get 'show', :id => @second_message
   end
   
   it "should let a user reply to a message" do
     login_as(:moderator)
     Message.should_receive(:find).with(@to_deleted.id.to_s).and_return(@message)
     User.should_receive(:find).with(:all, :order => "login ASC").and_return(@users)
-    get 'reply', { :id => @to_deleted.id }
+    get 'reply', :id => @to_deleted.id
   end
   
   it "should show their outbox" do
-    get 'sent', { }, { :user => 2 }
-    
+    login_as(:plebian)
+    get 'sent'
+    response.should render_template("sent")
   end
-  
-  
-  
 end

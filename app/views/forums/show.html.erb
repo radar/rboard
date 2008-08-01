@@ -18,7 +18,7 @@
 <br />
 <h2>Viewing Forum: <%= @forum.title %></h2>
 <%= will_paginate @topics %>
-<% if can_create_topics? %>
+<% if @forum.topics.creatable_by?(logged_in?, current_user)  %>
   <%= link_to("New Topic", new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>

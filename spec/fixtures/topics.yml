@@ -19,6 +19,11 @@ user_2:
   forum: everybody
   created_at: <%= (Time.now + 5.minutes).to_s(:db) %> 
 
+user_3:
+  subject: Fifth topic!
+  user: plebian
+  forum: sub_of_everybody
+  
 invalid:
   id: 4
 

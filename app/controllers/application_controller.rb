@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   @default_theme = Theme.find_by_is_default(true)
   
   def moderator_login_required
-    if !is_admin? || !is_moderator
+    if !is_admin? || !is_moderator?
       flash[:notice] = "You do not have permissions to do that."
       redirect_back_or_default(forums_path)
     end

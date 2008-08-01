@@ -17,11 +17,19 @@ user:
   text: user only
   user: plebian
   topic: user
+  created_at: <%= (Time.now + 1.minute).to_s(:db) %>
   
 user_2:
   text: user2 only
   user: plebian
   topic: user_2
+  created_at: <%= (Time.now + 2.minute).to_s(:db) %>
+  
+user_3:
+  text: user3 only
+  user: plebian
+  topic: user_3
+  created_at: <%= (Time.now + 3.minute).to_s(:db) %>  
   
 invalid:
   id: 3

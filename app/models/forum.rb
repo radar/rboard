@@ -1,7 +1,7 @@
 class Forum < ActiveRecord::Base
   acts_as_list :scope => :parent_id
   acts_as_tree
-  has_many :topics, :order => "created_at DESC", :dependent => :destroy
+  has_many :topics, :order => "created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts
   validates_presence_of :title, :description
   belongs_to :is_visible_to, :class_name => "UserLevel"
@@ -48,6 +48,10 @@ class Forum < ActiveRecord::Base
   end
   
   def viewable?(logged_in=true, user=nil)
-    (logged_in && is_visible_to.position > user.user_level.position) || (!logged_in && is_visible_to.position == UserLevel.find_by_name("User").position)
+    (logged_in && is_visible_to.position <= user.user_level.position) || (!logged_in && is_visible_to.position == UserLevel.find_by_name("User").position)
+  end
+  
+  def topics_creatable_by?(logged_in=true, user=nil)
+    (logged_in && topics_created_by.position <= user.user_level.position) || (!logged_in && topics_created_by.position == UserLevel.find_by_name("User").position)
   end
 end

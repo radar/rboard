@@ -10,13 +10,7 @@
     <tbody>
       <tr>
         <td valign='top'><b>Post:</b></td>
-        <td>
-          <% unless params[:quote].blank? %>
-            <%= text_area("post","text", :cols => "80", :value => "[quote=\"" + @quoting_post.user.login + "\"]" + @quoting_post.text + "[/quote]") %>
-          <% else %>
-            <%= text_area("post","text", :cols => "80") %>
-          <% end %>
-        </td>
+        <td><%= text_area("post","text", :cols => "80") %></td>
       </tr>
     </tbody>
     <tfoot>
