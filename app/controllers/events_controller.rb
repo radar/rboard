@@ -1,2 +1,0 @@
-class EventsController < ApplicationController
-end

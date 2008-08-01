@@ -62,7 +62,7 @@ describe Forum, "in general" do
   end
   
   it "should be able to get all the topics in order" do
-    @everybody.topics.should eql([@user_topic, @user_topic_2])
+    @everybody.topics.should eql([@user_topic_2, @user_topic])
   end
   
   it "should be able to find the ancestors for any given forum" do
