@@ -1,79 +1,0 @@
-8
-
-dir
-3333
-svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/spec/rails
-svn://rubyforge.org/var/svn/rspec
-
-
-
-2008-01-31T12:08:39.707616Z
-3271
-dchelimsky
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-410327ef-2207-0410-a325-f78bbcb22a5a
-
-extensions
-dir
-
-matchers
-dir
-
-spec_spec.rb
-file
-
-
-
-
-2008-07-28T04:37:30.000000Z
-be86f7dd6aff1c7c0833df6a91f81cae
-2007-09-21T23:14:15.574365Z
-2613
-btakita
-
-autotest
-dir
-
-example
-dir
-
-mocks
-dir
-
-spec_server_spec.rb
-file
-
-
-
-
-2008-07-28T04:37:30.000000Z
-1f0ce6454b0c186ac732c64fc6713028
-2007-11-05T23:12:42.312378Z
-2816
-dchelimsky
-
-sample_spec.rb
-file
-
-
-
-
-2008-07-28T04:37:30.000000Z
-aa4398e4d1415c74d7cc7bfe6bc43c57
-2007-09-21T23:14:15.574365Z
-2613
-btakita
-

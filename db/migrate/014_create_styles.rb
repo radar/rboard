@@ -1,4 +1,3 @@
-
 class CreateStyles < ActiveRecord::Migration
 
   def self.up

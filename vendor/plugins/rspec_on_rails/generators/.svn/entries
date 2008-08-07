@@ -1,43 +1,0 @@
-8
-
-dir
-3333
-svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/generators
-svn://rubyforge.org/var/svn/rspec
-
-
-
-2008-01-31T03:52:35.860683Z
-3269
-dchelimsky
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-410327ef-2207-0410-a325-f78bbcb22a5a
-
-rspec_controller
-dir
-
-helpers
-dir
-
-rspec
-dir
-
-rspec_model
-dir
-
-rspec_scaffold
-dir
-

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :ip_banned_redirect
   before_filter :active_user
   
-  @default_theme = Theme.find_by_is_default(true)
+  @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?
   
   def moderator_login_required
     if !is_admin? && !is_moderator?

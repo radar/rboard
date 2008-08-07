@@ -1,43 +1,0 @@
-8
-
-dir
-3333
-svn://rubyforge.org/var/svn/rspec/tags/CURRENT/rspec_on_rails/spec_resources/views
-svn://rubyforge.org/var/svn/rspec
-
-
-
-2007-07-14T14:12:32.758668Z
-2174
-dchelimsky
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-410327ef-2207-0410-a325-f78bbcb22a5a
-
-view_spec
-dir
-
-tag_spec
-dir
-
-rjs_spec
-dir
-
-render_spec
-dir
-
-controller_spec
-dir
-

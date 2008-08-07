@@ -1,40 +1,46 @@
 body, textarea, table {
-font-family:"Trebuchet MS",sans;
-font-size:11pt;
-letter-spacing:-1px;
+  font-family:"Trebuchet MS",sans;
+  font-size:11pt;
+  letter-spacing:-1px;
 }
+
 a {
-color:#48769D;
-text-decoration:none;
+  color:#48769D;
+  text-decoration:none;
 }
+
 h2, h3 {
-margin:0px;
+  margin:0px;
 }
+
 img {
-border:0px;
+  border:0px;
 }
+
 .content {
-text-align:left;
-width:90%;
+  text-align:left;
+  width:90%;
 }
+
 .title-bar {
-background:transparent url(/images/blue/bg.jpg) repeat scroll 0%;
-border:1px solid #84AFD3;
-font-size:20pt;
-font-weight:bold;
-height:42px;
-padding-right:0px;
-padding-top:0px;
-text-align:right;
+  background:transparent url(/images/blue/bg.jpg) repeat scroll 0%;
+  border:1px solid #84AFD3;
+  font-size:20pt;
+  font-weight:bold;
+  height:42px;
+  padding-right:0px;
+  padding-top:0px;
+  text-align:right;
 }
+
 .flash {
-background:#A4D5FF none repeat scroll 0%;
-border:2px solid #84AFD3;
-font-size:16pt;
-font-weight:bold;
-margin-top:2px;
-padding:5px;
-text-align:center;
+  background:#A4D5FF none repeat scroll 0%;
+  border:2px solid #84AFD3;
+  font-size:16pt;
+  font-weight:bold;
+  margin-top:2px;
+  padding:5px;
+  text-align:center;
 }
 .menu-bar {
 float:left;

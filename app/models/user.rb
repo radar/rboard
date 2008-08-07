@@ -31,23 +31,24 @@ class User < ActiveRecord::Base
   
   #before
   before_save :encrypt_password
-  before_save :make_admin
   
-  #force the default theme on all new users
-  before_create do |record|
-    record.theme = Theme.find(:first)
+  before_create :set_theme
+  before_create :make_admin
+  
+  def set_theme
+    self.theme = Theme.find(:first)
   end
   
   
   #misc. user information
   def rank
-	  rank = Rank.find(:first, :conditions => ["posts_required <= ? AND custom = 0",posts.size], :order => "posts_required DESC")
+	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?",posts.size], :order => "posts_required DESC")
 	  rank.nil? ? "User" : rank.name
   end
   
   #permission checking 
   def make_admin
-    user_level = UserLevel.find_by_name("Administrators") if User.count == 0
+    self.user_level = UserLevel.find(:first, :order => "position desc") if User.count == 0
   end
   
   def admin?

@@ -3,9 +3,9 @@ class CreateUserLevels < ActiveRecord::Migration
     create_table :user_levels do |t|
     t.column :name, :string
     end
-	UserLevel.create(:name => "Users")
-	UserLevel.create(:name => "Moderators")
-	UserLevel.create(:name => "Administrators")
+	UserLevel.create(:name => "User")
+	UserLevel.create(:name => "Moderator")
+	UserLevel.create(:name => "Administrator")
 	remove_column :users, :userlvl
   add_column :users, :user_level_id, :integer, :default => 1
   end
