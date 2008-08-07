@@ -96,6 +96,8 @@ describe TopicsController do
     
     it "should be able to begin to create a new topic" do
       Topic.should_receive(:new).and_return(@topic)
+      @topic.should_receive(:posts).and_return(@posts)
+      @posts.should_receive(:build).and_return(@post)
       get 'new', { :forum_id => forums(:admins_only).id }
     end
     

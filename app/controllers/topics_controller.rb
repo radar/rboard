@@ -13,7 +13,7 @@ class TopicsController < ApplicationController
   
   def new
     @topic = Topic.new
-    @post = @topic.posts.create
+    @post = @topic.posts.build
   end
   
   def create
