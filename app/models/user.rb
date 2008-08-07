@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
   
   #misc. user information
   def rank
-	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?",posts.size], :order => "posts_required DESC")
+	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC")
 	  rank.nil? ? "User" : rank.name
   end
   
