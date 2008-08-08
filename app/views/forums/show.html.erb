@@ -18,7 +18,7 @@
 <br />
 <h2>Viewing Forum: <%= @forum.title %></h2>
 <%= will_paginate @topics %>
-<% if @forum.topics.creatable_by?(logged_in?, current_user)  %>
+<% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
   <%= link_to("New Topic", new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
@@ -70,7 +70,7 @@
 <% end %>
 <% else %>
 <thead>
-<tr><td align='center'><b>There are no topics for this forum.  <%= "Why not " << link_to("create one?", new_forum_topic_path(@forum)) if can_create_topics? %></b></td></tr>
+<tr><td align='center'><b>There are no topics for this forum.  <%= "Why not " << link_to("create one?", new_forum_topic_path(@forum)) if @forum.topics_creatable_by?(logged_in?, current_user) %></b></td></tr>
 </thead>
 <% end %>
 </tbody>

@@ -11,12 +11,12 @@
   
   <tr>
     <td width='200px'><b>Is Visible To:</b></td>
-    <td><%= f.select "is_visible_to", @user_levels.map { |u| [u.name, u.id] } %></td>
+    <td><%= f.select "is_visible_to_id", @user_levels.map { |u| [u.name, u.id] } %></td>
   </tr>
   
   <tr>
     <td width='200px'><b>Topics Creatable By:</b></td>
-    <td><%= f.select "topics_created_by", @user_levels.map { |u| [u.name, u.id] } %></td>
+    <td><%= f.select "topics_created_by_id", @user_levels.map { |u| [u.name, u.id] } %></td>
   </tr>
   
   <% unless @forums.empty? %>

@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
  
   map.namespace :admin do |admin|
     admin.resources :ranks
-    admin.resources :accounts, :collection => { :ban_ip => :any }, :member => { :ban => :any }
+    admin.resources :accounts, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
     admin.resources :themes, :member => { :make_default => :put }
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put  }
   end
@@ -17,7 +17,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/admin/chronic', :controller => "/admin/chronic"
  
   map.resources :forums, :collection => { :list => :get } do |forum|
-    forum.resources :topics, :collection => { :moderate => :post } 
+    forum.resources :topics, :collection => { :moderate => :post }, :member => { :lock => :put, :unlock => :put }
   end
   
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
@@ -26,11 +26,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
   map.resources :posts
   
-
-
-  map.connect ':controller/:action/:id'
-  map.connect 'accounts/:page', :controller => "accounts", :action => "index"
-  map.connect 'forums/:id/:page', :controller => "forums", :action => "show"
-
+  map.resources :accounts, :collection => { :profile => :any }
   
+  map.connect ':controller/:action/:id'
 end

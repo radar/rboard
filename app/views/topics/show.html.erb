@@ -1,20 +1,20 @@
 <%= link_to("rBoard", forums_path) %> <%= breadcrumb(@topic.forum) %> -> <%= @topic.subject %>
 <h2><%= @topic.subject %></h2>
 <% if logged_in? %>
-  <% if can_create_topics? %>
+  <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
     <%= link_to "New Topic", new_forum_topic_path(@topic.forum) %> |
 	<% end %>
 	
-	<% if can_reply? && !@topic.locked? %>
+	<% if !@topic.locked? || is_admin? %>
    		<%= link_to "New Reply", reply_topic_path(@topic) %>
   <% end %>
   
   	<% if is_admin? %>
       |
     	<% if @topic.locked? %> 
-        <%= link_to "Unlock this topic", unlock_topic_path(@topic), :method => :put %>
+        <%= link_to "Unlock this topic", unlock_forum_topic_path(@forum, @topic), :method => :put %>
     	<% else %>
-      	<%= link_to "Lock this topic", lock_topic_path(@topic), :method => :put %>
+      	<%= link_to "Lock this topic", lock_forum_topic_path(@forum, @topic), :method => :put %>
     	<% end %>
   	<% end %>
 <% else %>

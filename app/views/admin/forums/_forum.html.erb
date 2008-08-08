@@ -3,8 +3,8 @@
   <%= link_to theme_image_tag("delete.jpg"), admin_forum_path(forum), :method => "delete", :confirm => "Are you sure you want to delete '#{forum.title}'" %></td>
   <td style='text-align:left !important'> <%= theme_image_tag("extender.jpg", :style => "padding-left:#{depth*20}px") if extender %>
 <%= link_to forum.title, forum_path(forum) %></td>
-  <td><%= forum.visible_to %></td>
-  <td><%= forum.creator_of_topics %></td>
+  <td><%= forum.is_visible_to %></td>
+  <td><%= forum.topics_created_by %></td>
   <td><%= forum.topics.size %></td>
   <td><%= forum.posts.size %></td>
   <td>

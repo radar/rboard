@@ -1,0 +1,58 @@
+8
+
+dir
+1554
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/ultrasphinx/vendor/riddle
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+Rakefile
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+a299733553564a96facbf001379817ac
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+lib
+dir
+
+MIT-LICENCE
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+c4577ab00c17d69fd71edc6c46cecd15
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+spec
+dir
+
+README
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+b88c7f4e75ecdd654ebf6947e65d4491
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+

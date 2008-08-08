@@ -1,0 +1,130 @@
+8
+
+dir
+1554
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/ultrasphinx/lib/ultrasphinx
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+associations.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+463cc56ebe65cd2aa6cdae40083942b3
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+spell.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+fb1c3054d747529c696a171c5eb60e2c
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+configure.rb
+file
+
+
+
+
+2008-07-10T00:52:57.000000Z
+80c10c77e164fce193b8f7b4b5729164
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+postgresql
+dir
+
+ultrasphinx.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+faa88e27f251c9fab45cfe14f8deed8b
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+search
+dir
+
+search.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+e5e00ffb95eafc9c7b03e0d661ed82ea
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+fields.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+f076a798d106e08a2d02e71b0297941b
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+core_extensions.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+13e59e388014d3a7e42701e54b1544a6
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+autoload.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+41e31844374e1a4fed25b2fc775c4302
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+is_indexed.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+bea581c06d9dac27c2ad2a6ee9cdfae3
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+

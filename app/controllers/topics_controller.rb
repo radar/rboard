@@ -67,14 +67,14 @@ class TopicsController < ApplicationController
     topic = Topic.find(params[:id])
     topic.update_attribute("locked",true)
     flash[:notice] = "This topic has been locked."
-    redirect_to topic_path(topic)
+    redirect_to forum_topic_path(topic.forum, topic)
   end
   
   def unlock
     topic = Topic.find(params[:id])
     topic.update_attribute("locked",false)
     flash[:notice] = "This topic has been unlocked."
-    redirect_to topic_path(topic)
+    redirect_to forum_topic_path(topic.forum, topic)
   end
 
   private

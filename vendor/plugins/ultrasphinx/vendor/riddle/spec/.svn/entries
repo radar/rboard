@@ -1,0 +1,49 @@
+8
+
+dir
+1554
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/ultrasphinx/vendor/riddle/spec
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+unit
+dir
+
+functional
+dir
+
+fixtures
+dir
+
+sphinx_helper.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+949de95b274ca57b2ca2f6a9d808df2a
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+
+spec_helper.rb
+file
+
+
+
+
+2008-07-10T00:44:21.000000Z
+9592bc62f2de0d51175c2a7e1fc10cd6
+2008-08-07T06:57:59.211122Z
+1554
+Ryan Bigg
+

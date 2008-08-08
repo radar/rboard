@@ -26,7 +26,7 @@ class PostsController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id], :include => :posts)
     @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
-    @post = @topic.posts.build(params[:post])
+    @post = @topic.posts.build(params[:post].merge!(:user => current_user))
     if @post.save
       flash[:notice] = "Post has been created."
       redirect_to forum_topic_path(@post.forum,@topic)

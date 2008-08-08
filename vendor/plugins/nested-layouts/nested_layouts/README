@@ -1,0 +1,126 @@
+= NestedLayouts
+
+Plugin allows to specify outer layouts for particular layout thus creating nested layouts.
+
+== Wrapping layout into another layout
+
+Let's assume you have controller which action 'hello' just was called.
+Controller was set up to use 'inner' layout:
+
+  app/controllers/hello_controller.rb
+
+    class HelloController < ApplicationController
+      layout 'inner'
+
+      def hello
+        render :text => 'Hello, world!'
+      end
+    end
+
+  app/views/layouts/inner.rhtml
+
+    <% inside_layout 'outer' do -%>
+      <div class="hello">
+        <h1>Greetings</h1>
+        <%= yield %>
+      </div>
+    <% end -%>
+
+  app/views/layouts/outer.rhtml
+
+    <html>
+    <body>
+      <div class="content">
+        <%= yield %>
+      </div>
+    </body>
+    </html>
+
+Result will look like this (formatted for better reading):
+
+    <html>
+    <body>
+      <div class="content">
+        <div class="hello">
+          <h1>Greetings</h1>
+          Hello, world!
+        </div>
+      </div>
+    </body>
+    </html>
+
+== Concept
+
+Concept of layout nesting here is based on the assumption that every
+inner layout is used only to _customize_ it's outer layout and thus every
+inner layout is used only with one specific outer layout. With this in
+mind we can conclude that every layout must know it's outer layout and
+thus information about outer layout must be embeded directly into inner
+layout. Controller doesn't need to know about the whole stack of layouts,
+so you should just specify the most inner layout in it.
+
+== Passing data
+
+You can pass data from inner layout to outer one, e.g.:
+
+  layouts/inner.rhtml
+
+    <% content_for 'menu' do -%>
+      <ul>
+        <li><a href="about_us">About Us</a></li>
+        <li><a href="products">Products</a></li>
+      </ul>
+    <% end -%>
+
+    <% inside_layout 'outer' do -%>
+      <% @other_data_for_outer_layout = 'foo' -%>
+      <%= yield %>
+    <% end -%>
+
+  layouts/outer.rhtml
+
+    <%= yield 'menu' %>
+    <br/>
+    The data was: <%= @other_data_for_outer_layout %>
+    <br/>
+    <%= yield %>
+
+
+== Inline layouts
+
+Instead of using layout stored in file system, you can use
++inside_inline_layout+ to wrap template part into some template
+code passed as a string. It is usefull if you want to use
+layouts that are stored in DB:
+
+  Layout model
+
+    class Layout < ActiveRecord::Base
+      # Has attributes 'name' and 'contents'
+    end
+
+  Helper
+
+    module ApplicationHelper
+      def inside_db_layout(name, &block)
+        layout = Layout.find_by_name(name)
+        template = layout ? layout.contents : '<%= yield %>'
+        inside_inline_layout(template, &block)
+      end
+    end
+
+  View
+
+    <% inside_db_layout 'layout_from_db1' do %>
+      Content
+    <% end %>
+
+
+== Download
+
+Download it from http://rubyforge.org/projects/nested-layouts/ or via Rails plugin script:
+  ./script/plugin install svn://rubyforge.org/var/svn/nested-layouts/trunk/nested_layouts
+
+== Bugs & Feedback
+
+If you encounter any bugs or has some feature proposal, feel free to email it to maxim.kulkin@gmail.com.
