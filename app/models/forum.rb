@@ -20,14 +20,14 @@ class Forum < ActiveRecord::Base
   #NOT TESTED
   #POTENTIALLY UNSTABLE
   def update_last_post
-    if old_forum.posts.first.nil?
-      old_forum.last_post = nil
-      old_forum.last_post_forum = nil
+    if posts.first.nil?
+      last_post = nil
+      last_post_forum = nil
     else
-      old_forum.last_post = old_forum.posts.first
-      old_forum.last_post_forum = old_forum.posts.first.forum if old_forum.posts.first.forum != old_forum
+      last_post = posts.first
+      last_post_forum = posts.first.forum if posts.first.forum != self
     end
-    old_forum.save
+    save
   end
   
   def topics
