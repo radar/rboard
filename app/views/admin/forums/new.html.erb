@@ -1,4 +1,4 @@
-<%= link_to "Administration Section", admin_index_path %> -> <%= link_to("Forums", admin_forums_path) %> -> Creating a New Forum
+<%= link_to "Administration Section", admin_path %> -> <%= link_to("Forums", admin_forums_path) %> -> Creating a New Forum
 <%= error_messages_for :forum %>
 <% form_for [:admin, @forum] do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>

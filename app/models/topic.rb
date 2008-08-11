@@ -17,6 +17,31 @@ class Topic < ActiveRecord::Base
     subject
   end
   
+  def move!(new_forum_id)
+    old_forum = Forum.find(forum_id)
+    new_forum = Forum.find(new_forum_id)
+    update_attribute("forum_id", new_forum_id)
+    posts.last.update_forum if posts.last == new_forum.posts.last
+    old_forum.reload
+    old_forum.update_last_post
+  end
+  
+  def lock!
+    update_attribute("locked", true)
+  end
+  
+  def unlock!
+    update_attribute("locked", false)
+  end
+  
+  def sticky!
+    update_attribute("sticky", true)
+  end
+  
+  def unsticky!
+    update_attribute("sticky", false)
+  end
+  
   def last_10_posts
     posts.last(10).reverse
   end

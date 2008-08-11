@@ -2,7 +2,7 @@ class Forum < ActiveRecord::Base
   acts_as_list :scope => :parent_id
   acts_as_tree
   has_many :topics, :order => "created_at DESC", :dependent => :destroy 
-  has_many :posts, :through => :topics, :source => :posts
+  has_many :posts, :through => :topics, :source => :posts, :order => "created_at DESC"
   validates_presence_of :title, :description
   belongs_to :is_visible_to, :class_name => "UserLevel"
   belongs_to :topics_created_by, :class_name => "UserLevel"
@@ -16,6 +16,19 @@ class Forum < ActiveRecord::Base
   #we do this because we want to order the topics by the last posts created_at date.
   #There's no easy way to do it
   alias_method :old_topics, :topics
+  
+  #NOT TESTED
+  #POTENTIALLY UNSTABLE
+  def update_last_post
+    if old_forum.posts.first.nil?
+      old_forum.last_post = nil
+      old_forum.last_post_forum = nil
+    else
+      old_forum.last_post = old_forum.posts.first
+      old_forum.last_post_forum = old_forum.posts.first.forum if old_forum.posts.first.forum != old_forum
+    end
+    old_forum.save
+  end
   
   def topics
     old_topics.sort_by { |t| t.posts.last.created_at }.reverse

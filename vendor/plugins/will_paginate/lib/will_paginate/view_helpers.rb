@@ -170,11 +170,8 @@ module WillPaginate
 
     def page_link_or_span(page, span_class = 'current', text = nil)
       text ||= page.to_s
-      if page and page != current_page
-        @template.link_to text, url_options(page)
-      else
-        @template.content_tag :span, text, :class => span_class
-      end
+        @template.link_to text, url_options(page), :class => (page == current_page ? "current" : nil)
+
     end
 
     def url_options(page)

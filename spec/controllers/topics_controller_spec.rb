@@ -74,6 +74,9 @@ describe TopicsController do
     it "should be able to see a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
       @forum.should_receive(:viewable?).and_return(true) 
+      @forum.should_receive(:old_topics).and_return(@topics)
+      @topics.should_receive(:find).and_return(@topic)
+      @topic.should_receive(:increment!).with("views")
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
     end
     
@@ -109,7 +112,7 @@ describe TopicsController do
     
     it "should be able to lock any topic in the admin forum" do
       Topic.should_receive(:find).and_return(@topic)
-      @topic.should_receive(:update_attribute).with("locked", true).and_return(@topic)
+      @topic.should_receive(:lock!).and_return(@topic)
       @topic.should_receive(:forum).and_return(@forum)
       put 'lock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
       response.should redirect_to(forum_topic_path(@forum, @topic))
@@ -117,24 +120,23 @@ describe TopicsController do
     
     it "should be able to unlock any topic in the admin forum" do
       Topic.should_receive(:find).and_return(@topic)
-      @topic.should_receive(:update_attribute).with("locked", false).and_return(@topic)
+      @topic.should_receive(:unlock!).and_return(@topic)
       @topic.should_receive(:forum).and_return(@forum)
-      @topic.stub!(:has_key?)
+      @topic.stub!(:has_key?).and_return(true)
       put 'unlock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(topic_path(@forum, @topic))
     end
     
     
     it "should be able to lock multiple topics" do
       Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:update_attribute).twice.with("locked", true)
+      @topic.should_receive(:lock!).twice
       post 'moderate', { :commit => "Lock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
       flash[:notice].should eql("All selected topics have been locked.")
     end
     
     it "should be able to unlock multiple topics" do
       Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:update_attribute).twice.with("locked", false)
+      @topic.should_receive(:unlock!).twice
       post 'moderate', { :commit => "Unlock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
       flash[:notice].should eql("All selected topics have been unlocked.")
     end
@@ -148,14 +150,14 @@ describe TopicsController do
     
     it "should be able to sticky multiple topics" do
       Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:update_attribute).twice.with("sticky", true)
+      @topic.should_receive(:sticky!).twice
       post 'moderate', { :commit => "Sticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
       flash[:notice].should eql("All selected topics have been stickied.")
     end
     
     it "should be able to sticky multiple topics" do
       Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:update_attribute).twice.with("sticky", false)
+      @topic.should_receive(:unsticky!).twice
       post 'moderate', { :commit => "Unsticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
       flash[:notice].should eql("All selected topics have been unstickied.")
     end

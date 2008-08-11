@@ -2,7 +2,7 @@
 <% form_for [:admin, @forum] do |f| %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead><tr><td colspan='2'><h2>Editing a Forum</h2></td></tr></thead>
-    <%= render :partial => "form" %>
+    <%= render :partial => "form", :locals => { :f => f } %>
     <tfoot>
       <tr><td colspan='2'><%= submit_tag("Update") %></td></tr>
     </tfoot>

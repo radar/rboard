@@ -1,0 +1,5 @@
+<h2>Moving <%= @topic.subject %></h2>
+<% form_tag do %>
+  Forum: <%= select_tag "new_forum_id", options_from_collection_for_select(@forums, "id", "title") %>
+  <%= submit_tag "Move" %>
+<% end %>

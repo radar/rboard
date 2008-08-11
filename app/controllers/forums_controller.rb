@@ -13,6 +13,7 @@ class ForumsController < ApplicationController
   
   def show
     @topics = @forum.topics.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC, id DESC", :include => [:posts => [:user]]
+    @all_forums = Forum.find(:all, :select => "id, title", :order => "title ASC")
     @forums = @forum.children.sort_by { |f| f.position }
   end
   

@@ -3,6 +3,7 @@ Search: <%= text_field_tag "query" %>
 <%= submit_tag "Search" %>
 <% end %>
 <% if request.post? %>
+Your search returned <%= @posts.size %> results:
   <% for post in @posts %>
     <h2>In <%= link_to post.topic, [post.topic.forum, post.topic] %></h2>
     <%= render :partial => post %>

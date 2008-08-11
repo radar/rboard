@@ -55,6 +55,10 @@ img {
 	font-size:9pt;
 }
 
+.pagination .current {
+	background:#;
+}
+
 .time-now {
   float:right;
 }

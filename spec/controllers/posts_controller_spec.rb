@@ -62,7 +62,7 @@ describe PostsController, "as plebian" do
   
   it "should be able to create a post" do
     Topic.should_receive(:find).with(topics(:user).id.to_s, :include => :posts).and_return(@topic)
-    @topic.should_receive(:posts).twice.and_return(@posts)
+    @topic.should_receive(:posts).at_most(3).times.and_return(@posts)
     @posts.should_receive(:find).with(:all, :order => "id DESC", :limit => 10)
     @posts.should_receive(:build).and_return(@post)
     @post.should_receive(:save).and_return(true)
@@ -70,7 +70,7 @@ describe PostsController, "as plebian" do
     @post.should_receive(:topic).and_return(@topic)
     post 'create', {:post => { :text => "This is a new post" }, :topic_id => topics(:user).id }
     flash[:notice].should eql("Post has been created.")
-    response.should redirect_to(forum_topic_path(@post.forum, @post.topic))
+    response.should redirect_to(forum_topic_path(@post.forum, @post.topic, :page => 1))
   end
   
   it "should not be able to create an invalid post" do
@@ -80,6 +80,8 @@ describe PostsController, "as plebian" do
     @posts.should_receive(:build).and_return(@post)
     @post.should_receive(:save).and_return(false)
     post 'create', {:post => { :text => "This is a new post" }, :topic_id => topics(:user).id }
+    flash[:notice].should eql("This post could not be created.")
+    response.should render_template("new")
   end
   
   it "should be able to destroy a post, but not the topic" do
