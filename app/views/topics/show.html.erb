@@ -1,26 +1,8 @@
 <%= link_to("rBoard", forums_path) %> <%= breadcrumb(@topic.forum) %> -> <%= @topic.subject %>
 <h2><%= @topic.subject %></h2>
 <%= will_paginate @posts %>
-<% if logged_in? %>
-  <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
-    <%= link_to "New Topic", new_forum_topic_path(@topic.forum) %> |
-	<% end %>
-	
-	<% if !@topic.locked? || is_admin? %>
-   		<%= link_to "New Reply", reply_topic_path(@topic) %>
-  <% end %>
-  
-  	<% if is_admin? %>
-      |
-    	<% if @topic.locked? %> 
-        <%= link_to "Unlock this topic", unlock_forum_topic_path(@forum, @topic), :method => :put %>
-    	<% else %>
-      	<%= link_to "Lock this topic", lock_forum_topic_path(@forum, @topic), :method => :put %>
-    	<% end %>
-  	<% end %>
-<% else %>
- | Locked!
-<% end %>
+<%= render :partial => "menu" %>
 <br />
 <%= render :partial => @posts %>
+<%= render :partial => "menu" %>
 <%= will_paginate @posts %>

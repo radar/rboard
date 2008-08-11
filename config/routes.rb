@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup 'signup', :controller => "accounts", :action => 'signup'
   
   map.search 'search', :controller => "search", :action => "index"
-  map.admin_index 'admin/index', :controller => "admin/index", :action => "index"
+  map.admin 'admin', :controller => "admin/index", :action => "index"
   map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
  
   map.namespace :admin do |admin|

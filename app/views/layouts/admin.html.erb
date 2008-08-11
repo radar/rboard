@@ -1,6 +1,6 @@
 <% inside_layout "application" do %>
   <ul id='admin-navlist'>
-    <li><%= link_to "Index", admin_index_path,  :class => selected("index")  %></li>
+    <li><%= link_to "Index", admin_path,  :class => selected("index")  %></li>
     <li><%= link_to "Forums", admin_forums_path, :class => selected("forums") %></li>
     <li><%= link_to "Users", admin_accounts_path, :class => selected("users") %></li>
     <li><%= link_to "Ranks", admin_ranks_path, :class => selected("ranks") %></li>

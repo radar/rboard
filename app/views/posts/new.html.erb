@@ -1,0 +1,25 @@
+<%= error_messages_for 'post' %>
+<% form_for [@topic, @post] do %>
+  <%= hidden_field_tag("quote", params[:quote]) %>
+  <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
+    <thead>
+      <tr>
+        <td colspan='2'><h2>Replying to topic: <%= @topic.subject %></h2></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td valign='top'><b>Post:</b></td>
+        <td><%= text_area("post","text", :cols => "80") %></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan='2'><%= submit_tag("Create") %></td>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>
+<table cellspacing='0' cellpadding='5' width='100%' class='posts'>
+  <%= render :collection => @posts %>
+</table>

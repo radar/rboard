@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_filter :login_required
   
-  def nce
+  def new
      @topic = Topic.find(params[:topic_id], :include => :posts)
      #is there an easier way to do this?
      @posts = @topic.last_10_posts
@@ -17,8 +17,9 @@ class PostsController < ApplicationController
     @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
     @post = @topic.posts.build(params[:post].merge!(:user => current_user))
     if @post.save
+      page = @topic.posts.size / 30
       flash[:notice] = "Post has been created."
-      redirect_to forum_topic_path(@post.forum,@topic)
+      redirect_to forum_topic_path(@post.forum,@topic, :page => page)
     else
       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
       flash[:notice] = "This post could not be created."

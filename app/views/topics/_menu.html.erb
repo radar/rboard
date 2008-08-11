@@ -1,0 +1,20 @@
+<% if logged_in? %>
+  <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
+    <%= link_to "New Topic", new_forum_topic_path(@topic.forum) %> |
+	<% end %>
+	
+	<% if !@topic.locked? || is_admin? %>
+   		<%= link_to "New Reply", new_topic_post_path(@topic) %>
+  <% end %>
+  
+  	<% if is_admin? %>
+      |
+    	<% if @topic.locked? %> 
+        <%= link_to "Unlock this topic", unlock_forum_topic_path(@forum, @topic), :method => :put %>
+    	<% else %>
+      	<%= link_to "Lock this topic", lock_forum_topic_path(@forum, @topic), :method => :put %>
+    	<% end %>
+  	<% end %>
+<% else %>
+ | Locked!
+<% end %>
