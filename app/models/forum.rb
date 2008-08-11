@@ -21,11 +21,11 @@ class Forum < ActiveRecord::Base
   #POTENTIALLY UNSTABLE
   def update_last_post
     if posts.first.nil?
-      last_post = nil
-      last_post_forum = nil
+      self.last_post = nil
+      self.last_post_forum = nil
     else
-      last_post = posts.first
-      last_post_forum = posts.first.forum if posts.first.forum != self
+      self.last_post = posts.first
+      self.last_post_forum = posts.first.forum if posts.first.forum != self
     end
     save
   end

@@ -21,7 +21,7 @@ class Topic < ActiveRecord::Base
     old_forum = Forum.find(forum_id)
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
-    posts.last.update_forum if posts.last == new_forum.posts.last
+    posts.last.update_forum if posts.last != new_forum.posts.last
     old_forum.reload
     old_forum.update_last_post
   end
