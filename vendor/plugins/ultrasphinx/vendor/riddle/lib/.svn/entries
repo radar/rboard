@@ -1,31 +1,0 @@
-8
-
-dir
-1554
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/ultrasphinx/vendor/riddle/lib
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-riddle
-dir
-
-riddle.rb
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-6cacd4f7f8c9dd300190efe9180139e8
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-

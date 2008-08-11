@@ -1,139 +1,0 @@
-8
-
-dir
-1554
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/ultrasphinx
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-test
-dir
-
-LICENSE
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-bef5e527baf04ad7c61907970e821257
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-Rakefile
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-a9c7432c1a5c60fc050eaeab50e7bb15
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-init.rb
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-d7747be21e6f1267648eb2033c94065d
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-tasks
-dir
-
-TODO
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-d2d79e362150ca5391ad5148bb9bf411
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-lib
-dir
-
-Manifest
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-2258dc2987bed9f2ff415e4ea9d0871c
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-CHANGELOG
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-26c39438eb4f78e6798caba6bd601895
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-RAKE_TASKS
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-886426ba262a84ab94cfbc87db75f309
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-DEPLOYMENT_NOTES
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-3780358f92c91a94ddb3528841c95b0a
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-README
-file
-
-
-
-
-2008-07-10T00:44:21.000000Z
-2ba743c2c2c3a28f7e3b2bfe0bf93bfa
-2008-08-07T06:57:59.211122Z
-1554
-Ryan Bigg
-
-vendor
-dir
-
-examples
-dir
-
