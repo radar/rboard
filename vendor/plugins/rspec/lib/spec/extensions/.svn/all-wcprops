@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/extensions
+END
+main.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/extensions/main.rb
+END
+class.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/extensions/class.rb
+END
+object.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/extensions/object.rb
+END
+metaclass.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/extensions/metaclass.rb
+END

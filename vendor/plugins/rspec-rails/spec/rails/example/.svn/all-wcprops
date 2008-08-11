@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example
+END
+controller_isolation_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/controller_isolation_spec.rb
+END
+view_spec_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
+END
+configuration_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/configuration_spec.rb
+END
+helper_spec_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/helper_spec_spec.rb
+END
+model_spec_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/model_spec_spec.rb
+END
+shared_behaviour_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/shared_behaviour_spec.rb
+END
+assigns_hash_proxy_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/assigns_hash_proxy_spec.rb
+END
+test_unit_assertion_accessibility_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/test_unit_assertion_accessibility_spec.rb
+END
+controller_spec_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+END
+cookies_proxy_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/cookies_proxy_spec.rb
+END
+example_group_factory_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/example/example_group_factory_spec.rb
+END

@@ -1,0 +1,40 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/examples/stories/game-of-life/life
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+grid.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+2557b67c54021d2b5af81e7b21499851
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+game.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+9379808b12337d5be692bbe69d2f02e4
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

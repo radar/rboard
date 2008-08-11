@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/runner/resources
+END
+a_foo.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/runner/resources/a_foo.rb
+END
+a_bar.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/runner/resources/a_bar.rb
+END
+a_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/runner/resources/a_spec.rb
+END

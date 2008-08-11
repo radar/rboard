@@ -1,0 +1,34 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/spec/spec/expectations
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+extensions
+dir
+
+differs
+dir
+
+fail_with_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+00f25fa7ac197f326bdabaed045c8019
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

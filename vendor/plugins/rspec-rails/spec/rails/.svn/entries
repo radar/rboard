@@ -1,0 +1,82 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/spec/rails
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+extensions
+dir
+
+interop
+dir
+
+matchers
+dir
+
+spec_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+be86f7dd6aff1c7c0833df6a91f81cae
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+autotest
+dir
+
+sample_modified_fixture.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+b22069935e3343ba0b71ef6480e9b710
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+example
+dir
+
+mocks
+dir
+
+spec_server_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+640998ee4ba917680e0a97a2fcdfcbbd
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+sample_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+7efb6a0e3041e5318cf1f1aae7dcb226
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

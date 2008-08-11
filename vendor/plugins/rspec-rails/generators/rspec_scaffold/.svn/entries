@@ -1,0 +1,31 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/generators/rspec_scaffold
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+rspec_scaffold_generator.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+0648dc167be2b677202d42845f5642d2
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+templates
+dir
+

@@ -98,12 +98,12 @@ describe AccountsController, "the whole shebang" do
   end
   
   it "should be able to get the user page of Administrator" do
-    get 'user', { :id => "administrator" }
-    response.should render_template("user")
+    get 'show', { :id => "administrator" }
+    response.should render_template("show")
   end
   
   it "shouldn't be able to find an invalid user" do
-    get 'user', { :id => "non-existant" }
+    get 'show', { :id => "non-existant" }
     response.should redirect_to(forums_path)
     flash[:notice].should eql("The user you are looking for does not exist!")
   end

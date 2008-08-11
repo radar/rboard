@@ -67,6 +67,9 @@ img {
 .forums tbody td, .list-table tbody td {
   background:white;
 }
+.forum .topic_subject .pagination {
+	font-size:9pt;
+}
 .forum tfoot {
   background:#C1E2FE none repeat scroll 0%;
 }

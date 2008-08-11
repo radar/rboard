@@ -1,0 +1,160 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+steps.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+ea9ebacca674135543b4d627c40496dd
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+CellsWithLessThanTwoNeighboursDie.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+01c227fff74761465a809470164b6036
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+helper.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+66bbf5581da44703b73780d4ee9895c6
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+TheGridWraps.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+6ca253a2d6807276b662b9eb55c26b46
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+create_a_cell.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+28aa129de458557cabb6af01ff0cbc87
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+ICanKillACell.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+fe21449a845ab8e32b874436bb10bc2a
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+stories.txt
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+4af67a5de954c3f10e80e26a1c49cf22
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+stories.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+413676ae8355e18e521769db9f44e15f
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+CellsWithMoreThanThreeNeighboursDie.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+2e17c9fcb1b39e3a3936e0afaef18246
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+EmptySpacesWithThreeNeighboursCreateACell.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+4c46bea5907ea9e05866cc18e2df8f2a
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+kill_a_cell.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+341f87d5eceeb6ab2f9b9994163f25b4
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+ICanCreateACell.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+66103e825e2e291981318f59872e2199
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

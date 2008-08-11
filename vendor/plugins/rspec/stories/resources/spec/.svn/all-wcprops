@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/stories/resources/spec
+END
+spec_with_flexmock.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/stories/resources/spec/spec_with_flexmock.rb
+END
+example_group_with_should_methods.rb
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/stories/resources/spec/example_group_with_should_methods.rb
+END
+simple_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/stories/resources/spec/simple_spec.rb
+END
+before_blocks_example.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/stories/resources/spec/before_blocks_example.rb
+END

@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks
+END
+framework.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/framework.rb
+END
+spec_methods.rb
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
+END
+error_generator.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/error_generator.rb
+END
+extensions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/extensions.rb
+END
+proxy.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/proxy.rb
+END
+methods.rb
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/methods.rb
+END
+argument_expectation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
+END
+message_expectation.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
+END
+order_group.rb
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/order_group.rb
+END
+mock.rb
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/mock.rb
+END
+space.rb
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/space.rb
+END
+argument_constraint_matchers.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/argument_constraint_matchers.rb
+END
+errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/mocks/errors.rb
+END

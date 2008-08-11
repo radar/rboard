@@ -1,0 +1,43 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/stories/stories
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+multiline_steps.story
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+8691a18c782d6fb4ff2a5286bba16254
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+stories.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+f1b7b177793ff42d302d9653a0852ca9
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+steps
+dir
+

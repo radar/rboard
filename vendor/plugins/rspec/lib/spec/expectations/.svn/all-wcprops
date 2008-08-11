@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/expectations
+END
+handler.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/expectations/handler.rb
+END
+extensions.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/expectations/extensions.rb
+END
+errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/expectations/errors.rb
+END

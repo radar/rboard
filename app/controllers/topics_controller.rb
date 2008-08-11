@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
   
   def show
      @topic ||= Topic.find(params[:id])
+     @posts = Post.paginate :per_page => 30, :page => params[:page], :conditions => "topic_id = #{params[:id].to_i}", :include => [:topic, { :user => :user_level }]
      @topic.increment!("views")
    end
   
@@ -26,17 +27,6 @@ class TopicsController < ApplicationController
     else
       flash[:notice] = "Topic was not created."
       render :action => "new"
-    end
-  end
-  
-  def reply
-    @topic = Topic.find(params[:id])
-    #is there an easier way to do this?
-    @posts = @topic.last_10_posts
-    @post = @topic.posts.build(:user => current_user)
-    if params[:quote]
-      @quoting_post = Post.find(params[:quote])
-      @post.text = "[quote=\"" + @quoting_post.user.login + "\"]" + @quoting_post.text + "[/quote]"
     end
   end
   

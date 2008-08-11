@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers
+END
+redirect_to_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/redirect_to_spec.rb
+END
+have_text_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/have_text_spec.rb
+END
+include_text_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
+END
+errors_on_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/errors_on_spec.rb
+END
+description_generation_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/description_generation_spec.rb
+END
+render_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/render_spec.rb
+END
+assert_select_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
+END

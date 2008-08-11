@@ -1,0 +1,64 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/rake_tasks
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+examples.rake
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+dde6092e1a2ab5db4db1d19b7ab13d5c
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+examples_with_rcov.rake
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+e00be2ff9d2f9d70fbe4c8de3e7a8294
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+failing_examples_with_html.rake
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+16537c7275b040e8178e9b65bd805891
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+verify_rcov.rake
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+0e6c81a6b07874e568a92397824d7b3e
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

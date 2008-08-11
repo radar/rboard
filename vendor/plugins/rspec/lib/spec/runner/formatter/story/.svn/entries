@@ -1,0 +1,40 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/lib/spec/runner/formatter/story
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+html_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+0cde8070a17508bb5148ec6e0e266a58
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+plain_text_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+473ea8a4baeab3504c1e769c63dcd3e4
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

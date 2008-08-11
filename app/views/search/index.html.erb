@@ -1,0 +1,10 @@
+<% form_tag do %>
+Search: <%= text_field_tag "query" %>
+<%= submit_tag "Search" %>
+<% end %>
+<% if request.post? %>
+  <% for post in @posts %>
+    <h2>In <%= link_to post.topic, [post.topic.forum, post.topic] %></h2>
+    <%= render :partial => post %>
+  <% end %>
+<% end %>

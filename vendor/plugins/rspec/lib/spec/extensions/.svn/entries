@@ -1,0 +1,65 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/lib/spec/extensions
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+main.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+c6f23dc299d9f086bc99868dc97eab61
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+class.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+8722ccdfead8e9519f0871df07b0faa4
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+object.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+b60cd6cd16cd50f71c81ba24aff3e28d
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+has-props
+
+metaclass.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+fed89698e5c4d8d9b8b7faeb15a5d33e
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

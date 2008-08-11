@@ -1,5 +1,31 @@
 class PostsController < ApplicationController
   before_filter :login_required
+  
+  def nce
+     @topic = Topic.find(params[:topic_id], :include => :posts)
+     #is there an easier way to do this?
+     @posts = @topic.last_10_posts
+     @post = @topic.posts.build(:user => current_user)
+     if params[:quote]
+       @quoting_post = Post.find(params[:quote])
+       @post.text = "[quote=\"" + @quoting_post.user.login + "\"]" + @quoting_post.text + "[/quote]"
+     end
+   end
+
+  def create
+    @topic = Topic.find(params[:topic_id], :include => :posts)
+    @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
+    @post = @topic.posts.build(params[:post].merge!(:user => current_user))
+    if @post.save
+      flash[:notice] = "Post has been created."
+      redirect_to forum_topic_path(@post.forum,@topic)
+    else
+      @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
+      flash[:notice] = "This post could not be created."
+      render :action => "new"
+    end
+  end
+   
   def edit
     @post = Post.find(params[:id])
     unless is_post_owner_or_admin?(params[:id])
@@ -21,20 +47,6 @@ class PostsController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     not_found
-  end
-  
-  def create
-    @topic = Topic.find(params[:topic_id], :include => :posts)
-    @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
-    @post = @topic.posts.build(params[:post].merge!(:user => current_user))
-    if @post.save
-      flash[:notice] = "Post has been created."
-      redirect_to forum_topic_path(@post.forum,@topic)
-    else
-      @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
-      flash[:notice] = "This post could not be created."
-      render :action => "../topics/reply"
-    end
   end
   
   def destroy

@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks
+END
+bug_report_10263_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_10263_spec.rb
+END
+mock_space_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/mock_space_spec.rb
+END
+partial_mock_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
+END
+partial_mock_using_mocks_directly_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/partial_mock_using_mocks_directly_spec.rb
+END
+record_messages_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/record_messages_spec.rb
+END
+at_most_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/at_most_spec.rb
+END
+passing_mock_argument_constraints_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+END
+twice_counts_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/twice_counts_spec.rb
+END
+bug_report_11545_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_11545_spec.rb
+END
+null_object_mock_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/null_object_mock_spec.rb
+END
+failing_mock_argument_constraints_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
+END
+stub_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/stub_spec.rb
+END
+bug_report_15719_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_15719_spec.rb
+END
+once_counts_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/once_counts_spec.rb
+END
+mock_ordering_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/mock_ordering_spec.rb
+END
+hash_including_matcher_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb
+END
+bug_report_8302_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_8302_spec.rb
+END
+any_number_of_times_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/any_number_of_times_spec.rb
+END
+argument_expectation_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/argument_expectation_spec.rb
+END
+precise_counts_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/precise_counts_spec.rb
+END
+bug_report_7611_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_7611_spec.rb
+END
+multiple_return_value_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/multiple_return_value_spec.rb
+END
+mock_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
+END
+bug_report_8165_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_8165_spec.rb
+END
+bug_report_7805_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_7805_spec.rb
+END
+at_least_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/at_least_spec.rb
+END
+options_hash_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
+END
+bug_report_10260_spec.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/spec/spec/mocks/bug_report_10260_spec.rb
+END

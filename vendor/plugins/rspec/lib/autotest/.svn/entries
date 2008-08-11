@@ -1,0 +1,40 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/lib/autotest
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+discover.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+7eb0d9d3bf84f5349c51244109548262
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+rspec.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+1ceaa0a5f5464be7591b75bef38e298f
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

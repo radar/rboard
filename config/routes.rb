@@ -3,6 +3,8 @@ ActionController::Routing::Routes.draw do |map|
   map.login 'login', :controller => 'accounts', :action => 'login'
   map.logout 'logout', :controller => 'accounts', :action => 'logout'
   map.signup 'signup', :controller => "accounts", :action => 'signup'
+  
+  map.search 'search', :controller => "search", :action => "index"
   map.admin_index 'admin/index', :controller => "admin/index", :action => "index"
   map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
  
@@ -26,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
   map.resources :posts
   
-  map.resources :accounts, :collection => { :profile => :any }
   
+  map.resources :accounts, :collection => { :profile => :any }
   map.connect ':controller/:action/:id'
 end

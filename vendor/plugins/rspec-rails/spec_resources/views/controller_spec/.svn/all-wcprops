@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec
+END
+_partial.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec/_partial.rhtml
+END
+action_setting_flash_after_session_reset.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec/action_setting_flash_after_session_reset.rhtml
+END
+action_setting_flash_before_session_reset.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec/action_setting_flash_before_session_reset.rhtml
+END
+action_with_template.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec/action_with_template.rhtml
+END
+action_setting_the_assigns_hash.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec/action_setting_the_assigns_hash.rhtml
+END
+action_with_errors_in_template.rhtml
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec-rails/spec_resources/views/controller_spec/action_with_errors_in_template.rhtml
+END

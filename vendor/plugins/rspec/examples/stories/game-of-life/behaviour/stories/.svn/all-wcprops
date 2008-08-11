@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories
+END
+steps.rb
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/steps.rb
+END
+CellsWithLessThanTwoNeighboursDie.story
+K 25
+svn:wc:ra_dav:version-url
+V 141
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/CellsWithLessThanTwoNeighboursDie.story
+END
+helper.rb
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/helper.rb
+END
+TheGridWraps.story
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/TheGridWraps.story
+END
+create_a_cell.rb
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/create_a_cell.rb
+END
+ICanKillACell.story
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/ICanKillACell.story
+END
+stories.txt
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/stories.txt
+END
+stories.rb
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/stories.rb
+END
+CellsWithMoreThanThreeNeighboursDie.story
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/CellsWithMoreThanThreeNeighboursDie.story
+END
+EmptySpacesWithThreeNeighboursCreateACell.story
+K 25
+svn:wc:ra_dav:version-url
+V 149
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/EmptySpacesWithThreeNeighboursCreateACell.story
+END
+kill_a_cell.rb
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/kill_a_cell.rb
+END
+ICanCreateACell.story
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour/stories/ICanCreateACell.story
+END

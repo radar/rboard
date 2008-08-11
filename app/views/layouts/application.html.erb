@@ -21,15 +21,16 @@
         <div class='menu-bar'>
           <%= link_to "Home", forums_path %> |
           <% unless logged_in? %>
-              <%= link_to "Login", :controller => "accounts", :action => "login" %> |
+              <%= link_to "Login", login_path %> |
               <%= link_to "Signup", :controller => "accounts", :action => "signup" %>
            
           <% else %>
             Logged in as <%= link_to current_user.login, :controller => "accounts", :action => "user", :id => current_user.login %> |
             <%= link_to "Profile", :controller => "/accounts", :action => "profile" %> |
-            <%= link_to "Member List", :controller => "/accounts", :action => "index" %> |
+            <%= link_to "Member List", :controller => "/accounts", :action => "index" %> | 
+            <%= link_to "Search", search_path %> | 
             <%= link_to pluralize(@current_user.unread_messages.size,"new message"), messages_path %> |
-            <%= link_to "Logout", :controller => "/accounts", :action => "logout"  %>
+            <%= link_to "Logout", logout_path %>
        <% end %>
         </div>
         <div class='time-now'>

@@ -1,7 +1,9 @@
 log/*.log
+log/searchd*
 tmp/*
 db/schema.rb
 db/*.sqlite3
+db/sphinx/*
 config/database.yml
 nbproject/**/*
 nbproject/project.*

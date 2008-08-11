@@ -1,0 +1,40 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/lib/spec/rake
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+spectask.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+0602c784518adbfcff2e65bf0b1dcd33
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+verify_rcov.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+00b7f2d656fc63144db70f719d18c1a8
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

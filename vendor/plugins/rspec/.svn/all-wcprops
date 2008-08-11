@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec
+END
+History.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/History.txt
+END
+Rakefile
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/Rakefile
+END
+Manifest.txt
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/Manifest.txt
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/.gitignore
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/TODO
+END
+init.rb
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/init.rb
+END
+.autotest
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/.autotest
+END
+README.txt
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/README.txt
+END

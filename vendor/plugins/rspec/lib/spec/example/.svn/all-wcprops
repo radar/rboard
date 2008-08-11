@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example
+END
+shared_example_group.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/shared_example_group.rb
+END
+example_group_factory.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/example_group_factory.rb
+END
+example_matcher.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/example_matcher.rb
+END
+example_methods.rb
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/example_methods.rb
+END
+module_inclusion_warnings.rb
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/module_inclusion_warnings.rb
+END
+module_reopening_fix.rb
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/module_reopening_fix.rb
+END
+pending.rb
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/pending.rb
+END
+configuration.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/configuration.rb
+END
+example_group.rb
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/example_group.rb
+END
+example_group_methods.rb
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+END
+errors.rb
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/lib/spec/example/errors.rb
+END

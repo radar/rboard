@@ -1,0 +1,37 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/story_server/prototype
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+lib
+dir
+
+javascripts
+dir
+
+stories.html
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+4600ab4c6382d58a7b35a63d451227a1
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+stylesheets
+dir
+

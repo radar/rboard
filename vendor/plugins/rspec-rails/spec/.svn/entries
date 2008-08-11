@@ -1,0 +1,43 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/spec
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+rails_suite.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+029097babada80902e1ad73733dd96c4
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+rails
+dir
+
+spec_helper.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+8808dfc343a7b283e08ed216706de230
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

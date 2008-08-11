@@ -1,0 +1,151 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/lib/spec/runner/formatter
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+base_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+0f7754b6ca5547c76b5a180d40db1086
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+snippet_extractor.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+0e0c645cd3573f894e4bbc9a42a3e90c
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+text_mate_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+11af3c36b2ed41759bf80b65cd7eb335
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+story
+dir
+
+base_text_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+f932ee185ccd4db19c8ee860c601067e
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+profile_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+46b6e32d5f976488b3651c03ff4bd5dc
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+specdoc_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+63ef101da7c891576e93a5ddbac67ab0
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+failing_example_groups_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+61a8a1eaf62b5ba6daab319f42ef4cbc
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+html_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+0bc325016743f734597347099680cb42
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+nested_text_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+5d088ad40c6f44e44978fd69b8e3ee30
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+failing_examples_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+4401b640454af7d63e3da6963d07f3fa
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+progress_bar_formatter.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+46f0797c465b24bf804b1ce0000fdde3
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

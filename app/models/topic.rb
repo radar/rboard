@@ -13,6 +13,10 @@ class Topic < ActiveRecord::Base
   #silence the error messages
   def validates_associated_post_records;   end
   
+  def to_s
+    subject
+  end
+  
   def last_10_posts
     posts.last(10).reverse
   end

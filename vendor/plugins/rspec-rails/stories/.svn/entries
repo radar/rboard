@@ -1,0 +1,70 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/stories
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+transactions_should_rollback
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+8da53ac1760d618fce981805ea69f3f3
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+helper.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+3af491adb00f0bb8d0662629200bd4c1
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+transactions_should_rollback.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+7e8d746a15e5eb4a950aa1561969bc1e
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+configuration
+dir
+
+all.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+10babb47420b919a81654d7e28833d1b
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+steps
+dir
+

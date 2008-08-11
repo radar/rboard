@@ -5,6 +5,13 @@ class Post < ActiveRecord::Base
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
+  define_index do
+      indexes text
+      indexes user.login, :as => :user, :sortable => true
+      has user_id, created_at, updated_at
+      set_property :delta => true
+    end
+
   after_create :update_forum
   after_destroy :find_latest_post
   

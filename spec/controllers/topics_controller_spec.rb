@@ -60,23 +60,6 @@ describe TopicsController do
       flash[:notice].should eql("You are not allowed to see topics in this forum.")
     end
     
-    it "should be able to reply to a topic" do
-      Topic.should_receive(:find).and_return(@topic)
-      @topic.should_receive(:last_10_posts).and_return(@posts)
-      @topic.should_receive(:posts).and_return(@posts)
-      @posts.should_receive(:build).and_return(@post)
-      get 'reply', { :forum_id => @everybody.id, :id => @admin_topic.id }
-    end
-    
-    it "should be able to reply to a topic with a quote" do
-      Topic.should_receive(:find).and_return(@topic)
-      @topic.should_receive(:last_10_posts).and_return(@posts)
-      Post.should_receive(:find).and_return(@post)
-      @topic.should_receive(:posts).and_return(@posts)
-      @posts.should_receive(:build).and_return(@post)
-      get 'reply', { :forum_id => @everybody.id, :id => @admin_topic.id, :quote => @post.id }
-    end
-    
     it "should not be able to moderate topics" do
       post 'moderate', { :commit => "Lock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
       flash[:notice].should eql("You are not allowed to see topics in this forum.")
@@ -127,15 +110,18 @@ describe TopicsController do
     it "should be able to lock any topic in the admin forum" do
       Topic.should_receive(:find).and_return(@topic)
       @topic.should_receive(:update_attribute).with("locked", true).and_return(@topic)
+      @topic.should_receive(:forum).and_return(@forum)
       put 'lock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(topic_path(@topic))
+      response.should redirect_to(forum_topic_path(@forum, @topic))
     end
     
     it "should be able to unlock any topic in the admin forum" do
       Topic.should_receive(:find).and_return(@topic)
       @topic.should_receive(:update_attribute).with("locked", false).and_return(@topic)
+      @topic.should_receive(:forum).and_return(@forum)
+      @topic.stub!(:has_key?)
       put 'unlock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(topic_path(@topic))
+      response.should redirect_to(topic_path(@forum, @topic))
     end
     
     

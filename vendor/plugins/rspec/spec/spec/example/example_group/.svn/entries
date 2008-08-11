@@ -1,0 +1,40 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/spec/spec/example/example_group
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+described_module_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+12881b5eac07622a47b22b0f705b6f08
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+warning_messages_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+27b633c461ac7f9e41a17f99fb6f0ba5
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

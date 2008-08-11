@@ -1,0 +1,139 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+History.txt
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+8661a48ecdd2c1498ea888bf8bda6a44
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+plugins
+dir
+
+Rakefile
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+007e297cfd7aea0b8ff76e77c61a2e04
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+Manifest.txt
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+511061076b8843507e060718e261ce2b
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+.autotest
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+b1da8089d1b3b0e7ef157fc16006fc12
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+rake_tasks
+dir
+
+stories
+dir
+
+spec
+dir
+
+TODO
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+68b329da9893e34099c7d8ad5cb9c940
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+.gitignore
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+9271f4b31498d3e0a03c3e942a749b65
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+init.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+640f74b8156893c1bc98a2050c8589d3
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+story_server
+dir
+
+lib
+dir
+
+failing_examples
+dir
+
+bin
+dir
+
+README.txt
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+fa8e8ad6d34e6ff3a4939a5322351cd6
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+examples
+dir
+

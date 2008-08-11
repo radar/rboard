@@ -1,0 +1,101 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/generators/rspec_scaffold/templates
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+controller_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+7b27a9de8e916ee43a47b295c545354d
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+has-props
+
+routing_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+984fae613a2647346f53e7ac4f553f53
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+show_erb_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+775886a28071f4331fc8191105595c56
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+edit_erb_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+687e4e2b376dc4eda7932d220d93dc78
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+helper_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+a7090e4a9ac36a37619859a31339d0af
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+index_erb_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+2367a27dfb94a9886248116583a82d76
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+new_erb_spec.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+9060882669079c19e815a9ac5ad60763
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

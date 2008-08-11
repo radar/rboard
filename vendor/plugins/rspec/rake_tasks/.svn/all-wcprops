@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/rake_tasks
+END
+examples.rake
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/rake_tasks/examples.rake
+END
+examples_with_rcov.rake
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/rake_tasks/examples_with_rcov.rake
+END
+failing_examples_with_html.rake
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/rake_tasks/failing_examples_with_html.rake
+END
+verify_rcov.rake
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/projects/!svn/ver/1542/sacc/vendor/plugins/rspec/rake_tasks/verify_rcov.rake
+END

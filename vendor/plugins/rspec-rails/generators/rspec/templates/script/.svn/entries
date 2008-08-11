@@ -1,0 +1,52 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/generators/rspec/templates/script
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+spec_server
+file
+
+
+
+
+2008-08-05T00:55:44.000000Z
+fb55b0f3fabf2780199f7e39569a35a4
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+autospec
+file
+
+
+
+
+2008-08-05T00:55:44.000000Z
+4383665cc07ee96a897d560b66fac04a
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+spec
+file
+
+
+
+
+2008-08-05T00:55:44.000000Z
+3b01b40d35973243f354ede2a22a43fa
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

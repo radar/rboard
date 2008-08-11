@@ -1,0 +1,29 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/lib/spec/rails/extensions/spec/example
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+configuration.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+e333a9fbba33861ea37c0553ec14f4cf
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+has-props
+

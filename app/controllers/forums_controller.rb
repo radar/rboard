@@ -12,7 +12,7 @@ class ForumsController < ApplicationController
   end
   
   def show
-    @topics = @forum.topics.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC, id DESC"
+    @topics = @forum.topics.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC, id DESC", :include => [:posts => [:user]]
     @forums = @forum.children.sort_by { |f| f.position }
   end
   

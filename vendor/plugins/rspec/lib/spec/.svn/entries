@@ -1,0 +1,155 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/lib/spec
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+story
+dir
+
+interop
+dir
+
+story.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+4ab3d712b369a8c7cbf667ad1e3349c8
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+rake
+dir
+
+version.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+b4c10947acb8868421ce4fb48c8a90a6
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+example
+dir
+
+example.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+8dce434cefbe38cdd7ec56a46910bc3b
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+extensions
+dir
+
+extensions.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+b5767724f28b18993ec36a7c304d3592
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+has-props
+
+adapters
+dir
+
+adapters.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+ce2ef62009fb3c69a13c78956e2abd7e
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+expectations
+dir
+
+matchers
+dir
+
+expectations.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+eaa26a937cfea67588c81da8651cfff8
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+matchers.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+17d915fd5d66771a6384736f78f6dd5c
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+runner
+dir
+
+runner.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+9cef00790442e259b1661568f294595e
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+mocks
+dir
+
+mocks.rb
+file
+
+
+
+
+2008-08-05T00:55:46.000000Z
+861ed21000f27acd46f54f43bb30f9ad
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+

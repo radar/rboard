@@ -1,0 +1,100 @@
+8
+
+dir
+1542
+https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/lib/spec/rails
+https://svn.boxensystems.com/svn/projects
+
+
+
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+
+svn:special svn:externals svn:needs-lock
+
+extensions
+dir
+
+interop
+dir
+
+extensions.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+ef2fa37126cdf190d9e55b7d25eab8f0
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+story_adapter.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+243b7d1b2040380fdd1565b23d9039e5
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+matchers
+dir
+
+version.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+c54758f9c14d11f5b4e4875f2afc1919
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+matchers.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+ef0c729a6dc54a3564bae5e5346424e3
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+example
+dir
+
+example.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+fd207aadd6eafde0cfda70e208a62908
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
+mocks.rb
+file
+
+
+
+
+2008-08-05T00:55:45.000000Z
+757fb9c0aec45c0a41aad8de139541da
+2008-08-06T03:36:47.925716Z
+1542
+Ryan Bigg
+
