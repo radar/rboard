@@ -1,0 +1,6 @@
+gem_deploy.rake
+pkg
+coverage
+*.tmproj
+rdoc
+spec/fixtures/database.yml
