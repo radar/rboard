@@ -10,5 +10,5 @@ nbproject/project.*
 test
 coverage
 coverage/*
-
+config/*.sphinx.conf
 

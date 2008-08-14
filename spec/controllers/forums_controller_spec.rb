@@ -45,7 +45,7 @@ describe ForumsController do
   
   it "should show the admin forum to the administrator" do
     login_as(:administrator)
-    Forum.should_receive(:find).twice.and_return(@forum)
+    Forum.should_receive(:find).twice.and_return(@forum, @forums)
     @forum.should_receive(:viewable?).and_return(true)
     @forum.should_receive(:topics).and_return(@topics)
     @topics.should_receive(:paginate).and_return(@topics)

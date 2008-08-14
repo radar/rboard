@@ -17,17 +17,23 @@ class Forum < ActiveRecord::Base
   #There's no easy way to do it
   alias_method :old_topics, :topics
   
-  #NOT TESTED
-  #POTENTIALLY UNSTABLE
-  def update_last_post
-    if posts.first.nil?
-      self.last_post = nil
-      self.last_post_forum = nil
-    else
-      self.last_post = posts.first
-      self.last_post_forum = posts.first.forum if posts.first.forum != self
+  def update_last_post(new_forum, post=nil)
+    post ||= posts.last
+    self.last_post = post
+    self.last_post_forum = nil
+    self.save!
+    for ancestor in (ancestors - [new_forum])
+      if !post.nil?
+        if ancestor.last_post.nil? || (ancestor.last_post.created_at < post.created_at)
+          ancestor.last_post = post
+          ancestor.last_post_forum = self
+        end
+      else
+        ancestor.last_post = nil
+        ancestor.last_post_forum = nil
+      end
+      ancestor.save
     end
-    save
   end
   
   def topics

@@ -3,6 +3,7 @@ class Topic < ActiveRecord::Base
   belongs_to :forum
   has_many :posts, :dependent => :destroy, :order => "created_at asc"
   has_many :users, :through => :posts
+  belongs_to :last_post, :class_name => "Post"
   
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
@@ -19,11 +20,13 @@ class Topic < ActiveRecord::Base
   
   def move!(new_forum_id)
     old_forum = Forum.find(forum_id)
+    was_old_last_post = old_forum.last_post == self.last_post
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
-    posts.last.update_forum if posts.last != new_forum.posts.last
+    is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
+    new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
     old_forum.reload
-    old_forum.update_last_post
+    old_forum.update_last_post(new_forum) if was_old_last_post
   end
   
   def lock!

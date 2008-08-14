@@ -68,6 +68,7 @@ describe PostsController, "as plebian" do
     @post.should_receive(:save).and_return(true)
     @post.should_receive(:forum).twice.and_return(@forum)
     @post.should_receive(:topic).and_return(@topic)
+    @topic.should_receive(:update_attribute).with("last_post_id", @post.id).and_return(true)
     post 'create', {:post => { :text => "This is a new post" }, :topic_id => topics(:user).id }
     flash[:notice].should eql("Post has been created.")
     response.should redirect_to(forum_topic_path(@post.forum, @post.topic, :page => 1))

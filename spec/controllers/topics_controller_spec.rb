@@ -105,6 +105,7 @@ describe TopicsController do
       @posts.should_receive(:build).and_return(@post)
       @topic.should_receive(:forum).and_return(@forum)
       @topic.should_receive(:save).and_return(true)
+      @topic.should_receive(:update_attribute).with("last_post_id", @post.id).and_return(true)
       post 'create', { :topic => { :subject => "Subject"}, :post => { :text => "New text!"}, :forum_id => forums(:admins_only).id }
       flash[:notice].should eql("Topic has been created.")
       #TODO: Test for redirect

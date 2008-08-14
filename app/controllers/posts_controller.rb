@@ -17,6 +17,7 @@ class PostsController < ApplicationController
     @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
     @post = @topic.posts.build(params[:post].merge!(:user => current_user))
     if @post.save
+      @topic.update_attribute("last_post_id", @post.id)
       page = (@topic.posts.size.to_f / 30).ceil
       flash[:notice] = "Post has been created."
       redirect_to forum_topic_path(@post.forum,@topic, :page => page)
