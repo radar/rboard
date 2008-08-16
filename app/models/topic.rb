@@ -20,7 +20,7 @@ class Topic < ActiveRecord::Base
   
   def move!(new_forum_id)
     old_forum = Forum.find(forum_id)
-    was_old_last_post = old_forum.last_post == self.last_post
+    was_old_last_post = old_forum.last_post == last_post
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)

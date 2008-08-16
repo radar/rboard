@@ -52,14 +52,21 @@ class PostsController < ApplicationController
   end
   
   def destroy
-    @post = Post.find(params[:id]).destroy
-    flash[:notice] = "Post was deleted."
-    if @post.topic.posts.size.zero?
-      @post.topic.destroy
-      flash[:notice] += " This was the only post in the topic, so topic was deleted also."
-      redirect_to forum_path(@post.forum)
-    else
-      redirect_to forum_topic_path(@post.forum, @post.topic)
+    @post = Post.find(params[:id])
+    if request.delete?
+      if params[:soft_delete] == "1"
+        @post.update_attribute("deleted", true)
+      else
+        @post.destroy
+      end
+      flash[:notice] = "Post was deleted."
+      if @post.topic.posts.size.zero?
+        @post.topic.destroy
+        flash[:notice] += " This was the only post in the topic, so topic was deleted also."
+        redirect_to forum_path(@post.forum)
+      else
+        redirect_to forum_topic_path(@post.forum, @post.topic)
+      end
     end
   rescue ActiveRecord::RecordNotFound
     not_found

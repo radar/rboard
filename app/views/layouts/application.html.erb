@@ -3,9 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <title>rBoard - <%= params[:controller].capitalize %> - <%= params[:action].capitalize %> </title>
-    <style type='text/css'>
-      <%= theme %>
-    </style>
+    <link rel='stylesheet' href='/themes/<%= theme.name %>/style.css'>
     <%= javascript_include_tag :defaults %>
   </head>
   <body>

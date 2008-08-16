@@ -81,7 +81,7 @@ img {
   padding:5px;
 }
 
-.forums thead, .forum thead, .info-box thead, .posts thead, .action-box thead, .list-table thead {
+.forums thead, .forum thead, .info-box thead, .post thead, .action-box thead, .list-table thead {
   background:#E5F3FF url(/themes/blue/thead-bg.jpg) repeat-x scroll 0%;
   font-weight:bold;
 }
@@ -106,17 +106,30 @@ img {
   margin-top:2px;
 }
 
-.posts, .action-box {
+.post, .action-box {
   border:1px solid #84AFD3;
   margin:2px;
 }
 
-.posts tbody, .action-box tbody {
+.post tbody, .action-box tbody {
   background:#E1F1FF none repeat scroll 0%;
 }
 
-.posts tfoot, .action-box tfoot {
+.post tfoot, .action-box tfoot {
   background:#E1F1FF url(/themes/blue/tfoot-bg.jpg) repeat-x scroll 0%;
+}
+
+.deleted-post {
+  border:1px solid #D3AF84;
+  margin:2px;
+}
+
+.deleted-post tbody {
+  background:#FF9090 none repeat scroll 0%;
+}
+
+.deleted-post tfoot {
+  background:#FFF1E1 url(/themes/blue/tfoot-bg.jpg) repeat-x scroll 0%;
 }
 
 .posts h1 {

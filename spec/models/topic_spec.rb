@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Topic, "creation" do
   fixtures :topics, :forums
   before do
+    @topic = mock("topic")
+    @forum = mock("forum")
     @invalid_topic = topics(:invalid)
     @valid_topic = topics(:user)
     @everybody = forums(:everybody)
@@ -70,11 +72,4 @@ describe Topic, "creation" do
     @valid_topic.should_not be_sticky
   end
   
-  # it "should be able to move a topic" do
-  #   @valid_topic.forum_id.should eql(@everybody.id)
-  #   @valid_topic.move!(@admins_only.id)
-  #   @valid_topic.forum_id.should eql(@admins_only.id)
-  #   @everybody.reload
-  #   @everybody.last_post.should_not eql(@valid_topic.posts.last)
-  # end
 end

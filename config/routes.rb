@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
     topic.resources :posts
   end
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
-  map.resources :posts
+  map.resources :posts, :member => { :destroy => :any }
   
   
   map.resources :accounts, :collection => { :profile => :any }

@@ -16,5 +16,7 @@
     	<% end %>
   	<% end %>
 <% else %>
- | Locked!
+  <% if @topic.locked? %>
+  Locked!  
+  <% end %>
 <% end %>
