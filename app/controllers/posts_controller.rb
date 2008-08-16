@@ -14,8 +14,9 @@ class PostsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id], :include => :posts)
-    @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
-    @post = @topic.posts.build(params[:post].merge!(:user => current_user))
+    @posts = is_admin? ? @topic.posts : @topic.user_posts
+    @posts = @posts.find(:all, :order => "id DESC", :limit => 10)
+    @post = @posts.build(params[:post].merge!(:user => current_user))
     if @post.save
       @topic.update_attribute("last_post_id", @post.id)
       page = (@topic.posts.size.to_f / 30).ceil
@@ -53,12 +54,7 @@ class PostsController < ApplicationController
   
   def destroy
     @post = Post.find(params[:id])
-    if request.delete?
-      if params[:soft_delete] == "1"
-        @post.update_attribute("deleted", true)
-      else
-        @post.destroy
-      end
+    @post.destroy
       flash[:notice] = "Post was deleted."
       if @post.topic.posts.size.zero?
         @post.topic.destroy

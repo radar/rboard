@@ -7,8 +7,13 @@ class TopicsController < ApplicationController
   before_filter :moderator_login_required, :only => [:moderate, :lock, :unlock]
   
   def show
-     @topic = @forum.old_topics.find(params[:id])
-     @posts = Post.paginate :per_page => 30, :page => params[:page], :conditions => "topic_id = #{params[:id].to_i}", :include => [:topic, { :user => :user_level }]
+     @topic = @forum.old_topics.find(params[:id], :include => [:posts])
+     if is_admin?
+       @posts = @topic.posts
+     else
+       @posts = @topic.user_posts
+     end    
+     @posts = @posts.paginate :per_page => 30, :page => params[:page], :include => [:topic, { :user => :user_level }]
      @topic.increment!("views")
    rescue ActiveRecord::RecordNotFound
      not_found

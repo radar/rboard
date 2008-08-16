@@ -1,6 +1,0 @@
-<h2>Deleting a Post from <%= @post.topic %></h2>
-<% form_for @post, :html => {:method => "delete"} do %>
-  <%= check_box_tag "soft_delete" %>
-  <%= label_tag "soft_delete", "Soft delete?" %><br />
-  <%= submit_tag "Delete" %>
-<% end %>
