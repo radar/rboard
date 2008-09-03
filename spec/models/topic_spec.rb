@@ -1,12 +1,13 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-describe Topic, "creation" do
+describe Topic, "in general" do
   fixtures :topics, :forums
   before do
     @topic = mock("topic")
     @forum = mock("forum")
     @invalid_topic = topics(:invalid)
-    @valid_topic = topics(:user)
+    @valid_topic = topics(:user_3)
     @everybody = forums(:everybody)
+    @sub_of_everybody = forums(:sub_of_everybody)
     @admins_only = forums(:admins_only)
     # Remove the call to reverse for an interesting failing test
     @posts = @valid_topic.posts.reverse
@@ -43,7 +44,7 @@ describe Topic, "creation" do
   end
   
   it "should be able to show the string version" do
-    @valid_topic.to_s.should eql("Third topic!")
+    @valid_topic.to_s.should eql("Fifth topic!")
   end
   
   it "should be able to lock a topic" do
@@ -71,5 +72,18 @@ describe Topic, "creation" do
     @valid_topic.unsticky!
     @valid_topic.should_not be_sticky
   end
+  
+  it "should be able to move a topic from a sub-forum to a top-level forum" do
+    @everybody.last_post.should eql(@valid_topic.last_post)
+    @valid_topic.forum.should eql(@sub_of_everybody)
+    @valid_topic.move!(@admins_only.id)
+    @valid_topic.forum_id.should eql(@admins_only.id)
+    @sub_of_everybody.last_post_id.should be_nil
+    @everybody.last_post.should_not eql(@valid_topic.last_post)
+    @admins_only.reload
+    @admins_only.last_post.should eql(@valid_topic.last_post)
+  end
+  
+  
   
 end

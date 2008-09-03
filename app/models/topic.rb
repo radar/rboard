@@ -24,9 +24,16 @@ class Topic < ActiveRecord::Base
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
-    new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
-    old_forum.reload
-    old_forum.update_last_post(new_forum) if was_old_last_post
+    if is_new_last_post
+      puts "UPDATING LAST POST FOR #{new_forum}"
+      new_forum.update_last_post(new_forum, posts.last)
+    end
+    
+    if was_old_last_post
+      old_forum.reload
+      puts "UPDATING LAST POST FOR #{old_forum}"
+      old_forum.update_last_post(new_forum)
+    end
   end
   
   def lock!

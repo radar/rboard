@@ -13,11 +13,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :accounts, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
     admin.resources :themes, :member => { :make_default => :put }
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put  }
+    admin.chronic 'chronic', :controller => 'chronic'
   end
   
-  #FIXME
-  map.connect '/admin/chronic', :controller => "/admin/chronic"
- 
   map.resources :forums, :collection => { :list => :get } do |forum|
     forum.resources :topics, :collection => { :moderate => :post }, :member => { :lock => :put, :unlock => :put }
   end

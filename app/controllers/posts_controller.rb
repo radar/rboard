@@ -2,19 +2,19 @@ class PostsController < ApplicationController
   before_filter :login_required
   
   def new
-     @topic = Topic.find(params[:topic_id], :include => :posts)
-     #is there an easier way to do this?
-     @posts = @topic.last_10_posts
-     @post = @topic.posts.build(:user => current_user)
-     if params[:quote]
-       @quoting_post = Post.find(params[:quote])
-       @post.text = "[quote=\"" + @quoting_post.user.login + "\"]" + @quoting_post.text + "[/quote]"
-     end
-   end
+    @topic = Topic.find(params[:topic_id], :include => :posts)
+    #is there an easier way to do this?
+    @posts = @topic.last_10_posts
+    @post = @topic.posts.build(:user => current_user)
+    if params[:quote]
+      @quoting_post = Post.find(params[:quote])
+      @post.text = "[quote=\"" + @quoting_post.user.login + "\"]" + @quoting_post.text + "[/quote]"
+    end
+  end
 
   def create
     @topic = Topic.find(params[:topic_id], :include => :posts)
-    @posts = is_admin? ? @topic.posts : @topic.user_posts
+    @posts = @topic.posts
     @posts = @posts.find(:all, :order => "id DESC", :limit => 10)
     @post = @posts.build(params[:post].merge!(:user => current_user))
     if @post.save
@@ -55,14 +55,13 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-      flash[:notice] = "Post was deleted."
-      if @post.topic.posts.size.zero?
-        @post.topic.destroy
-        flash[:notice] += " This was the only post in the topic, so topic was deleted also."
-        redirect_to forum_path(@post.forum)
-      else
-        redirect_to forum_topic_path(@post.forum, @post.topic)
-      end
+    flash[:notice] = "Post was deleted."
+    if @post.topic.posts.size.zero?
+      @post.topic.destroy
+      flash[:notice] += " This was the only post in the topic, so topic was deleted also."
+      redirect_to forum_path(@post.forum)
+    else
+      redirect_to forum_topic_path(@post.forum, @post.topic)
     end
   rescue ActiveRecord::RecordNotFound
     not_found

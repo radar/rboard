@@ -23,6 +23,7 @@ user_3:
   subject: Fifth topic!
   user: plebian
   forum: sub_of_everybody
+  last_post: user_3
   
 invalid:
   id: 4

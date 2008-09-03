@@ -62,6 +62,11 @@ class Forum < ActiveRecord::Base
     list.compact
   end
   
+  def self.woot
+    callback :after_woot
+  end
+  
+  
   def sub?
     !parent_id.nil?
   end

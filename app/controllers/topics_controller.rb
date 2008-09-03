@@ -20,6 +20,8 @@ class TopicsController < ApplicationController
    end
   
   def new
+    check_ownership
+    puts "I SHOULD NEVER APPEAR"
     @topic = Topic.new
     @post = @topic.posts.build
   end
@@ -116,6 +118,10 @@ class TopicsController < ApplicationController
       flash[:notice] = "You are not allowed to create topics in this forum."
       redirect_back_or_default(forums_path)
     end
+  end
+  
+  def check_ownership
+     redirect_to root_path and return false
   end
   
   def find_forum
