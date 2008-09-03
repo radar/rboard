@@ -4,6 +4,7 @@ require 'riddle'
 require 'thinking_sphinx/active_record'
 require 'thinking_sphinx/association'
 require 'thinking_sphinx/attribute'
+require 'thinking_sphinx/collection'
 require 'thinking_sphinx/configuration'
 require 'thinking_sphinx/field'
 require 'thinking_sphinx/index'
@@ -20,7 +21,7 @@ module ThinkingSphinx
   module Version #:nodoc:
     Major = 0
     Minor = 9
-    Tiny  = 8
+    Tiny  = 9
     
     String = [Major, Minor, Tiny].join('.')
   end
