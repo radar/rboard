@@ -4,6 +4,7 @@ class Topic < ActiveRecord::Base
   has_many :posts, :dependent => :destroy, :order => "created_at asc"
   has_many :users, :through => :posts
   belongs_to :last_post, :class_name => "Post"
+  named_scope :recent, lambda { { :conditions => ["created_at > ?", 2.weeks.ago] } }
   
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil

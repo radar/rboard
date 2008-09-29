@@ -1,1 +1,25 @@
-<%= text_area "post", "text", :cols => "90", :value => @post.text %><br />
+<tbody>
+  <tr>
+    <td valign='top'>
+      <b>Post:</b>
+    </td>
+    <td>
+      <%= f.text_area 'text', :cols => 90 %>
+    </td>
+  </tr>
+  
+  <% if is_admin? %>
+    <tr>
+      <td colspan='2'>
+        <%= check_box_tag 'silent_edit' %>
+        <%= label_tag 'silent_edit', 'Edit silently?' %>
+      </td>
+    </tr>
+  <% end %>
+  
+</tbody>
+<tfoot>
+  <tr>
+    <td colspan='2'><%= submit_tag("Create") %></td>
+  </tr>
+</tfoot>

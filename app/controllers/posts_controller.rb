@@ -1,9 +1,8 @@
 class PostsController < ApplicationController
   before_filter :login_required
+  before_filter :find_topic
   
   def new
-    @topic = Topic.find(params[:topic_id], :include => :posts)
-    #is there an easier way to do this?
     @posts = @topic.last_10_posts
     @post = @topic.posts.build(:user => current_user)
     if params[:quote]
@@ -31,22 +30,24 @@ class PostsController < ApplicationController
    
   def edit
     @post = Post.find(params[:id])
-    unless is_post_owner_or_admin?(params[:id])
-      flash[:notice] = "You do not own that post."
-      redirect_back_or_default(forums_path)
-    else
-      render :layout => false
-    end
+    check_ownership
   rescue ActiveRecord::RecordNotFound
     not_found
   end
   
   def update
     @post = Post.find(params[:id])
+    check_ownership
+    @topic = @post.topic
+    if (@post != @topic.posts.last && params[:post][:text] != @post.text) && (!is_admin? || (is_admin? && params[:silent_edit] != "1"))
+      edit = @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr)
+    end
     if @post.update_attributes(params[:post])
       flash[:notice] = "Post has been updated."
+      redirect_to forum_topic_path(@topic.forum, @topic)
     else
       flash[:notice] = "This post could not be updated."
+      render :action => "edit"
     end
   rescue ActiveRecord::RecordNotFound
     not_found
@@ -72,5 +73,15 @@ class PostsController < ApplicationController
       flash[:notice] = "The post you were looking for could not be found."
       redirect_back_or_default(forums_path)
     end
-  
+    
+    def find_topic
+      @topic = Topic.find(params[:topic_id]) unless params[:topic_id].nil?
+    end
+    
+    def check_ownership
+      unless @post.user == current_user || is_admin?
+        flash[:notice] = "You do not own that post."
+        redirect_back_or_default(forums_path)
+      end
+    end
 end

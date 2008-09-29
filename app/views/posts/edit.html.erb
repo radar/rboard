@@ -1,5 +1,15 @@
-<div id='errors'></div>
-<% remote_form_for :post, @post, :url => post_path(@post), :html => { :method => :put } do %>
-<%= render :partial => "form" %>
-<%= submit_tag "Update" %>
+<%= error_messages_for 'post' %>
+<% form_for [@topic, @post] do |f| %>
+  <%= hidden_field_tag("quote", params[:quote]) %>
+  <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
+    <thead>
+      <tr>
+        <td colspan='2'><h2>Editing a reply in <%= @topic.subject %></h2></td>
+      </tr>
+    </thead>
+    <%= render :partial => "form", :locals => { :f => f } %>
+  </table>
 <% end %>
+<table cellspacing='0' cellpadding='5' width='100%' class='posts'>
+  <%= render :collection => @posts %>
+</table>

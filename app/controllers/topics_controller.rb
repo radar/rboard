@@ -8,20 +8,13 @@ class TopicsController < ApplicationController
   
   def show
      @topic = @forum.old_topics.find(params[:id], :include => [:posts])
-     if is_admin?
-       @posts = @topic.posts
-     else
-       @posts = @topic.user_posts
-     end    
-     @posts = @posts.paginate :per_page => 30, :page => params[:page], :include => [:topic, { :user => :user_level }]
+     @posts = @topic.posts.paginate :per_page => 30, :page => params[:page], :include => [:topic, { :user => :user_level }]
      @topic.increment!("views")
    rescue ActiveRecord::RecordNotFound
      not_found
    end
   
   def new
-    check_ownership
-    puts "I SHOULD NEVER APPEAR"
     @topic = Topic.new
     @post = @topic.posts.build
   end
@@ -120,9 +113,7 @@ class TopicsController < ApplicationController
     end
   end
   
-  def check_ownership
-     redirect_to root_path and return false
-  end
+  private
   
   def find_forum
     @forum = Forum.find(params[:forum_id]) if params[:forum_id]

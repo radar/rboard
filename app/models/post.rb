@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
-  belongs_to :editor, :class_name => "User", :foreign_key => "edited_by_id"
+  has_many :edits, :order => "created_at ASC"
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
@@ -14,6 +14,7 @@ class Post < ActiveRecord::Base
 
   after_create :update_forum
   after_destroy :find_latest_post
+
   
   def update_forum
     forum.last_post = self
@@ -39,12 +40,14 @@ class Post < ActiveRecord::Base
     if !last.nil?
       Post.update_latest_post(last)
     else
-      #probably does not set the ancestors last_posts correctly
       forum.last_post = nil
       forum.last_post_forum = nil
       forum.save
     end
-
+  end
+  
+  def editor
+    edits.last.user
   end
   
   def forum

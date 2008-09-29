@@ -1,5 +1,5 @@
 <%= error_messages_for 'post' %>
-<% form_for [@topic, @post] do %>
+<% form_for [@topic, @post] do |f| %>
   <%= hidden_field_tag("quote", params[:quote]) %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead>
