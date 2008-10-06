@@ -1,8 +1,8 @@
 <%= link_to("rBoard", forums_path) %> <%= breadcrumb(@topic.forum) %> -> <%= @topic.subject %>
 <h2><%= @topic.subject %></h2>
-<%= will_paginate @posts %>
+<%= pagination = will_paginate(@posts) %>
 <%= render :partial => "menu" %>
 <br />
 <%= render :partial => @posts %>
 <%= render :partial => "menu" %>
-<%= will_paginate @posts %>
+<%= pagination %>

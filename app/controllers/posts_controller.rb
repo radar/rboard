@@ -18,7 +18,7 @@ class PostsController < ApplicationController
     @post = @posts.build(params[:post].merge!(:user => current_user))
     if @post.save
       @topic.update_attribute("last_post_id", @post.id)
-      page = (@topic.posts.size.to_f / 30).ceil
+      page = (@topic.posts.size.to_f / per_page).ceil
       flash[:notice] = "Post has been created."
       redirect_to forum_topic_path(@post.forum,@topic, :page => page)
     else
@@ -39,8 +39,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     check_ownership
     @topic = @post.topic
-    if (@post != @topic.posts.last && params[:post][:text] != @post.text) && (!is_admin? || (is_admin? && params[:silent_edit] != "1"))
-      edit = @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr)
+    if @post.text != params[:post][:text]
+      @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr, :hidden => params[:silent_edit] == "1")
+      @post.edited_by = current_user
     end
     if @post.update_attributes(params[:post])
       flash[:notice] = "Post has been updated."

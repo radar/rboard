@@ -2,7 +2,10 @@
   <thead>
     <tr>
       <td rowspan='2' valign='top' width='15%'><b><%= post.user.login %></b></td>
-      <td valign='top'>#<%= post_counter + 1 %> <%= post.created_at.strftime(time_display) %></td>
+      <td valign='top'>
+        #<%= per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1 %> <%= post.created_at.strftime(time_display) %>
+        <% unless post.edits.empty? %> - <%= link_to_if(is_moderator? && !post.edits.empty?, pluralize(post.edits.size, "edit"), post_edits_path(post)) %><% end %>
+      </td>
       <td align='right' valign='top'>
 	      <% if !post.topic.locked || is_admin? %>
           <%= link_to "Reply", new_topic_post_path(post.topic) %> |

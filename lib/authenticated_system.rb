@@ -2,6 +2,11 @@ module AuthenticatedSystem
   # Returns true or false if the user is logged in.
   # Preloads @current_user with the user model if they're logged in.
   
+  #Per Page value for paginated sections of the forums,
+  def per_page
+    logged_in? ? current_user.per_page : PER_PAGE
+  end
+  
   #how the user has selected they want to display the time
   def time_display
     logged_in? ? current_user.time_display : TIME_DISPLAY
@@ -17,9 +22,9 @@ module AuthenticatedSystem
   end
   
   def is_moderator?
-    logged_in? && current_user.moderator?
+    logged_in? && (current_user.admin? || current_user.moderator?)
   end
-  
+    
   def non_admin_redirect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
@@ -116,14 +121,15 @@ module AuthenticatedSystem
               :current_user,
               :logged_in?,
               :is_admin?,
-              :is_moderator,
+              :is_moderator?,
               :ip_banned?,
               :user_banned?,
               :theme,
               :time_display,
               :date_display,
               :is_owner_or_admin?,
-              :can_reply?
+              :can_reply?,
+              :per_page
   end
   
   # When called with before_filter :login_from_cookie will check for an :auth_token

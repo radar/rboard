@@ -74,9 +74,14 @@ describe TopicsController do
     it "should be able to see a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
       @forum.should_receive(:viewable?).and_return(true) 
-      @forum.should_receive(:old_topics).and_return(@topics)
+      @forum.should_receive(:topics).and_return(@topics)
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:increment!).with("views")
+      @topic.should_receive(:posts).and_return(@posts)
+      @topic.should_receive(:forum).and_return(@forum)
+      @forum.should_receive(:parent).and_return(nil)
+      @forum.stub!(:title)
+      @topic.stub!(:subject)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
     end
     

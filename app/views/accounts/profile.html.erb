@@ -7,9 +7,10 @@
       <tr><td valign='top'><b>New Password Confirmation</b></td><td> <%= password_field "user","password_confirmation", :value => "" %></td></tr>
       <tr><td valign='top'><b>Signature</b></td><td> <%= text_area "user","signature", :cols => 80, :rows => 5, :value => @user.signature %></td></tr>
       <tr><td valign='top'><b>Email</b></td><td><%= text_field "user", "email"  %></td></tr>
-      <tr><td valign='top'><b>Date &amp; Time Display</b></td><td><%= text_field "user", "date_display" %> <%= text_field "user", "time_display" %> <%= link_to "read this for more information", "http://noobkit.com/show/ruby/ruby/ruby-core/time/strftime.html" %></td></tr>
+      <tr><td valign='top'><b>Date &amp; Time Display</b></td><td><%= text_field "user", "date_display", :size => 10 %> <%= text_field "user", "time_display", :size => 10 %> <%= link_to "read this for more information", "http://noobkit.com/show/ruby/ruby/ruby-core/time/strftime.html" %></td></tr>
       <tr><td valign='top'><b>Example Time Display</b></td><td><%= Time.now.strftime(date_display + " " + time_display) %></td></tr>
       <% if @themes.size > 1 %><tr><td valign='top'><b>Theme</b></td><td><%= select "user", "theme", @themes.map { |t| [t.name, t.id] } %></td></tr><% end %>
+      <tr><td valign='top'><b>Items Per Page</b></td><td><%= text_field "user", "per_page", :size => 3 %></td></tr>
       <% if @user.email %>
         <tr><td valign='top'>
           <b>Current <a href='http://gravatar.com/'>Gravatar</a></b></td><td>

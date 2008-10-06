@@ -7,6 +7,9 @@ ActionController::Routing::Routes.draw do |map|
   map.search 'search', :controller => "search", :action => "index"
   map.admin 'admin', :controller => "admin/index", :action => "index"
   map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
+  
+  # pretty pagination links
+  map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
  
   map.namespace :admin do |admin|
     admin.resources :ranks
@@ -23,8 +26,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
     topic.resources :posts
   end
+  
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
-  map.resources :posts, :member => { :destroy => :any }
+  
+  map.resources :posts, :member => { :destroy => :any } do |post|
+    post.resources :edits
+  end
   
   
   map.resources :accounts, :collection => { :profile => :any }

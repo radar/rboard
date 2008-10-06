@@ -8,7 +8,13 @@
     </td>
   </tr>
   
-  <% if is_admin? %>
+  <% if is_admin? && !@post.new_record? %>
+    <tr>
+      <td colspan='2'>
+        <%= f.label 'edit_reason' %>
+        <%= f.text_field 'edit_reason' %>
+      </td>
+    </tr>
     <tr>
       <td colspan='2'>
         <%= check_box_tag 'silent_edit' %>

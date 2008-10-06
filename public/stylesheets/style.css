@@ -112,6 +112,10 @@ img {
   background:#E1F1FF url(/images/blue/tfoot-bg.jpg) repeat-x scroll 0%;
 }
 
+.action-box td {
+  vertical-align:top;
+}
+
 .posts h1 {
   margin:0px;
   padding:0px;

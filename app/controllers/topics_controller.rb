@@ -7,8 +7,8 @@ class TopicsController < ApplicationController
   before_filter :moderator_login_required, :only => [:moderate, :lock, :unlock]
   
   def show
-     @topic = @forum.old_topics.find(params[:id], :include => [:posts])
-     @posts = @topic.posts.paginate :per_page => 30, :page => params[:page], :include => [:topic, { :user => :user_level }]
+     @topic = @forum.topics.find(params[:id])
+     @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
      @topic.increment!("views")
    rescue ActiveRecord::RecordNotFound
      not_found
@@ -59,19 +59,29 @@ class TopicsController < ApplicationController
     redirect_to forum_path(@forum)
   end
   
+  # The method behind the moving madness...
+  # First find the params[:id] if we've been asked to move a single topic and make it an array
+  # Otherwise if that's not specified gather the topic ids from the session.
+  # Check if the ids is still nil and then raise an error, otherwise go on with it.
+  # Find all the topics based on the ids.
+  # Customize the flash[:notice] based on how many topics were found.
   def move
     ids = [params[:id]]
-    ids = session[:topic_ids] if ids.flatten.empty?
-    @topics = Topic.find(params[:id] || session[:topic_ids])
-    @forums = Forum.find(:all, :select => "id, title", :order => "title")
-    if request.post?
-      @topics.each { |topic| topic.move!(params[:new_forum_id]) }
-      if @topics.size > 1
-        flash[:notice] = "The selected topics have been moved."
-        redirect_to forum_path(@forum)
-      else
-        flash[:notice] = "The selected topic has been moved."
-        redirect_to forum_topic_path(@topics.first.forum, @topics.first)
+    ids = session[:topic_ids] if ids.compact.blank?
+    if ids.nil? || ids.compact.blank?
+      flash[:notice] = "You didn't specify any topics to move."
+      redirect_back_or_default(forums_path)
+    else
+      @topics = Topic.find(ids)
+      if request.post?
+        @topics.each { |topic| topic.move!(params[:new_forum_id]) }
+        if @topics.size > 1
+          flash[:notice] = "The selected topics have been moved."
+          redirect_to forum_path(@forum)
+        else
+          flash[:notice] = "The selected topic has been moved."
+          redirect_to forum_topic_path(@topics.first.forum, @topics.first)
+        end
       end
     end
   end
@@ -116,7 +126,7 @@ class TopicsController < ApplicationController
   private
   
   def find_forum
-    @forum = Forum.find(params[:forum_id]) if params[:forum_id]
+    @forum = Forum.find(params[:forum_id], :include => { :topics => :posts }) if params[:forum_id]
   end
   
 end
