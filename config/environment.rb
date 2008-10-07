@@ -23,7 +23,7 @@ DEFAULT_STYLESHEET = 1
 PER_PAGE = 30
 TIME_DISPLAY = "%d %B %Y %I:%M:%S%P"
 DATE_DISPLAY = "%d %B %Y"
-RAILS_RELATIVE_URL_ROOT = "http://localhost:3000"
+RAILS_RELATIVE_URL_ROOT = "http://localhost"
 
 #for some reason it doesn't automatically detect the admin's application controller.
 Admin::ApplicationController
