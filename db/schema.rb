@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20) do
+ActiveRecord::Schema.define(:version => 20081006052216) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -18,23 +18,26 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "ban_time"
   end
 
-  create_table "events", :force => true do |t|
-    t.string   "name"
-    t.string   "location"
-    t.text     "description"
-    t.text     "disclaimer"
-    t.boolean  "open"
-    t.datetime "start"
-    t.datetime "end"
+  create_table "edits", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "ip"
+    t.text     "original_content"
+    t.text     "current_content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "hidden",           :default => false
   end
 
   create_table "forums", :force => true do |t|
     t.string  "title"
     t.text    "description"
-    t.integer "is_visible_to",     :default => 1
-    t.integer "topics_created_by", :default => 1
+    t.integer "is_visible_to_id"
+    t.integer "topics_created_by_id"
     t.integer "position"
     t.integer "parent_id"
+    t.integer "last_post_id"
+    t.integer "last_post_forum_id"
   end
 
   create_table "messages", :force => true do |t|
@@ -48,6 +51,20 @@ ActiveRecord::Schema.define(:version => 20) do
     t.datetime "created_at"
   end
 
+  create_table "people", :force => true do |t|
+    t.string   "login",                     :limit => 40
+    t.string   "name",                      :limit => 100, :default => ""
+    t.string   "email",                     :limit => 100
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "remember_token",            :limit => 40
+    t.datetime "remember_token_expires_at"
+  end
+
+  add_index "people", ["login"], :name => "index_people_on_login", :unique => true
+
   create_table "posts", :force => true do |t|
     t.text     "text"
     t.datetime "created_at"
@@ -56,6 +73,8 @@ ActiveRecord::Schema.define(:version => 20) do
     t.integer  "topic_id"
     t.integer  "edited_by_id"
     t.string   "edit_reason"
+    t.boolean  "delta"
+    t.boolean  "deleted",      :default => false
   end
 
   create_table "ranks", :force => true do |t|
@@ -74,13 +93,17 @@ ActiveRecord::Schema.define(:version => 20) do
     t.string   "subject"
     t.integer  "user_id"
     t.datetime "created_at"
-    t.boolean  "locked",     :default => false
-    t.integer  "views"
-    t.boolean  "sticky",     :default => false
+    t.boolean  "locked",       :default => false
+    t.integer  "views",        :default => 0
+    t.boolean  "sticky",       :default => false
+    t.integer  "last_post_id"
+    t.boolean  "delta"
+    t.boolean  "deleted",      :default => false
   end
 
   create_table "user_levels", :force => true do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "position"
   end
 
   create_table "users", :force => true do |t|
@@ -106,7 +129,9 @@ ActiveRecord::Schema.define(:version => 20) do
     t.integer  "user_level_id",                           :default => 1
     t.integer  "theme_id"
     t.string   "ip",                        :limit => 15
-    t.string   "time_display",                            :default => "%d %B %Y %I:%M:%S%P"
+    t.string   "date_display",                            :default => "%d %B %Y"
+    t.string   "time_display",                            :default => "%I:%M:%S%P"
+    t.integer  "per_page",                                :default => 30
   end
 
 end
