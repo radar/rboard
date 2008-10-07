@@ -14,8 +14,13 @@ class ApplicationController < ActionController::Base
   before_filter :login_from_cookie
   before_filter :ip_banned_redirect
   before_filter :active_user
+  before_filter :check_page_value
   
   @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?
+  
+  def check_page_value
+    params[:page] = params[:page].to_i <= 0 ? "1" : params[:page]
+  end
   
   def moderator_login_required
     if !is_moderator?
