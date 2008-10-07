@@ -10,6 +10,10 @@ class TopicsController < ApplicationController
      @topic = @forum.topics.find(params[:id])
      @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
      @topic.increment!("views")
+     respond_to do |format|
+       format.html
+       format.rss
+     end
    rescue ActiveRecord::RecordNotFound
      not_found
    end

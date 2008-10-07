@@ -15,12 +15,12 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id], :include => :posts)
     @posts = @topic.posts
     @posts = @posts.find(:all, :order => "id DESC", :limit => 10)
-    @post = @posts.build(params[:post].merge!(:user => current_user))
+    @post = @topic.posts.build(params[:post].merge!(:user => current_user))
     if @post.save
       @topic.update_attribute("last_post_id", @post.id)
       page = (@topic.posts.size.to_f / per_page).ceil
       flash[:notice] = "Post has been created."
-      redirect_to forum_topic_path(@post.forum,@topic, :page => page)
+      redirect_to forum_topic_path(@post.forum,@topic) + "/#{page}"
     else
       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
       flash[:notice] = "This post could not be created."
@@ -45,7 +45,8 @@ class PostsController < ApplicationController
     end
     if @post.update_attributes(params[:post])
       flash[:notice] = "Post has been updated."
-      redirect_to forum_topic_path(@topic.forum, @topic)
+      page = (@topic.posts.size.to_f / per_page).ceil
+      redirect_to forum_topic_path(@post.forum,@topic) + "/#{page}"
     else
       flash[:notice] = "This post could not be updated."
       render :action => "edit"

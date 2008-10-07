@@ -32,7 +32,7 @@
       </td>
       
       <td valign='top' colspan='2' valign='top' id='post[<%= post.id %>]'>
-			  <%= textilize_without_paragraph(bbcode(sanitize(post.text))) %>
+			  <%= bbcode(post.text) %>
 			  <% unless post.user.signature.blank? %><br />
 			    ____________<br />
 			    <%= bbcode sanitize(post.user.signature) %>
