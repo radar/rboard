@@ -1,8 +1,8 @@
 <%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to "Ranks", admin_ranks_path %> -> Creating a Rank
 <h2>Creating a Rank</h2>
-<% form_for [:admin, @rank] do |@f| %>
+<% form_for [:admin, @rank] do |f| %>
 <table cellspacing='0' cellpadding='5' class='action-box' width='100%'>
-<%= render :partial => "form" %>
+<%= render :partial => "form", :locals => { :f => f } %>
 <tfoot>
 <tr><td colspan='2'><%= submit_tag "Create" %></td></tr>
 </tfoot>

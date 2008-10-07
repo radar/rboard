@@ -71,6 +71,7 @@ class Admin::AccountsController < Admin::ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "This user has been updated."
+      redirect_to admin_accounts_path
     else
       flash[:notice] = "This user could not be updated."
       render :action => "edit"

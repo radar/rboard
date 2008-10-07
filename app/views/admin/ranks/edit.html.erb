@@ -1,10 +1,17 @@
 <%= link_to "Administration Section", admin_path %> -> <%= link_to "Ranks", admin_ranks_path %> -> Editing a Rank
-<h2>Editing a Rank</h2>
+
 <% form_for [:admin, @rank] do |f| %>
 <table cellspacing='0' cellpadding='5' width='100%' class='action-box'>
-<%= render :partial => "form", :locals => { :f => f } %>
-<tfoot>
-<tr><td colspan='2'><%= submit_tag "Update" %></td></tr>
-</tfoot>
+  <thead>
+    <tr>
+      <td><h2>Editing a Rank</h2></td>
+    </tr>
+  </thead>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <tfoot>
+    <tr>
+      <td colspan='2'><%= submit_tag "Update" %></td>
+    </tr>
+  </tfoot>
 </table>
 <% end %>
