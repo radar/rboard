@@ -1,7 +1,7 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
   belongs_to :forum
-  has_many :posts, :dependent => :destroy, :order => "created_at asc"
+  has_many :posts, :dependent => :destroy, :order => "posts.created_at asc"
   has_many :users, :through => :posts
   belongs_to :last_post, :class_name => "Post"
   named_scope :recent, lambda { { :conditions => ["created_at > ?", 2.weeks.ago] } }
