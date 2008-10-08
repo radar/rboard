@@ -21,7 +21,7 @@ end
 # Application specific variables
 DEFAULT_STYLESHEET = 1
 PER_PAGE = 30
-TIME_DISPLAY = "%d %B %Y %I:%M:%S%P"
+TIME_DISPLAY = "%d %B %Y %I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
 RAILS_RELATIVE_URL_ROOT = "http://localhost"
 
