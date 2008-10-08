@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>lib/custom_methods.rb - C0 code coverage information</title>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/models/message.rb - C0 code coverage information</title>
     <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
     <style type='text/css'>span.cross-ref-title {
  font-size: 140%;
@@ -569,26 +569,26 @@ span.run100 {
       <td class='heading'>Code coverage</td>
       </tr>
     </thead>
-  <tbody><tr class='light'><td><a href='lib-custom_methods_rb.html'>lib/custom_methods.rb</a>
+  <tbody><tr class='light'><td><a href='app-models-message_rb.html'>app/models/message.rb</a>
         </td>
-      <td class='lines_total'><tt>5</tt>
+      <td class='lines_total'><tt>8</tt>
         </td>
-      <td class='lines_code'><tt>5</tt>
+      <td class='lines_code'><tt>7</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>40.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='40'/>
-                  <td class='uncovered' width='60'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>40.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='40'/>
-                  <td class='uncovered' width='60'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
@@ -598,11 +598,14 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a>1 class Time
-</span><span class="marked1"><a name="line2"></a>2   def ordinalize
-</span><span class="uncovered0"><a name="line3"></a>3     self.strftime(&quot;%d&quot;).to_i.ordinalize + &quot; &quot; + self.strftime(&quot;%B %Y %I:%M:%S%P&quot;)
-</span><span class="uncovered1"><a name="line4"></a>4   end
-</span><span class="uncovered0"><a name="line5"></a>5 end
+<pre><span class="marked0"><a name="line1"></a>1 class Message &lt; ActiveRecord::Base
+</span><span class="marked1"><a name="line2"></a>2   belongs_to :to, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; :to_id
+</span><span class="marked0"><a name="line3"></a>3   belongs_to :from, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; :from_id
+</span><span class="inferred1"><a name="line4"></a>4   
+</span><span class="marked0"><a name="line5"></a>5   def belongs_to?(user_id)
+</span><span class="marked1"><a name="line6"></a>6 	   to_id == user_id || from_id == user_id
+</span><span class="marked0"><a name="line7"></a>7   end
+</span><span class="inferred1"><a name="line8"></a>8 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

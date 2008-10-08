@@ -71,19 +71,6 @@ describe Topic, "in general" do
     @valid_topic.should be_sticky
     @valid_topic.unsticky!
     @valid_topic.should_not be_sticky
-  end
-  
-  it "should be able to move a topic from a sub-forum to a top-level forum" do
-    @everybody.last_post.should eql(@valid_topic.last_post)
-    @valid_topic.forum.should eql(@sub_of_everybody)
-    @valid_topic.move!(@admins_only.id)
-    @valid_topic.forum_id.should eql(@admins_only.id)
-    @sub_of_everybody.last_post_id.should be_nil
-    @everybody.last_post.should_not eql(@valid_topic.last_post)
-    @admins_only.reload
-    @admins_only.last_post.should eql(@valid_topic.last_post)
-  end
-  
-  
+  end  
   
 end

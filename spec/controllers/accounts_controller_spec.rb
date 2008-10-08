@@ -15,7 +15,7 @@ describe AccountsController, "the whole shebang" do
   
   it "should display a list of users to logged in people" do
     login_as(:administrator)
-    User.should_receive("paginate").with(:per_page=>30, :order=>"login ASC", :page=>nil).and_return(@users)
+    User.should_receive("paginate").with(:per_page=>30, :order=>"login ASC", :page=>"1").and_return(@users)
     get 'index', {}
   end
   

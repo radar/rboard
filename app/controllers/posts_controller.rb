@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_filter :login_required
   before_filter :find_topic
+  before_filter :find_post, :only => [:edit, :update, :destroy]
   
   def new
     @posts = @topic.last_10_posts
@@ -28,21 +29,17 @@ class PostsController < ApplicationController
   end
    
   def edit
-    @post = Post.find(params[:id])
-    check_ownership
   rescue ActiveRecord::RecordNotFound
     not_found
   end
   
   def update
-    @post = Post.find(params[:id])
-    check_ownership
     @topic = @post.topic
-    if @post.text != params[:post][:text]
-      @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr, :hidden => params[:silent_edit] == "1")
-      @post.edited_by = current_user
-    end
     if @post.update_attributes(params[:post])
+      if @post.text_changed?
+        @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr, :hidden => params[:silent_edit] == "1")
+        @post.edited_by = current_user
+      end
       flash[:notice] = "Post has been updated."
       go_directly_to_post
     else
@@ -54,7 +51,6 @@ class PostsController < ApplicationController
   end
   
   def destroy
-    @post = Post.find(params[:id])
     @post.destroy
     flash[:notice] = "Post was deleted."
     if @post.topic.posts.size.zero?
@@ -75,11 +71,18 @@ class PostsController < ApplicationController
     end
     
     def find_topic
-      @topic = Topic.find(params[:topic_id]) unless params[:topic_id].nil?
+      @topic = Topic.find(params[:topic_id], :include => :posts) unless params[:topic_id].nil?
+    end
+    
+    def find_post
+      @post = Post.find(params[:id])
+      check_ownership
+    rescue ActiveRecord::RecordNotFound
+      not_found
     end
     
     def check_ownership
-      unless @post.user == current_user || is_admin?
+      unless @post.belongs_to?(current_user) || is_moderator?
         flash[:notice] = "You do not own that post."
         redirect_back_or_default(forums_path)
       end

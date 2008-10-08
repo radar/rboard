@@ -52,6 +52,10 @@ class Post < ActiveRecord::Base
     edits.last.user
   end
   
+  def belongs_to?(other_user)
+    user == other_user
+  end
+  
   def forum
     topic.forum
   end

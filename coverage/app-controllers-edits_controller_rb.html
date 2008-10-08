@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>lib/custom_methods.rb - C0 code coverage information</title>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/controllers/edits_controller.rb - C0 code coverage information</title>
     <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
     <style type='text/css'>span.cross-ref-title {
  font-size: 140%;
@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 09 10:23:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Thu Oct 09 10:23:46 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -569,26 +569,26 @@ span.run100 {
       <td class='heading'>Code coverage</td>
       </tr>
     </thead>
-  <tbody><tr class='light'><td><a href='lib-custom_methods_rb.html'>lib/custom_methods.rb</a>
+  <tbody><tr class='light'><td><a href='app-controllers-edits_controller_rb.html'>app/controllers/edits_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>5</tt>
+      <td class='lines_total'><tt>28</tt>
         </td>
-      <td class='lines_code'><tt>5</tt>
+      <td class='lines_code'><tt>22</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>40.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>50.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='40'/>
-                  <td class='uncovered' width='60'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='50'/>
+                  <td class='uncovered' width='50'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>40.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>40.9%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='40'/>
-                  <td class='uncovered' width='60'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='41'/>
+                  <td class='uncovered' width='59'/>
                   </tr>
                 </table>
               </td>
@@ -598,11 +598,34 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a>1 class Time
-</span><span class="marked1"><a name="line2"></a>2   def ordinalize
-</span><span class="uncovered0"><a name="line3"></a>3     self.strftime(&quot;%d&quot;).to_i.ordinalize + &quot; &quot; + self.strftime(&quot;%B %Y %I:%M:%S%P&quot;)
-</span><span class="uncovered1"><a name="line4"></a>4   end
-</span><span class="uncovered0"><a name="line5"></a>5 end
+<pre><span class="marked1"><a name="line1"></a> 1 class EditsController &lt; ApplicationController
+</span><span class="marked0"><a name="line2"></a> 2   before_filter :find_post
+</span><span class="marked1"><a name="line3"></a> 3   before_filter :moderator_login_required
+</span><span class="marked0"><a name="line4"></a> 4   before_filter :store_location, :only =&gt; :index
+</span><span class="inferred1"><a name="line5"></a> 5   
+</span><span class="marked0"><a name="line6"></a> 6   def index
+</span><span class="uncovered1"><a name="line7"></a> 7     @edits = current_user.moderator? ? @post.visible_edits : @post.edits
+</span><span class="uncovered0"><a name="line8"></a> 8   end
+</span><span class="inferred1"><a name="line9"></a> 9   
+</span><span class="marked0"><a name="line10"></a>10   def show
+</span><span class="uncovered1"><a name="line11"></a>11     @edit = @post.edits.find(params[:id])
+</span><span class="uncovered0"><a name="line12"></a>12     not_found if current_user.moderator? &amp;&amp; @edit.hidden?
+</span><span class="uncovered1"><a name="line13"></a>13   rescue ActiveRecord::RecordNotFound
+</span><span class="uncovered0"><a name="line14"></a>14     not_found
+</span><span class="uncovered1"><a name="line15"></a>15   end
+</span><span class="inferred0"><a name="line16"></a>16   
+</span><span class="marked1"><a name="line17"></a>17   private
+</span><span class="inferred0"><a name="line18"></a>18   
+</span><span class="marked1"><a name="line19"></a>19   def find_post
+</span><span class="uncovered0"><a name="line20"></a>20     @post = Post.find(params[:post_id], :include =&gt; :edits) unless params[:post_id].nil?
+</span><span class="uncovered1"><a name="line21"></a>21   end
+</span><span class="inferred0"><a name="line22"></a>22   
+</span><span class="marked1"><a name="line23"></a>23   def not_found
+</span><span class="uncovered0"><a name="line24"></a>24     flash[:notice] = &quot;The edit you were looking for cannot be found.&quot;
+</span><span class="uncovered1"><a name="line25"></a>25     redirect_back_or_default forums_path
+</span><span class="uncovered0"><a name="line26"></a>26   end
+</span><span class="uncovered1"><a name="line27"></a>27   
+</span><span class="uncovered0"><a name="line28"></a>28 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

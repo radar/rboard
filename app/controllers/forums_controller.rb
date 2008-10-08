@@ -13,15 +13,14 @@ class ForumsController < ApplicationController
   end
   
   def show
-    @forum = Forum.find(params[:id], :include => :topics)
     @topics = @forum.sorted_topics.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC, id DESC", :include => [:posts => [:user]]
-    @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_admin? || is_moderator?
     @forums = @forum.children.sort_by { |f| f.position }
+    @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_admin? || is_moderator?
   end
   
   private
   def is_visible?
-    @forum = Forum.find(params[:id])
+    @forum = Forum.find(params[:id], :include => :topics)
     if !@forum.viewable?(logged_in?, current_user)
       flash[:notice] = "You do not have the permissions to access that forum."
       redirect_to forums_path

@@ -78,8 +78,6 @@ describe TopicsController do
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:increment!).with("views")
       @topic.should_receive(:posts).and_return(@posts)
-      @topic.should_receive(:forum).and_return(@forum)
-      @forum.should_receive(:parent).and_return(nil)
       @forum.stub!(:title)
       @topic.stub!(:subject)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
@@ -117,6 +115,8 @@ describe TopicsController do
     end
     
     it "should be able to lock any topic in the admin forum" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).and_return(@topic)
       @topic.should_receive(:lock!).and_return(@topic)
       @topic.should_receive(:forum).and_return(@forum)
@@ -125,6 +125,8 @@ describe TopicsController do
     end
     
     it "should be able to unlock any topic in the admin forum" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).and_return(@topic)
       @topic.should_receive(:unlock!).and_return(@topic)
       @topic.should_receive(:forum).and_return(@forum)
@@ -134,6 +136,8 @@ describe TopicsController do
     
     
     it "should be able to lock multiple topics" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).twice.and_return(@topic)
       @topic.should_receive(:lock!).twice
       post 'moderate', { :commit => "Lock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
@@ -141,6 +145,8 @@ describe TopicsController do
     end
     
     it "should be able to unlock multiple topics" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).twice.and_return(@topic)
       @topic.should_receive(:unlock!).twice
       post 'moderate', { :commit => "Unlock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
@@ -148,6 +154,8 @@ describe TopicsController do
     end
     
     it "should be able to destroy multiple topics" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).twice.and_return(@topic)
       @topic.should_receive(:destroy).twice.and_return(@topic)
       post 'moderate', { :commit => "Delete", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
@@ -155,13 +163,17 @@ describe TopicsController do
     end
     
     it "should be able to sticky multiple topics" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).twice.and_return(@topic)
       @topic.should_receive(:sticky!).twice
       post 'moderate', { :commit => "Sticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
       flash[:notice].should eql("All selected topics have been stickied.")
     end
     
-    it "should be able to sticky multiple topics" do
+    it "should be able to unsticky multiple topics" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
       Topic.should_receive(:find).twice.and_return(@topic)
       @topic.should_receive(:unsticky!).twice
       post 'moderate', { :commit => "Unsticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
