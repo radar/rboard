@@ -6,10 +6,15 @@ class TopicsController < ApplicationController
   before_filter :store_location, :only => [:show, :new, :edit, :reply]
   before_filter :moderator_login_required, :only => [:moderate, :lock, :unlock]
   
+  def index
+    redirect_to forum_path(@forum)
+  end
+  
   def show
      @topic = @forum.topics.find(params[:id])
      @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
      @topic.increment!("views")
+     @post = Post.new
      respond_to do |format|
        format.html
        format.rss

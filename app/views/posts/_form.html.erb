@@ -4,7 +4,7 @@
       <b>Post:</b>
     </td>
     <td>
-      <%= f.text_area 'text', :cols => 90 %>
+      <%= f.text_area 'text', :cols => (cols || 70), :rows => (rows || 20) %>
     </td>
   </tr>
   
