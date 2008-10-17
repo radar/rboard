@@ -53,7 +53,7 @@
           </td>
           <td class='topic_subject'>
             <b><%= link_to(topic.subject, forum_topic_path(topic.forum, topic)) %>
-               <%= will_paginate(topic.posts.paginate(:per_page => 30, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %></b>
+               <%= will_paginate(topic.posts.paginate(:per_page => current_user.per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %></b>
           </td>
           <td align='center'><%= topic.posts.size - 1 %></td>
           <td align='center'><%= topic.views %></td>
@@ -66,7 +66,8 @@
       <tfoot>
         <tr>
           <td align='right' colspan='8'>
-            <%= submit_tag("Move") + select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title")) + submit_tag("Lock") + submit_tag("Unlock") + submit_tag("Delete") +  submit_tag("Sticky") + submit_tag("Unsticky") %>
+            <% unless @all_forums.empty? %><%= submit_tag("Move") + select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title")) %><% end %>
+            <%= submit_tag("Lock") + submit_tag("Unlock") + submit_tag("Delete") +  submit_tag("Sticky") + submit_tag("Unsticky") %>
           </td>
         </tr>
       </tfoot>

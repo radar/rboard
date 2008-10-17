@@ -8,9 +8,6 @@ ActionController::Routing::Routes.draw do |map|
   map.admin 'admin', :controller => "admin/index", :action => "index"
   map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
   
-  # pretty pagination links
-  map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
- 
   map.namespace :admin do |admin|
     admin.resources :ranks
     admin.resources :accounts, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
@@ -33,6 +30,8 @@ ActionController::Routing::Routes.draw do |map|
     post.resources :edits
   end
   
+  # pretty pagination links
+  map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
   
   map.resources :accounts, :collection => { :profile => :any }
   map.connect ':controller/:action/:id'
