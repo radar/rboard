@@ -1,1 +1,5 @@
-Eventually I'll put something useful here.
+This is rboard, a forum system built in Rails.
+
+To install it, type rake install and this should do all the magic for you.
+
+Any problems, you can contact me through my user on Github (Radar) or radarlistener@gmail.com
