@@ -12,6 +12,8 @@ describe ForumsController do
     @everybody_forum = forums(:everybody)
     @admin_level = user_levels(:administrator)
     @user_level = user_levels(:user)
+    @moderation = mock(:moderation)
+    @moderations = [@moderation]
   end
 
   it "should restrict which forums it shows when not logged in" do
@@ -37,6 +39,9 @@ describe ForumsController do
     @forum.should_receive(:children).and_return(@forums)
     @topics.should_receive(:paginate).and_return(@topics)
     @forum.should_receive(:sorted_topics).and_return(@topics)
+    @forum.should_receive(:moderations).and_return(@moderations)
+    @moderations.should_receive(:topics).and_return(@moderations)
+    @moderations.should_receive(:count).and_return(0)
     @forum.stub!(:position)
     get 'show', { :id => @everybody_forum.id }
     flash[:notice].should be_blank
@@ -45,12 +50,15 @@ describe ForumsController do
   
   it "should show the admin forum to the administrator" do
     login_as(:administrator)
-    Forum.should_receive(:find).with(@admin_forum.id.to_s, :include => :topics).and_return(@forum)
+    Forum.should_receive(:find).with(@admin_forum.id.to_s, :include => [{ :topics => :posts }, :moderations]).and_return(@forum)
     Forum.should_receive(:find).with(:all, :select => "id, title", :order => "title ASC").and_return(@forums)
     @forum.should_receive(:viewable?).and_return(true)
     @forum.should_receive(:sorted_topics).and_return(@topics)
     @topics.should_receive(:paginate).and_return(@topics)
     @forum.should_receive(:children).and_return(@forums)
+    @forum.should_receive(:moderations).and_return(@moderations)
+    @moderations.should_receive(:topics).and_return(@moderations)
+    @moderations.should_receive(:count).and_return(0)    
     @forum.stub!(:position)
     get 'show', { :id => @admin_forum.id }
     response.should render_template("show")

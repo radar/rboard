@@ -134,51 +134,51 @@ describe TopicsController do
       put 'unlock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
     end
     
-    
-    it "should be able to lock multiple topics" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(true)
-      Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:lock!).twice
-      post 'moderate', { :commit => "Lock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
-      flash[:notice].should eql("All selected topics have been locked.")
-    end
-    
-    it "should be able to unlock multiple topics" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(true)
-      Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:unlock!).twice
-      post 'moderate', { :commit => "Unlock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
-      flash[:notice].should eql("All selected topics have been unlocked.")
-    end
-    
-    it "should be able to destroy multiple topics" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(true)
-      Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:destroy).twice.and_return(@topic)
-      post 'moderate', { :commit => "Delete", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
-      flash[:notice].should eql("All selected topics have been deleted.")
-    end
-    
-    it "should be able to sticky multiple topics" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(true)
-      Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:sticky!).twice
-      post 'moderate', { :commit => "Sticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
-      flash[:notice].should eql("All selected topics have been stickied.")
-    end
-    
-    it "should be able to unsticky multiple topics" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(true)
-      Topic.should_receive(:find).twice.and_return(@topic)
-      @topic.should_receive(:unsticky!).twice
-      post 'moderate', { :commit => "Unsticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
-      flash[:notice].should eql("All selected topics have been unstickied.")
-    end
+  # TODO: Move these to moderations controller spec testing.    
+  #   it "should be able to lock multiple topics" do
+  #     Forum.should_receive(:find).and_return(@forum)
+  #     @forum.should_receive(:viewable?).and_return(true)
+  #     Topic.should_receive(:find).twice.and_return(@topic)
+  #     @topic.should_receive(:lock!).twice
+  #     post 'moderate', { :commit => "Lock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
+  #     flash[:notice].should eql("All selected topics have been locked.")
+  #   end
+  #   
+  #   it "should be able to unlock multiple topics" do
+  #     Forum.should_receive(:find).and_return(@forum)
+  #     @forum.should_receive(:viewable?).and_return(true)
+  #     Topic.should_receive(:find).twice.and_return(@topic)
+  #     @topic.should_receive(:unlock!).twice
+  #     post 'moderate', { :commit => "Unlock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
+  #     flash[:notice].should eql("All selected topics have been unlocked.")
+  #   end
+  #   
+  #   it "should be able to destroy multiple topics" do
+  #     Forum.should_receive(:find).and_return(@forum)
+  #     @forum.should_receive(:viewable?).and_return(true)
+  #     Topic.should_receive(:find).twice.and_return(@topic)
+  #     @topic.should_receive(:destroy).twice.and_return(@topic)
+  #     post 'moderate', { :commit => "Delete", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
+  #     flash[:notice].should eql("All selected topics have been deleted.")
+  #   end
+  #   
+  #   it "should be able to sticky multiple topics" do
+  #     Forum.should_receive(:find).and_return(@forum)
+  #     @forum.should_receive(:viewable?).and_return(true)
+  #     Topic.should_receive(:find).twice.and_return(@topic)
+  #     @topic.should_receive(:sticky!).twice
+  #     post 'moderate', { :commit => "Sticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
+  #     flash[:notice].should eql("All selected topics have been stickied.")
+  #   end
+  #   
+  #   it "should be able to unsticky multiple topics" do
+  #     Forum.should_receive(:find).and_return(@forum)
+  #     @forum.should_receive(:viewable?).and_return(true)
+  #     Topic.should_receive(:find).twice.and_return(@topic)
+  #     @topic.should_receive(:unsticky!).twice
+  #     post 'moderate', { :commit => "Unsticky", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
+  #     flash[:notice].should eql("All selected topics have been unstickied.")
+  #   end
     
   end
   
