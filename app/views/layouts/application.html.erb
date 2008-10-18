@@ -49,12 +49,15 @@
         <% else %>
             <%= yield %>
         <% end %>
-         <% if is_admin? %>
-          <div align='center'>
-            <%= link_to "Administration Section", admin_path %>
-          </div>
+        <div align='center'>        
+          <% if is_moderator? %>
+            <%= link_to "Moderator Section", moderator_path %>
+          <% end %>
+          
+          <% if is_admin? %>
+            | <%= link_to "Administration Section", admin_path %>
+          <% end %>
         </div>
-      <% end %>
     </div>
   </body>
 </html>

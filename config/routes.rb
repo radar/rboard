@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.search 'search', :controller => "search", :action => "index"
   map.admin 'admin', :controller => "admin/index", :action => "index"
+  map.moderator 'moderator', :controller => "moderator/index", :action => "index"
   map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
   
   map.namespace :admin do |admin|
@@ -16,8 +17,20 @@ ActionController::Routing::Routes.draw do |map|
     admin.chronic 'chronic', :controller => 'chronic'
   end
   
+  map.namespace :moderator do |moderator|
+    moderator.resources :topics do |topic|
+      topic.resources :moderations
+    end
+    
+    moderator.resources :posts do |post|
+      post.resources :moderations
+    end
+    
+    moderator.resources :moderations, :collection => { :moderate => :post }
+  end
+  
   map.resources :forums, :collection => { :list => :get } do |forum|
-    forum.resources :topics, :collection => { :moderate => :post }, :member => { :lock => :put, :unlock => :put }
+    forum.resources :topics, :member => { :lock => :put, :unlock => :put }
   end
   
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
@@ -32,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
   
   # pretty pagination links
   map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
-  
+  map.connect 'forums/:id/:page', :controller => "forums", :action => "show"
   map.resources :accounts, :collection => { :profile => :any }
   map.connect ':controller/:action/:id'
 end

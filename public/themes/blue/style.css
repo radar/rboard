@@ -51,7 +51,7 @@ img {
   margin:5px;
 }
 
-.pagination {
+.pagination, #moderated_topics_count {
 	font-size:9pt;
 }
 
@@ -119,19 +119,6 @@ img {
   background:#E1F1FF url(/themes/blue/tfoot-bg.jpg) repeat-x scroll 0%;
 }
 
-.deleted-post {
-  border:1px solid #D3AF84;
-  margin:2px;
-}
-
-.deleted-post tbody {
-  background:#FF9090 none repeat scroll 0%;
-}
-
-.deleted-post tfoot {
-  background:#FFF1E1 url(/themes/blue/tfoot-bg.jpg) repeat-x scroll 0%;
-}
-
 .posts h1 {
   margin:0px;
   padding:0px;
@@ -181,23 +168,23 @@ img {
 }
 
 /* inspired by http://css.maxdesign.com.au/listamatic/horizontal02.htm */
-ul#admin-navlist {
+ul#admin-navlist, ul#moderator-navlist {
   margin:2px;
   margin-left:0px;
   padding:0px;
   white-space: nowrap;
 }
 
-#admin-navlist li {
+#admin-navlist li, #moderator-navlist li {
   display: inline;
   list-style-type: none;
 }
 
-#admin-navlist a { 
+#admin-navlist a, #moderator-navlist a { 
   padding: 3px 10px; 
 }
 
-#admin-navlist a:link, #admin-navlist a:visited {
+#admin-navlist a:link, #admin-navlist a:visited, #moderator-navlist a:link, #moderator-navlist a:visited {
   color:#336699;
   background-color: #b8dcfc;
   text-decoration: none;
@@ -205,13 +192,13 @@ ul#admin-navlist {
   border-bottom:0px;
 }
 
-#admin-navlist a.selected {
+#admin-navlist a.selected, #moderator-navlist a.selected {
   border:2px solid #336699;
   border-bottom:0px;
   font-weight:bold;
 }
 
-#admin-page {
+#admin-page, #moderator-page {
   background:#b8dcfc;
   padding:5px;
   border:1px solid #336699;

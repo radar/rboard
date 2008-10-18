@@ -29,4 +29,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def moderated_topics_count
+  
+  end
+  
 end

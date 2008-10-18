@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   
   attr_accessor :password
   
-  #validations
   validates_presence_of     :login, :email
   validates_presence_of     :password,                   :if => :password_required?
   validates_presence_of     :password_confirmation,      :if => :password_required?
@@ -13,26 +12,22 @@ class User < ActiveRecord::Base
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
   
-  #has
+  has_many :banned_ips, :foreign_key => "banned_by"
   has_many :edits
-  has_many :posts
-  has_many :topics
   has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = ?", false], :order => "id DESC"
   has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
-  has_many :unread_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = ? AND to_deleted = ?", false, false]
+  has_many :moderations
+  has_many :posts
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
-  has_many :banned_ips, :foreign_key => "banned_by"
-  
-  belongs_to :theme
-  
-  #belongs
+  has_many :topics
+  has_many :unread_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = ? AND to_deleted = ?", false, false]
+
   belongs_to :banned_by, :class_name => "User", :foreign_key => "banned_by"
-  belongs_to :user_level
   belongs_to :style
+  belongs_to :theme
+  belongs_to :user_level
   
-  #before
   before_save :encrypt_password
-  
   before_create :set_theme
   before_create :make_admin
   
@@ -44,7 +39,7 @@ class User < ActiveRecord::Base
   #misc. user information
   def rank
 	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC")
-	  rank.nil? ? "User" : rank.name
+	  rank.nil? ? user_level : rank.name
   end
   
   #permission checking 

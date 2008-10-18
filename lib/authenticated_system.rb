@@ -17,6 +17,10 @@ module AuthenticatedSystem
     logged_in? ? current_user.date_display : DATE_DISPLAY
   end
   
+  def date_time_display
+    date_display + " " + time_display
+  end
+  
   def is_admin?
     logged_in? && current_user.admin?
   end
@@ -28,6 +32,13 @@ module AuthenticatedSystem
   def non_admin_redirect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
+      redirect_back_or_default(login_path)
+    end
+  end
+  
+  def non_moderator_redirect
+    if !is_moderator?
+      flash[:notice] = "You need to be a moderator or an admin to do that."
       redirect_back_or_default(login_path)
     end
   end
@@ -127,6 +138,7 @@ module AuthenticatedSystem
               :theme,
               :time_display,
               :date_display,
+              :date_time_display,
               :is_owner_or_admin?,
               :can_reply?,
               :per_page

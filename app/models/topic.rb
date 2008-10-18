@@ -1,9 +1,12 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
   belongs_to :forum
+  belongs_to :last_post, :class_name => "Post"
+
+  has_many :moderations, :as => :moderated_object
   has_many :posts, :dependent => :destroy, :order => "posts.created_at asc"
   has_many :users, :through => :posts
-  belongs_to :last_post, :class_name => "Post"
+  
   named_scope :recent, lambda { { :conditions => ["created_at > ?", 2.weeks.ago] } }
   
   #makes error_messages_for return the wrong number of errors.

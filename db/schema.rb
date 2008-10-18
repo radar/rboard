@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081017115415) do
+ActiveRecord::Schema.define(:version => 20081018133549) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -49,6 +49,16 @@ ActiveRecord::Schema.define(:version => 20081017115415) do
     t.boolean  "to_deleted",   :default => false
     t.text     "text"
     t.datetime "created_at"
+  end
+
+  create_table "moderations", :force => true do |t|
+    t.integer  "moderated_object_id"
+    t.string   "moderated_object_type"
+    t.integer  "user_id"
+    t.string   "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "forum_id"
   end
 
   create_table "people", :force => true do |t|

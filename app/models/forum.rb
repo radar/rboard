@@ -1,18 +1,21 @@
 class Forum < ActiveRecord::Base
   acts_as_list :scope => :parent_id
   acts_as_tree
+  
   has_many :topics, :order => "created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts, :order => "created_at DESC"
-  validates_presence_of :title, :description
+  has_many :moderations
+  
   belongs_to :is_visible_to, :class_name => "UserLevel"
   belongs_to :topics_created_by, :class_name => "UserLevel"
   belongs_to :last_post, :class_name => "Post"
   belongs_to :last_post_forum, :class_name => "Forum"
+  
+  validates_presence_of :title, :description
     
   def to_s
     title
   end
-  
   
   def update_last_post(new_forum, post=nil)
     post ||= posts.last

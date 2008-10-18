@@ -1,0 +1,8 @@
+if @thing.class == Topic
+  page["topic_#{@thing.id}_moderated"].checked = false
+  if @moderated_topics_count.zero?
+    page.replace_html 'moderated_topics_count', ''
+  else
+    page.replace_html 'moderated_topics_count', pluralize(@moderated_topics_count, "topic")  + " selected for moderation"
+  end
+end

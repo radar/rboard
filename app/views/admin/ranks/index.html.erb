@@ -2,28 +2,26 @@
 <h2>Ranks</h2>
 <%= link_to "New Rank", new_admin_rank_path %>
 <table cellspacing='0' cellpadding='5' width='100%' class='list-table' rules='groups'>
-<thead>
-<tr>
-<td>&nbsp;</td>
-<td>Name</td>
-<td>Posts Required</td>
-<td>Custom Rank?</td>
-</tr>
-</thead>
-<tbody>
-<% unless @ranks.empty? %>
-<% for rank in @ranks %>
-<tr>
-<td class='icon'><%= link_to(theme_image_tag("edit.jpg"), edit_admin_rank_path(rank)) %>
-<%= link_to(theme_image_tag("delete.jpg"), admin_rank_path(rank), :method => "delete", :confirm => "Are you sure you want to delete this rank?") %></td>
-<td><%= rank.name %></td>
-<td><%= rank.posts_required.nil? ? "None" : rank.posts_required %></td>
-<td><%= rank.custom ? "Yes" : "No" %></td></tr>
-
-<% end %>
-<% else %>
-<tr><td colspan='4'><b>There are no ranks. <%= link_to "Maybe you should create one.", new_admin_rank_path %></b></td></tr>
-<% end %>
-</tbody>
-
+  <thead>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Name</td>
+      <td>Posts Required</td>
+      <td>Custom Rank?</td>
+    </tr>
+  </thead>
+  <tbody>
+  <% unless @ranks.empty? %>
+    <% for rank in @ranks %>
+      <tr>
+        <td class='icon'><%= link_to(theme_image_tag("edit.jpg"), edit_admin_rank_path(rank)) %>
+          <%= link_to(theme_image_tag("delete.jpg"), admin_rank_path(rank), :method => "delete", :confirm => "Are you sure you want to delete this rank?") %></td>
+        <td><%= rank.name %></td>
+        <td><%= rank.posts_required.nil? ? "None" : rank.posts_required %></td>
+        <td><%= rank.custom ? "Yes" : "No" %></td></tr>
+    <% end %>
+  <% else %>
+    <tr><td colspan='4'><b>There are no ranks. <%= link_to "Maybe you should create one.", new_admin_rank_path %></b></td></tr>
+  <% end %>
+  </tbody>
 </table>

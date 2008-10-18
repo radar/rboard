@@ -1,0 +1,27 @@
+<h2>Your moderation queue</h2>
+<table cellspacing='0' cellpadding='5' width='100%' class='list-table' rules='groups'>
+  <% unless @moderations.empty? %>
+    <thead>
+      <tr>
+        <td>Identifier</td>
+        <td>Flagged On</td>
+        <td>Reason</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% for moderation in @moderations %>
+        <tr>
+          <td>
+          <% if moderation.moderated_object_type == "Topic" %>
+            <%= link_to moderation.moderated_object_type + " #" + moderation.moderated_object_id.to_s + " - " + moderation.moderated_object.subject, [moderation.forum, moderation.moderated_object] %>
+          <% end %>
+          </td>
+          <td><%= moderation.created_at.strftime(date_time_display) %></td>
+          <td><%= moderation.reason %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  <% else %>
+    <thead><tr><td colspan='4'><b>There are no ranks. <%= link_to "Maybe you should create one.", new_admin_rank_path %></b></td></tr></thead>
+  <% end %>
+</table>

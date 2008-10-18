@@ -1,0 +1,10 @@
+<% inside_layout "application" do %>
+  <ul id='moderator-navlist'>
+    <li><%= link_to "Index", moderator_path,  :class => selected("index")  %></li>
+    <li><%= link_to "Moderation", moderator_moderations_path, :class => selected("moderation") %></li>
+  </ul>
+  
+  <div id='moderator-page'>
+    <%= yield %>
+  </div>
+<% end %>
