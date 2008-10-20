@@ -26,10 +26,16 @@ class Moderation < ActiveRecord::Base
   
   def unsticky!
     moderated_object.unsticky!
+    destroy
   end
   
   def destroy!
     moderated_object.destroy
+    destroy
+  end
+  
+  def move!(new_forum_id)
+    moderated_object.move!(new_forum_id)
     destroy
   end
 end

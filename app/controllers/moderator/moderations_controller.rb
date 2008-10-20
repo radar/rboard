@@ -1,9 +1,11 @@
 class Moderator::ModerationsController < Moderator::ApplicationController
   before_filter :find_topic_or_post
+  before_filter :store_location, :only => :index
   
   def index
     @topic_moderations = Moderation.topics.for_user(current_user)
     @post_moderations = Moderation.posts.for_user(current_user)
+    @all_forums = Forum.viewable_to(current_user)
   end
   
   # Checks to see if the moderation already exists and if it does will destroy it

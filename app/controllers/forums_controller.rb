@@ -3,9 +3,15 @@ class ForumsController < ApplicationController
   before_filter :store_location, :only => :show
   
   def index
-    @forums = Forum.find_all_without_parent.select { |forum| forum.viewable?(logged_in?, current_user) }
-    @forums = @forums.sort_by { |f| f.position.to_i }
-    @lusers = User.all(:conditions => ['login_time > ?', Time.now-15.minutes]).map { |u| u.login }.to_sentence
+    @forums = Forum.without_parent
+    
+    @forums = if logged_in? 
+      @forums.viewable_to(current_user)
+    else
+      @forums.viewable_to_anonymous
+    end
+    
+    @lusers = User.recent.map { |u| u.login }.to_sentence
     @users = User.count
     @posts = Post.count
     @topics = Topic.count
@@ -13,9 +19,9 @@ class ForumsController < ApplicationController
   end
   
   def show
-    @topics = @forum.sorted_topics.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC, id DESC", :include => [:posts => [:user]]
-    @forums = @forum.children.sort_by { |f| f.position }
-    @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_admin? || is_moderator?
+    @topics = @forum.sorted_topics.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC, id DESC", :include => [{ :last_post => :user }]
+    @forums = @forum.children
+    @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_moderator?
     @moderated_topics_count = @forum.moderations.topics.count
   end
   

@@ -1,6 +1,10 @@
 class Forum < ActiveRecord::Base
   acts_as_list :scope => :parent_id
-  acts_as_tree
+  acts_as_tree :order => :position
+  
+  named_scope :without_parent, :conditions => ["parent_id IS ?", nil], :order => "position"
+  named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level_id] } }
+  named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").id] } }
   
   has_many :topics, :order => "created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts, :order => "created_at DESC"

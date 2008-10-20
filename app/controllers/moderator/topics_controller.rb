@@ -1,5 +1,5 @@
 class Moderator::TopicsController < Moderator::ApplicationController
-  before_filter :find_topic
+  before_filter :find_topic, :except => [:moderate]
   
   def destroy
     @topic.destroy
@@ -7,8 +7,14 @@ class Moderator::TopicsController < Moderator::ApplicationController
     redirect_back_or_default moderator_moderations_path
   end
   
+  # This method works in two ways.
+  # The first way is from the moderations index action which will pass in params[:moderation_ids] if
+  # any of the submit buttons on the bottom row are clicked.
+  #
+  # The second comes from forums/show which will use all the currently selected moderations as the objects.
   def moderate
-    @moderations_for_topics = Moderation.topics.for_user(current_user.id)
+    @moderations_for_topics = Moderation.for_user(current_user).topics.find(params[:moderation_ids]) if params[:moderation_ids]
+    @moderations_for_topics ||= Moderation.topics.for_user(current_user.id)
     case params[:commit]
       when "Lock"
         @moderations_for_topics.each { |m| m.lock! }
@@ -28,10 +34,22 @@ class Moderator::TopicsController < Moderator::ApplicationController
         flash[:notice] = "All selected topics have been unstickied."
       when "Move"
         move
-        render :action => "move"
         return false
     end
     redirect_back_or_default(root_path)
+  rescue ActiveRecord::RecordNotFound
+    flash[:notice] = "The moderation you were looking for could not be found."
+    redirect_back_or_default moderator_moderations_path
+  end
+  
+  def move
+    if params[:new_forum_id]
+      @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
+      flash[:notice] = "The selected topics have been moved."
+      redirect_back_or_default(forum_path(params[:new_forum_id]))
+    else
+      render
+    end
   end
   
   def toggle_lock
@@ -49,6 +67,9 @@ class Moderator::TopicsController < Moderator::ApplicationController
   private
     def find_topic
       @topic = Topic.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        flash[:notice] = "The topic you were looking for could not be found."
+        redirect_to moderator_moderations_path
     end
   
 end

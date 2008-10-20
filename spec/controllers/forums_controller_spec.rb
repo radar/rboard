@@ -18,9 +18,8 @@ describe ForumsController do
 
   it "should restrict which forums it shows when not logged in" do
     login_as(:plebian)
-    Forum.should_receive(:find_all_without_parent).and_return(@forums)
-    @forum.should_receive(:viewable?).and_return(true)
-    @forum.stub!(:position)
+    Forum.should_receive(:without_parent).and_return(@forums)
+    @forums.should_receive(:viewable_to).and_return(@forums)
     get 'index'
     response.should render_template("index")
   end
