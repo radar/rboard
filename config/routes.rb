@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.namespace :moderator do |moderator|
-    moderator.resources :topics do |topic|
+    moderator.resources :topics, :member => { :toggle_lock => :put, :toggle_sticky => :put }, :collection => { :moderate => :post } do |topic|
       topic.resources :moderations
     end
     
@@ -26,7 +26,7 @@ ActionController::Routing::Routes.draw do |map|
       post.resources :moderations
     end
     
-    moderator.resources :moderations, :collection => { :moderate => :post }
+    moderator.resources :moderations
   end
   
   map.resources :forums, :collection => { :list => :get } do |forum|

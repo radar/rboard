@@ -23,7 +23,7 @@
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
 	<% unless @topics.empty? %>
-	  <% form_tag moderate_moderator_moderations_path do %>
+	  <% form_tag moderate_moderator_topics_path do %>
 	  <thead>
   	  <tr>
   	    <% if is_moderator? %>

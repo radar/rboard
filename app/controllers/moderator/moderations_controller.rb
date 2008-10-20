@@ -46,44 +46,9 @@ class Moderator::ModerationsController < Moderator::ApplicationController
     @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.count
   end
   
-  def moderate
-    case params[:commit]
-      when "Lock"
-        Moderation.topics.for_user(current_user.id).each do |m|
-           m.moderated_object.lock!
-           m.destroy
-        end
-        flash[:notice] = "All selected topics have been locked."
-      when "Unlock"
-        Moderation.topics.for_user(current_user.id).each do |m|
-           m.moderated_object.unlock!
-           m.destroy
-        end
-        flash[:notice] = "All selected topics have been unlocked."
-      when "Delete"
-        #TODO: maybe ask for confirmation?
-        Moderation.topics.for_user(current_user.id).each do |m|
-          m.moderated_object.destroy
-          m.destroy
-        end
-        flash[:notice] = "All selected topics have been deleted."
-      when "Sticky"
-        Moderation.topics.for_user(current_user.id).each do |m|
-          m.moderated_object.sticky!
-          m.destroy
-        end
-        flash[:notice] = "All selected topics have been stickied."
-      when "Unsticky"
-        Moderation.topics.for_user(current_user.id).each do |m|
-          m.moderated_object.unsticky!
-          m.destroy
-        end
-        flash[:notice] = "All selected topics have been unstickied."
-      when "Move"
-        move(Moderation.topics.for_user(current_user.id).map(&:moderated_object))
-        return false
-    end
-    redirect_back_or_default(root_path)
+  # Used for moving a topic, or selection of topics.
+  def move
+    
   end
   
   private

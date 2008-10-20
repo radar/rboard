@@ -41,19 +41,6 @@ class TopicsController < ApplicationController
     end
   end
   
-  #these two methods do basically the same thing
-  def lock
-    @topic.lock!
-    flash[:notice] = "This topic has been locked."
-    redirect_to forum_topic_path(@topic.forum, @topic)
-  end
-  
-  def unlock
-    @topic.unlock!
-    flash[:notice] = "This topic has been unlocked."
-    redirect_to forum_topic_path(@topic.forum, @topic)
-  end
-
   private
   
   def is_viewable?

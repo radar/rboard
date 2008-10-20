@@ -3,7 +3,7 @@ class Topic < ActiveRecord::Base
   belongs_to :forum
   belongs_to :last_post, :class_name => "Post"
 
-  has_many :moderations, :as => :moderated_object
+  has_many :moderations, :as => :moderated_object, :dependent => :destroy
   has_many :posts, :dependent => :destroy, :order => "posts.created_at asc"
   has_many :users, :through => :posts
   
@@ -28,14 +28,10 @@ class Topic < ActiveRecord::Base
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
-    if is_new_last_post
-      puts "UPDATING LAST POST FOR #{new_forum}"
-      new_forum.update_last_post(new_forum, posts.last)
-    end
+    new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
     
     if was_old_last_post
       old_forum.reload
-      puts "UPDATING LAST POST FOR #{old_forum}"
       old_forum.update_last_post(new_forum)
     end
   end
