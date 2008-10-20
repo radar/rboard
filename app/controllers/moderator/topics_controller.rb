@@ -1,18 +1,6 @@
 class Moderator::TopicsController < Moderator::ApplicationController
   before_filter :find_topic
   
-  def toggle_lock
-    @topic.toggle!("locked")
-    flash[:notice] = "This topic has been " + (@topic.locked? ? "locked." : "unlocked.")
-    redirect_back_or_default moderator_moderations_path
-  end
-  
-  def toggle_sticky
-    @topic.toggle!("sticky")
-    flash[:notice] = "This topic has been " + (@topic.sticky? ? "stickied." : "unstickied.")
-    redirect_back_or_default moderator_moderations_path
-  end
-  
   def destroy
     @topic.destroy
     flash[:notice] = "That topic has been deleted."
@@ -44,6 +32,18 @@ class Moderator::TopicsController < Moderator::ApplicationController
         return false
     end
     redirect_back_or_default(root_path)
+  end
+  
+  def toggle_lock
+    @topic.toggle!("locked")
+    flash[:notice] = "This topic has been " + (@topic.locked? ? "locked." : "unlocked.")
+    redirect_back_or_default moderator_moderations_path
+  end
+  
+  def toggle_sticky
+    @topic.toggle!("sticky")
+    flash[:notice] = "This topic has been " + (@topic.sticky? ? "stickied." : "unstickied.")
+    redirect_back_or_default moderator_moderations_path
   end
   
   private
