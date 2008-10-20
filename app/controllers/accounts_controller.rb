@@ -7,9 +7,9 @@ class AccountsController < ApplicationController
   end
   
   def login
-    if logged_in?
+    if request.get? && logged_in?
       flash[:notice] = "You are already logged in."
-      redirect_back_or_default(forums_path) 
+      redirect_back_or_default(forums_path) and return false
     end
     return unless request.post?
     self.current_user = User.authenticate(params[:login], params[:password])
@@ -22,7 +22,7 @@ class AccountsController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       flash[:notice] = "Logged in successfully"
-      redirect_back_or_default(forums_path)
+      redirect_back_or_default(forums_path) and return false
     else
       flash[:notice] = "The username or password you provided is incorrect. Please try again."
     end
