@@ -45,13 +45,13 @@ class TopicsController < ApplicationController
   def lock
     @topic.lock!
     flash[:notice] = "This topic has been locked."
-    redirect_to forum_topic_path(topic.forum, topic)
+    redirect_to forum_topic_path(@topic.forum, @topic)
   end
   
   def unlock
     @topic.unlock!
     flash[:notice] = "This topic has been unlocked."
-    redirect_to forum_topic_path(topic.forum, topic)
+    redirect_to forum_topic_path(@topic.forum, @topic)
   end
 
   private
@@ -80,11 +80,13 @@ class TopicsController < ApplicationController
   
   def find_forum
     @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
-    if @forum.nil?
-      @topic = Topic.find(params[:id], :joins => :posts)
-      @forum = @topic.forum
-    else
-      @topic = @forum.topics.find(params[:id], :joins => :posts)
+    if params[:id]
+      if @forum.nil?
+        @topic = Topic.find(params[:id], :joins => :posts)
+        @forum = @topic.forum
+      else
+        @topic = @forum.topics.find(params[:id], :joins => :posts)
+      end
     end
   end
   
