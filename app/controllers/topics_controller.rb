@@ -81,7 +81,7 @@ class TopicsController < ApplicationController
   def find_forum
     @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
     if @forum.nil?
-      @topic = Topic.find(params[:id], :include => :posts)
+      @topic = Topic.find(params[:id], :joins => :posts)
       @forum = @topic.forum
     else
       @topic = @forum.topics.find(params[:id], :joins => :posts)
