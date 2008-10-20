@@ -4,17 +4,19 @@
 <%= render :partial => "menu" %>
 <br />
 <%= render :partial => @posts %>
-<table class='action-box' width='100%' cellpadding='2' cellspacing='0'>
-  <thead>
-    <tr>
-      <td colspan='2'><h3>Quick Reply</h3></td>
-    </tr>
-  </thead>
-  <tbody>
-    <% form_for [@topic, @post] do |f| %>
-      <%= render :partial => "posts/form", :locals => { :f => f, :rows => 10, :cols => 70 } %>
-    <% end %>
-  </tbody>
-</table>
+<% if logged_in? %>
+  <table class='action-box' width='100%' cellpadding='2' cellspacing='0'>
+    <thead>
+      <tr>
+        <td colspan='2'><h3>Quick Reply</h3></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% form_for [@topic, @post] do |f| %>
+        <%= render :partial => "posts/form", :locals => { :f => f, :rows => 10, :cols => 70 } %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 <%= render :partial => "menu" %>
 <%= pagination %>

@@ -3,6 +3,7 @@
   <% unless @moderations.empty? %>
     <thead>
       <tr>
+        <td>&nbsp;</td>
         <td>Identifier</td>
         <td>Flagged On</td>
         <td>Reason</td>
@@ -11,6 +12,10 @@
     <tbody>
       <% for moderation in @moderations %>
         <tr>
+          <td>
+            <%= link_to theme_image_tag("edit.jpg"), edit_moderator_moderation_path(moderation) %>
+            <%= link_to theme_image_tag("delete.jpg"), moderator_moderation_path(moderation), :method => :delete, :confirm => "Are you sure you want to remove this moderation?" %>
+          </td>
           <td>
           <% if moderation.moderated_object_type == "Topic" %>
             <%= link_to moderation.moderated_object_type + " #" + moderation.moderated_object_id.to_s + " - " + moderation.moderated_object.subject, [moderation.forum, moderation.moderated_object] %>

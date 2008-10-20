@@ -4,7 +4,7 @@ class EditsController < ApplicationController
   before_filter :store_location, :only => :index
   
   def index
-    @edits = current_user.moderator? ? @post.visible_edits : @post.edits
+    @edits = current_user.moderator? ? @post.edits.visible : @post.edits
   end
   
   def show
@@ -17,7 +17,7 @@ class EditsController < ApplicationController
   private
   
   def find_post
-    @post = Post.find(params[:post_id], :include => :edits) unless params[:post_id].nil?
+    @post = Post.find(params[:post_id], :include => :edits, :joins => :topic) unless params[:post_id].nil?
   end
   
   def not_found

@@ -2,9 +2,8 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :topic
   
-  has_many :edits, :order => "created_at DESC"
-  has_many :moderations, :as => :moderated_object
-  has_many :visible_edits, :class_name => "Edit", :conditions => ["hidden != ?", false]
+  has_many :edits, :order => "created_at DESC", :dependent => :destroy
+  has_many :moderations, :as => :moderated_object, :dependent => :destroy
   
   validates_length_of :text, :minimum => 4
   validates_presence_of :text

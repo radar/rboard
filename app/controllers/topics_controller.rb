@@ -1,17 +1,16 @@
 class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :find_forum
-  before_filter :is_viewable?, :only => [:show, :unlock, :lock, :moderate]
+  before_filter :is_viewable?, :only => [:show, :unlock, :lock]
   before_filter :create_topic_redirect, :only => [:new, :create]
   before_filter :store_location, :only => [:show, :new, :edit, :reply]
-  before_filter :moderator_login_required, :only => [:moderate, :lock, :unlock]
+  before_filter :moderator_login_required, :only => [:lock, :unlock]
   
   def index
     redirect_to forum_path(@forum)
   end
   
   def show
-     @topic = @forum.topics.find(params[:id], :joins => :posts)
      @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
      @topic.increment!("views")
      @post = Post.new
@@ -44,15 +43,13 @@ class TopicsController < ApplicationController
   
   #these two methods do basically the same thing
   def lock
-    topic = Topic.find(params[:id])
-    topic.lock!
+    @topic.lock!
     flash[:notice] = "This topic has been locked."
     redirect_to forum_topic_path(topic.forum, topic)
   end
   
   def unlock
-    topic = Topic.find(params[:id])
-    topic.unlock!
+    @topic.unlock!
     flash[:notice] = "This topic has been unlocked."
     redirect_to forum_topic_path(topic.forum, topic)
   end
@@ -83,6 +80,12 @@ class TopicsController < ApplicationController
   
   def find_forum
     @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
+    if @forum.nil?
+      @topic = Topic.find(params[:id], :include => :posts)
+      @forum = @topic.forum
+    else
+      @topic = @forum.topics.find(params[:id], :joins => :posts)
+    end
   end
   
 end
