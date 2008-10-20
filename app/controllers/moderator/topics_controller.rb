@@ -67,6 +67,14 @@ class Moderator::TopicsController < Moderator::ApplicationController
   private
     def find_topic
       @topic = Topic.find(params[:id])
+      
+      # If the user is not allowed to see the topic, then they must not be allowed to change it either.
+      if !@topic.forum.viewable?(true, current_user)
+        flash[:notice] = "You are not allowed to access that topic."
+        @topic.moderations.for_user(current_user).each { |m| m.destroy }
+        redirect_to moderator_moderations_path
+      end
+      
       rescue ActiveRecord::RecordNotFound
         flash[:notice] = "The topic you were looking for could not be found."
         redirect_to moderator_moderations_path
