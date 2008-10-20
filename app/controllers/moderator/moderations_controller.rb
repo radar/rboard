@@ -2,11 +2,21 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   before_filter :find_topic_or_post
   
   def index
-    @moderations = Moderation.for_user(current_user)
+    @topic_moderations = Moderation.topics.for_user(current_user)
+    @post_moderations = Moderation.posts.for_user(current_user)
   end
   
-  def new
-    
+  # Checks to see if the moderation already exists and if it does will destroy it
+  # If the moderation does not exist, then it will create one.
+  def create
+    @moderation = @thing.moderations.for_user(current_user).first
+    if @moderation.nil?
+      @thing.moderations.create(:user => current_user, :forum => @thing.forum)
+      @moderated_topics_count = @thing.forum.moderations.topics.count
+    else
+      destroy
+      render :action => :destroy
+    end
   end
   
   def edit
@@ -26,6 +36,14 @@ class Moderator::ModerationsController < Moderator::ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     not_found
+  end
+  
+  # Can be called from the create action for when a moderation already exists.
+  # Used primarily for unchecking box on forums/show topics listing.
+  def destroy
+    @moderation ||= Moderation.find(params[:id])
+    @moderation.destroy
+    @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.count
   end
   
   def moderate
@@ -66,25 +84,6 @@ class Moderator::ModerationsController < Moderator::ApplicationController
         return false
     end
     redirect_back_or_default(root_path)
-  end
-  
-  # Checks to see if the moderation already exists and if it does will destroy it
-  # If the moderation does not exist, then it will create one.
-  def create
-    @moderation = @thing.moderations.for_user(current_user).first
-    if @moderation.nil?
-      @thing.moderations.create(:user => current_user, :forum => @thing.forum)
-      @moderated_topics_count = @thing.forum.moderations.topics.count
-    else
-      destroy
-      render :action => :destroy
-    end
-  end
-  
-  def destroy
-    @moderation ||= Moderation.find(params[:id])
-    @moderation.destroy
-    @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.count
   end
   
   private
