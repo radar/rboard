@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 09 10:23:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Oct 22 23:06:37 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,11 +571,11 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-models-user_rb.html'>app/models/user.rb</a>
         </td>
-      <td class='lines_total'><tt>115</tt>
+      <td class='lines_total'><tt>112</tt>
         </td>
-      <td class='lines_code'><tt>81</tt>
+      <td class='lines_code'><tt>83</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>86.1%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>85.7%</tt>
               &nbsp;</td>
             <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='86'/>
                   <td class='uncovered' width='14'/>
@@ -585,10 +585,10 @@ span.run100 {
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>80.2%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>80.7%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='80'/>
-                  <td class='uncovered' width='20'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='81'/>
+                  <td class='uncovered' width='19'/>
                   </tr>
                 </table>
               </td>
@@ -603,116 +603,113 @@ span.run100 {
 </span><span class="inferred0"><a name="line3"></a>  3   
 </span><span class="marked1"><a name="line4"></a>  4   attr_accessor :password
 </span><span class="inferred0"><a name="line5"></a>  5   
-</span><span class="inferred1"><a name="line6"></a>  6   #validations
-</span><span class="marked0"><a name="line7"></a>  7   validates_presence_of     :login, :email
-</span><span class="marked1"><a name="line8"></a>  8   validates_presence_of     :password,                   :if =&gt; :password_required?
-</span><span class="marked0"><a name="line9"></a>  9   validates_presence_of     :password_confirmation,      :if =&gt; :password_required?
-</span><span class="marked1"><a name="line10"></a> 10   validates_length_of       :password, :within =&gt; 4..40, :if =&gt; :password_required?
-</span><span class="marked0"><a name="line11"></a> 11   validates_confirmation_of :password,                   :if =&gt; :password_required?
-</span><span class="marked1"><a name="line12"></a> 12   validates_length_of       :login,    :within =&gt; 3..40
-</span><span class="marked0"><a name="line13"></a> 13   validates_length_of       :email,    :within =&gt; 3..100
-</span><span class="marked1"><a name="line14"></a> 14   validates_uniqueness_of   :login, :email, :case_sensitive =&gt; false
-</span><span class="inferred0"><a name="line15"></a> 15   
-</span><span class="inferred1"><a name="line16"></a> 16   #has
-</span><span class="marked0"><a name="line17"></a> 17   has_many :edits
-</span><span class="marked1"><a name="line18"></a> 18   has_many :posts
-</span><span class="marked0"><a name="line19"></a> 19   has_many :topics
-</span><span class="marked1"><a name="line20"></a> 20   has_many :inbox_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;to_id&quot;, :conditions =&gt; [&quot;to_deleted = ?&quot;, false], :order =&gt; &quot;id DESC&quot;
-</span><span class="marked0"><a name="line21"></a> 21   has_many :outbox_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;from_id&quot;, :conditions =&gt; [&quot;from_deleted = ?&quot;, false], :order =&gt; &quot;id DESC&quot;
-</span><span class="marked1"><a name="line22"></a> 22   has_many :unread_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;to_id&quot;, :conditions =&gt; [&quot;to_read = ? AND to_deleted = ?&quot;, false, false]
+</span><span class="marked1"><a name="line6"></a>  6   named_scope :recent, lambda { { :conditions =&gt; [&quot;login_time &gt; ?&quot;, 15.minutes.ago] } }
+</span><span class="inferred0"><a name="line7"></a>  7   
+</span><span class="marked1"><a name="line8"></a>  8   validates_presence_of     :login, :email
+</span><span class="marked0"><a name="line9"></a>  9   validates_presence_of     :password,                   :if =&gt; :password_required?
+</span><span class="marked1"><a name="line10"></a> 10   validates_presence_of     :password_confirmation,      :if =&gt; :password_required?
+</span><span class="marked0"><a name="line11"></a> 11   validates_length_of       :password, :within =&gt; 4..40, :if =&gt; :password_required?
+</span><span class="marked1"><a name="line12"></a> 12   validates_confirmation_of :password,                   :if =&gt; :password_required?
+</span><span class="marked0"><a name="line13"></a> 13   validates_length_of       :login,    :within =&gt; 3..40
+</span><span class="marked1"><a name="line14"></a> 14   validates_length_of       :email,    :within =&gt; 3..100
+</span><span class="marked0"><a name="line15"></a> 15   validates_uniqueness_of   :login, :email, :case_sensitive =&gt; false
+</span><span class="inferred1"><a name="line16"></a> 16   
+</span><span class="marked0"><a name="line17"></a> 17   has_many :banned_ips, :foreign_key =&gt; &quot;banned_by&quot;
+</span><span class="marked1"><a name="line18"></a> 18   has_many :edits
+</span><span class="marked0"><a name="line19"></a> 19   has_many :inbox_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;to_id&quot;, :conditions =&gt; [&quot;to_deleted = ?&quot;, false], :order =&gt; &quot;id DESC&quot;
+</span><span class="marked1"><a name="line20"></a> 20   has_many :outbox_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;from_id&quot;, :conditions =&gt; [&quot;from_deleted = ?&quot;, false], :order =&gt; &quot;id DESC&quot;
+</span><span class="marked0"><a name="line21"></a> 21   has_many :moderations
+</span><span class="marked1"><a name="line22"></a> 22   has_many :posts
 </span><span class="marked0"><a name="line23"></a> 23   has_many :sent_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;from_id&quot;
-</span><span class="marked1"><a name="line24"></a> 24   has_many :banned_ips, :foreign_key =&gt; &quot;banned_by&quot;
-</span><span class="inferred0"><a name="line25"></a> 25   
-</span><span class="marked1"><a name="line26"></a> 26   belongs_to :theme
-</span><span class="inferred0"><a name="line27"></a> 27   
-</span><span class="inferred1"><a name="line28"></a> 28   #belongs
-</span><span class="marked0"><a name="line29"></a> 29   belongs_to :banned_by, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; &quot;banned_by&quot;
+</span><span class="marked1"><a name="line24"></a> 24   has_many :topics
+</span><span class="marked0"><a name="line25"></a> 25   has_many :unread_messages, :class_name =&gt; &quot;Message&quot;, :foreign_key =&gt; &quot;to_id&quot;, :conditions =&gt; [&quot;to_read = ? AND to_deleted = ?&quot;, false, false]
+</span><span class="inferred1"><a name="line26"></a> 26 
+</span><span class="marked0"><a name="line27"></a> 27   belongs_to :banned_by, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; &quot;banned_by&quot;
+</span><span class="marked1"><a name="line28"></a> 28   belongs_to :style
+</span><span class="marked0"><a name="line29"></a> 29   belongs_to :theme
 </span><span class="marked1"><a name="line30"></a> 30   belongs_to :user_level
-</span><span class="marked0"><a name="line31"></a> 31   belongs_to :style
-</span><span class="inferred1"><a name="line32"></a> 32   
-</span><span class="inferred0"><a name="line33"></a> 33   #before
-</span><span class="marked1"><a name="line34"></a> 34   before_save :encrypt_password
+</span><span class="inferred0"><a name="line31"></a> 31   
+</span><span class="marked1"><a name="line32"></a> 32   before_save :encrypt_password
+</span><span class="marked0"><a name="line33"></a> 33   before_create :set_theme
+</span><span class="marked1"><a name="line34"></a> 34   before_create :make_admin
 </span><span class="inferred0"><a name="line35"></a> 35   
-</span><span class="marked1"><a name="line36"></a> 36   before_create :set_theme
-</span><span class="marked0"><a name="line37"></a> 37   before_create :make_admin
-</span><span class="inferred1"><a name="line38"></a> 38   
-</span><span class="marked0"><a name="line39"></a> 39   def set_theme
-</span><span class="marked1"><a name="line40"></a> 40     self.theme = Theme.find(:first)
-</span><span class="marked0"><a name="line41"></a> 41   end
-</span><span class="inferred1"><a name="line42"></a> 42   
-</span><span class="inferred0"><a name="line43"></a> 43   
-</span><span class="inferred1"><a name="line44"></a> 44   #misc. user information
-</span><span class="marked0"><a name="line45"></a> 45   def rank
-</span><span class="uncovered1"><a name="line46"></a> 46 	  rank = Rank.find_by_custom(false, :conditions =&gt; [&quot;posts_required &lt;= ?&quot;, posts.size], :order =&gt; &quot;posts_required DESC&quot;)
-</span><span class="uncovered0"><a name="line47"></a> 47 	  rank.nil? ? &quot;User&quot; : rank.name
-</span><span class="uncovered1"><a name="line48"></a> 48   end
-</span><span class="inferred0"><a name="line49"></a> 49   
-</span><span class="inferred1"><a name="line50"></a> 50   #permission checking 
-</span><span class="marked0"><a name="line51"></a> 51   def make_admin
-</span><span class="marked1"><a name="line52"></a> 52     self.user_level = UserLevel.find(:first, :order =&gt; &quot;position desc&quot;) if User.count == 0
-</span><span class="marked0"><a name="line53"></a> 53   end
-</span><span class="inferred1"><a name="line54"></a> 54   
-</span><span class="marked0"><a name="line55"></a> 55   def admin?
-</span><span class="marked1"><a name="line56"></a> 56     user_level.to_s == &quot;Administrator&quot;
-</span><span class="marked0"><a name="line57"></a> 57   end
-</span><span class="inferred1"><a name="line58"></a> 58   
-</span><span class="marked0"><a name="line59"></a> 59   def moderator?
-</span><span class="marked1"><a name="line60"></a> 60     user_level.to_s == &quot;Moderator&quot;
-</span><span class="marked0"><a name="line61"></a> 61   end
-</span><span class="inferred1"><a name="line62"></a> 62   
-</span><span class="marked0"><a name="line63"></a> 63   def user?
-</span><span class="uncovered1"><a name="line64"></a> 64     user_level.to_s == &quot;User&quot;
-</span><span class="uncovered0"><a name="line65"></a> 65   end
-</span><span class="inferred1"><a name="line66"></a> 66   
-</span><span class="inferred0"><a name="line67"></a> 67   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
-</span><span class="marked1"><a name="line68"></a> 68   def self.authenticate(login, password)
-</span><span class="uncovered0"><a name="line69"></a> 69     u = find_by_login(login) # need to get the salt
-</span><span class="uncovered1"><a name="line70"></a> 70     u &amp;&amp; u.authenticated?(password) ? u : nil
-</span><span class="uncovered0"><a name="line71"></a> 71   end
-</span><span class="inferred1"><a name="line72"></a> 72   
-</span><span class="inferred0"><a name="line73"></a> 73   # Encrypts some data with the salt.
-</span><span class="marked1"><a name="line74"></a> 74   def self.encrypt(password, salt)
-</span><span class="marked0"><a name="line75"></a> 75     Digest::SHA1.hexdigest(&quot;--#{salt}--#{password}--&quot;)
-</span><span class="marked1"><a name="line76"></a> 76   end
-</span><span class="inferred0"><a name="line77"></a> 77   
-</span><span class="inferred1"><a name="line78"></a> 78   # Encrypts the password with the user salt
-</span><span class="marked0"><a name="line79"></a> 79   def encrypt(password)
-</span><span class="marked1"><a name="line80"></a> 80     self.class.encrypt(password, salt)
-</span><span class="marked0"><a name="line81"></a> 81   end
-</span><span class="inferred1"><a name="line82"></a> 82   
-</span><span class="marked0"><a name="line83"></a> 83   def authenticated?(password)
-</span><span class="uncovered1"><a name="line84"></a> 84     crypted_password == encrypt(password)
-</span><span class="uncovered0"><a name="line85"></a> 85   end
-</span><span class="inferred1"><a name="line86"></a> 86   
-</span><span class="marked0"><a name="line87"></a> 87   def remember_token?
-</span><span class="uncovered1"><a name="line88"></a> 88     remember_token_expires_at &amp;&amp; Time.now.utc &lt; remember_token_expires_at 
-</span><span class="uncovered0"><a name="line89"></a> 89   end
-</span><span class="inferred1"><a name="line90"></a> 90   
-</span><span class="inferred0"><a name="line91"></a> 91   # These create and unset the fields required for remembering users between browser closes
-</span><span class="marked1"><a name="line92"></a> 92   def remember_me
-</span><span class="uncovered0"><a name="line93"></a> 93     self.remember_token_expires_at = 2.weeks.from_now.utc
-</span><span class="uncovered1"><a name="line94"></a> 94     self.remember_token            = encrypt(&quot;#{email}--#{remember_token_expires_at}&quot;)
-</span><span class="uncovered0"><a name="line95"></a> 95     save(false)
-</span><span class="uncovered1"><a name="line96"></a> 96   end
-</span><span class="inferred0"><a name="line97"></a> 97   
-</span><span class="marked1"><a name="line98"></a> 98   def forget_me
-</span><span class="marked0"><a name="line99"></a> 99     self.remember_token_expires_at = nil
-</span><span class="marked1"><a name="line100"></a>100     self.remember_token            = nil
-</span><span class="marked0"><a name="line101"></a>101     save(false)
-</span><span class="inferred1"><a name="line102"></a>102   end
-</span><span class="inferred0"><a name="line103"></a>103   
-</span><span class="marked1"><a name="line104"></a>104   protected
-</span><span class="inferred0"><a name="line105"></a>105   # before filter 
-</span><span class="marked1"><a name="line106"></a>106   def encrypt_password
-</span><span class="marked0"><a name="line107"></a>107     return if password.blank?
-</span><span class="marked1"><a name="line108"></a>108     self.salt = Digest::SHA1.hexdigest(&quot;--#{Time.now.to_s}--#{login}--&quot;) if new_record?
-</span><span class="marked0"><a name="line109"></a>109     self.crypted_password = encrypt(password)
-</span><span class="inferred1"><a name="line110"></a>110   end
-</span><span class="inferred0"><a name="line111"></a>111   
-</span><span class="marked1"><a name="line112"></a>112   def password_required?
-</span><span class="marked0"><a name="line113"></a>113     crypted_password.blank? || !password.blank?
-</span><span class="marked1"><a name="line114"></a>114   end
-</span><span class="inferred0"><a name="line115"></a>115 end
+</span><span class="marked1"><a name="line36"></a> 36   def set_theme
+</span><span class="marked0"><a name="line37"></a> 37     self.theme = Theme.find(:first)
+</span><span class="marked1"><a name="line38"></a> 38   end
+</span><span class="inferred0"><a name="line39"></a> 39   
+</span><span class="inferred1"><a name="line40"></a> 40   
+</span><span class="inferred0"><a name="line41"></a> 41   #misc. user information
+</span><span class="marked1"><a name="line42"></a> 42   def rank
+</span><span class="uncovered0"><a name="line43"></a> 43 	  rank = Rank.find_by_custom(false, :conditions =&gt; [&quot;posts_required &lt;= ?&quot;, posts.size], :order =&gt; &quot;posts_required DESC&quot;)
+</span><span class="uncovered1"><a name="line44"></a> 44 	  rank.nil? ? user_level : rank.name
+</span><span class="uncovered0"><a name="line45"></a> 45   end
+</span><span class="inferred1"><a name="line46"></a> 46   
+</span><span class="inferred0"><a name="line47"></a> 47   #permission checking 
+</span><span class="marked1"><a name="line48"></a> 48   def make_admin
+</span><span class="marked0"><a name="line49"></a> 49     self.user_level = UserLevel.find(:first, :order =&gt; &quot;position desc&quot;) if User.count == 0
+</span><span class="marked1"><a name="line50"></a> 50   end
+</span><span class="inferred0"><a name="line51"></a> 51   
+</span><span class="marked1"><a name="line52"></a> 52   def admin?
+</span><span class="marked0"><a name="line53"></a> 53     user_level.to_s == &quot;Administrator&quot;
+</span><span class="marked1"><a name="line54"></a> 54   end
+</span><span class="inferred0"><a name="line55"></a> 55   
+</span><span class="marked1"><a name="line56"></a> 56   def moderator?
+</span><span class="marked0"><a name="line57"></a> 57     user_level.to_s == &quot;Moderator&quot;
+</span><span class="marked1"><a name="line58"></a> 58   end
+</span><span class="inferred0"><a name="line59"></a> 59   
+</span><span class="marked1"><a name="line60"></a> 60   def user?
+</span><span class="uncovered0"><a name="line61"></a> 61     user_level.to_s == &quot;User&quot;
+</span><span class="uncovered1"><a name="line62"></a> 62   end
+</span><span class="inferred0"><a name="line63"></a> 63   
+</span><span class="inferred1"><a name="line64"></a> 64   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
+</span><span class="marked0"><a name="line65"></a> 65   def self.authenticate(login, password)
+</span><span class="uncovered1"><a name="line66"></a> 66     u = find_by_login(login) # need to get the salt
+</span><span class="uncovered0"><a name="line67"></a> 67     u &amp;&amp; u.authenticated?(password) ? u : nil
+</span><span class="uncovered1"><a name="line68"></a> 68   end
+</span><span class="inferred0"><a name="line69"></a> 69   
+</span><span class="inferred1"><a name="line70"></a> 70   # Encrypts some data with the salt.
+</span><span class="marked0"><a name="line71"></a> 71   def self.encrypt(password, salt)
+</span><span class="marked1"><a name="line72"></a> 72     Digest::SHA1.hexdigest(&quot;--#{salt}--#{password}--&quot;)
+</span><span class="marked0"><a name="line73"></a> 73   end
+</span><span class="inferred1"><a name="line74"></a> 74   
+</span><span class="inferred0"><a name="line75"></a> 75   # Encrypts the password with the user salt
+</span><span class="marked1"><a name="line76"></a> 76   def encrypt(password)
+</span><span class="marked0"><a name="line77"></a> 77     self.class.encrypt(password, salt)
+</span><span class="marked1"><a name="line78"></a> 78   end
+</span><span class="inferred0"><a name="line79"></a> 79   
+</span><span class="marked1"><a name="line80"></a> 80   def authenticated?(password)
+</span><span class="uncovered0"><a name="line81"></a> 81     crypted_password == encrypt(password)
+</span><span class="uncovered1"><a name="line82"></a> 82   end
+</span><span class="inferred0"><a name="line83"></a> 83   
+</span><span class="marked1"><a name="line84"></a> 84   def remember_token?
+</span><span class="uncovered0"><a name="line85"></a> 85     remember_token_expires_at &amp;&amp; Time.now.utc &lt; remember_token_expires_at 
+</span><span class="uncovered1"><a name="line86"></a> 86   end
+</span><span class="inferred0"><a name="line87"></a> 87   
+</span><span class="inferred1"><a name="line88"></a> 88   # These create and unset the fields required for remembering users between browser closes
+</span><span class="marked0"><a name="line89"></a> 89   def remember_me
+</span><span class="uncovered1"><a name="line90"></a> 90     self.remember_token_expires_at = 2.weeks.from_now.utc
+</span><span class="uncovered0"><a name="line91"></a> 91     self.remember_token            = encrypt(&quot;#{email}--#{remember_token_expires_at}&quot;)
+</span><span class="uncovered1"><a name="line92"></a> 92     save(false)
+</span><span class="uncovered0"><a name="line93"></a> 93   end
+</span><span class="inferred1"><a name="line94"></a> 94   
+</span><span class="marked0"><a name="line95"></a> 95   def forget_me
+</span><span class="marked1"><a name="line96"></a> 96     self.remember_token_expires_at = nil
+</span><span class="marked0"><a name="line97"></a> 97     self.remember_token            = nil
+</span><span class="marked1"><a name="line98"></a> 98     save(false)
+</span><span class="inferred0"><a name="line99"></a> 99   end
+</span><span class="inferred1"><a name="line100"></a>100   
+</span><span class="marked0"><a name="line101"></a>101   protected
+</span><span class="inferred1"><a name="line102"></a>102   # before filter 
+</span><span class="marked0"><a name="line103"></a>103   def encrypt_password
+</span><span class="marked1"><a name="line104"></a>104     return if password.blank?
+</span><span class="marked0"><a name="line105"></a>105     self.salt = Digest::SHA1.hexdigest(&quot;--#{Time.now.to_s}--#{login}--&quot;) if new_record?
+</span><span class="marked1"><a name="line106"></a>106     self.crypted_password = encrypt(password)
+</span><span class="inferred0"><a name="line107"></a>107   end
+</span><span class="inferred1"><a name="line108"></a>108   
+</span><span class="marked0"><a name="line109"></a>109   def password_required?
+</span><span class="marked1"><a name="line110"></a>110     crypted_password.blank? || !password.blank?
+</span><span class="marked0"><a name="line111"></a>111   end
+</span><span class="inferred1"><a name="line112"></a>112 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

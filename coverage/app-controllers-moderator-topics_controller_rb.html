@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/models/message.rb - C0 code coverage information</title>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/controllers/moderator/topics_controller.rb - C0 code coverage information</title>
     <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
     <style type='text/css'>span.cross-ref-title {
  font-size: 140%;
@@ -569,26 +569,26 @@ span.run100 {
       <td class='heading'>Code coverage</td>
       </tr>
     </thead>
-  <tbody><tr class='light'><td><a href='app-models-message_rb.html'>app/models/message.rb</a>
+  <tbody><tr class='light'><td><a href='app-controllers-moderator-topics_controller_rb.html'>app/controllers/moderator/topics_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>8</tt>
+      <td class='lines_total'><tt>83</tt>
         </td>
-      <td class='lines_code'><tt>7</tt>
+      <td class='lines_code'><tt>67</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>67.5%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='67'/>
+                  <td class='uncovered' width='33'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>61.2%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='61'/>
+                  <td class='uncovered' width='39'/>
                   </tr>
                 </table>
               </td>
@@ -598,14 +598,89 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a>1 class Message &lt; ActiveRecord::Base
-</span><span class="marked1"><a name="line2"></a>2   belongs_to :to, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; :to_id
-</span><span class="marked0"><a name="line3"></a>3   belongs_to :from, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; :from_id
-</span><span class="inferred1"><a name="line4"></a>4   
-</span><span class="marked0"><a name="line5"></a>5   def belongs_to?(user_id)
-</span><span class="marked1"><a name="line6"></a>6 	   to_id == user_id || from_id == user_id
-</span><span class="marked0"><a name="line7"></a>7   end
-</span><span class="inferred1"><a name="line8"></a>8 end
+<pre><span class="marked0"><a name="line1"></a> 1 class Moderator::TopicsController &lt; Moderator::ApplicationController
+</span><span class="marked1"><a name="line2"></a> 2   before_filter :find_topic, :except =&gt; [:moderate]
+</span><span class="inferred0"><a name="line3"></a> 3   
+</span><span class="marked1"><a name="line4"></a> 4   def destroy
+</span><span class="marked0"><a name="line5"></a> 5     @topic.destroy
+</span><span class="marked1"><a name="line6"></a> 6     flash[:notice] = &quot;That topic has been deleted.&quot;
+</span><span class="marked0"><a name="line7"></a> 7     redirect_back_or_default moderator_moderations_path
+</span><span class="inferred1"><a name="line8"></a> 8   end
+</span><span class="inferred0"><a name="line9"></a> 9   
+</span><span class="inferred1"><a name="line10"></a>10   # This method works in two ways.
+</span><span class="inferred0"><a name="line11"></a>11   # The first way is from the moderations index action which will pass in params[:moderation_ids] if
+</span><span class="inferred1"><a name="line12"></a>12   # any of the submit buttons on the bottom row are clicked.
+</span><span class="inferred0"><a name="line13"></a>13   #
+</span><span class="inferred1"><a name="line14"></a>14   # The second comes from forums/show which will use all the currently selected moderations as the objects.
+</span><span class="marked0"><a name="line15"></a>15   def moderate
+</span><span class="marked1"><a name="line16"></a>16     @moderations_for_topics = Moderation.for_user(current_user).topics.find(params[:moderation_ids]) if params[:moderation_ids]
+</span><span class="marked0"><a name="line17"></a>17     @moderations_for_topics ||= Moderation.topics.for_user(current_user.id)
+</span><span class="marked1"><a name="line18"></a>18     case params[:commit]
+</span><span class="marked0"><a name="line19"></a>19       when &quot;Lock&quot;
+</span><span class="marked1"><a name="line20"></a>20         @moderations_for_topics.each { |m| m.lock! }
+</span><span class="marked0"><a name="line21"></a>21         flash[:notice] = &quot;All selected topics have been locked.&quot;
+</span><span class="marked1"><a name="line22"></a>22       when &quot;Unlock&quot;
+</span><span class="marked0"><a name="line23"></a>23         @moderations_for_topics.each { |m| m.unlock! }
+</span><span class="marked1"><a name="line24"></a>24         flash[:notice] = &quot;All selected topics have been unlocked.&quot;
+</span><span class="marked0"><a name="line25"></a>25       when &quot;Delete&quot;
+</span><span class="inferred1"><a name="line26"></a>26         #TODO: maybe ask for confirmation?
+</span><span class="marked0"><a name="line27"></a>27         @moderations_for_topics.each { |m| m.destroy! }
+</span><span class="marked1"><a name="line28"></a>28         flash[:notice] = &quot;All selected topics have been deleted.&quot;
+</span><span class="marked0"><a name="line29"></a>29       when &quot;Sticky&quot;
+</span><span class="marked1"><a name="line30"></a>30         @moderations_for_topics.each { |m| m.sticky! }
+</span><span class="marked0"><a name="line31"></a>31         flash[:notice] = &quot;All selected topics have been stickied.&quot;
+</span><span class="marked1"><a name="line32"></a>32       when &quot;Unsticky&quot;
+</span><span class="marked0"><a name="line33"></a>33         @moderations_for_topics.each { |m| m.unsticky! }
+</span><span class="marked1"><a name="line34"></a>34         flash[:notice] = &quot;All selected topics have been unstickied.&quot;
+</span><span class="uncovered0"><a name="line35"></a>35       when &quot;Move&quot;
+</span><span class="uncovered1"><a name="line36"></a>36         move
+</span><span class="uncovered0"><a name="line37"></a>37         return false
+</span><span class="uncovered1"><a name="line38"></a>38     end
+</span><span class="marked0"><a name="line39"></a>39     redirect_back_or_default(moderator_moderations_path)
+</span><span class="uncovered1"><a name="line40"></a>40   rescue ActiveRecord::RecordNotFound
+</span><span class="uncovered0"><a name="line41"></a>41     flash[:notice] = &quot;The moderation you were looking for could not be found.&quot;
+</span><span class="uncovered1"><a name="line42"></a>42     redirect_back_or_default moderator_moderations_path
+</span><span class="marked0"><a name="line43"></a>43   end
+</span><span class="inferred1"><a name="line44"></a>44   
+</span><span class="marked0"><a name="line45"></a>45   def move
+</span><span class="uncovered1"><a name="line46"></a>46     if params[:new_forum_id]
+</span><span class="uncovered0"><a name="line47"></a>47       @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
+</span><span class="uncovered1"><a name="line48"></a>48       flash[:notice] = &quot;The selected topics have been moved.&quot;
+</span><span class="uncovered0"><a name="line49"></a>49       redirect_back_or_default(forum_path(params[:new_forum_id]))
+</span><span class="uncovered1"><a name="line50"></a>50     else
+</span><span class="uncovered0"><a name="line51"></a>51       render
+</span><span class="uncovered1"><a name="line52"></a>52     end
+</span><span class="uncovered0"><a name="line53"></a>53   end
+</span><span class="inferred1"><a name="line54"></a>54   
+</span><span class="marked0"><a name="line55"></a>55   def toggle_lock
+</span><span class="uncovered1"><a name="line56"></a>56     @topic.toggle!(&quot;locked&quot;)
+</span><span class="uncovered0"><a name="line57"></a>57     flash[:notice] = &quot;This topic has been &quot; + (@topic.locked? ? &quot;locked.&quot; : &quot;unlocked.&quot;)
+</span><span class="uncovered1"><a name="line58"></a>58     redirect_back_or_default moderator_moderations_path
+</span><span class="uncovered0"><a name="line59"></a>59   end
+</span><span class="inferred1"><a name="line60"></a>60   
+</span><span class="marked0"><a name="line61"></a>61   def toggle_sticky
+</span><span class="uncovered1"><a name="line62"></a>62     @topic.toggle!(&quot;sticky&quot;)
+</span><span class="uncovered0"><a name="line63"></a>63     flash[:notice] = &quot;This topic has been &quot; + (@topic.sticky? ? &quot;stickied.&quot; : &quot;unstickied.&quot;)
+</span><span class="uncovered1"><a name="line64"></a>64     redirect_back_or_default moderator_moderations_path
+</span><span class="uncovered0"><a name="line65"></a>65   end
+</span><span class="inferred1"><a name="line66"></a>66   
+</span><span class="marked0"><a name="line67"></a>67   private
+</span><span class="marked1"><a name="line68"></a>68     def find_topic
+</span><span class="marked0"><a name="line69"></a>69       @topic = Topic.find(params[:id])
+</span><span class="inferred1"><a name="line70"></a>70       
+</span><span class="inferred0"><a name="line71"></a>71       # If the user is not allowed to see the topic, then they must not be allowed to change it either.
+</span><span class="marked1"><a name="line72"></a>72       if !@topic.forum.viewable?(true, current_user)
+</span><span class="marked0"><a name="line73"></a>73         flash[:notice] = &quot;You are not allowed to access that topic.&quot;
+</span><span class="marked1"><a name="line74"></a>74         @topic.moderations.for_user(current_user).each { |m| m.destroy }
+</span><span class="marked0"><a name="line75"></a>75         redirect_to moderator_moderations_path
+</span><span class="inferred1"><a name="line76"></a>76       end
+</span><span class="uncovered0"><a name="line77"></a>77       
+</span><span class="uncovered1"><a name="line78"></a>78       rescue ActiveRecord::RecordNotFound
+</span><span class="uncovered0"><a name="line79"></a>79         flash[:notice] = &quot;The topic you were looking for could not be found.&quot;
+</span><span class="uncovered1"><a name="line80"></a>80         redirect_to moderator_moderations_path
+</span><span class="marked0"><a name="line81"></a>81     end
+</span><span class="inferred1"><a name="line82"></a>82   
+</span><span class="inferred0"><a name="line83"></a>83 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

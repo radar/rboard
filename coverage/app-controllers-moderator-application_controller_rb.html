@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/models/message.rb - C0 code coverage information</title>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/controllers/moderator/application_controller.rb - C0 code coverage information</title>
     <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
     <style type='text/css'>span.cross-ref-title {
  font-size: 140%;
@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Wed Oct 22 23:06:37 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Oct 22 23:06:36 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -569,11 +569,11 @@ span.run100 {
       <td class='heading'>Code coverage</td>
       </tr>
     </thead>
-  <tbody><tr class='light'><td><a href='app-models-message_rb.html'>app/models/message.rb</a>
+  <tbody><tr class='light'><td><a href='app-controllers-moderator-application_controller_rb.html'>app/controllers/moderator/application_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>8</tt>
+      <td class='lines_total'><tt>5</tt>
         </td>
-      <td class='lines_code'><tt>7</tt>
+      <td class='lines_code'><tt>5</tt>
         </td>
       <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
@@ -598,14 +598,11 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a>1 class Message &lt; ActiveRecord::Base
-</span><span class="marked1"><a name="line2"></a>2   belongs_to :to, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; :to_id
-</span><span class="marked0"><a name="line3"></a>3   belongs_to :from, :class_name =&gt; &quot;User&quot;, :foreign_key =&gt; :from_id
-</span><span class="inferred1"><a name="line4"></a>4   
-</span><span class="marked0"><a name="line5"></a>5   def belongs_to?(user_id)
-</span><span class="marked1"><a name="line6"></a>6 	   to_id == user_id || from_id == user_id
-</span><span class="marked0"><a name="line7"></a>7   end
-</span><span class="inferred1"><a name="line8"></a>8 end
+<pre><span class="marked0"><a name="line1"></a>1 class Moderator::ApplicationController &lt; ApplicationController
+</span><span class="marked1"><a name="line2"></a>2   layout &quot;moderator&quot;
+</span><span class="marked0"><a name="line3"></a>3   helper &quot;namespaced&quot;
+</span><span class="marked1"><a name="line4"></a>4   before_filter :non_moderator_redirect
+</span><span class="inferred0"><a name="line5"></a>5 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

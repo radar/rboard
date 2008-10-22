@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 09 10:23:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Oct 22 23:06:37 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-topics_controller_rb.html'>app/controllers/topics_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>136</tt>
+      <td class='lines_total'><tt>80</tt>
         </td>
-      <td class='lines_code'><tt>114</tt>
+      <td class='lines_code'><tt>69</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>78.7%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>88.8%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='79'/>
-                  <td class='uncovered' width='21'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='89'/>
+                  <td class='uncovered' width='11'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>74.6%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>87.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='75'/>
-                  <td class='uncovered' width='25'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='87'/>
+                  <td class='uncovered' width='13'/>
                   </tr>
                 </table>
               </td>
@@ -598,142 +598,86 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked1"><a name="line1"></a>  1 class TopicsController &lt; ApplicationController
-</span><span class="marked0"><a name="line2"></a>  2   before_filter :login_required, :except =&gt; [:show]
-</span><span class="marked1"><a name="line3"></a>  3   before_filter :find_forum
-</span><span class="marked0"><a name="line4"></a>  4   before_filter :is_viewable?, :only =&gt; [:show, :unlock, :lock, :moderate]
-</span><span class="marked1"><a name="line5"></a>  5   before_filter :create_topic_redirect, :only =&gt; [:new, :create]
-</span><span class="marked0"><a name="line6"></a>  6   before_filter :store_location, :only =&gt; [:show, :new, :edit, :reply]
-</span><span class="marked1"><a name="line7"></a>  7   before_filter :moderator_login_required, :only =&gt; [:moderate, :lock, :unlock]
-</span><span class="inferred0"><a name="line8"></a>  8   
-</span><span class="marked1"><a name="line9"></a>  9   def show
-</span><span class="marked0"><a name="line10"></a> 10      @topic = @forum.topics.find(params[:id])
-</span><span class="marked1"><a name="line11"></a> 11      @posts = @topic.posts.paginate :per_page =&gt; per_page, :page =&gt; params[:page], :include =&gt; { :user =&gt; :user_level }
-</span><span class="marked0"><a name="line12"></a> 12      @topic.increment!(&quot;views&quot;)
-</span><span class="marked1"><a name="line13"></a> 13      respond_to do |format|
-</span><span class="marked0"><a name="line14"></a> 14        format.html
-</span><span class="marked1"><a name="line15"></a> 15        format.rss
-</span><span class="inferred0"><a name="line16"></a> 16      end
-</span><span class="uncovered1"><a name="line17"></a> 17    rescue ActiveRecord::RecordNotFound
-</span><span class="uncovered0"><a name="line18"></a> 18      not_found
-</span><span class="marked1"><a name="line19"></a> 19    end
-</span><span class="inferred0"><a name="line20"></a> 20   
-</span><span class="marked1"><a name="line21"></a> 21   def new
-</span><span class="marked0"><a name="line22"></a> 22     @topic = Topic.new
-</span><span class="marked1"><a name="line23"></a> 23     @post = @topic.posts.build
-</span><span class="inferred0"><a name="line24"></a> 24   end
-</span><span class="inferred1"><a name="line25"></a> 25   
-</span><span class="marked0"><a name="line26"></a> 26   def create
-</span><span class="marked1"><a name="line27"></a> 27     @topic = current_user.topics.build(params[:topic].merge(:forum_id =&gt; params[:forum_id]))
-</span><span class="marked0"><a name="line28"></a> 28     @post = @topic.posts.build(params[:post].merge(:user_id =&gt; current_user.id))
-</span><span class="marked1"><a name="line29"></a> 29     @topic.sticky = true if params[:topic][:sticky] == 1 &amp;&amp; current_user.admin?
-</span><span class="marked0"><a name="line30"></a> 30     if @topic.save
-</span><span class="marked1"><a name="line31"></a> 31       @topic.update_attribute(&quot;last_post_id&quot;, @post.id)
-</span><span class="marked0"><a name="line32"></a> 32       flash[:notice] = &quot;Topic has been created.&quot;
-</span><span class="marked1"><a name="line33"></a> 33       redirect_to forum_topic_path(@topic.forum, @topic)
-</span><span class="inferred0"><a name="line34"></a> 34     else
-</span><span class="marked1"><a name="line35"></a> 35       flash[:notice] = &quot;Topic was not created.&quot;
-</span><span class="marked0"><a name="line36"></a> 36       render :action =&gt; &quot;new&quot;
-</span><span class="inferred1"><a name="line37"></a> 37     end
-</span><span class="inferred0"><a name="line38"></a> 38   end
-</span><span class="inferred1"><a name="line39"></a> 39   
-</span><span class="marked0"><a name="line40"></a> 40   def moderate
-</span><span class="marked1"><a name="line41"></a> 41     case params[:commit]
-</span><span class="marked0"><a name="line42"></a> 42       when &quot;Lock&quot;
-</span><span class="marked1"><a name="line43"></a> 43         params[:moderated_topics].each { |id| Topic.find(id).lock! }
-</span><span class="marked0"><a name="line44"></a> 44         flash[:notice] = &quot;All selected topics have been locked.&quot;
-</span><span class="marked1"><a name="line45"></a> 45       when &quot;Unlock&quot;
-</span><span class="marked0"><a name="line46"></a> 46         params[:moderated_topics].each { |id| Topic.find(id).unlock! }
-</span><span class="marked1"><a name="line47"></a> 47         flash[:notice] = &quot;All selected topics have been unlocked.&quot;
-</span><span class="marked0"><a name="line48"></a> 48       when &quot;Delete&quot;
-</span><span class="inferred1"><a name="line49"></a> 49         #TODO: maybe ask for confirmation?
-</span><span class="marked0"><a name="line50"></a> 50         params[:moderated_topics].each { |id| Topic.find(id).destroy }
-</span><span class="marked1"><a name="line51"></a> 51         flash[:notice] = &quot;All selected topics have been deleted.&quot;
-</span><span class="marked0"><a name="line52"></a> 52       when &quot;Sticky&quot;
-</span><span class="marked1"><a name="line53"></a> 53         params[:moderated_topics].each { |id| Topic.find(id).sticky! }
-</span><span class="marked0"><a name="line54"></a> 54         flash[:notice] = &quot;All selected topics have been stickied.&quot;
-</span><span class="marked1"><a name="line55"></a> 55       when &quot;Unsticky&quot;
-</span><span class="marked0"><a name="line56"></a> 56         params[:moderated_topics].each { |id| Topic.find(id).unsticky! }
-</span><span class="marked1"><a name="line57"></a> 57         flash[:notice] = &quot;All selected topics have been unstickied.&quot;
-</span><span class="uncovered0"><a name="line58"></a> 58       when &quot;Move&quot;
-</span><span class="uncovered1"><a name="line59"></a> 59         session[:topic_ids] = params[:moderated_topics]
-</span><span class="uncovered0"><a name="line60"></a> 60         move
-</span><span class="uncovered1"><a name="line61"></a> 61         return false
-</span><span class="uncovered0"><a name="line62"></a> 62     end
-</span><span class="marked1"><a name="line63"></a> 63     redirect_to forum_path(@forum)
-</span><span class="inferred0"><a name="line64"></a> 64   end
-</span><span class="inferred1"><a name="line65"></a> 65   
-</span><span class="inferred0"><a name="line66"></a> 66   # The method behind the moving madness...
-</span><span class="inferred1"><a name="line67"></a> 67   # First find the params[:id] if we've been asked to move a single topic and make it an array
-</span><span class="inferred0"><a name="line68"></a> 68   # Otherwise if that's not specified gather the topic ids from the session.
-</span><span class="inferred1"><a name="line69"></a> 69   # Check if the ids is still nil and then raise an error, otherwise go on with it.
-</span><span class="inferred0"><a name="line70"></a> 70   # Find all the topics based on the ids.
-</span><span class="inferred1"><a name="line71"></a> 71   # Customize the flash[:notice] based on how many topics were found.
-</span><span class="marked0"><a name="line72"></a> 72   def move
-</span><span class="uncovered1"><a name="line73"></a> 73     ids = [params[:id]]
-</span><span class="uncovered0"><a name="line74"></a> 74     ids = session[:topic_ids] if ids.compact.blank?
-</span><span class="uncovered1"><a name="line75"></a> 75     if ids.nil? || ids.compact.blank?
-</span><span class="uncovered0"><a name="line76"></a> 76       flash[:notice] = &quot;You didn't specify any topics to move.&quot;
-</span><span class="uncovered1"><a name="line77"></a> 77       redirect_back_or_default(forums_path)
-</span><span class="uncovered0"><a name="line78"></a> 78     else
-</span><span class="uncovered1"><a name="line79"></a> 79       @topics = Topic.find(ids)
-</span><span class="uncovered0"><a name="line80"></a> 80       if request.post?
-</span><span class="uncovered1"><a name="line81"></a> 81         @topics.each { |topic| topic.move!(params[:new_forum_id]) }
-</span><span class="uncovered0"><a name="line82"></a> 82         if @topics.size &gt; 1
-</span><span class="uncovered1"><a name="line83"></a> 83           flash[:notice] = &quot;The selected topics have been moved.&quot;
-</span><span class="uncovered0"><a name="line84"></a> 84           redirect_to forum_path(@forum)
-</span><span class="uncovered1"><a name="line85"></a> 85         else
-</span><span class="uncovered0"><a name="line86"></a> 86           flash[:notice] = &quot;The selected topic has been moved.&quot;
-</span><span class="uncovered1"><a name="line87"></a> 87           redirect_to forum_topic_path(@topics.first.forum, @topics.first)
-</span><span class="uncovered0"><a name="line88"></a> 88         end
-</span><span class="uncovered1"><a name="line89"></a> 89       end
-</span><span class="uncovered0"><a name="line90"></a> 90     end
-</span><span class="uncovered1"><a name="line91"></a> 91   end
-</span><span class="inferred0"><a name="line92"></a> 92   
-</span><span class="inferred1"><a name="line93"></a> 93   #these two methods do basically the same thing
-</span><span class="marked0"><a name="line94"></a> 94   def lock
-</span><span class="marked1"><a name="line95"></a> 95     topic = Topic.find(params[:id])
-</span><span class="marked0"><a name="line96"></a> 96     topic.lock!
-</span><span class="marked1"><a name="line97"></a> 97     flash[:notice] = &quot;This topic has been locked.&quot;
-</span><span class="marked0"><a name="line98"></a> 98     redirect_to forum_topic_path(topic.forum, topic)
-</span><span class="inferred1"><a name="line99"></a> 99   end
-</span><span class="inferred0"><a name="line100"></a>100   
-</span><span class="marked1"><a name="line101"></a>101   def unlock
-</span><span class="marked0"><a name="line102"></a>102     topic = Topic.find(params[:id])
-</span><span class="marked1"><a name="line103"></a>103     topic.unlock!
-</span><span class="marked0"><a name="line104"></a>104     flash[:notice] = &quot;This topic has been unlocked.&quot;
-</span><span class="marked1"><a name="line105"></a>105     redirect_to forum_topic_path(topic.forum, topic)
-</span><span class="inferred0"><a name="line106"></a>106   end
-</span><span class="inferred1"><a name="line107"></a>107 
-</span><span class="marked0"><a name="line108"></a>108   private
-</span><span class="inferred1"><a name="line109"></a>109   
-</span><span class="marked0"><a name="line110"></a>110   def is_viewable?
-</span><span class="marked1"><a name="line111"></a>111     if !@forum.viewable?(logged_in?, current_user)
-</span><span class="marked0"><a name="line112"></a>112       flash[:notice] = &quot;You are not allowed to see topics in this forum.&quot;
-</span><span class="marked1"><a name="line113"></a>113       redirect_back_or_default(forums_path)
-</span><span class="inferred0"><a name="line114"></a>114     end
-</span><span class="marked1"><a name="line115"></a>115   end
-</span><span class="inferred0"><a name="line116"></a>116   
-</span><span class="marked1"><a name="line117"></a>117   def not_found
-</span><span class="uncovered0"><a name="line118"></a>118     flash[:notice] = &quot;The topic you were looking for could not be found.&quot;
-</span><span class="uncovered1"><a name="line119"></a>119     redirect_to forums_path
-</span><span class="uncovered0"><a name="line120"></a>120   end
-</span><span class="inferred1"><a name="line121"></a>121   
-</span><span class="marked0"><a name="line122"></a>122   def create_topic_redirect
-</span><span class="marked1"><a name="line123"></a>123     @forum = Forum.find(params[:forum_id])
-</span><span class="marked0"><a name="line124"></a>124     if !@forum.topics_creatable_by?(logged_in?, current_user)
-</span><span class="marked1"><a name="line125"></a>125       flash[:notice] = &quot;You are not allowed to create topics in this forum.&quot;
-</span><span class="marked0"><a name="line126"></a>126       redirect_back_or_default(forums_path)
-</span><span class="inferred1"><a name="line127"></a>127     end
-</span><span class="inferred0"><a name="line128"></a>128   end
-</span><span class="inferred1"><a name="line129"></a>129   
-</span><span class="marked0"><a name="line130"></a>130   private
-</span><span class="inferred1"><a name="line131"></a>131   
-</span><span class="marked0"><a name="line132"></a>132   def find_forum
-</span><span class="marked1"><a name="line133"></a>133     @forum = Forum.find(params[:forum_id], :include =&gt; [:topics, :posts]) if params[:forum_id]
-</span><span class="marked0"><a name="line134"></a>134   end
-</span><span class="inferred1"><a name="line135"></a>135   
-</span><span class="inferred0"><a name="line136"></a>136 end
+<pre><span class="marked0"><a name="line1"></a> 1 class TopicsController &lt; ApplicationController
+</span><span class="marked1"><a name="line2"></a> 2   before_filter :login_required, :except =&gt; [:show]
+</span><span class="marked0"><a name="line3"></a> 3   before_filter :find_forum
+</span><span class="marked1"><a name="line4"></a> 4   before_filter :is_viewable?, :only =&gt; [:show, :unlock, :lock]
+</span><span class="marked0"><a name="line5"></a> 5   before_filter :create_topic_redirect, :only =&gt; [:new, :create]
+</span><span class="marked1"><a name="line6"></a> 6   before_filter :store_location, :only =&gt; [:show, :new, :edit, :reply]
+</span><span class="marked0"><a name="line7"></a> 7   before_filter :moderator_login_required, :only =&gt; [:lock, :unlock]
+</span><span class="inferred1"><a name="line8"></a> 8   
+</span><span class="marked0"><a name="line9"></a> 9   def index
+</span><span class="uncovered1"><a name="line10"></a>10     redirect_to forum_path(@forum)
+</span><span class="uncovered0"><a name="line11"></a>11   end
+</span><span class="inferred1"><a name="line12"></a>12   
+</span><span class="marked0"><a name="line13"></a>13   def show
+</span><span class="marked1"><a name="line14"></a>14      @posts = @topic.posts.paginate :per_page =&gt; per_page, :page =&gt; params[:page], :include =&gt; { :user =&gt; :user_level }
+</span><span class="marked0"><a name="line15"></a>15      @topic.increment!(&quot;views&quot;)
+</span><span class="marked1"><a name="line16"></a>16      @post = Post.new
+</span><span class="marked0"><a name="line17"></a>17      respond_to do |format|
+</span><span class="marked1"><a name="line18"></a>18        format.html
+</span><span class="marked0"><a name="line19"></a>19        format.rss
+</span><span class="inferred1"><a name="line20"></a>20      end
+</span><span class="uncovered0"><a name="line21"></a>21    rescue ActiveRecord::RecordNotFound
+</span><span class="uncovered1"><a name="line22"></a>22      not_found
+</span><span class="marked0"><a name="line23"></a>23    end
+</span><span class="inferred1"><a name="line24"></a>24   
+</span><span class="marked0"><a name="line25"></a>25   def new
+</span><span class="marked1"><a name="line26"></a>26     @topic = Topic.new
+</span><span class="marked0"><a name="line27"></a>27     @post = @topic.posts.build
+</span><span class="inferred1"><a name="line28"></a>28   end
+</span><span class="inferred0"><a name="line29"></a>29   
+</span><span class="marked1"><a name="line30"></a>30   def create
+</span><span class="marked0"><a name="line31"></a>31     @topic = current_user.topics.build(params[:topic].merge(:forum_id =&gt; params[:forum_id]))
+</span><span class="marked1"><a name="line32"></a>32     @post = @topic.posts.build(params[:post].merge(:user_id =&gt; current_user.id))
+</span><span class="marked0"><a name="line33"></a>33     @topic.sticky = true if params[:topic][:sticky] == 1 &amp;&amp; current_user.admin?
+</span><span class="marked1"><a name="line34"></a>34     if @topic.save
+</span><span class="marked0"><a name="line35"></a>35       @topic.update_attribute(&quot;last_post_id&quot;, @post.id)
+</span><span class="marked1"><a name="line36"></a>36       flash[:notice] = &quot;Topic has been created.&quot;
+</span><span class="marked0"><a name="line37"></a>37       redirect_to forum_topic_path(@topic.forum, @topic)
+</span><span class="inferred1"><a name="line38"></a>38     else
+</span><span class="marked0"><a name="line39"></a>39       flash[:notice] = &quot;Topic was not created.&quot;
+</span><span class="marked1"><a name="line40"></a>40       render :action =&gt; &quot;new&quot;
+</span><span class="inferred0"><a name="line41"></a>41     end
+</span><span class="inferred1"><a name="line42"></a>42   end
+</span><span class="inferred0"><a name="line43"></a>43   
+</span><span class="marked1"><a name="line44"></a>44   private
+</span><span class="inferred0"><a name="line45"></a>45   
+</span><span class="marked1"><a name="line46"></a>46   def is_viewable?
+</span><span class="marked0"><a name="line47"></a>47     if !@forum.viewable?(logged_in?, current_user)
+</span><span class="marked1"><a name="line48"></a>48       flash[:notice] = &quot;You are not allowed to see topics in this forum.&quot;
+</span><span class="marked0"><a name="line49"></a>49       redirect_back_or_default(forums_path)
+</span><span class="inferred1"><a name="line50"></a>50     end
+</span><span class="marked0"><a name="line51"></a>51   end
+</span><span class="inferred1"><a name="line52"></a>52   
+</span><span class="marked0"><a name="line53"></a>53   def not_found
+</span><span class="uncovered1"><a name="line54"></a>54     flash[:notice] = &quot;The topic you were looking for could not be found.&quot;
+</span><span class="uncovered0"><a name="line55"></a>55     redirect_to forums_path
+</span><span class="uncovered1"><a name="line56"></a>56   end
+</span><span class="inferred0"><a name="line57"></a>57   
+</span><span class="marked1"><a name="line58"></a>58   def create_topic_redirect
+</span><span class="marked0"><a name="line59"></a>59     @forum = Forum.find(params[:forum_id])
+</span><span class="marked1"><a name="line60"></a>60     if !@forum.topics_creatable_by?(logged_in?, current_user)
+</span><span class="marked0"><a name="line61"></a>61       flash[:notice] = &quot;You are not allowed to create topics in this forum.&quot;
+</span><span class="marked1"><a name="line62"></a>62       redirect_back_or_default(forums_path)
+</span><span class="inferred0"><a name="line63"></a>63     end
+</span><span class="inferred1"><a name="line64"></a>64   end
+</span><span class="inferred0"><a name="line65"></a>65   
+</span><span class="marked1"><a name="line66"></a>66   private
+</span><span class="inferred0"><a name="line67"></a>67   
+</span><span class="marked1"><a name="line68"></a>68   def find_forum
+</span><span class="marked0"><a name="line69"></a>69     @forum = Forum.find(params[:forum_id], :include =&gt; [:topics, :posts]) if params[:forum_id]
+</span><span class="marked1"><a name="line70"></a>70     if params[:id]
+</span><span class="marked0"><a name="line71"></a>71       if @forum.nil?
+</span><span class="uncovered1"><a name="line72"></a>72         @topic = Topic.find(params[:id], :joins =&gt; :posts)
+</span><span class="uncovered0"><a name="line73"></a>73         @forum = @topic.forum
+</span><span class="inferred1"><a name="line74"></a>74       else
+</span><span class="marked0"><a name="line75"></a>75         @topic = @forum.topics.find(params[:id], :joins =&gt; :posts)
+</span><span class="inferred1"><a name="line76"></a>76       end
+</span><span class="inferred0"><a name="line77"></a>77     end
+</span><span class="inferred1"><a name="line78"></a>78   end
+</span><span class="inferred0"><a name="line79"></a>79   
+</span><span class="inferred1"><a name="line80"></a>80 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

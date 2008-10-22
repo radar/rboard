@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 09 10:23:46 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Oct 22 23:06:36 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-admin-forums_controller_rb.html'>app/controllers/admin/forums_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>106</tt>
+      <td class='lines_total'><tt>104</tt>
         </td>
-      <td class='lines_code'><tt>76</tt>
+      <td class='lines_code'><tt>74</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>92.5%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='92'/>
-                  <td class='uncovered' width='8'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>89.5%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='89'/>
-                  <td class='uncovered' width='11'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
@@ -633,77 +633,75 @@ span.run100 {
 </span><span class="inferred0"><a name="line33"></a> 33     # As this would cause circular references which just aren't cool.
 </span><span class="marked1"><a name="line34"></a> 34     @forums = Forum.find(:all, :order =&gt; &quot;title&quot;) - [@forum] - @forum.descendants
 </span><span class="marked0"><a name="line35"></a> 35     @user_levels = UserLevel.find(:all, :order =&gt; &quot;id DESC&quot;)
-</span><span class="uncovered1"><a name="line36"></a> 36   rescue ActiveRecord::RecordNotFound
-</span><span class="uncovered0"><a name="line37"></a> 37     not_found
-</span><span class="marked1"><a name="line38"></a> 38   end
-</span><span class="inferred0"><a name="line39"></a> 39   
-</span><span class="inferred1"><a name="line40"></a> 40   # Updates a forum.
-</span><span class="marked0"><a name="line41"></a> 41   def update
-</span><span class="marked1"><a name="line42"></a> 42     if @forum.update_attributes(params[:forum])
-</span><span class="marked0"><a name="line43"></a> 43       flash[:notice] = &quot;Forum has been updated.&quot;
-</span><span class="marked1"><a name="line44"></a> 44       redirect
-</span><span class="inferred0"><a name="line45"></a> 45     else
-</span><span class="marked1"><a name="line46"></a> 46       flash[:notice] = &quot;Forum has not been updated.&quot;
-</span><span class="marked0"><a name="line47"></a> 47       render :action =&gt; &quot;edit&quot;
-</span><span class="inferred1"><a name="line48"></a> 48     end
-</span><span class="marked0"><a name="line49"></a> 49   end
-</span><span class="inferred1"><a name="line50"></a> 50   
-</span><span class="inferred0"><a name="line51"></a> 51   # Deletes a forum.
-</span><span class="marked1"><a name="line52"></a> 52   def destroy
-</span><span class="marked0"><a name="line53"></a> 53     @forum.destroy
-</span><span class="marked1"><a name="line54"></a> 54     flash[:notice] = &quot;#{@forum} has been deleted.&quot;
-</span><span class="marked0"><a name="line55"></a> 55     redirect
-</span><span class="inferred1"><a name="line56"></a> 56   end
-</span><span class="inferred0"><a name="line57"></a> 57   
-</span><span class="inferred1"><a name="line58"></a> 58   # Moves a forum one space up using an acts_as_list provided method.
-</span><span class="marked0"><a name="line59"></a> 59   def move_up
-</span><span class="marked1"><a name="line60"></a> 60     @forum.move_higher
-</span><span class="marked0"><a name="line61"></a> 61     flash[:notice] = &quot;The #{@forum} forum has been moved higher.&quot;
-</span><span class="marked1"><a name="line62"></a> 62     redirect
-</span><span class="inferred0"><a name="line63"></a> 63   end
-</span><span class="inferred1"><a name="line64"></a> 64   
-</span><span class="inferred0"><a name="line65"></a> 65   # Moves a forum one space down using an acts_as_list provided method.
-</span><span class="marked1"><a name="line66"></a> 66   def move_down
-</span><span class="marked0"><a name="line67"></a> 67     @forum.move_lower
-</span><span class="marked1"><a name="line68"></a> 68     flash[:notice] = &quot;The #{@forum} forum has been moved lower.&quot;
-</span><span class="marked0"><a name="line69"></a> 69     redirect
-</span><span class="inferred1"><a name="line70"></a> 70   end
-</span><span class="inferred0"><a name="line71"></a> 71   
-</span><span class="inferred1"><a name="line72"></a> 72   # Moves a forum to the top using an acts_as_list provided method.
-</span><span class="marked0"><a name="line73"></a> 73   def move_to_top
-</span><span class="marked1"><a name="line74"></a> 74     @forum.move_to_top
-</span><span class="marked0"><a name="line75"></a> 75     flash[:notice] = &quot;The #{@forum} forum has been moved to the top.&quot;
-</span><span class="marked1"><a name="line76"></a> 76     redirect
-</span><span class="inferred0"><a name="line77"></a> 77   end
-</span><span class="inferred1"><a name="line78"></a> 78   
-</span><span class="inferred0"><a name="line79"></a> 79   # Moves a forum to the bottom using an acts_as_list helper.
-</span><span class="marked1"><a name="line80"></a> 80   def move_to_bottom
-</span><span class="marked0"><a name="line81"></a> 81     @forum.move_to_bottom
-</span><span class="marked1"><a name="line82"></a> 82     flash[:notice] = &quot;The #{@forum} forum has been moved to the bottom.&quot;
-</span><span class="marked0"><a name="line83"></a> 83     redirect
-</span><span class="inferred1"><a name="line84"></a> 84   end
+</span><span class="inferred1"><a name="line36"></a> 36   end
+</span><span class="inferred0"><a name="line37"></a> 37   
+</span><span class="inferred1"><a name="line38"></a> 38   # Updates a forum.
+</span><span class="marked0"><a name="line39"></a> 39   def update
+</span><span class="marked1"><a name="line40"></a> 40     if @forum.update_attributes(params[:forum])
+</span><span class="marked0"><a name="line41"></a> 41       flash[:notice] = &quot;Forum has been updated.&quot;
+</span><span class="marked1"><a name="line42"></a> 42       redirect
+</span><span class="inferred0"><a name="line43"></a> 43     else
+</span><span class="marked1"><a name="line44"></a> 44       flash[:notice] = &quot;Forum has not been updated.&quot;
+</span><span class="marked0"><a name="line45"></a> 45       render :action =&gt; &quot;edit&quot;
+</span><span class="inferred1"><a name="line46"></a> 46     end
+</span><span class="marked0"><a name="line47"></a> 47   end
+</span><span class="inferred1"><a name="line48"></a> 48   
+</span><span class="inferred0"><a name="line49"></a> 49   # Deletes a forum.
+</span><span class="marked1"><a name="line50"></a> 50   def destroy
+</span><span class="marked0"><a name="line51"></a> 51     @forum.destroy
+</span><span class="marked1"><a name="line52"></a> 52     flash[:notice] = &quot;#{@forum} has been deleted.&quot;
+</span><span class="marked0"><a name="line53"></a> 53     redirect
+</span><span class="inferred1"><a name="line54"></a> 54   end
+</span><span class="inferred0"><a name="line55"></a> 55   
+</span><span class="inferred1"><a name="line56"></a> 56   # Moves a forum one space up using an acts_as_list provided method.
+</span><span class="marked0"><a name="line57"></a> 57   def move_up
+</span><span class="marked1"><a name="line58"></a> 58     @forum.move_higher
+</span><span class="marked0"><a name="line59"></a> 59     flash[:notice] = &quot;The #{@forum} forum has been moved higher.&quot;
+</span><span class="marked1"><a name="line60"></a> 60     redirect
+</span><span class="inferred0"><a name="line61"></a> 61   end
+</span><span class="inferred1"><a name="line62"></a> 62   
+</span><span class="inferred0"><a name="line63"></a> 63   # Moves a forum one space down using an acts_as_list provided method.
+</span><span class="marked1"><a name="line64"></a> 64   def move_down
+</span><span class="marked0"><a name="line65"></a> 65     @forum.move_lower
+</span><span class="marked1"><a name="line66"></a> 66     flash[:notice] = &quot;The #{@forum} forum has been moved lower.&quot;
+</span><span class="marked0"><a name="line67"></a> 67     redirect
+</span><span class="inferred1"><a name="line68"></a> 68   end
+</span><span class="inferred0"><a name="line69"></a> 69   
+</span><span class="inferred1"><a name="line70"></a> 70   # Moves a forum to the top using an acts_as_list provided method.
+</span><span class="marked0"><a name="line71"></a> 71   def move_to_top
+</span><span class="marked1"><a name="line72"></a> 72     @forum.move_to_top
+</span><span class="marked0"><a name="line73"></a> 73     flash[:notice] = &quot;The #{@forum} forum has been moved to the top.&quot;
+</span><span class="marked1"><a name="line74"></a> 74     redirect
+</span><span class="inferred0"><a name="line75"></a> 75   end
+</span><span class="inferred1"><a name="line76"></a> 76   
+</span><span class="inferred0"><a name="line77"></a> 77   # Moves a forum to the bottom using an acts_as_list helper.
+</span><span class="marked1"><a name="line78"></a> 78   def move_to_bottom
+</span><span class="marked0"><a name="line79"></a> 79     @forum.move_to_bottom
+</span><span class="marked1"><a name="line80"></a> 80     flash[:notice] = &quot;The #{@forum} forum has been moved to the bottom.&quot;
+</span><span class="marked0"><a name="line81"></a> 81     redirect
+</span><span class="inferred1"><a name="line82"></a> 82   end
+</span><span class="inferred0"><a name="line83"></a> 83   
+</span><span class="marked1"><a name="line84"></a> 84   private
 </span><span class="inferred0"><a name="line85"></a> 85   
-</span><span class="marked1"><a name="line86"></a> 86   private
-</span><span class="inferred0"><a name="line87"></a> 87   
-</span><span class="inferred1"><a name="line88"></a> 88   # Calls redirect_back_or_default to the index action.
-</span><span class="inferred0"><a name="line89"></a> 89   # Got tired of writing it all out for the move_* actions
-</span><span class="marked1"><a name="line90"></a> 90   def redirect
-</span><span class="marked0"><a name="line91"></a> 91     redirect_back_or_default(admin_forums_path)
-</span><span class="marked1"><a name="line92"></a> 92   end
-</span><span class="inferred0"><a name="line93"></a> 93   
-</span><span class="inferred1"><a name="line94"></a> 94   # Find a forum. Most of the actions in this controller need a forum object.
-</span><span class="marked0"><a name="line95"></a> 95   def find_forum
-</span><span class="marked1"><a name="line96"></a> 96     @forum = Forum.find(params[:id]) unless params[:id].nil?
-</span><span class="uncovered0"><a name="line97"></a> 97     rescue ActiveRecord::RecordNotFound
-</span><span class="uncovered1"><a name="line98"></a> 98       not_found
-</span><span class="marked0"><a name="line99"></a> 99   end
-</span><span class="inferred1"><a name="line100"></a>100   
-</span><span class="inferred0"><a name="line101"></a>101   # Called when the forum could not be found.
-</span><span class="marked1"><a name="line102"></a>102   def not_found
-</span><span class="uncovered0"><a name="line103"></a>103     flash[:notice] = &quot;The forum you were looking for could not be found.&quot;
-</span><span class="uncovered1"><a name="line104"></a>104     redirect
-</span><span class="uncovered0"><a name="line105"></a>105   end
-</span><span class="uncovered1"><a name="line106"></a>106 end
+</span><span class="inferred1"><a name="line86"></a> 86   # Calls redirect_back_or_default to the index action.
+</span><span class="inferred0"><a name="line87"></a> 87   # Got tired of writing it all out for the move_* actions
+</span><span class="marked1"><a name="line88"></a> 88   def redirect
+</span><span class="marked0"><a name="line89"></a> 89     redirect_back_or_default(admin_forums_path)
+</span><span class="marked1"><a name="line90"></a> 90   end
+</span><span class="inferred0"><a name="line91"></a> 91   
+</span><span class="inferred1"><a name="line92"></a> 92   # Find a forum. Most of the actions in this controller need a forum object.
+</span><span class="marked0"><a name="line93"></a> 93   def find_forum
+</span><span class="marked1"><a name="line94"></a> 94     @forum = Forum.find(params[:id]) unless params[:id].nil?
+</span><span class="inferred0"><a name="line95"></a> 95     rescue ActiveRecord::RecordNotFound
+</span><span class="marked1"><a name="line96"></a> 96       not_found
+</span><span class="marked0"><a name="line97"></a> 97   end
+</span><span class="inferred1"><a name="line98"></a> 98   
+</span><span class="inferred0"><a name="line99"></a> 99   # Called when the forum could not be found.
+</span><span class="marked1"><a name="line100"></a>100   def not_found
+</span><span class="marked0"><a name="line101"></a>101     flash[:notice] = &quot;The forum you were looking for could not be found.&quot;
+</span><span class="marked1"><a name="line102"></a>102     redirect
+</span><span class="inferred0"><a name="line103"></a>103   end
+</span><span class="inferred1"><a name="line104"></a>104 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

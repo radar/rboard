@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 09 10:23:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Oct 22 23:06:37 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-models-forum_rb.html'>app/models/forum.rb</a>
         </td>
-      <td class='lines_total'><tt>78</tt>
+      <td class='lines_total'><tt>80</tt>
         </td>
-      <td class='lines_code'><tt>65</tt>
+      <td class='lines_code'><tt>66</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>73.1%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>76.2%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='73'/>
-                  <td class='uncovered' width='27'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='76'/>
+                  <td class='uncovered' width='24'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>67.7%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>71.2%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='68'/>
-                  <td class='uncovered' width='32'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='71'/>
+                  <td class='uncovered' width='29'/>
                   </tr>
                 </table>
               </td>
@@ -600,82 +600,84 @@ span.run100 {
   </table>
 <pre><span class="marked0"><a name="line1"></a> 1 class Forum &lt; ActiveRecord::Base
 </span><span class="marked1"><a name="line2"></a> 2   acts_as_list :scope =&gt; :parent_id
-</span><span class="marked0"><a name="line3"></a> 3   acts_as_tree
-</span><span class="marked1"><a name="line4"></a> 4   has_many :topics, :order =&gt; &quot;created_at DESC&quot;, :dependent =&gt; :destroy 
-</span><span class="marked0"><a name="line5"></a> 5   has_many :posts, :through =&gt; :topics, :source =&gt; :posts, :order =&gt; &quot;created_at DESC&quot;
-</span><span class="marked1"><a name="line6"></a> 6   validates_presence_of :title, :description
-</span><span class="marked0"><a name="line7"></a> 7   belongs_to :is_visible_to, :class_name =&gt; &quot;UserLevel&quot;
-</span><span class="marked1"><a name="line8"></a> 8   belongs_to :topics_created_by, :class_name =&gt; &quot;UserLevel&quot;
-</span><span class="marked0"><a name="line9"></a> 9   belongs_to :last_post, :class_name =&gt; &quot;Post&quot;
-</span><span class="marked1"><a name="line10"></a>10   belongs_to :last_post_forum, :class_name =&gt; &quot;Forum&quot;
-</span><span class="inferred0"><a name="line11"></a>11     
-</span><span class="marked1"><a name="line12"></a>12   def to_s
-</span><span class="marked0"><a name="line13"></a>13     title
-</span><span class="marked1"><a name="line14"></a>14   end
-</span><span class="inferred0"><a name="line15"></a>15   
-</span><span class="inferred1"><a name="line16"></a>16   
-</span><span class="marked0"><a name="line17"></a>17   def update_last_post(new_forum, post=nil)
-</span><span class="uncovered1"><a name="line18"></a>18     post ||= posts.last
-</span><span class="uncovered0"><a name="line19"></a>19     self.last_post = post
-</span><span class="uncovered1"><a name="line20"></a>20     self.last_post_forum = nil
-</span><span class="uncovered0"><a name="line21"></a>21     self.save
-</span><span class="uncovered1"><a name="line22"></a>22     for ancestor in (ancestors - [new_forum])
-</span><span class="uncovered0"><a name="line23"></a>23       if !post.nil?
-</span><span class="uncovered1"><a name="line24"></a>24         if ancestor.last_post.nil? || (ancestor.last_post.created_at &lt; post.created_at)
-</span><span class="uncovered0"><a name="line25"></a>25           ancestor.last_post = post
-</span><span class="uncovered1"><a name="line26"></a>26           ancestor.last_post_forum = self
-</span><span class="uncovered0"><a name="line27"></a>27         end
-</span><span class="uncovered1"><a name="line28"></a>28       else
-</span><span class="uncovered0"><a name="line29"></a>29         ancestor.last_post = nil
-</span><span class="uncovered1"><a name="line30"></a>30         ancestor.last_post_forum = nil
-</span><span class="uncovered0"><a name="line31"></a>31       end
-</span><span class="uncovered1"><a name="line32"></a>32       ancestor.save
-</span><span class="uncovered0"><a name="line33"></a>33     end
-</span><span class="uncovered1"><a name="line34"></a>34   end
-</span><span class="inferred0"><a name="line35"></a>35   
-</span><span class="marked1"><a name="line36"></a>36   def sorted_topics
-</span><span class="uncovered0"><a name="line37"></a>37     topics.sort_by { |t| t.posts.last.created_at }.reverse
-</span><span class="uncovered1"><a name="line38"></a>38   end
-</span><span class="inferred0"><a name="line39"></a>39   
-</span><span class="marked1"><a name="line40"></a>40   def descendants
-</span><span class="marked0"><a name="line41"></a>41     children.map { |f| !f.children.empty? ? f.children + [f]: f }.flatten
-</span><span class="marked1"><a name="line42"></a>42   end
-</span><span class="inferred0"><a name="line43"></a>43   
-</span><span class="marked1"><a name="line44"></a>44   def self.find_all_without_parent
-</span><span class="marked0"><a name="line45"></a>45     find_all_by_parent_id(nil)
-</span><span class="marked1"><a name="line46"></a>46   end
-</span><span class="inferred0"><a name="line47"></a>47   
-</span><span class="marked1"><a name="line48"></a>48   def root
-</span><span class="marked0"><a name="line49"></a>49     parent.nil? ? self : (parent.root == parent ? parent : parent.root)
-</span><span class="marked1"><a name="line50"></a>50   end
-</span><span class="inferred0"><a name="line51"></a>51   
-</span><span class="marked1"><a name="line52"></a>52   def ancestors(list=[])
-</span><span class="marked0"><a name="line53"></a>53     if parent.nil?
-</span><span class="marked1"><a name="line54"></a>54       list &lt;&lt; parent
-</span><span class="inferred0"><a name="line55"></a>55     else
-</span><span class="marked1"><a name="line56"></a>56       list &lt;&lt; parent
-</span><span class="marked0"><a name="line57"></a>57       parent.ancestors(list)
-</span><span class="inferred1"><a name="line58"></a>58     end
-</span><span class="marked0"><a name="line59"></a>59     list.compact
-</span><span class="inferred1"><a name="line60"></a>60   end
-</span><span class="inferred0"><a name="line61"></a>61   
-</span><span class="marked1"><a name="line62"></a>62   def self.woot
-</span><span class="uncovered0"><a name="line63"></a>63     callback :after_woot
-</span><span class="uncovered1"><a name="line64"></a>64   end
-</span><span class="inferred0"><a name="line65"></a>65   
-</span><span class="inferred1"><a name="line66"></a>66   
-</span><span class="marked0"><a name="line67"></a>67   def sub?
-</span><span class="marked1"><a name="line68"></a>68     !parent_id.nil?
-</span><span class="marked0"><a name="line69"></a>69   end
-</span><span class="inferred1"><a name="line70"></a>70   
-</span><span class="marked0"><a name="line71"></a>71   def viewable?(logged_in=true, user=nil)
-</span><span class="marked1"><a name="line72"></a>72     (logged_in &amp;&amp; is_visible_to.position &lt;= user.user_level.position) || (!logged_in &amp;&amp; is_visible_to.position == UserLevel.find_by_name(&quot;User&quot;).position)
-</span><span class="marked0"><a name="line73"></a>73   end
-</span><span class="inferred1"><a name="line74"></a>74   
-</span><span class="marked0"><a name="line75"></a>75   def topics_creatable_by?(logged_in=true, user=nil)
-</span><span class="marked1"><a name="line76"></a>76     (logged_in &amp;&amp; topics_created_by.position &lt;= user.user_level.position) || (!logged_in &amp;&amp; topics_created_by.position == UserLevel.find_by_name(&quot;User&quot;).position)
-</span><span class="marked0"><a name="line77"></a>77   end
-</span><span class="inferred1"><a name="line78"></a>78 end
+</span><span class="marked0"><a name="line3"></a> 3   acts_as_tree :order =&gt; :position
+</span><span class="inferred1"><a name="line4"></a> 4   
+</span><span class="marked0"><a name="line5"></a> 5   named_scope :without_parent, :conditions =&gt; [&quot;parent_id IS ?&quot;, nil], :order =&gt; &quot;position&quot;
+</span><span class="marked1"><a name="line6"></a> 6   named_scope :viewable_to, lambda { |user| { :conditions =&gt; [&quot;is_visible_to_id &lt;= ?&quot;, user.user_level_id] } }
+</span><span class="marked0"><a name="line7"></a> 7   named_scope :viewable_to_anonymous, lambda { { :conditions =&gt; [&quot;is_visible_to_id = ?&quot;, UserLevel.find_by_name(&quot;User&quot;).id] } }
+</span><span class="inferred1"><a name="line8"></a> 8   
+</span><span class="marked0"><a name="line9"></a> 9   has_many :topics, :order =&gt; &quot;created_at DESC&quot;, :dependent =&gt; :destroy 
+</span><span class="marked1"><a name="line10"></a>10   has_many :posts, :through =&gt; :topics, :source =&gt; :posts, :order =&gt; &quot;created_at DESC&quot;
+</span><span class="marked0"><a name="line11"></a>11   has_many :moderations
+</span><span class="inferred1"><a name="line12"></a>12   
+</span><span class="marked0"><a name="line13"></a>13   belongs_to :is_visible_to, :class_name =&gt; &quot;UserLevel&quot;
+</span><span class="marked1"><a name="line14"></a>14   belongs_to :topics_created_by, :class_name =&gt; &quot;UserLevel&quot;
+</span><span class="marked0"><a name="line15"></a>15   belongs_to :last_post, :class_name =&gt; &quot;Post&quot;
+</span><span class="marked1"><a name="line16"></a>16   belongs_to :last_post_forum, :class_name =&gt; &quot;Forum&quot;
+</span><span class="inferred0"><a name="line17"></a>17   
+</span><span class="marked1"><a name="line18"></a>18   validates_presence_of :title, :description
+</span><span class="inferred0"><a name="line19"></a>19     
+</span><span class="marked1"><a name="line20"></a>20   def to_s
+</span><span class="marked0"><a name="line21"></a>21     title
+</span><span class="marked1"><a name="line22"></a>22   end
+</span><span class="inferred0"><a name="line23"></a>23   
+</span><span class="marked1"><a name="line24"></a>24   def update_last_post(new_forum, post=nil)
+</span><span class="uncovered0"><a name="line25"></a>25     post ||= posts.last
+</span><span class="uncovered1"><a name="line26"></a>26     self.last_post = post
+</span><span class="uncovered0"><a name="line27"></a>27     self.last_post_forum = nil
+</span><span class="uncovered1"><a name="line28"></a>28     self.save
+</span><span class="uncovered0"><a name="line29"></a>29     for ancestor in (ancestors - [new_forum])
+</span><span class="uncovered1"><a name="line30"></a>30       if !post.nil?
+</span><span class="uncovered0"><a name="line31"></a>31         if ancestor.last_post.nil? || (ancestor.last_post.created_at &lt; post.created_at)
+</span><span class="uncovered1"><a name="line32"></a>32           ancestor.last_post = post
+</span><span class="uncovered0"><a name="line33"></a>33           ancestor.last_post_forum = self
+</span><span class="uncovered1"><a name="line34"></a>34         end
+</span><span class="uncovered0"><a name="line35"></a>35       else
+</span><span class="uncovered1"><a name="line36"></a>36         ancestor.last_post = nil
+</span><span class="uncovered0"><a name="line37"></a>37         ancestor.last_post_forum = nil
+</span><span class="uncovered1"><a name="line38"></a>38       end
+</span><span class="uncovered0"><a name="line39"></a>39       ancestor.save
+</span><span class="uncovered1"><a name="line40"></a>40     end
+</span><span class="uncovered0"><a name="line41"></a>41   end
+</span><span class="inferred1"><a name="line42"></a>42   
+</span><span class="marked0"><a name="line43"></a>43   def sorted_topics
+</span><span class="uncovered1"><a name="line44"></a>44     topics.sort_by { |t| t.posts.last.created_at }.reverse
+</span><span class="uncovered0"><a name="line45"></a>45   end
+</span><span class="inferred1"><a name="line46"></a>46   
+</span><span class="marked0"><a name="line47"></a>47   def descendants
+</span><span class="marked1"><a name="line48"></a>48     children.map { |f| !f.children.empty? ? f.children + [f]: f }.flatten
+</span><span class="marked0"><a name="line49"></a>49   end
+</span><span class="inferred1"><a name="line50"></a>50   
+</span><span class="marked0"><a name="line51"></a>51   def self.find_all_without_parent
+</span><span class="marked1"><a name="line52"></a>52     find_all_by_parent_id(nil)
+</span><span class="marked0"><a name="line53"></a>53   end
+</span><span class="inferred1"><a name="line54"></a>54   
+</span><span class="marked0"><a name="line55"></a>55   def root
+</span><span class="marked1"><a name="line56"></a>56     parent.nil? ? self : (parent.root == parent ? parent : parent.root)
+</span><span class="marked0"><a name="line57"></a>57   end
+</span><span class="inferred1"><a name="line58"></a>58   
+</span><span class="marked0"><a name="line59"></a>59   def ancestors(list=[])
+</span><span class="marked1"><a name="line60"></a>60     if parent.nil?
+</span><span class="marked0"><a name="line61"></a>61       list &lt;&lt; parent
+</span><span class="inferred1"><a name="line62"></a>62     else
+</span><span class="marked0"><a name="line63"></a>63       list &lt;&lt; parent
+</span><span class="marked1"><a name="line64"></a>64       parent.ancestors(list)
+</span><span class="inferred0"><a name="line65"></a>65     end
+</span><span class="marked1"><a name="line66"></a>66     list.compact
+</span><span class="inferred0"><a name="line67"></a>67   end
+</span><span class="inferred1"><a name="line68"></a>68   
+</span><span class="marked0"><a name="line69"></a>69   def sub?
+</span><span class="marked1"><a name="line70"></a>70     !parent_id.nil?
+</span><span class="marked0"><a name="line71"></a>71   end
+</span><span class="inferred1"><a name="line72"></a>72   
+</span><span class="marked0"><a name="line73"></a>73   def viewable?(logged_in=true, user=nil)
+</span><span class="marked1"><a name="line74"></a>74     (logged_in &amp;&amp; is_visible_to.position &lt;= user.user_level.position) || (!logged_in &amp;&amp; is_visible_to.position == UserLevel.find_by_name(&quot;User&quot;).position)
+</span><span class="marked0"><a name="line75"></a>75   end
+</span><span class="inferred1"><a name="line76"></a>76   
+</span><span class="marked0"><a name="line77"></a>77   def topics_creatable_by?(logged_in=true, user=nil)
+</span><span class="marked1"><a name="line78"></a>78     (logged_in &amp;&amp; topics_created_by.position &lt;= user.user_level.position) || (!logged_in &amp;&amp; topics_created_by.position == UserLevel.find_by_name(&quot;User&quot;).position)
+</span><span class="marked0"><a name="line79"></a>79   end
+</span><span class="inferred1"><a name="line80"></a>80 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>
