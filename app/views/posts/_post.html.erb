@@ -5,7 +5,7 @@
       <td valign='top'>
         <a name='post_<%= post.id %>' href='<%= forum_topic_path(post.topic.forum, post.topic) + "/#{(params[:page] || 1)}" + "#post_#{post.id}" %>'>
         #<%= per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1 %></a> <%= post.created_at.strftime(time_display) %>
-        <% unless post.edits.empty? %> - <%= link_to_if(is_moderator? && !post.edits.empty?, pluralize(post.edits.size, "edit"), post_edits_path(post)) %><% end %>
+        <% unless post.edits.empty? %> - <%= link_to_if(is_moderator? && !post.edits.empty?, pluralize(post.edits.size, "edit"), moderator_post_edits_path(post)) %><% end %>
       </td>
       <td align='right' valign='top'>
 	      <% if !post.topic.locked || is_admin? %>

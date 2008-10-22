@@ -16,12 +16,17 @@ describe ForumsController do
     @moderations = [@moderation]
   end
 
-  it "should restrict which forums it shows when not logged in" do
+  it "should restrict which forums it shows when logged in" do
     login_as(:plebian)
     Forum.should_receive(:without_parent).and_return(@forums)
     @forums.should_receive(:viewable_to).and_return(@forums)
     get 'index'
-    response.should render_template("index")
+  end
+  
+  it "should restrict which forums it shows to annoymous users" do
+    Forum.should_receive(:without_parent).and_return(@forums)
+    @forums.should_receive(:viewable_to_anonymous).and_return(@forums)
+    get 'index'
   end
  
   it "should not show the admin forum to anonymous users" do

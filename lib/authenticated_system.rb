@@ -32,14 +32,14 @@ module AuthenticatedSystem
   def non_admin_redirect
     if !is_admin?
       flash[:notice] = "You need to be an admin to do that."
-      redirect_back_or_default(login_path)
+      redirect_back_or_default(root_path)
     end
   end
   
   def non_moderator_redirect
     if !is_moderator?
       flash[:notice] = "You need to be a moderator or an admin to do that."
-      redirect_back_or_default(login_path)
+      redirect_back_or_default(root_path)
     end
   end
   

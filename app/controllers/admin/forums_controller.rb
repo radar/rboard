@@ -33,8 +33,6 @@ class Admin::ForumsController < Admin::ApplicationController
     # As this would cause circular references which just aren't cool.
     @forums = Forum.find(:all, :order => "title") - [@forum] - @forum.descendants
     @user_levels = UserLevel.find(:all, :order => "id DESC")
-  rescue ActiveRecord::RecordNotFound
-    not_found
   end
   
   # Updates a forum.

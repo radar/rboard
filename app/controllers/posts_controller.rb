@@ -29,8 +29,6 @@ class PostsController < ApplicationController
   end
    
   def edit
-  rescue ActiveRecord::RecordNotFound
-    not_found
   end
   
   def update
@@ -46,8 +44,6 @@ class PostsController < ApplicationController
       flash[:notice] = "This post could not be updated."
       render :action => "edit"
     end
-  rescue ActiveRecord::RecordNotFound
-    not_found
   end
   
   def destroy
@@ -60,8 +56,6 @@ class PostsController < ApplicationController
     else
       redirect_to forum_topic_path(@post.forum, @post.topic)
     end
-  rescue ActiveRecord::RecordNotFound
-    not_found
   end
   
   private

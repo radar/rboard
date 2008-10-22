@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     
     moderator.resources :posts do |post|
       post.resources :moderations
+      post.resources :edits
     end
     
     moderator.resources :moderations
