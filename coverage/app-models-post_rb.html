@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 09 10:23:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Wed Oct 22 23:06:37 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,14 +571,14 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-models-post_rb.html'>app/models/post.rb</a>
         </td>
-      <td class='lines_total'><tt>62</tt>
+      <td class='lines_total'><tt>64</tt>
         </td>
       <td class='lines_code'><tt>53</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>82.3%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>82.8%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='82'/>
-                  <td class='uncovered' width='18'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='83'/>
+                  <td class='uncovered' width='17'/>
                   </tr>
                 </table>
               </td>
@@ -598,68 +598,70 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a> 1 class Post &lt; ActiveRecord::Base
-</span><span class="marked1"><a name="line2"></a> 2   belongs_to :user
-</span><span class="marked0"><a name="line3"></a> 3   belongs_to :topic
-</span><span class="marked1"><a name="line4"></a> 4   has_many :edits, :order =&gt; &quot;created_at DESC&quot;
-</span><span class="marked0"><a name="line5"></a> 5   has_many :visible_edits, :class_name =&gt; &quot;Edit&quot;, :conditions =&gt; [&quot;hidden != ?&quot;, false]
-</span><span class="marked1"><a name="line6"></a> 6   validates_length_of :text, :minimum =&gt; 4
-</span><span class="marked0"><a name="line7"></a> 7   validates_presence_of :text
-</span><span class="marked1"><a name="line8"></a> 8   belongs_to :edited_by, :class_name =&gt; &quot;User&quot;
-</span><span class="inferred0"><a name="line9"></a> 9   
-</span><span class="marked1"><a name="line10"></a>10   define_index do
-</span><span class="marked0"><a name="line11"></a>11       indexes text
-</span><span class="marked1"><a name="line12"></a>12       indexes user.login, :as =&gt; :user, :sortable =&gt; true
-</span><span class="marked0"><a name="line13"></a>13       has user_id, created_at, updated_at
-</span><span class="marked1"><a name="line14"></a>14       set_property :delta =&gt; true
-</span><span class="inferred0"><a name="line15"></a>15     end
-</span><span class="inferred1"><a name="line16"></a>16 
-</span><span class="marked0"><a name="line17"></a>17   after_create :update_forum
-</span><span class="marked1"><a name="line18"></a>18   after_destroy :find_latest_post
-</span><span class="inferred0"><a name="line19"></a>19 
-</span><span class="inferred1"><a name="line20"></a>20   
-</span><span class="marked0"><a name="line21"></a>21   def update_forum
-</span><span class="marked1"><a name="line22"></a>22     forum.last_post = self
-</span><span class="marked0"><a name="line23"></a>23     Post.update_latest_post(self)
-</span><span class="inferred1"><a name="line24"></a>24   end
-</span><span class="inferred0"><a name="line25"></a>25   
-</span><span class="marked1"><a name="line26"></a>26   def self.update_latest_post(post)
-</span><span class="marked0"><a name="line27"></a>27     post.forum.last_post = post
-</span><span class="marked1"><a name="line28"></a>28     if post.forum.sub? 
-</span><span class="marked0"><a name="line29"></a>29       for ancestor in post.forum.ancestors
-</span><span class="marked1"><a name="line30"></a>30         ancestor.last_post = post
-</span><span class="marked0"><a name="line31"></a>31         ancestor.last_post_forum = post.forum
-</span><span class="marked1"><a name="line32"></a>32         ancestor.save
-</span><span class="inferred0"><a name="line33"></a>33       end
-</span><span class="inferred1"><a name="line34"></a>34     end
-</span><span class="marked0"><a name="line35"></a>35     post.forum.last_post = post
-</span><span class="marked1"><a name="line36"></a>36     post.forum.last_post_forum = nil
-</span><span class="marked0"><a name="line37"></a>37     post.forum.save
-</span><span class="inferred1"><a name="line38"></a>38   end
-</span><span class="inferred0"><a name="line39"></a>39   
-</span><span class="marked1"><a name="line40"></a>40   def find_latest_post
-</span><span class="uncovered0"><a name="line41"></a>41     last = forum.posts.last
-</span><span class="uncovered1"><a name="line42"></a>42     if !last.nil?
-</span><span class="uncovered0"><a name="line43"></a>43       Post.update_latest_post(last)
-</span><span class="uncovered1"><a name="line44"></a>44     else
-</span><span class="uncovered0"><a name="line45"></a>45       forum.last_post = nil
-</span><span class="uncovered1"><a name="line46"></a>46       forum.last_post_forum = nil
-</span><span class="uncovered0"><a name="line47"></a>47       forum.save
-</span><span class="uncovered1"><a name="line48"></a>48     end
-</span><span class="uncovered0"><a name="line49"></a>49   end
-</span><span class="inferred1"><a name="line50"></a>50   
-</span><span class="marked0"><a name="line51"></a>51   def editor
-</span><span class="inferred1"><a name="line52"></a>52     edits.last.user
-</span><span class="inferred0"><a name="line53"></a>53   end
-</span><span class="inferred1"><a name="line54"></a>54   
-</span><span class="marked0"><a name="line55"></a>55   def belongs_to?(other_user)
-</span><span class="uncovered1"><a name="line56"></a>56     user == other_user
-</span><span class="uncovered0"><a name="line57"></a>57   end
-</span><span class="inferred1"><a name="line58"></a>58   
-</span><span class="marked0"><a name="line59"></a>59   def forum
-</span><span class="marked1"><a name="line60"></a>60     topic.forum
-</span><span class="marked0"><a name="line61"></a>61   end
-</span><span class="marked1"><a name="line62"></a>62 end
+<pre><span class="marked1"><a name="line1"></a> 1 class Post &lt; ActiveRecord::Base
+</span><span class="marked0"><a name="line2"></a> 2   belongs_to :user
+</span><span class="marked1"><a name="line3"></a> 3   belongs_to :topic
+</span><span class="inferred0"><a name="line4"></a> 4   
+</span><span class="marked1"><a name="line5"></a> 5   has_many :edits, :order =&gt; &quot;created_at DESC&quot;, :dependent =&gt; :destroy
+</span><span class="marked0"><a name="line6"></a> 6   has_many :moderations, :as =&gt; :moderated_object, :dependent =&gt; :destroy
+</span><span class="inferred1"><a name="line7"></a> 7   
+</span><span class="marked0"><a name="line8"></a> 8   validates_length_of :text, :minimum =&gt; 4
+</span><span class="marked1"><a name="line9"></a> 9   validates_presence_of :text
+</span><span class="marked0"><a name="line10"></a>10   belongs_to :edited_by, :class_name =&gt; &quot;User&quot;
+</span><span class="inferred1"><a name="line11"></a>11   
+</span><span class="marked0"><a name="line12"></a>12   define_index do
+</span><span class="marked1"><a name="line13"></a>13       indexes text
+</span><span class="marked0"><a name="line14"></a>14       indexes user.login, :as =&gt; :user, :sortable =&gt; true
+</span><span class="marked1"><a name="line15"></a>15       has user_id, created_at, updated_at
+</span><span class="marked0"><a name="line16"></a>16       set_property :delta =&gt; true
+</span><span class="inferred1"><a name="line17"></a>17     end
+</span><span class="inferred0"><a name="line18"></a>18 
+</span><span class="marked1"><a name="line19"></a>19   after_create :update_forum
+</span><span class="marked0"><a name="line20"></a>20   after_destroy :find_latest_post
+</span><span class="inferred1"><a name="line21"></a>21 
+</span><span class="inferred0"><a name="line22"></a>22   
+</span><span class="marked1"><a name="line23"></a>23   def update_forum
+</span><span class="marked0"><a name="line24"></a>24     forum.last_post = self
+</span><span class="marked1"><a name="line25"></a>25     Post.update_latest_post(self)
+</span><span class="inferred0"><a name="line26"></a>26   end
+</span><span class="inferred1"><a name="line27"></a>27   
+</span><span class="marked0"><a name="line28"></a>28   def self.update_latest_post(post)
+</span><span class="marked1"><a name="line29"></a>29     post.forum.last_post = post
+</span><span class="marked0"><a name="line30"></a>30     if post.forum.sub? 
+</span><span class="marked1"><a name="line31"></a>31       for ancestor in post.forum.ancestors
+</span><span class="marked0"><a name="line32"></a>32         ancestor.last_post = post
+</span><span class="marked1"><a name="line33"></a>33         ancestor.last_post_forum = post.forum
+</span><span class="marked0"><a name="line34"></a>34         ancestor.save
+</span><span class="inferred1"><a name="line35"></a>35       end
+</span><span class="inferred0"><a name="line36"></a>36     end
+</span><span class="marked1"><a name="line37"></a>37     post.forum.last_post = post
+</span><span class="marked0"><a name="line38"></a>38     post.forum.last_post_forum = nil
+</span><span class="marked1"><a name="line39"></a>39     post.forum.save
+</span><span class="inferred0"><a name="line40"></a>40   end
+</span><span class="inferred1"><a name="line41"></a>41   
+</span><span class="marked0"><a name="line42"></a>42   def find_latest_post
+</span><span class="uncovered1"><a name="line43"></a>43     last = forum.posts.last
+</span><span class="uncovered0"><a name="line44"></a>44     if !last.nil?
+</span><span class="uncovered1"><a name="line45"></a>45       Post.update_latest_post(last)
+</span><span class="uncovered0"><a name="line46"></a>46     else
+</span><span class="uncovered1"><a name="line47"></a>47       forum.last_post = nil
+</span><span class="uncovered0"><a name="line48"></a>48       forum.last_post_forum = nil
+</span><span class="uncovered1"><a name="line49"></a>49       forum.save
+</span><span class="uncovered0"><a name="line50"></a>50     end
+</span><span class="uncovered1"><a name="line51"></a>51   end
+</span><span class="inferred0"><a name="line52"></a>52   
+</span><span class="marked1"><a name="line53"></a>53   def editor
+</span><span class="inferred0"><a name="line54"></a>54     edits.last.user
+</span><span class="inferred1"><a name="line55"></a>55   end
+</span><span class="inferred0"><a name="line56"></a>56   
+</span><span class="marked1"><a name="line57"></a>57   def belongs_to?(other_user)
+</span><span class="uncovered0"><a name="line58"></a>58     user == other_user
+</span><span class="uncovered1"><a name="line59"></a>59   end
+</span><span class="inferred0"><a name="line60"></a>60   
+</span><span class="marked1"><a name="line61"></a>61   def forum
+</span><span class="marked0"><a name="line62"></a>62     topic.forum
+</span><span class="marked1"><a name="line63"></a>63   end
+</span><span class="marked0"><a name="line64"></a>64 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

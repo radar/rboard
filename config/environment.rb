@@ -11,7 +11,7 @@ Rails::Initializer.run do |config|
   config.gem 'chronic'
   config.gem 'ultraviolet', :lib => "uv"
   
-  config.frameworks -= [ :action_web_service, :action_mailer ]
+  config.frameworks -= [:action_web_service, :action_mailer]
   config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
 
   config.active_record.default_timezone = :utc

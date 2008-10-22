@@ -1,6 +1,7 @@
 class Moderator::ModerationsController < Moderator::ApplicationController
   before_filter :find_topic_or_post
   before_filter :store_location, :only => :index
+  before_filter :find_moderation, :only => [:edit, :update]
   
   def index
     @topic_moderations = Moderation.topics.for_user(current_user)
@@ -11,10 +12,12 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   # Checks to see if the moderation already exists and if it does will destroy it
   # If the moderation does not exist, then it will create one.
   def create
-    @moderation = @thing.moderations.for_user(current_user).first
+    moderations = @thing.moderations
+    @moderation = moderations.for_user(current_user).first
     if @moderation.nil?
-      @thing.moderations.create(:user => current_user, :forum => @thing.forum)
-      @moderated_topics_count = @thing.forum.moderations.topics.count
+     forum = @thing.forum
+      moderations.create(:user => current_user, :forum => @forum)
+      @moderated_topics_count = forum.moderations.topics.count
     else
       destroy
       render :action => :destroy
@@ -22,13 +25,10 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   end
   
   def edit
-    @moderation = Moderation.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    not_found
+
   end
   
   def update
-    @moderation = Moderation.find(params[:id])
     if @moderation.update_attributes(params[:moderation])
       flash[:notice] = "The selected moderation has been updated."
       redirect_to moderator_moderations_path
@@ -36,8 +36,6 @@ class Moderator::ModerationsController < Moderator::ApplicationController
       flash[:notice] = "The selected moderation could not be updated."
       render :action => "edit"
     end
-  rescue ActiveRecord::RecordNotFound
-    not_found
   end
   
   # Can be called from the create action for when a moderation already exists.
@@ -54,7 +52,12 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   end
   
   private
-  
+    def find_moderation
+      @moderation = Moderation.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      not_found
+    end
+    
     def find_topic_or_post
       @thing = Topic.find(params[:topic_id]) unless params[:topic_id].nil?
       @thing ||= Post.find(params[:post_id]) unless params[:post_id].nil?

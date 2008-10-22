@@ -5,13 +5,13 @@ describe Admin::RanksController, "non-admins" do
   
   it "should not be allowed in if not logged in" do
     get 'index'
-    response.should redirect_to(login_path)
+    response.should redirect_to(root_path)
   end
   
   it "should be denied access if logged in as a non_admin" do
     login_as(:plebian)
     get 'index'
-    response.should redirect_to(login_path)
+    response.should redirect_to(root_path)
   end
   
   

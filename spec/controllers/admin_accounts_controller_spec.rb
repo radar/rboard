@@ -19,20 +19,20 @@ describe Admin::AccountsController, "as an admin" do
   it "should redirect standard users away" do
     login_as(:plebian)
     get 'index'
-    response.should redirect_to("login")
+    response.should redirect_to(root_path)
     flash[:notice].should_not be_blank
   end
   
   it "should redirect moderators away" do
     login_as(:moderator)
     get 'index'
-    response.should redirect_to("login")
+    response.should redirect_to(root_path)
     flash[:notice].should_not be_blank
   end
   
   it "should allow admins free reign" do
     get 'index'
-    response.should_not redirect_to("login")
+    response.should_not redirect_to(root_path)
     flash[:notice].should be_blank
   end
   
@@ -60,31 +60,31 @@ describe Admin::AccountsController, "as an admin" do
   
   it "should be able to begin to ban a user" do
     User.should_receive(:find).and_return(@user)
-    get 'ban', { :id => users(:administrator).id, :user => { } }
+    get 'ban', :id => users(:administrator).id, :user => { } 
   end
   
   it "should give a message if they try to ban themselves" do
     User.should_receive(:find).and_return(users(:administrator))
-    get 'ban', { :id => users(:administrator).id, :user => { } }
+    get 'ban', :id => users(:administrator).id, :user => { } 
     flash[:notice].should_not be_nil
   end
   
   it "should be able to ban a user" do
-    User.should_receive(:find).twice.and_return(@user)
+    User.should_receive(:find).and_return(@user)
     @user.should_receive(:update_attributes).and_return(true)
     @user.should_receive(:increment!).with("ban_times").and_return(true)
-    put 'ban', { :id => users(:banned_noob).id, :user => { } }
+    put 'ban', :id => 1, :user => { }
   end
   
   it "should be able to edit a user" do
-    User.should_receive(:find).twice.and_return(@user)
-    get 'edit', :id => users(:banned_noob).id
+    User.should_receive(:find).and_return(@user)
+    get 'edit', :id => 1
   end
   
   it "should be able to update a user" do 
-    User.should_receive(:find).twice.and_return(@user)
+    User.should_receive(:find).and_return(@user)
     @user.should_receive(:update_attributes).with({"signature"=>"Woot!"}).and_return(true)
-    put 'update', :id => users(:banned_noob).id, :user => { :signature => "Woot!"}
+    put 'update', :id => 1, :user => { :signature => "Woot!"}
     flash[:notice].should_not be_blank
   end
   

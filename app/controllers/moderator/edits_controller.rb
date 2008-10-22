@@ -1,6 +1,5 @@
-class EditsController < ApplicationController
+class Moderator::EditsController < Moderator::ApplicationController
   before_filter :find_post
-  before_filter :moderator_login_required
   before_filter :store_location, :only => :index
   
   def index
@@ -8,8 +7,11 @@ class EditsController < ApplicationController
   end
   
   def show
-    @edit = @post.edits.find(params[:id])
-    not_found if current_user.moderator? && @edit.hidden?
+    @edit = if current_user.moderator? 
+      @post.edits.visible.find(params[:id])
+    else
+      @post.edits.find(params[:id])
+    end
   rescue ActiveRecord::RecordNotFound
     not_found
   end
@@ -18,11 +20,14 @@ class EditsController < ApplicationController
   
   def find_post
     @post = Post.find(params[:post_id], :include => :edits, :joins => :topic) unless params[:post_id].nil?
+    not_found if @post.nil?
+  rescue ActiveRecord::RecordNotFound
+    not_found
   end
   
   def not_found
-    flash[:notice] = "The edit you were looking for cannot be found."
-    redirect_back_or_default forums_path
+    flash[:notice] = "The post or edit you were looking for cannot be found."
+    redirect_back_or_default moderator_path
   end
   
 end

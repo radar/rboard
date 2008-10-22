@@ -36,7 +36,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         move
         return false
     end
-    redirect_back_or_default(root_path)
+    redirect_back_or_default(moderator_moderations_path)
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = "The moderation you were looking for could not be found."
     redirect_back_or_default moderator_moderations_path

@@ -22,15 +22,4 @@ class ApplicationController < ActionController::Base
     params[:page] = params[:page].to_i <= 0 ? "1" : params[:page]
   end
   
-  def moderator_login_required
-    if !is_moderator?
-      flash[:notice] = "You do not have permission to do that."
-      redirect_back_or_default(forums_path)
-    end
-  end
-  
-  def moderated_topics_count
-  
-  end
-  
 end
