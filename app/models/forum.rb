@@ -6,7 +6,7 @@ class Forum < ActiveRecord::Base
   named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level_id] } }
   named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").id] } }
   
-  has_many :topics, :order => "created_at DESC", :dependent => :destroy 
+  has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts, :order => "created_at DESC"
   has_many :moderations
   

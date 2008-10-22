@@ -59,20 +59,28 @@ describe Admin::ForumsController do
       get 'index'
     end
   
-    it "should be able to begin to edit a forum" do
-      Forum.should_receive(:find).with("1").and_return(@forum)
-      Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
-      @forum.should_receive(:descendants).and_return(@forums)
-      get 'edit', :id => 1 
-    end
-    
-    it "should not be able to edit a forum that does not exist" do
-      Forum.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
-      get 'edit', :id => 123456789
-      flash[:notice].should_not be_nil
-      response.should redirect_to(admin_forums_path)
-    end  
+  it "should not be able to edit a forum that doesn't exist" do
+    Forum.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+    get 'edit', { :id => 123456789 }
+    flash[:notice].should_not be_blank
+    response.should redirect_to(admin_forums_path)
+  end
   
+  it "should be able to update a forum" do
+    Forum.should_receive(:find).with("1").and_return(@forum)
+    @forum.should_receive(:update_attributes).and_return(true)
+    put 'update', { :id => 1, :forum => { :title => "Title", :description => "description"}}
+    flash[:notice].should_not be_nil
+    response.should redirect_to(admin_forums_path)
+  end
+  
+  it "should be able to begin to edit a forum" do
+    Forum.should_receive(:find).with("1").and_return(@forum)
+    Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
+    @forum.should_receive(:descendants).and_return(@forums)
+    get 'edit', :id => 1 
+  end
+    
     it "should be able to update a forum" do
       Forum.should_receive(:find).with("1").and_return(@forum)
       @forum.should_receive(:update_attributes).and_return(true)

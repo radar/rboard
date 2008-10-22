@@ -25,6 +25,8 @@ describe Post, "general" do
     @lone_post = posts(:moderator)
     @topic = topics(:user)
     @sub_topic = topics(:user_3)
+    @plebian = users(:plebian)
+    @administrator = users(:administrator)
   end
   
   it "should be able to find its forum" do
@@ -61,17 +63,10 @@ describe Post, "general" do
     @lone_post.find_latest_post
   end
   
-  # it "should update the forum and its ancestors with the latest post when an existing post is destroyed" do
-  #   @post_2.forum.last_post.should eql(@post)
-  #   @post.destroy
-  #   @post_2.forum.reload
-  #   @post_2.forum.last_post.should eql(@post_2)
-  #   @post_2.forum.ancestors.map { |forum| forum.last_post.should eql(@post_2) }
-  #   @post_2.destroy
-  #   @post_3.forum.reload
-  #   @post_3.forum.last_post.should eql(@post_3)
-  #   @post_2.forum.ancestors.map { |forum| forum.last_post.should eql(@post_3) }
-  # end
+  it "should belong to a user" do
+    @post.belongs_to?(@plebian).should be_true
+    @post.belongs_to?(@administrator).should be_false
+  end
   
 end
 

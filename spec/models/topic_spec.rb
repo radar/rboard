@@ -6,6 +6,7 @@ describe Topic, "in general" do
     @forum = mock("forum")
     @invalid_topic = topics(:invalid)
     @valid_topic = topics(:user_3)
+    @another_valid_topic = topics(:user_2)
     @everybody = forums(:everybody)
     @sub_of_everybody = forums(:sub_of_everybody)
     @admins_only = forums(:admins_only)
@@ -71,6 +72,17 @@ describe Topic, "in general" do
     @valid_topic.should be_sticky
     @valid_topic.unsticky!
     @valid_topic.should_not be_sticky
-  end  
+  end
+  
+  it "should be able to move a topic" do
+    @valid_topic.move!(@sub_of_everybody.id)
+    @valid_topic.forum_id.should eql(@sub_of_everybody.id)
+  end
+  
+  it "should be able to move a topic that was the last posted to topic" do
+    @another_valid_topic.move!(@sub_of_everybody.id)
+    @another_valid_topic.forum_id.should eql(@sub_of_everybody.id)
+    @everybody.last_post.should_not eql(@another_valid_topic.posts.last)
+  end
   
 end

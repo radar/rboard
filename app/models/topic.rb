@@ -8,6 +8,7 @@ class Topic < ActiveRecord::Base
   has_many :users, :through => :posts
   
   named_scope :recent, lambda { { :conditions => ["created_at > ?", 2.weeks.ago] } }
+  named_scope :sorted, :order => "posts.created_at DESC", :include => "last_post"
   
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
