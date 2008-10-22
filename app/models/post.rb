@@ -42,7 +42,7 @@ class Post < ActiveRecord::Base
   def find_latest_post
     last = forum.posts.last
     if !last.nil?
-      Post.update_latest_post(last)
+      last = Post.update_latest_post(last)
     else
       forum.last_post = nil
       forum.last_post_forum = nil

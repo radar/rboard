@@ -22,6 +22,7 @@ describe Post, "general" do
     @post = posts(:user)
     @post_2 = posts(:user_2)
     @post_3 = posts(:user_3)
+    @lone_post = posts(:moderator)
     @topic = topics(:user)
     @sub_topic = topics(:user_3)
   end
@@ -48,6 +49,16 @@ describe Post, "general" do
       ancestor.last_post.should eql(@new_post)
       ancestor.last_post.forum.should eql(@new_post.forum)
     end
+  end
+  
+  it "should be able to find the latest post" do
+    @post.destroy
+    @post.find_latest_post
+  end
+  
+  it "should be able to destroy a lone post and set the last post to nil" do
+    @lone_post.destroy
+    @lone_post.find_latest_post
   end
   
   # it "should update the forum and its ancestors with the latest post when an existing post is destroyed" do
