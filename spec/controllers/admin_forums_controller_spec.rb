@@ -52,6 +52,13 @@ describe Admin::ForumsController do
     get 'edit', { :id => 1 }
   end
   
+  it "should not be able to edit a forum that doesn't exist" do
+    Forum.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+    get 'edit', { :id => 123456789 }
+    flash[:notice].should_not be_blank
+    response.should redirect_to(admin_forums_path)
+  end
+  
   it "should be able to update a forum" do
     Forum.should_receive(:find).with("1").and_return(@forum)
     @forum.should_receive(:update_attributes).and_return(true)
