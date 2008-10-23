@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-describe User, "general" do
+describe User, "firstly..." do
   fixtures :themes, :user_levels
+
   #regressional test
   it "should automatically set theme_id when a new user is created" do
     @user = User.new(:login => "Tester1", :password => "testing", :password_confirmation => "testing", :email => "tester@awesome.com")
@@ -18,4 +19,55 @@ describe User, "general" do
     @user.user_level.should eql(user_levels(:administrator))
   end
   
+end
+
+describe User, "with users" do
+  fixtures :themes, :user_levels, :users, :ranks
+  
+  before do
+    @user = users(:administrator)
+    @other_user = users(:moderator)
+    @plebian = users(:plebian)
+    @god = ranks(:god)
+  end
+  
+  it "should authenticate the user" do
+    @user.authenticated?("godly").should be_true
+    @user.authenticated?("mortal").should be_false
+  end
+  
+  it "should remember a user" do
+    @user.remember_token?.should be_true
+  end
+  
+  it "should be able to remember a user" do
+    @other_user.remember_token?.should be_nil
+    @other_user.remember_me
+    @other_user.remember_token?.should be_true
+  end
+  
+  it "should be able to determine what kind of user a user is" do
+    @user.admin?.should be_true
+    @user.moderator?.should be_false
+    @user.user?.should be_false
+    
+    @other_user.admin?.should be_false
+    @other_user.moderator?.should be_true
+    @other_user.user?.should be_false
+    
+    @plebian.admin?.should be_false
+    @plebian.moderator?.should be_false
+    @plebian.user?.should be_true
+  end
+  
+  it "should be able to authenticate a user" do
+    User.authenticate("plebian", "only_human").should_not be_nil
+    User.authenticate("plebian", "wrong password").should be_nil
+    User.authenticate("non-existant", "right password").should be_nil
+  end
+  
+  it "should be able to find a rank for a user" do
+    @user.rank.should eql(@god.name)
+    @other_user.rank.should eql("Moderator")
+  end
 end

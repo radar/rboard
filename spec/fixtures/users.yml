@@ -5,6 +5,7 @@ administrator:
   crypted_password: b5859b5094f6747b8a7f11918e336bb524ec5f38
   user_level: administrator
   rank_id: 1
+  remember_token_expires_at: <%= (Time.now + 2.weeks).to_s(:db) %>
 
 plebian:
   login: Plebian 

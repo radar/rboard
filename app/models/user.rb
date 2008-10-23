@@ -40,8 +40,9 @@ class User < ActiveRecord::Base
   
   #misc. user information
   def rank
-	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC")
-	  rank.nil? ? user_level : rank.name
+    rank = Rank.find_by_id(rank_id)
+	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC") if rank.nil?
+	  rank.nil? ? user_level.name : rank.name
   end
   
   #permission checking 

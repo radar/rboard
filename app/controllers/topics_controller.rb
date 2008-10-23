@@ -1,8 +1,6 @@
 class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :find_forum
-  before_filter :is_viewable?, :only => [:show, :unlock, :lock]
-  before_filter :create_topic_redirect, :only => [:new, :create]
   before_filter :store_location, :only => [:show, :new, :edit, :reply]
   before_filter :moderator_login_required, :only => [:lock, :unlock]
   
@@ -43,38 +41,30 @@ class TopicsController < ApplicationController
   
   private
   
-  def is_viewable?
-    if !@forum.viewable?(logged_in?, current_user)
-      flash[:notice] = "You are not allowed to see topics in this forum."
-      redirect_back_or_default(forums_path)
-    end
-  end
-  
   def not_found
     flash[:notice] = "The topic you were looking for could not be found."
     redirect_to forums_path
-  end
-  
-  def create_topic_redirect
-    @forum = Forum.find(params[:forum_id])
-    if !@forum.topics_creatable_by?(logged_in?, current_user)
-      flash[:notice] = "You are not allowed to create topics in this forum."
-      redirect_back_or_default(forums_path)
-    end
   end
   
   private
   
   def find_forum
     @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
-    if params[:id]
-      if @forum.nil?
-        @topic = Topic.find(params[:id], :joins => :posts)
-        @forum = @topic.forum
-      else
-        @topic = @forum.topics.find(params[:id], :joins => :posts)
+    if @forum.viewable?(logged_in?, current_user)
+      if params[:id]
+        if @forum.nil?
+          @topic = Topic.find(params[:id], :joins => :posts)
+          @forum = @topic.forum
+        else
+          @topic = @forum.topics.find(params[:id], :joins => :posts)
+        end
       end
+    else
+      flash[:notice] = "You are not allowed to view topics in that forum."
+      redirect_to root_path
     end
+    rescue ActiveRecord::RecordNotFound
+      not_found
   end
   
 end

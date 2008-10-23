@@ -25,11 +25,9 @@ describe TopicsController do
     it "should not show a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
       @forum.should_receive(:viewable?).with(false, :false).and_return(false)
-      @forum.should_receive(:topics).and_return(@topics)
-      @topics.should_receive(:find).with(@admin_topic.id.to_s, :joins => :posts).and_return(@topic)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(forums_path)
-      flash[:notice].should eql("You are not allowed to see topics in this forum.")
+      response.should redirect_to(root_path)
+      flash[:notice].should eql("You are not allowed to view topics in that forum.")
     end
   end  
 
@@ -37,37 +35,43 @@ describe TopicsController do
     before do
       login_as(:plebian)
     end
+    
+    it "should redirect to the forums show action if index is requested" do
+      get 'index', :forum_id => @everybody.id
+      response.should redirect_to(forum_path(@everybody.id))
+    end
   
     it "should stop a user from being able to create a topic in a restricted forum" do
-      Forum.should_receive(:find).twice.and_return(@forum)
-      @forum.should_receive(:topics_creatable_by?).and_return(false)
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(false)
       get 'new', { :forum_id => @admin_forum.id }
-      response.should redirect_to(forums_path)
-      flash[:notice].should eql("You are not allowed to create topics in this forum.")
+      response.should redirect_to(root_path)
+      flash[:notice].should eql("You are not allowed to view topics in that forum.")
     end
     
     it "should not create a topic if a user is not allowed" do
-      Forum.should_receive(:find).twice.and_return(@forum)
-      @forum.should_receive(:topics_creatable_by?).and_return(false)
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(false)
       post 'create', { :topic => { :subject => "Test!" }, :post => { :text => "Testing!" }, :forum_id => @admin_forum.id }
-      response.should redirect_to(forums_path)
-      flash[:notice].should eql("You are not allowed to create topics in this forum.")
+      response.should redirect_to(root_path)
+      flash[:notice].should eql("You are not allowed to view topics in that forum.")
     end
     
     it "should not be able to see a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
       @forum.should_receive(:viewable?).and_return(false)
-      @forum.should_receive(:topics).and_return(@topics)
-      @topics.should_receive(:find).with(@admin_topic.id.to_s, :joins => :posts).and_return(@topic)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(forums_path)
-      flash[:notice].should eql("You are not allowed to see topics in this forum.")
+      response.should redirect_to(root_path)
+      flash[:notice].should eql("You are not allowed to view topics in that forum.")
     end
     
-    # it "should not be able to moderate topics" do
-    #   post 'moderate', { :commit => "Lock", :moderated_topics => [1,2], :forum_id => @admin_forum.id } 
-    #   flash[:notice].should eql("You are not allowed to see topics in this forum.")
-    # end
+    it "should not be able to see topics that do not exist" do
+      Forum.should_receive(:find).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
+      @forum.should_receive(:topics).and_return(@topics)
+      @topics.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+      get 'show', { :forum_id => @everybody.id, :id => 123456789 }
+    end
   end
   
   describe TopicsController, "for logged in administrator" do
@@ -86,6 +90,7 @@ describe TopicsController do
       @topic.stub!(:subject)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
     end
+    
     
     it "should be able to begin to create a new topic" do
       Topic.should_receive(:new).and_return(@topic)
@@ -127,8 +132,8 @@ describe TopicsController do
     
     it "should not be able to lock any topic in the admin forum" do
       put 'lock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(forums_path)
-      flash[:notice].should eql("You are not allowed to see topics in this forum.")
+      response.should redirect_to(root_path)
+      flash[:notice].should eql("You are not allowed to view topics in that forum.")
     end
   end
 end

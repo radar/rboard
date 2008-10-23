@@ -40,10 +40,6 @@ class Forum < ActiveRecord::Base
     end
   end
   
-  def sorted_topics
-    topics.sort_by { |t| t.posts.last.created_at }.reverse
-  end
-  
   def descendants
     children.map { |f| !f.children.empty? ? f.children + [f]: f }.flatten
   end
