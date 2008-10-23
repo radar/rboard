@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Wed Oct 22 23:06:37 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Thu Oct 23 21:44:23 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-models-topic_rb.html'>app/models/topic.rb</a>
         </td>
-      <td class='lines_total'><tt>58</tt>
+      <td class='lines_total'><tt>59</tt>
         </td>
-      <td class='lines_code'><tt>44</tt>
+      <td class='lines_code'><tt>45</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>79.3%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='79'/>
-                  <td class='uncovered' width='21'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>75.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='75'/>
-                  <td class='uncovered' width='25'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
@@ -608,54 +608,55 @@ span.run100 {
 </span><span class="marked1"><a name="line8"></a> 8   has_many :users, :through =&gt; :posts
 </span><span class="inferred0"><a name="line9"></a> 9   
 </span><span class="marked1"><a name="line10"></a>10   named_scope :recent, lambda { { :conditions =&gt; [&quot;created_at &gt; ?&quot;, 2.weeks.ago] } }
-</span><span class="inferred0"><a name="line11"></a>11   
-</span><span class="inferred1"><a name="line12"></a>12   #makes error_messages_for return the wrong number of errors.
-</span><span class="marked0"><a name="line13"></a>13   validates_associated :posts, :message =&gt; nil
-</span><span class="marked1"><a name="line14"></a>14   validates_length_of :subject, :minimum =&gt; 4
-</span><span class="marked0"><a name="line15"></a>15   validates_presence_of :subject, :forum_id, :user_id
-</span><span class="marked1"><a name="line16"></a>16   attr_protected :sticky, :locked
-</span><span class="inferred0"><a name="line17"></a>17   
-</span><span class="inferred1"><a name="line18"></a>18   #silence the error messages
-</span><span class="marked0"><a name="line19"></a>19   def validates_associated_post_records;   end
-</span><span class="inferred1"><a name="line20"></a>20   
-</span><span class="marked0"><a name="line21"></a>21   def to_s
-</span><span class="marked1"><a name="line22"></a>22     subject
-</span><span class="marked0"><a name="line23"></a>23   end
-</span><span class="inferred1"><a name="line24"></a>24   
-</span><span class="marked0"><a name="line25"></a>25   def move!(new_forum_id)
-</span><span class="uncovered1"><a name="line26"></a>26     old_forum = Forum.find(forum_id)
-</span><span class="uncovered0"><a name="line27"></a>27     was_old_last_post = old_forum.last_post == last_post
-</span><span class="uncovered1"><a name="line28"></a>28     new_forum = Forum.find(new_forum_id)
-</span><span class="uncovered0"><a name="line29"></a>29     update_attribute(&quot;forum_id&quot;, new_forum_id)
-</span><span class="uncovered1"><a name="line30"></a>30     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at &lt;= posts.last.created_at)
-</span><span class="uncovered0"><a name="line31"></a>31     new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
-</span><span class="uncovered1"><a name="line32"></a>32     
-</span><span class="uncovered0"><a name="line33"></a>33     if was_old_last_post
-</span><span class="uncovered1"><a name="line34"></a>34       old_forum.reload
-</span><span class="uncovered0"><a name="line35"></a>35       old_forum.update_last_post(new_forum)
-</span><span class="uncovered1"><a name="line36"></a>36     end
-</span><span class="uncovered0"><a name="line37"></a>37   end
-</span><span class="inferred1"><a name="line38"></a>38   
-</span><span class="marked0"><a name="line39"></a>39   def lock!
-</span><span class="marked1"><a name="line40"></a>40     update_attribute(&quot;locked&quot;, true)
-</span><span class="marked0"><a name="line41"></a>41   end
-</span><span class="inferred1"><a name="line42"></a>42   
-</span><span class="marked0"><a name="line43"></a>43   def unlock!
-</span><span class="marked1"><a name="line44"></a>44     update_attribute(&quot;locked&quot;, false)
-</span><span class="marked0"><a name="line45"></a>45   end
-</span><span class="inferred1"><a name="line46"></a>46   
-</span><span class="marked0"><a name="line47"></a>47   def sticky!
-</span><span class="marked1"><a name="line48"></a>48     update_attribute(&quot;sticky&quot;, true)
-</span><span class="marked0"><a name="line49"></a>49   end
-</span><span class="inferred1"><a name="line50"></a>50   
-</span><span class="marked0"><a name="line51"></a>51   def unsticky!
-</span><span class="marked1"><a name="line52"></a>52     update_attribute(&quot;sticky&quot;, false)
-</span><span class="marked0"><a name="line53"></a>53   end
-</span><span class="inferred1"><a name="line54"></a>54   
-</span><span class="marked0"><a name="line55"></a>55   def last_10_posts
-</span><span class="marked1"><a name="line56"></a>56     posts.last(10).reverse
-</span><span class="marked0"><a name="line57"></a>57   end
-</span><span class="marked1"><a name="line58"></a>58 end
+</span><span class="marked0"><a name="line11"></a>11   named_scope :sorted, :order =&gt; &quot;posts.created_at DESC&quot;, :include =&gt; &quot;last_post&quot;
+</span><span class="inferred1"><a name="line12"></a>12   
+</span><span class="inferred0"><a name="line13"></a>13   #makes error_messages_for return the wrong number of errors.
+</span><span class="marked1"><a name="line14"></a>14   validates_associated :posts, :message =&gt; nil
+</span><span class="marked0"><a name="line15"></a>15   validates_length_of :subject, :minimum =&gt; 4
+</span><span class="marked1"><a name="line16"></a>16   validates_presence_of :subject, :forum_id, :user_id
+</span><span class="marked0"><a name="line17"></a>17   attr_protected :sticky, :locked
+</span><span class="inferred1"><a name="line18"></a>18   
+</span><span class="inferred0"><a name="line19"></a>19   #silence the error messages
+</span><span class="marked1"><a name="line20"></a>20   def validates_associated_post_records;   end
+</span><span class="inferred0"><a name="line21"></a>21   
+</span><span class="marked1"><a name="line22"></a>22   def to_s
+</span><span class="marked0"><a name="line23"></a>23     subject
+</span><span class="marked1"><a name="line24"></a>24   end
+</span><span class="inferred0"><a name="line25"></a>25   
+</span><span class="marked1"><a name="line26"></a>26   def move!(new_forum_id)
+</span><span class="marked0"><a name="line27"></a>27     old_forum = Forum.find(forum_id)
+</span><span class="marked1"><a name="line28"></a>28     was_old_last_post = old_forum.last_post == last_post
+</span><span class="marked0"><a name="line29"></a>29     new_forum = Forum.find(new_forum_id)
+</span><span class="marked1"><a name="line30"></a>30     update_attribute(&quot;forum_id&quot;, new_forum_id)
+</span><span class="marked0"><a name="line31"></a>31     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at &lt;= posts.last.created_at)
+</span><span class="marked1"><a name="line32"></a>32     new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
+</span><span class="inferred0"><a name="line33"></a>33     
+</span><span class="marked1"><a name="line34"></a>34     if was_old_last_post
+</span><span class="marked0"><a name="line35"></a>35       old_forum.reload
+</span><span class="marked1"><a name="line36"></a>36       old_forum.update_last_post(new_forum)
+</span><span class="inferred0"><a name="line37"></a>37     end
+</span><span class="inferred1"><a name="line38"></a>38   end
+</span><span class="inferred0"><a name="line39"></a>39   
+</span><span class="marked1"><a name="line40"></a>40   def lock!
+</span><span class="marked0"><a name="line41"></a>41     update_attribute(&quot;locked&quot;, true)
+</span><span class="marked1"><a name="line42"></a>42   end
+</span><span class="inferred0"><a name="line43"></a>43   
+</span><span class="marked1"><a name="line44"></a>44   def unlock!
+</span><span class="marked0"><a name="line45"></a>45     update_attribute(&quot;locked&quot;, false)
+</span><span class="marked1"><a name="line46"></a>46   end
+</span><span class="inferred0"><a name="line47"></a>47   
+</span><span class="marked1"><a name="line48"></a>48   def sticky!
+</span><span class="marked0"><a name="line49"></a>49     update_attribute(&quot;sticky&quot;, true)
+</span><span class="marked1"><a name="line50"></a>50   end
+</span><span class="inferred0"><a name="line51"></a>51   
+</span><span class="marked1"><a name="line52"></a>52   def unsticky!
+</span><span class="marked0"><a name="line53"></a>53     update_attribute(&quot;sticky&quot;, false)
+</span><span class="marked1"><a name="line54"></a>54   end
+</span><span class="inferred0"><a name="line55"></a>55   
+</span><span class="marked1"><a name="line56"></a>56   def last_10_posts
+</span><span class="marked0"><a name="line57"></a>57     posts.last(10).reverse
+</span><span class="marked1"><a name="line58"></a>58   end
+</span><span class="marked0"><a name="line59"></a>59 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>
