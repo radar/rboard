@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
+  before_filter :store_location, :only => [:show, :new, :edit, :reply]
   before_filter :login_required, :except => [:show]
   before_filter :find_forum
-  before_filter :store_location, :only => [:show, :new, :edit, :reply]
   before_filter :moderator_login_required, :only => [:lock, :unlock]
   
   def index

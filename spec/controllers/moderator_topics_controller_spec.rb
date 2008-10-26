@@ -112,8 +112,37 @@ describe Moderator::TopicsController do
       response.should redirect_to(moderator_moderations_path)
     end
     
+    it "should not be able to act on moderations that don't belong to them" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+      put 'moderate', { :commit => "Lock", :moderation_ids => [2,3,4] }
+      response.should redirect_to(moderator_moderations_path)
+      flash[:notice].should_not be_nil
+    end
     
+    it "should be able to toggle a lock on a topic" do
+      Topic.should_receive(:find).and_return(@topic)
+      @topic.should_receive(:locked?).and_return(true)
+      @topic.should_receive(:forum).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
+      @topic.should_receive(:toggle!).and_return(true)
+      put 'toggle_lock', :id => 1
+    end
     
+    it "should be able to toggle a sitcky on a topic" do
+      Topic.should_receive(:find).and_return(@topic)
+      @topic.should_receive(:sticky?).and_return(true)
+      @topic.should_receive(:forum).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(true)
+      @topic.should_receive(:toggle!).and_return(true)
+      put 'toggle_sticky', :id => 1
+    end    
+    
+    it "should not be able to toggle a lock on a topic that does not exist" do
+      Topic.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+      put 'toggle_lock', :id => 123456789
+    end
     
   end
 end
