@@ -1,17 +1,20 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => "forums"
-  map.login 'login', :controller => 'accounts', :action => 'login'
-  map.logout 'logout', :controller => 'accounts', :action => 'logout'
-  map.signup 'signup', :controller => "accounts", :action => 'signup'
+  map.login 'login', :controller => 'users', :action => 'login'
+  map.logout 'logout', :controller => 'users', :action => 'logout'
+  map.signup 'signup', :controller => "users", :action => 'signup'
   
   map.search 'search', :controller => "search", :action => "index"
+  
+  # Welcome mat for the admin namespace
   map.admin 'admin', :controller => "admin/index", :action => "index"
+  
+  # Welcome mat for the moderator namespace
   map.moderator 'moderator', :controller => "moderator/index", :action => "index"
-  map.connect 'topics/reply/:id/:quote', :controller => 'topics', :action => 'reply'
   
   map.namespace :admin do |admin|
     admin.resources :ranks
-    admin.resources :accounts, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
+    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
     admin.resources :themes, :member => { :make_default => :put }
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put  }
     admin.chronic 'chronic', :controller => 'chronic'
@@ -35,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
-    topic.resources :posts
+    topic.resources :posts, :member => { :reply => :get }
   end
   
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
@@ -44,9 +47,10 @@ ActionController::Routing::Routes.draw do |map|
     post.resources :edits
   end
   
+  map.resources :users, :member => { :profile => :any }
+  
   # pretty pagination links
   map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
   map.connect 'forums/:id/:page', :controller => "forums", :action => "show"
-  map.resources :accounts, :collection => { :profile => :any }
   map.connect ':controller/:action/:id'
 end

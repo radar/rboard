@@ -1,5 +1,5 @@
-<%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to("Users", admin_accounts_path) %> -> Editing <%= @user.login %>
-<% form_for [:admin, @user], :url => admin_account_path(@user) do |f| %>
+<%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to("Users", admin_users_path) %> -> Editing <%= @user.login %>
+<% form_for [:admin, @user] do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
     <thead>
       <tr>

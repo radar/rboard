@@ -61,8 +61,8 @@ describe User, "with users" do
   end
   
   it "should be able to authenticate a user" do
-    User.authenticate("plebian", "only_human").should_not be_nil
-    User.authenticate("plebian", "wrong password").should be_nil
+    User.authenticate("Plebian", "only_human").should_not be_nil
+    User.authenticate("Plebian", "wrong password").should be_nil
     User.authenticate("non-existant", "right password").should be_nil
   end
   

@@ -54,6 +54,10 @@ class Post < ActiveRecord::Base
     edits.last.user
   end
   
+  def local_time
+    created_at.localtime
+  end
+  
   def belongs_to?(other_user)
     user == other_user
   end

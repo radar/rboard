@@ -14,16 +14,16 @@
   <tbody>
     <% for user in @users %>
       <tr>
-        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_account_path(user), :method => :delete, :confirm => "Are you sure you want to delete #{user.login}?" %>
-          <%= link_to theme_image_tag("edit.jpg"), edit_admin_account_path(user) %>
-          <%= link_to theme_image_tag("ban.jpg"), ban_admin_account_path(user), :confirm => "Are you sure you want to ban this user?"  %></td>
-        <td><%= link_to user.login, admin_account_path(user.login) %></td>
+        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_user_path(user), :method => :delete, :confirm => "Are you sure you want to delete #{user.login}?" %>
+          <%= link_to theme_image_tag("edit.jpg"), edit_admin_user_path(user) %>
+          <%= link_to theme_image_tag("ban.jpg"), ban_admin_user_path(user), :confirm => "Are you sure you want to ban this user?"  %></td>
+        <td><%= link_to user.login, admin_user_path(user.login) %></td>
         <td><%= user.created_at.strftime date_display %></td>
         <td><%= user.posts.size %></td>
         <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? "Yes" : "No" %></td>
         <td><%= user.ban_time.nil? ? "Never" : user.ban_time.ordinalize %></td>
         <td><%= user.ban_times %></td>
-        <td><%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), ban_ip_admin_account_path(user.ip) %></td>
+        <td><%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), ban_ip_admin_user_path(user.ip) %></td>
       </tr>
     <% end %>
   </tbody>

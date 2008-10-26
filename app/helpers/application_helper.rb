@@ -1,20 +1,19 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def bbcode(text)
-    
     #cool stuff (well, at least I think so)
     begin
       text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<div class='code'>" << Uv.parse($2, "xhtml", $1, true, "lazy") << "</div>" }
     rescue NoMethodError
       text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<div class='code'><font color='red'><strong>Invalid syntax chosen for code tag.</strong></font></div>" }
     end
+    text.gsub!(/</, "&lt;")
+    text.gsub!(/>/, "&gt;")
     text.gsub!(/\[quote=?["']?(.*?)["']?\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'><b>" << $1 << " wrote:</b><br />" << $2 << "</div></div>" }
     text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'>" << $1 << "</div></div>" }
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a href='" << $1 << "'>" << $2 << "</a>" }
     text.gsub!(/\[topic=["']?(.*?)["']?\](.*?)\[\/topic\]/mis) { "<a href='/topics/show/" << $1 << "'>" << $2  << "</a>" }
-    text.gsub!(/</, "&lt;")
-    text.gsub!(/>/, "&gt;")
     text
   # handle with care...
 

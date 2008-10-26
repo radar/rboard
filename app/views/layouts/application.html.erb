@@ -22,12 +22,12 @@
           <%= link_to "Home", forums_path %> |
           <% unless logged_in? %>
               <%= link_to "Login", login_path %> |
-              <%= link_to "Signup", :controller => "accounts", :action => "signup" %>
+              <%= link_to "Signup", :controller => "users", :action => "signup" %>
            
           <% else %>
-            Logged in as <%= link_to current_user.login, :controller => "accounts", :action => "user", :id => current_user.login %> |
-            <%= link_to "Profile", :controller => "/accounts", :action => "profile" %> |
-            <%= link_to "Member List", :controller => "/accounts", :action => "index" %> | 
+            Logged in as <%= link_to current_user.login, current_user %> |
+            <%= link_to "Edit Profile", [:edit, current_user] %> |
+            <%= link_to "Member List", users_path %> | 
             <%= link_to "Search", search_path %> | 
             <%= link_to pluralize(@current_user.unread_messages.size,"new message"), messages_path %> |
             <%= link_to "Logout", logout_path %>
@@ -35,7 +35,7 @@
         </div>
         <div class='time-now'>
           
-        The time is now <%= Time.now.strftime(time_display) %> </div><br /><br />
+        The time is now <%= Time.now.strftime(date_time_display) %> </div><br /><br />
         <% if user_banned? %>
           <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1><%= current_user.banned_by.login %> banned you and stated "<%= current_user.ban_reason %>" as the reason. Your ban expires in <%= time_ago_in_words(current_user.ban_time) %><br /><br /></div>
         <% elsif flash[:ip] %>

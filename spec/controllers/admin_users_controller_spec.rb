@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe Admin::AccountsController, "as an admin" do
+describe Admin::UsersController, "as an admin" do
   fixtures :users, :banned_ips, :user_levels
 
   before do
@@ -98,7 +98,7 @@ describe Admin::AccountsController, "as an admin" do
   it "should be able to remove a banned ip" do
     get 'remove_banned_ip', { :id => banned_ips(:localhost) }
     flash[:notice].should_not be_blank
-    response.should redirect_to(ban_ip_admin_accounts_path)
+    response.should redirect_to(ban_ip_admin_users_path)
   end
   
   it "should be able to look up a user's details" do

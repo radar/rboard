@@ -79,10 +79,4 @@ describe Topic, "in general" do
     @valid_topic.forum_id.should eql(@sub_of_everybody.id)
   end
   
-  it "should be able to move a topic that was the last posted to topic" do
-    @another_valid_topic.move!(@sub_of_everybody.id)
-    @another_valid_topic.forum_id.should eql(@sub_of_everybody.id)
-    @everybody.last_post.should_not eql(@another_valid_topic.posts.last)
-  end
-  
 end

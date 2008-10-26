@@ -4,13 +4,13 @@
       <td rowspan='2' valign='top' width='15%'><b><%= post.user.login %></b></td>
       <td valign='top'>
         <a name='post_<%= post.id %>' href='<%= forum_topic_path(post.topic.forum, post.topic) + "/#{(params[:page] || 1)}" + "#post_#{post.id}" %>'>
-        #<%= per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1 %></a> <%= post.created_at.strftime(time_display) %>
+        #<%= per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1 %></a> <%= post.local_time.strftime(date_time_display) %>
         <% unless post.edits.empty? %> - <%= link_to_if(is_moderator? && !post.edits.empty?, pluralize(post.edits.size, "edit"), moderator_post_edits_path(post)) %><% end %>
       </td>
       <td align='right' valign='top'>
 	      <% if !post.topic.locked || is_admin? %>
           <%= link_to "Reply", new_topic_post_path(post.topic) %> |
-          <%= link_to "Quote", new_topic_post_path(post.topic, :quote => post.id) %> 
+          <%= link_to "Quote", reply_topic_post_path(post.topic, post) %> 
             <% if is_owner_or_admin?(post.id) %>
               | <%= link_to "Edit", edit_topic_post_path(@topic, post) %> |
                <%= link_to "Delete", topic_post_path(@topic, post), :method => "delete", :confirm => "Are you sure you want to delete this post?" %>
@@ -29,14 +29,14 @@
           <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=") %><br />
         <% end %>
         <b>Posts:</b> <%= post.user.posts.size %><br />
-        <b>Date Joined:</b> <%= post.user.created_at.strftime(date_display) %>
+        <b>Date Joined:</b> <%= post.user.local_time.strftime(date_display) %>
       </td>
       
-      <td valign='top' colspan='2' valign='top' id='post[<%= post.id %>]'>
+      <td valign='top' colspan='2' valign='top'>
 			  <%= bbcode(post.text) %>
 			  <% unless post.user.signature.blank? %><br />
 			    ____________<br />
-			    <%= bbcode sanitize(post.user.signature) %>
+			    <%= bbcode(post.user.signature) %>
 		  	<% end %>
 			
 		  	<% if !post.edits.empty? %>

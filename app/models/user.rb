@@ -37,6 +37,13 @@ class User < ActiveRecord::Base
     self.theme = Theme.find(:first)
   end
   
+  def to_s
+    login
+  end
+  
+  def local_time
+    created_at.localtime
+  end
   
   #misc. user information
   def rank
@@ -100,9 +107,7 @@ class User < ActiveRecord::Base
   end
   
   protected
-  # before filter 
   def encrypt_password
-    return if password.blank?
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
     self.crypted_password = encrypt(password)
   end

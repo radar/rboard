@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_filter :ip_banned_redirect
   before_filter :active_user
   before_filter :check_page_value
+  before_filter :set_time_zone
   
   @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?
   
@@ -22,4 +23,7 @@ class ApplicationController < ActionController::Base
     params[:page] = params[:page].to_i <= 0 ? "1" : params[:page]
   end
   
+  def set_time_zone
+    Time.zone = current_user.time_zone if logged_in? && !current_user.time_zone.nil?
+  end
 end

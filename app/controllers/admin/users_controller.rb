@@ -1,4 +1,4 @@
-class Admin::AccountsController < Admin::ApplicationController
+class Admin::UsersController < Admin::ApplicationController
   before_filter :store_location, :only => [:index]
   
   # Used for banning ips
@@ -41,7 +41,7 @@ class Admin::AccountsController < Admin::ApplicationController
       @user.update_attributes(params[:user])
       @user.increment!('ban_times')
       flash[:notice] = "User has been banned!"
-      redirect_back_or_default(admin_accounts_path)
+      redirect_back_or_default(admin_users_path)
     end
   end
   
@@ -50,7 +50,7 @@ class Admin::AccountsController < Admin::ApplicationController
   def remove_banned_ip
     @banned_ip = BannedIp.find(params[:id]).destroy
     flash[:notice] = "The IP range has been unbanned."
-    redirect_back_or_default ban_ip_admin_accounts_path
+    redirect_back_or_default ban_ip_admin_users_path
   end
   
   
@@ -71,7 +71,7 @@ class Admin::AccountsController < Admin::ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = "This user has been updated."
-      redirect_to admin_accounts_path
+      redirect_to admin_users_path
     else
       flash[:notice] = "This user could not be updated."
       render :action => "edit"

@@ -61,8 +61,8 @@
           </td>
           <td align='center'><%= topic.posts.size - 1 %></td>
           <td align='center'><%= topic.views %></td>
-          <td align='center'><%= link_to(topic.user.login, :controller => "accounts", :action => "user", :id => topic.user.login) %></td>
-          <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> ago by <%= link_to topic.posts.last.user.login, :controller => "accounts", :action => "user", :id => topic.posts.last.user.login %></td>
+          <td align='center'><%= link_to(topic.user.login, :controller => "users", :action => "user", :id => topic.user.login) %></td>
+          <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> ago by <%= link_to topic.posts.last.user.login, :controller => "users", :action => "user", :id => topic.posts.last.user.login %></td>
         </tr>
       <% end %>
     </tbody>

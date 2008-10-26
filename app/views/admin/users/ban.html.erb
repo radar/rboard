@@ -1,4 +1,4 @@
-<% form_for @user, :url => ban_admin_account_path, :method => "put" do |f| %>
+<% form_for @user, :url => ban_admin_user_path(@user), :method => "put" do |f| %>
 <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
   <thead><tr><td colspan='2'><h2>Banning <%= @user.login %></h2></td></tr></thead>
   <tbody>

@@ -55,7 +55,7 @@ module AuthenticatedSystem
   end
   
   def ip_banned_redirect
-    redirect_to :controller => "/accounts", :action => "ip_is_banned" unless params[:action] == "ip_is_banned"  if ip_banned?
+    redirect_to :controller => "/users", :action => "ip_is_banned" unless params[:action] == "ip_is_banned"  if ip_banned?
   end
   
   def user_banned?
@@ -108,7 +108,7 @@ module AuthenticatedSystem
     self.current_user ||= User.authenticate(username, passwd) || :false if username && passwd
     if !logged_in?
       flash[:notice] = "You must be logged in to do that."
-      redirect_to(:controller => "accounts", :action => "login")
+      redirect_to(:controller => "users", :action => "login")
     end
   end
   

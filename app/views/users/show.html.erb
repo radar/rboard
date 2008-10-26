@@ -2,13 +2,13 @@
 <table cellspacing='0' cellpadding='5' width='100%' class='posts'>
   <tr>
     <td rowspan='2' valign='top' width='4%'><b><%= @user.login %></b><br /> 
-      <% if @user.user_level_id == 3 %>
+      <% if @user.administrator? %>
         <b><font color='red'>Administrator</font></b>
       <% end %> 
-      <% if @user.user_level_id == 2 %>
+      <% if @user.moderator? %>
         <b><font color='green'>Moderator</font></b>
       <% end %> 
-      <% if @user.user_level_id == 1 %>
+      <% if @user.user? %>
         <b><font color='Blue'>User</font></b>
       <% end %> 
       <br />

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081018133549) do
+ActiveRecord::Schema.define(:version => 20081026103259) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(:version => 20081018133549) do
     t.string   "date_display",                            :default => "%d %B %Y"
     t.string   "time_display",                            :default => "%I:%M:%S%P"
     t.integer  "per_page",                                :default => 30
+    t.string   "encrypted_email"
+    t.string   "time_zone"
   end
 
   add_index "users", ["id", "user_level_id"], :name => "index_users_on_id_and_user_level_id"

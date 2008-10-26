@@ -1,9 +1,34 @@
-class AccountsController < ApplicationController
-  before_filter :store_location, :only => [:profile, :index]
-  before_filter :login_required, :only => [:profile, :index]
+class UsersController < ApplicationController
+  before_filter :store_location, :only => [:index]
+  before_filter :login_required, :only => [:edit, :update, :index]
   
   def index
     @users = User.paginate :page => params[:page], :per_page => 30, :order => "login ASC"
+  end
+
+  def show
+    @user = User.find_by_login(params[:id])
+    if !@user.nil?
+      @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
+    else
+      flash[:notice] = "The user you are looking for does not exist!"
+      redirect_back_or_default(forums_path)
+    end
+  end
+  
+  def edit
+    @themes = Theme.find(:all, :order => "name ASC")
+  end
+  
+  def update
+    if !params[:user][:password].nil? &&
+       params[:user][:password] == params[:user][:password_confirmation]
+      params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])
+      flash[:notice] = "Password has been changed. Please remember to use this password from now on. Your profile has been updated."
+    end
+    current_user.update_attributes(params[:user])
+    flash[:notice] ||= "Your profile has been updated."
+    redirect_to edit_user_path(current_user)
   end
   
   def login
@@ -51,28 +76,7 @@ class AccountsController < ApplicationController
     flash[:notice] = "You have been logged out."
     redirect_to(forums_path)
   end
-  
-  def profile
-    @user = current_user
-    @themes = Theme.find(:all, :order => "name ASC")
-    if request.post?
-      params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])  if params[:user][:password] == params[:user][:password_confirmation] && !params[:user][:password].blank? 
-      flash[:notice] = "Password has been changed. Please remember to use this password from now on. Your profile has been updated." unless params[:user][:crypted_password].nil?
-      current_user.update_attributes(params[:user])
-      flash[:notice] ||= "Your profile has been updated."
-    end
-  end
 
-  def show
-    @user = User.find_by_login(params[:id])
-    if !@user.nil?
-      @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
-    else
-      flash[:notice] = "The user you are looking for does not exist!"
-      redirect_back_or_default(forums_path)
-    end
-  end
-  
   def ip_is_banned
     unless ip_banned?
       flash[:notice] = "Your IP is not banned!"

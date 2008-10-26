@@ -5,11 +5,7 @@ class PostsController < ApplicationController
   
   def new
     @posts = @topic.last_10_posts
-    @post = @topic.posts.build(:user => current_user)
-    if params[:quote]
-      @quoting_post = Post.find(params[:quote])
-      @post.text = "[quote=\"" + @quoting_post.user.login + "\"]" + @quoting_post.text + "[/quote]"
-    end
+    @post ||= @topic.posts.build(:user => current_user)
   end
 
   def create
@@ -56,6 +52,14 @@ class PostsController < ApplicationController
     else
       redirect_to forum_topic_path(@post.forum, @post.topic)
     end
+  end
+  
+  # Not using the find_post method here because we're storing it as quoting_post.
+  def reply
+    quoting_post = Post.find(params[:id])
+    @post = @topic.posts.build(:user => current_user)
+    @post.text = "[quote=\"#{quoting_post.user}\"]#{quoting_post.text}[/quote]"
+    render :action => "new"
   end
   
   private

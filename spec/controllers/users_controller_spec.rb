@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe AccountsController, "the whole shebang" do
+describe UsersController, "the whole shebang" do
   fixtures :users, :banned_ips
   before do
     @user = mock_model(User)
@@ -75,24 +75,25 @@ describe AccountsController, "the whole shebang" do
   
   it "a logged in user should be able to edit their profile" do
     login_as(:administrator)
-    get 'profile', { }
-    response.should render_template("profile")
+    get 'edit', { }
+    response.should render_template("edit")
   end
   
   it "should an un-logged in user should not be able to see the profile editing action" do
-    get 'profile'
+    get 'edit'
     response.should redirect_to('login')
   end
   
   it "should be able to update a user's profile" do
     login_as(:administrator)
-    get 'profile', { }
-    response.should render_template("profile")
+    get 'edit', { }
+    response.should render_template("edit")
   end
   
+  # Test for password...
   it "should update a users profile" do
     login_as(:administrator)
-    post 'profile', { :user => { :password => "godly1", :password_confirmation => "godly", :signature => "Please respect the rules." }}
+    put 'update', { :user => { :password => "godly1", :password_confirmation => "godly1", :signature => "Please respect the rules." }}
     flash[:notice].should_not be_blank
     response.should_not redirect_to(login_path)
   end
@@ -124,7 +125,7 @@ describe AccountsController, "the whole shebang" do
     login_as(:banned_noob)
     @request.remote_addr = "127.0.0.1"
     get 'index', { }
-    response.should redirect_to("accounts/ip_is_banned")
+    response.should redirect_to("users/ip_is_banned")
   end
   
   it "should not show that they are banned if they aren't" do
