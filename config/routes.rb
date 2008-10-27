@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :ranks
     admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
     admin.resources :themes, :member => { :make_default => :put }
-    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put  }
+    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
     admin.chronic 'chronic', :controller => 'chronic'
   end
   
@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
     post.resources :edits
   end
   
-  map.resources :users, :member => { :profile => :any }
+  map.resources :users, :member => { :profile => :any }, :collection => { :signup => [:get, :post]}
   
   # pretty pagination links
   map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"

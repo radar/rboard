@@ -1,23 +1,27 @@
-<%= link_to "Administration Section", :controller => "/admin" %> -> Forums
-<h2>Forums</h2>
-<%= link_to "New Forum", new_admin_forum_path %>
+<%= link_to t(:admin_section), admin_path %> -> <%= t(:Forums) %>
+<h2><%= t(:Forums) %></h2>
+<%= link_to t(:New_forum), new_admin_forum_path %>
 <table cellspacing='0' cellpadding='3' width='100%' class='list-table' rules='groups'>
-<% unless @forums.empty? %>
-  <thead>
-    <tr>
-      <td>&nbsp;</td>
-      <td>Title</td>
-      <td>Is Visible To</td>
-      <td>Creator of Topics</td>
-      <td>Topics</td>
-      <td>Posts</td>
-      <td>Position</td>
-    </tr>
-  </thead>
-  <tbody>
-      <%= render :partial => "forum", :collection => @forums, :locals => { :depth => 0, :extender => false } %>
-  </tbody>
-<% else %>
-  <thead><tr><td colspan='3' align='center'><b>There are no forums. <%= link_to "Maybe you should create a forum.", new_admin_forum_path %></b></td></tr></thead>
-<% end %>
+  <% unless @forums.empty? %>
+    <thead>
+      <tr>
+        <td>&nbsp;</td>
+        <td><%= t(:title_heading) %></td>
+        <td><%= t(:is_visible_to_heading) %></td>
+        <td><%= t(:creator_heading) %></td>
+        <td><%= t(:topics_heading) %></td>
+        <td><%= t(:posts_heading) %></td>
+        <td><%= t(:position_heading) %></td>
+      </tr>
+    </thead>
+    <tbody>
+        <%= render :partial => "forum", :collection => @forums, :locals => { :depth => 0, :extender => false } %>
+    </tbody>
+  <% else %>
+    <thead>
+      <tr>
+        <td colspan='3' align='center'><%= t(:no_forums) %><%= link_to t(:user_should_create), new_admin_forum_path %></td>
+      </tr>
+    </thead>
+  <% end %>
 </table>

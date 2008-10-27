@@ -4,17 +4,17 @@
   </tr>
 
   <tr>
-    <td><b>Name:</b></td>
+    <td><%= f.label "name", t(:name) %></td>
     <td><%= f.text_field "name" %></td>
   </tr>
   
   <tr>
-    <td><b>Posts Required:</b></td>
+    <td><%= f.label "posts_required", t(:posts_required) %></td>
     <td><%= f.text_field "posts_required", :size => 3 %></td>
   </tr>
   
   <tr>
-    <td><b>Custom Rank?</b></td>
+    <td><%= f.label "custom", t(:custom_rank) %></td>
     <td><%= f.check_box "custom" %></td>
   </tr>
 </tbody>

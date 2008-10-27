@@ -1,50 +1,50 @@
-<% form_tag do %>
+<% form_for @banned_ip, :url => ban_ip_users_path do |f| %>
   <%= error_messages_for :banned_ip %>
 
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
     <thead>
       <tr>
-        <td colspan='2'><h2>Ban an IP</h2></td>
+        <td colspan='2'><h2><%= t(:ban_an_ip) %></h2></td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><b>IP</b></td>
-        <td><%= text_field "banned_ip", "ip" %> (accepts * as a wild card match for one octet only)</td>
+        <td><%= f.label "ip", t(:ip) %></td>
+        <td><%= f.text_field "ip" %> <%= t(:accepts_wildcard) %></td>
       </tr>
       
       <tr>
-        <td><b>Until</b></td>
-        <td><%= text_field "banned_ip", "ban_time" %>
-          <%= observe_field("banned_ip_ban_time", :frequency => 0.5, :url => { :controller => "chronic" }, :with => "duration", :update => "date") %>
+        <td><%= f.label "ban_time", t(:ban_time) %></td>
+        <td><%= f.text_field "ban_time" %>
+          <%= observe_field("banned_ip_ban_time", :frequency => 0.5, :url => admin_chronic_path, :with => "duration", :update => "date") %>
           <div id='date'></div>
         </td>
       </tr>
       
       <tr>
-        <td><b>Reason</b></td>
-        <td><%= text_field "banned_ip", "reason" %></td>
+        <td><%= f.label "reason", t(:reason) %></td>
+        <td><%= f.text_field "reason" %></td>
       </tr>
       
     </tbody>
     <tfoot>
       <tr>
-        <td colspan='2'><%= submit_tag("Ban this range") %></td>
+        <td colspan='2'><%= submit_tag(t(:ban_this_range)) %></td>
       </tr>
     </tfoot>
   </table>
 
-  <h2>Banned IPs</h2>
+  <h2><%= t(:banned_ips)%></h2>
   <% unless @banned.empty? %>
     <ul>
       <% for ip in @banned %>
         <li>
-          <%= ip.ip.gsub("[0-9]{1,3}","*") %> - for the next <%= time_ago_in_words(ip.ban_time) %> - <%= ip.reason %>
-          <%= link_to("Remove", remove_banned_ip_admin_user_path(ip.id), :confirm => "Are you sure you want to unban this IP?") %>
+          <%= ip.ip.gsub("[0-9]{1,3}","*") %> - <%= t(:for_the_next) %><%= distance_of_time_in_words(ip.ban_time) %> - <%= ip.reason %>
+          <%= link_to(t(:remove), remove_banned_ip_admin_user_path(ip.id), :confirm => t(:confirm_unban_ip)) %>
         </li>
       <% end %>
     </ul>
   <% else %>
-    Nobody is banned!
+    <%= t(:nobody_is_banned)%>
   <% end %>
 <% end %>

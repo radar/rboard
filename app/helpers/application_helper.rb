@@ -5,11 +5,11 @@ module ApplicationHelper
     begin
       text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<div class='code'>" << Uv.parse($2, "xhtml", $1, true, "lazy") << "</div>" }
     rescue NoMethodError
-      text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<div class='code'><font color='red'><strong>Invalid syntax chosen for code tag.</strong></font></div>" }
+      text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<div class='code'><font color='red'><strong>#{t(:invalid_syntax)}</strong></font></div>" }
     end
     text.gsub!(/</, "&lt;")
     text.gsub!(/>/, "&gt;")
-    text.gsub!(/\[quote=?["']?(.*?)["']?\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'><b>" << $1 << " wrote:</b><br />" << $2 << "</div></div>" }
+    text.gsub!(/\[quote=?["']?(.*?)["']?\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'><b>" << $1 << " #{t(:wrote)}</b><br />" << $2 << "</div></div>" }
     text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'>" << $1 << "</div></div>" }
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a href='" << $1 << "'>" << $2 << "</a>" }

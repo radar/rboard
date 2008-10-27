@@ -1,27 +1,27 @@
-<%= link_to "Administration Section", admin_path %> -> Users
-<h2>Users</h2>
+<%= link_to t(:admin_section), admin_path %> -> <%= t(:users) %>
+<h2><%= t(:users) %></h2>
 <table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'><thead>
     <tr><td>&nbsp;</td>
-      <td>Login</td>
-      <td>Member Since</td>
-      <td>Posts</td>
-        <td>Banned</td>
-        <td>Banned Until</td>
-        <td>Times Banned</td>
-        <td>IP</td>
+      <td><%= t(:Login) %></td>
+      <td><%= t(:Member_since) %></td>
+      <td><%= t(:Posts) %></td>
+      <td><%= t(:Banned) %></td>
+      <td><%= t(:Banned_until)%></td>
+      <td><%= t(:Times_banned) %></td>
+      <td><%= t(:IP) %></td>
       
   </tr></thead>
   <tbody>
     <% for user in @users %>
       <tr>
-        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_user_path(user), :method => :delete, :confirm => "Are you sure you want to delete #{user.login}?" %>
+        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_user_path(user), :method => :delete, :confirm => t(:confirm_user_deletion) %>
           <%= link_to theme_image_tag("edit.jpg"), edit_admin_user_path(user) %>
-          <%= link_to theme_image_tag("ban.jpg"), ban_admin_user_path(user), :confirm => "Are you sure you want to ban this user?"  %></td>
+          <%= link_to theme_image_tag("ban.jpg"), ban_admin_user_path(user), :confirm => t(:confirm_user_ban) %></td>
         <td><%= link_to user.login, admin_user_path(user.login) %></td>
-        <td><%= user.created_at.strftime date_display %></td>
+        <td><%= user.created_at.strftime date_time_display %></td>
         <td><%= user.posts.size %></td>
-        <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? "Yes" : "No" %></td>
-        <td><%= user.ban_time.nil? ? "Never" : user.ban_time.ordinalize %></td>
+        <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:yes) : t(:no) %></td>
+        <td><%= user.ban_time.nil? ? t(:never) : user.ban_time.ordinalize %></td>
         <td><%= user.ban_times %></td>
         <td><%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), ban_ip_admin_user_path(user.ip) %></td>
       </tr>

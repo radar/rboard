@@ -1,27 +1,27 @@
 <tbody>
   <tr>
-    <td width='200px'><b>Title:</b></td>
+    <td width='200px'><%= f.label :title, t(:title) %></td>
     <td><%= f.text_field "title" %></td>
   </tr>
   
   <tr>
-    <td width='200px' valign='top'><b>Description:</b></td>
+    <td width='200px' valign='top'><%= f.label :description, t(:description) %></td>
     <td><%= f.text_area "description", :cols => 40, :rows => 5 %></td>
   </tr>
   
   <tr>
-    <td width='200px'><b>Is Visible To:</b></td>
+    <td width='200px'><%= f.label :is_visible_to_id, t(:is_visible_to_id) %></td>
     <td><%= f.select "is_visible_to_id", @user_levels.map { |u| [u.name, u.id] } %></td>
   </tr>
   
   <tr>
-    <td width='200px'><b>Topics Creatable By:</b></td>
+    <td width='200px'><%= f.label :topics_created_by, t(:topics_created_by) %></td>
     <td><%= f.select "topics_created_by_id", @user_levels.map { |u| [u.name, u.id] } %></td>
   </tr>
   
   <% unless @forums.empty? %>
     <tr>
-      <td width='200px'><b>Child Of:</b></td>
+      <td width='200px'><%= f.label :parent_id, t(:child_of) %></td>
       <td><%= f.select "parent_id", @forums.map { |f| [select_display(f),f.id] }, :include_blank => true %></td>
     </tr>
   <% end %>

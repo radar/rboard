@@ -1,0 +1,40 @@
+
+<table cellspacing='0' cellpadding='5' width='100%' class='posts'>
+  <tr>
+    <td rowspan='2' valign='top' width='4%'><b><%= @user.login %></b><br /> 
+      <% if @user.admin? %>
+        <b><font color='red'><%= t(:Administrator) %></font></b>
+      <% end %> 
+      <% if @user.moderator? %>
+        <b><font color='green'><%= t(:Moderator) %></font></b>
+      <% end %> 
+      <% if @user.user? %>
+        <b><font color='Blue'><%= t(:User) %></font></b>
+      <% end %> 
+      <br />
+      
+      <% if !@user.email.blank? %>
+            <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br />
+        <% end %>
+        
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td valign='top' colspan='2'>
+      <b><%= t(:Date_joined) %></b> <%= @user.created_at.strftime(date_display) %> <br />
+      <b><%= t(:Posts) %></b> <%= @user.posts.size %>, <%= t(:about) <%= @posts_percentage %>% <%= t(:of_all_posts) %><br />
+      <b><%= t(:IP) %></b> <%= @user.ip %><br />
+      <b><%= t(:Bans) %></b> <%= @user.login %> <%= t(:has_been_banned, @user.ban_times) %>. <br />
+      <% if !@user.ban_time.nil? && @user.ban_time > Time.now %>
+        <h2><%= @user.login %> <%= t(:is_currently_banned) %></h2>
+        <%= t(:user_was_banned_by, @user.banned_by.login) %> <%= t(:ban_expires_in, time_ago_in_words(@user.ban_time)) %>.<br /><br />
+        <%= t(:the_reason_was, @user.ban_reason) %><br /><br />
+      <% end %>
+      <% unless @user.signature.blank? %><br />
+        ____________<br />
+        <%= bbcode(@user.signature) %>
+      <% end %>
+    </td>
+  </tr>
+</table>

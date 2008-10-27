@@ -1,11 +1,11 @@
-<%= link_to "Administration Section", admin_path %> -> <%= link_to("Forums", admin_forums_path) %> -> Creating a New Forum
+<%= link_to t(:admin_section), admin_path %> -> <%= link_to(t(:Forums)), admin_forums_path) %> -> <%= t(:Creating_a_forum)
 <%= error_messages_for :forum %>
 <% form_for [:admin, @forum] do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
-    <thead><tr><td colspan='2'><h2>Create a Forum</h2></td></tr></thead>
+    <thead><tr><td colspan='2'><h2><%= t(:Creating_a_forum) %></h2></td></tr></thead>
     <%= render :partial => "form", :locals => { :f => f } %>
     <tfoot>
-      <tr><td colspan='2'><%= submit_tag "Create" %></td></tr>
+      <tr><td colspan='2'><%= submit_tag "Create", :value => t(:submit_create) %></td></tr>
     </tfoot>
   </table>
 <% end %>

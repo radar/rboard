@@ -1,15 +1,26 @@
 <% form_for @user, :url => ban_admin_user_path(@user), :method => "put" do |f| %>
 <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
-  <thead><tr><td colspan='2'><h2>Banning <%= @user.login %></h2></td></tr></thead>
+  <thead>
+    <tr>
+      <td colspan='2'><h2><%= t(:banning) %> <%= @user.login %></h2></td>
+    </tr>
+  </thead>
   <tbody>
-    <tr><td><b>Ban Reason</b></td><td><%= f.text_field "ban_reason" %></td></tr>
-    <tr><td><b>Ban Until</b></td><td><%= f.text_field "ban_time" %>
-        <%= observe_field("user_ban_time", :url => { :controller => "chronic", :action => "index" }, :with => "duration", :frequency => 0.5, :update => "date") %>
+    <tr>
+      <td><%= f.label "ban_reason", t(:ban_reason) %></td>
+      <td><%= f.text_field "ban_reason" %></td>
+      </tr>
+    <tr>
+      <td><%= f.label "ban_time", t(:ban_time) %></td>
+      <td>
+        <%= f.text_field "ban_time" %>
+        <%= observe_field("user_ban_time", :url => admin_chronic_path, :with => "duration", :frequency => 0.5, :update => "date") %>
         <div id='date'></div>
-    </td></tr>
+      </td>
+    </tr>
   </tbody>
   <tfoot>
-    <tr><td colspan='2'><%= submit_tag("Ban!") %></td></tr>
+    <tr><td colspan='2'><%= submit_tag(t(:ban!)) %></td></tr>
   </tfoot>
 </table>
 <% end %>

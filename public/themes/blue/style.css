@@ -16,6 +16,13 @@ img {
   border:0px none;
 }
 
+.translation_missing {
+  background:#000000;
+  color:red;
+  padding:5px;
+  font-weight:bold;
+}
+
 .center {
   text-align:center; 
 }

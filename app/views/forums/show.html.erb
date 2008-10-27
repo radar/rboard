@@ -1,13 +1,13 @@
 <%= link_to("rBoard", forums_path) %> <%= breadcrumb(@forum) %>
   <% unless @forums.empty? %>
-    <h2>Subforums for <%= @forum.title %></h2>
+    <h2><%= t(:subforums) %> <%= @forum.title %></h2>
     <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
       <thead>
         <tr>
-          <td align='left' width='40%'><b>Forum</b></td>
-          <td align='center' width='100px'><b>Topics</b></td>
-          <td align='center' width='100px'><b>Posts</b></td>
-          <td align='right'><b>Last Post</b></td>
+          <td align='left' width='40%'><%= t(:forums_heading) %></td>
+          <td align='center' width='100px'><%= t(:topics_heading) %></td>
+          <td align='center' width='100px'><%= t(:posts_heading) %></td>
+          <td align='right'><%= t(:last_post_heading) %></td>
         </tr>
       </thead>
       <tbody>
@@ -16,74 +16,81 @@
     </table>
   <% end %>
 <br />
-<h2>Viewing Forum: <%= @forum.title %></h2>
+<h2><%= t(:viewing_forum) %> <%= @forum.title %></h2>
 <%= will_paginate @topics %>
 <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
-  <%= link_to("New Topic", new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:new_topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
 	<% unless @topics.empty? %>
 	  <% form_tag moderate_moderator_topics_path do %>
-	  <thead>
-  	  <tr>
-  	    <% if is_moderator? %>
-    	    <td width='50px'>Moderation</td>
-    	  <% end %>
-      	<td>&nbsp;</td>
-      	<td align='left'>Topic</td>
-      	<td align='center'>Replies</td>
-      	<td align='center'>Views</td>
-      	<td align='center'>Author</td>
-      	<td align='right'>Last Post</td>
-  	  </tr>
-  	</thead>
-	  <tbody>
-
-	    <% for topic in @topics %>
-    	  <tr id='topic_<%= topic.id %>'>
-      	  <% if is_moderator? %>
-          	<td align='center'><%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.empty?, :id => "topic_#{topic.id}_moderated"), :url =>  moderator_topic_moderations_path(topic) %></td>
-          <% end %>
-          <td>
-            <% if topic.sticky? %>
-              <%= theme_image_tag("sticky.jpg") %>
-            <% elsif logged_in? && !current_user.previous_login.nil? && topic.posts.last.created_at > current_user.previous_login && !topic.locked %>
-              <%= theme_image_tag("new.jpg") %>
-            <% elsif topic.locked? %>
-              <%= theme_image_tag("locked.jpg") %>
-            <% else %>
-              <%= theme_image_tag("old.jpg") %>
+	    <thead>
+    	  <tr>
+    	    <% if is_moderator? %>
+      	    <td width='50px'><%= t(:moderation_heading) %></td>
+      	  <% end %>
+        	<td>&nbsp;</td>
+        	<td align='left'><%= t(:topic_heading) %></td>
+        	<td align='center'><%= t(:replies_heading) %></td>
+        	<td align='center'><%= t(:views_heading) %></td>
+        	<td align='center'><%= t(:author_heading) %></td>
+        	<td align='right'><%= t(:last_post_heading) %></td>
+    	  </tr>
+    	</thead>
+  	  <tbody>
+  	    <% for topic in @topics %>
+      	  <tr id='topic_<%= topic.id %>'>
+        	  <% if is_moderator? %>
+            	<td align='center'><%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.empty?, :id => "topic_#{topic.id}_moderated"), :url =>  moderator_topic_moderations_path(topic) %></td>
             <% end %>
-          </td>
-          <td class='topic_subject'>
-            <b><%= link_to(topic.subject, forum_topic_path(topic.forum, topic)) %>
-               <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %></b>
-          </td>
-          <td align='center'><%= topic.posts.size - 1 %></td>
-          <td align='center'><%= topic.views %></td>
-          <td align='center'><%= link_to(topic.user.login, :controller => "users", :action => "user", :id => topic.user.login) %></td>
-          <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> ago by <%= link_to topic.posts.last.user.login, :controller => "users", :action => "user", :id => topic.posts.last.user.login %></td>
-        </tr>
+            <td>
+              <% if topic.sticky? %>
+                <%= theme_image_tag("sticky.jpg") %>
+              <% elsif logged_in? && !current_user.previous_login.nil? && topic.posts.last.created_at > current_user.previous_login && !topic.locked %>
+                <%= theme_image_tag("new.jpg") %>
+              <% elsif topic.locked? %>
+                <%= theme_image_tag("locked.jpg") %>
+              <% else %>
+                <%= theme_image_tag("old.jpg") %>
+              <% end %>
+            </td>
+            <td class='topic_subject'>
+              <b><%= link_to(topic.subject, forum_topic_path(topic.forum, topic)) %>
+                 <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %></b>
+            </td>
+            <td align='center'><%= topic.posts.size - 1 %></td>
+            <td align='center'><%= topic.views %></td>
+            <td align='center'><%= link_to(topic.user.login, topic.user.login) %></td>
+            <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to topic.last_post.user.login, topic.last_post.user %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <% if is_admin? %>
+        <tfoot>
+          <tr>
+            <td align='right' colspan='8'>
+              <% if is_moderator? %>
+                <span id='moderated_topics_count'><% unless @moderated_topics_count.zero? %><%= pluralize(@moderated_topics_count, "topic") %><%= t(:selected_for_moderation) %><% end %></span>
+              <% end %>
+              <%= render :partial => "topics/buttons" %>
+            </td>
+          </tr>
+        </tfoot>
       <% end %>
-    </tbody>
-    <% if is_admin? %>
-      <tfoot>
-        <tr>
-          <td align='right' colspan='8'>
-            <% if is_moderator? %>
-              <span id='moderated_topics_count'><% unless @moderated_topics_count.zero? %><%= pluralize(@moderated_topics_count, "topic") %> selected for moderation<% end %></span>
-            <% end %>
-            <%= render :partial => "topics/buttons" %>
-          </td>
-        </tr>
-      </tfoot>
     <% end %>
+  <% else %>
+    <thead>
+      <tr>
+        <td align='center'>
+          <% if @forum.topics_creatable_by?(logged_in?, current_user) %>
+            <%= t(:no_topics_for_forum) %> <%= t(:why_not) << link_to(t(:create_one?), new_forum_topic_path(@forum)) %>
+          <% end %>
+        </td>
+      </tr>
+    </thead>
   <% end %>
-<% else %>
-<thead>
-<tr><td align='center'><b>There are no topics for this forum.  <%= "Why not " << link_to("create one?", new_forum_topic_path(@forum)) if @forum.topics_creatable_by?(logged_in?, current_user) %></b></td></tr>
-</thead>
-<% end %>
-</tbody>
 </table>
+<% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
+  <%= link_to(t(:new_topic), new_forum_topic_path(@forum)) %>
+<% end %>
 <%= will_paginate @topics %>

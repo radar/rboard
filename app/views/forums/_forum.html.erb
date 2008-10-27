@@ -3,12 +3,12 @@
   <td align='center'><%= forum.posts.size %></td>
   <td align='right'><% if !forum.last_post.nil? %>
       <%= time_ago_in_words(forum.last_post.created_at) %> ago
-      by <%= link_to(forum.last_post.user.login, :controller => "users", :action => "user", :id => forum.last_post.user.login)  %>
+      by <%= link_to(forum.last_post.user.login, forum.last_post.user)  %>
       in <%= link_to(forum.last_post.topic.subject, forum_topic_path(forum,forum.last_post.topic)) %>
       <% if !forum.last_post_forum.nil? %>
-        in <%= link_to(forum.last_post_forum, forum_path(forum.last_post_forum)) %>
+        <%= t(:in) %><%= link_to(forum.last_post_forum, forum_path(forum.last_post_forum)) %>
         <% end %>
       <% else %>
-        None
+        <%= t(:None) %>
       <% end %>
   </td></tr>

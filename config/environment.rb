@@ -24,6 +24,9 @@ PER_PAGE = 30
 TIME_DISPLAY = "%d %B %Y %I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
 RAILS_RELATIVE_URL_ROOT = "http://localhost"
+I18n.load_path = Dir.glob("#{RAILS_ROOT}/locales/*.rb")
+I18n.default_locale = "en-AU"
+
 
 #for some reason it doesn't automatically detect the admin's application controller.
 Admin::ApplicationController

@@ -29,7 +29,7 @@ class ForumsController < ApplicationController
   def is_visible?
     @forum = Forum.find(params[:id], :include => [{ :topics => :posts }, :moderations])
     if !@forum.viewable?(logged_in?, current_user)
-      flash[:notice] = "You do not have the permissions to access that forum."
+      flash[:notice] = t(:forum_permission_denied)
       redirect_to forums_path
     end
   end

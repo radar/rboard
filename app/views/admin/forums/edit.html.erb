@@ -1,10 +1,14 @@
-<%= link_to "Administration Section", :controller => "/admin" %> -> <%= link_to("Forums", admin_forums_path) %> -> Editing <%= @forum.title %>
+<%= link_to t(:admin_section), admin_path %> -> <%= link_to(t(:Forums), admin_forums_path) %> -> <%= t(:editing_forum) %>: <%= @forum.title %>
 <% form_for [:admin, @forum] do |f| %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
-    <thead><tr><td colspan='2'><h2>Editing a Forum</h2></td></tr></thead>
+    <thead>
+      <tr>
+        <td colspan='2'><h2><%= t(:editing_forum) %>: <%= @forum.title %></h2></td>
+      </tr>
+    </thead>
     <%= render :partial => "form", :locals => { :f => f } %>
     <tfoot>
-      <tr><td colspan='2'><%= submit_tag("Update") %></td></tr>
+      <tr><td colspan='2'><%= submit_tag("Update", :value => t(:submit_update)) %></td></tr>
     </tfoot>
   </table>
 <% end %>
