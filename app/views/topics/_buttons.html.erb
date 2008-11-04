@@ -1,8 +1,9 @@
 <% unless @all_forums.empty? %>
-  <%= submit_tag("Move") + select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title")) %>
+  <%= submit_tag(t(:Move)) %>
+  <%= select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title")) %>
 <% end %>
-<%= submit_tag("Lock") %>
-<%= submit_tag("Unlock") %>
-<%= submit_tag("Delete") %>
-<%= submit_tag("Sticky") %>
-<%= submit_tag("Unsticky") %>
+<%= submit_tag(t(:Lock)) %>
+<%= submit_tag(t(:Unlock)) %>
+<%= submit_tag(t(:Delete)) %>
+<%= submit_tag(t(:Sticky)) %>
+<%= submit_tag(t(:Unsticky)) %>

@@ -4,18 +4,18 @@
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead>
       <tr>
-        <td colspan='2'><h2>Replying to topic: <%= @topic.subject %></h2></td>
+        <td colspan='2'><h2><%= t(:Replying_to_topic) %>: <%= @topic.subject %></h2></td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td valign='top'><b>Post:</b></td>
+        <td valign='top'><b><%= t(:Post) %>:</b></td>
         <td><%= text_area("post","text", :cols => "80") %></td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
-        <td colspan='2'><%= submit_tag("Create") %></td>
+        <td colspan='2'><%= submit_tag(t(:Create)) %></td>
       </tr>
     </tfoot>
   </table>

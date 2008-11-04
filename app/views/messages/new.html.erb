@@ -1,15 +1,15 @@
-<h2>Sending a Message</h2>
+<h2><%= t(:Sending_a_message) %></h2>
 <% form_for :message, @message, :url => messages_path do |f| %>
 <table cellspacing='0' cellpadding='5' class='action-box' width='100%'>
 	<tbody>
 <tr><td><b>To:</b></td><td><%= f.select "to_id", @users.map { |u| [u.login,u.id] } %></td></tr>
 <tr><td colspan='2' id='to'></td></tr>
-<tr><td valign='top'><b>Text:</b></td><td><%= f.text_area "text", :cols => 80 %></td></tr>
+<tr><td valign='top'><b><%= t(:To) %>:</b></td><td><%= f.text_area "text", :cols => 80 %></td></tr>
 
 </tbody>
 <tfoot>
 	<tr><td colspan='2'>
-	<%= submit_tag "Create" %>
+	<%= submit_tag t(:Create) %>
 	</td></tr>
 	</tfoot>
 </table>

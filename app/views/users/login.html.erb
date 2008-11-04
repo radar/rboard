@@ -1,30 +1,26 @@
 <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
   <thead>
     <tr>
-      <td><b>Login</b></td>
+      <td><b><%= t(:Login) %></b></td>
     </tr>
   </thead>
-  
   <tbody>
     <tr>
     <td align='left'>
-      <%= link_to "Don't have an user?", :controller => "users", :action => "signup" %>
+      <%= link_to t(:Do_not_have_a_user), signup_path %>
    <% form_tag do %>
-        <p><label for="login">Login</label><br/>
+        <p><label for="login"><%= t(:Login) %></label><br/>
         <%= text_field_tag 'login' %></p>
       
-        <p><label for="password">Password</label><br/>
+        <p><label for="password"><%= t(:Password) %></label><br/>
         <%= password_field_tag 'password' %></p>
       
-        <p><label for="remember_me">Remember me:</label>
+        <p><label for="remember_me"><%= t(:Remember_me) %>:</label>
         <%= check_box_tag 'remember_me' %></p>
       
-        <p><%= submit_tag 'Log in' %></p>
+        <p><%= submit_tag t(:Log_in) %></p>
       <% end %>
     </td>
   </tbody>
-  
-  <tfoot>
-  </tfoot>
 </table>
 

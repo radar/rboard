@@ -1,11 +1,11 @@
 <% form_tag do %>
-Search: <%= text_field_tag "query" %>
-<%= submit_tag "Search" %>
+<%= t(:Search) %>: <%= text_field_tag "query" %>
+<%= submit_tag t(:Search) %>
 <% end %>
 <% if request.post? %>
-Your search returned <%= @posts.size %> results:
+<%= t(:search_returned) %> <%= @posts.size %> <%= t(:results) %>:
   <% for post in @posts %>
-    <h2>In <%= link_to post.topic, [post.topic.forum, post.topic] %></h2>
+    <h2><%= t(:In) %><%= link_to post.topic, [post.topic.forum, post.topic] %></h2>
     <%= render :partial => post %>
   <% end %>
 <% end %>

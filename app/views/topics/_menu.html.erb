@@ -1,22 +1,22 @@
 <% if logged_in? %>
   <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
-    <%= link_to "New Topic", new_forum_topic_path(@topic.forum) %> |
+    <%= link_to t(:New_Topic), new_forum_topic_path(@topic.forum) %> |
 	<% end %>
 	
-	<% if !@topic.locked? || is_admin? %>
-   		<%= link_to "New Reply", new_topic_post_path(@topic) %>
+	<% if !@topic.locked? || is_admin_or_moderator? %>
+   		<%= link_to t(:New_Reply), new_topic_post_path(@topic) %>
   <% end %>
   
   	<% if is_admin? %>
       |
     	<% if @topic.locked? %> 
-        <%= link_to "Unlock this topic", unlock_forum_topic_path(@forum, @topic), :method => :put %>
+        <%= link_to t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put %>
     	<% else %>
-      	<%= link_to "Lock this topic", lock_forum_topic_path(@forum, @topic), :method => :put %>
+      	<%= link_to t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put %>
     	<% end %>
   	<% end %>
 <% else %>
   <% if @topic.locked? %>
-  Locked!  
+    <%= t(:Locked!) %>
   <% end %>
 <% end %>

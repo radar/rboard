@@ -2,10 +2,10 @@
   <% unless @forums.empty? %>
     <thead>
       <tr>
-        <td align='left' width='40%'><%= t(:forum_heading) %></td>
-        <td align='center' width='100px'><%= t(:topics_heading) %></td>
-        <td align='center' width='100px'><%= t(:posts_heading) %></td>
-        <td align='right'><%= t(:last_post_heading) %></td>
+        <td align='left' width='40%'><%= t(:Forum) %></td>
+        <td align='center' width='100px'><%= t(:Topics) %></td>
+        <td align='center' width='100px'><%= t(:Posts) %></td>
+        <td align='right'><%= t(:Last_Post) %></td>
       </tr>
     </thead>
 <tbody>
@@ -28,8 +28,8 @@
     <tbody>
       <tr><td>
           <span class='right'>
-            <b><%= t(:posts_heading) %>: </b><%= @posts %><br />
-            <b><%= t(:topics_heading) %>: </b><%= @topics %><br />
+            <b><%= t(:Posts) %>: </b><%= @posts %><br />
+            <b><%= t(:Topics) %>: </b><%= @topics %><br />
             <b><%= t(:posts_per_topic) %>: </b><%= @ppt %><br />
           </span>
           <b><%= t(:registered_users) %>:</b> <%= @users %> <br />

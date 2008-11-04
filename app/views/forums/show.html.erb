@@ -1,13 +1,13 @@
-<%= link_to("rBoard", forums_path) %> <%= breadcrumb(@forum) %>
+<%= link_to(t(:rBoard), forums_path) %> <%= breadcrumb(@forum) %>
   <% unless @forums.empty? %>
     <h2><%= t(:subforums) %> <%= @forum.title %></h2>
     <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
       <thead>
         <tr>
-          <td align='left' width='40%'><%= t(:forums_heading) %></td>
-          <td align='center' width='100px'><%= t(:topics_heading) %></td>
-          <td align='center' width='100px'><%= t(:posts_heading) %></td>
-          <td align='right'><%= t(:last_post_heading) %></td>
+          <td align='left' width='40%'><%= t(:Forums) %></td>
+          <td align='center' width='100px'><%= t(:Topics) %></td>
+          <td align='center' width='100px'><%= t(:Posts) %></td>
+          <td align='right'><%= t(:Last_Post) %></td>
         </tr>
       </thead>
       <tbody>
@@ -16,10 +16,10 @@
     </table>
   <% end %>
 <br />
-<h2><%= t(:viewing_forum) %> <%= @forum.title %></h2>
+<h2><%= t(:Viewing_forum) %> <%= @forum.title %></h2>
 <%= will_paginate @topics %>
 <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
-  <%= link_to(t(:new_topic), new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
 	<% unless @topics.empty? %>
@@ -27,14 +27,14 @@
 	    <thead>
     	  <tr>
     	    <% if is_moderator? %>
-      	    <td width='50px'><%= t(:moderation_heading) %></td>
+      	    <td width='50px'><%= t(:Moderation) %></td>
       	  <% end %>
         	<td>&nbsp;</td>
-        	<td align='left'><%= t(:topic_heading) %></td>
-        	<td align='center'><%= t(:replies_heading) %></td>
-        	<td align='center'><%= t(:views_heading) %></td>
-        	<td align='center'><%= t(:author_heading) %></td>
-        	<td align='right'><%= t(:last_post_heading) %></td>
+        	<td align='left'><%= t(:Topic) %></td>
+        	<td align='center'><%= t(:Replies) %></td>
+        	<td align='center'><%= t(:Views) %></td>
+        	<td align='center'><%= t(:Author) %></td>
+        	<td align='right'><%= t(:Last_Post) %></td>
     	  </tr>
     	</thead>
   	  <tbody>
@@ -91,6 +91,6 @@
   <% end %>
 </table>
 <% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
-  <%= link_to(t(:new_topic), new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <%= will_paginate @topics %>

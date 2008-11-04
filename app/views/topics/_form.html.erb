@@ -1,19 +1,19 @@
 <tbody>
   <tr>
-    <td width='100px'><b>Subject:</b></td>
+    <td width='100px'><%= f.label 'subject', t(:subject) %></td>
     <td><%= f.text_field 'subject' %></td>
   </tr>
   
   <% fields_for @post do |post| %>
     <tr>
-      <td valign='top'><b>Post:</b></td>
+      <td valign='top'><%= f.label 'text', t(:text) %></td>
       <td><%= post.text_area "text", :cols => "80" %></td>
     </tr>
   <% end %>
   
-  <% if is_admin? %>
+  <% if is_admin_or_moderator? %>
     <tr>
-      <td><b>Sticky?</b></td>
+      <td><%= f.label 'sticky', t(:sticky) %></td>
       <td><%= f.check_box "sticky" %></td>
     </tr>
   <% end %>

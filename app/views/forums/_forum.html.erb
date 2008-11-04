@@ -2,9 +2,9 @@
   <td align='center'><%= forum.topics.size %></td>
   <td align='center'><%= forum.posts.size %></td>
   <td align='right'><% if !forum.last_post.nil? %>
-      <%= time_ago_in_words(forum.last_post.created_at) %> ago
-      by <%= link_to(forum.last_post.user.login, forum.last_post.user)  %>
-      in <%= link_to(forum.last_post.topic.subject, forum_topic_path(forum,forum.last_post.topic)) %>
+      <%= time_ago_in_words(forum.last_post.created_at) %><%= t(:ago) %>
+      <%= t(:by) %> <%= link_to(forum.last_post.user.login, forum.last_post.user)  %>
+      <%= t(:in) %><%= link_to(forum.last_post.topic.subject, forum_topic_path(forum,forum.last_post.topic)) %>
       <% if !forum.last_post_forum.nil? %>
         <%= t(:in) %><%= link_to(forum.last_post_forum, forum_path(forum.last_post_forum)) %>
         <% end %>

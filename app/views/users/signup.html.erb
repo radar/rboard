@@ -2,7 +2,7 @@
 <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
   <thead>
     <tr>
-      <td align='left' width='40%'><b>Signup</b></td>
+      <td align='left' width='40%'><b><%= t(:Signup) %></b></td>
     </tr>
   </thead>
   
@@ -10,19 +10,19 @@
     <tr>
     <td align='left'>
       <% form_for :user do |f| -%>
-        <p><label for="login">Login</label><br/>
+        <p><label for="login"><%= t(:Login) %></label><br/>
         <%= f.text_field :login %></p>
       
-        <p><label for="email">Email</label><br/>
+        <p><label for="email"><%= t(:Email) %></label><br/>
         <%= f.text_field :email %></p>
       
-        <p><label for="password">Password</label><br/>
+        <p><label for="password"><%= t(:Password) %></label><br/>
         <%= f.password_field :password %></p>
       
-        <p><label for="password_confirmation">Confirm Password</label><br/>
+        <p><label for="password_confirmation"><%= t(:Confirm_Password) %></label><br/>
         <%= f.password_field :password_confirmation %></p>
       
-        <p><%= submit_tag 'Sign up' %></p>
+        <p><%= submit_tag t(:Sign_up) %></p>
       
       </td>
     </tbody>

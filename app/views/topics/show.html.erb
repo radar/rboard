@@ -1,4 +1,4 @@
-<%= link_to("rBoard", forums_path) %> <%= breadcrumb(@topic.forum) %> -> <%= @topic.subject %>
+<%= link_to(t(:rBoard), forums_path) %> <%= breadcrumb(@topic.forum) %> -> <%= @topic.subject %>
 <h2><%= @topic.subject %></h2>
 <%= pagination = will_paginate(@posts) %>
 <%= render :partial => "menu" %>
@@ -8,7 +8,7 @@
   <table class='action-box' width='100%' cellpadding='2' cellspacing='0'>
     <thead>
       <tr>
-        <td colspan='2'><h3>Quick Reply</h3></td>
+        <td colspan='2'><h3><%= t(:Quick_Reply) %></h3></td>
       </tr>
     </thead>
     <tbody>

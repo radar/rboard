@@ -4,7 +4,7 @@ class ForumsController < ApplicationController
   
   def index
     @forums = Forum.without_parent
-    
+
     @forums = if logged_in? 
       @forums.viewable_to(current_user)
     else

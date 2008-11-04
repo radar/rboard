@@ -1,15 +1,15 @@
-<h2>List of Users</h2>
+<h2><%= t(:Users) %></h2>
 <%= will_paginate @users %>
 <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'><thead>
     <tr>
-      <td align='center'>Login</td>
-      <td align='center'>Member Since</td>
-      <td align='center'>Posts</td>
-      <td align='center'>Banned</td>
-      <td align='center'>Banned Until</td>
-      <td align='center'>Times Banned</td>
+      <td align='center'><%= t(:Login) %></td>
+      <td align='center'><%= t(:Member_since) %></td>
+      <td align='center'><%= t(:Posts) %></td>
+      <td align='center'><%= t(:Banned) %></td>
+      <td align='center'><%= t(:Banned_until) %></td>
+      <td align='center'><%= t(:Times_banned) %></td>
       <% if is_admin? %>
-        <td align='center'>IP</td>
+        <td align='center'><%= t(:IP) %></td>
       <% end %>
       
   </tr></thead>
@@ -19,8 +19,8 @@
         <td align='center'><%= link_to(user.login, :controller => "users", :action => user.login) %></td>
         <td align='center'><%= user.created_at.strftime(date_display) %></td>
         <td align='center'><%= user.posts.size %></td>
-        <td align='center'><%= !user.ban_time.nil? && user.ban_time > Time.now ? "Yes" : "No" %></td>
-        <td align='center'><%= user.ban_time.nil? ? "Never" : user.ban_time.ordinalize %></td>
+        <td align='center'><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No) %></td>
+        <td align='center'><%= user.ban_time.nil? ? t(:Never) : user.ban_time.ordinalize %></td>
         <td align='center'><%= user.ban_times %></td>
         <% if is_admin? %>
           <td align='center'><%= user.ip %></td>

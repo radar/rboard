@@ -1,9 +1,9 @@
 <% form_for current_user do |f| %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
-    <thead><tr><td colspan='2'><h2>Editing Your Profile</h2></td></tr></thead>
+    <thead><tr><td colspan='2'><h2><%= t(:Editing_your_profile) %></h2></td></tr></thead>
     <tbody>
       <tr>
-        <td valign='top' colspan='2'><h3>New Password</h3></td>
+        <td valign='top' colspan='2'><h3><%= t(:New_password) %></h3></td>
       </tr>
       
       <tr>
@@ -41,25 +41,25 @@
       </tr>
       
       <tr>
-        <td valign='top'><b>Example Time Display</b></td>
+        <td valign='top'><b><%= t(:Example_time_display) %></b></td>
         <td><%= Time.now.strftime(date_display + " " + time_display) %></td>
       </tr>
       
       <% if @themes.size > 1 %>
         <tr>
-          <td valign='top'><b>Theme</b></td>
-          <td><%= f.select "theme", @themes.map { |t| [t.name, t.id] } %></td>
+          <td valign='top'><%= f.label 'theme_id', t(:theme) %></td>
+          <td><%= f.select "theme_id", @themes.map { |t| [t.name, t.id] } %></td>
         </tr>
       <% end %>
       
       <tr>
-        <td valign='top'><b>Items Per Page</b></td>
+        <td valign='top'><%= f.label 'per_page', t(:Items_per_page) %></td>
         <td><%= f.text_field "per_page", :size => 3 %></td>
       </tr>
       
       <% if current_user.email %>
         <tr><td valign='top'>
-          <b>Current <a href='http://gravatar.com/'>Gravatar</a></b></td>
+          <b><%= t(:Current) %> <a href='http://gravatar.com/'><%= t(:Gravatar) %></a></b></td>
           <td>
             <%= image_tag "http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(current_user.email) %>
           </td>
@@ -68,7 +68,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan='2'><%= submit_tag "Update" %></td>
+        <td colspan='2'><%= submit_tag t(:Update) %></td>
       </tr>
     </tfoot>
   </table>
