@@ -13,7 +13,6 @@ module ApplicationHelper
     text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'>" << $1 << "</div></div>" }
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a href='" << $1 << "'>" << $2 << "</a>" }
-    text.gsub!(/\[topic=["']?(.*?)["']?\](.*?)\[\/topic\]/mis) { "<a href='/topics/show/" << $1 << "'>" << $2  << "</a>" }
     text
   # handle with care...
 

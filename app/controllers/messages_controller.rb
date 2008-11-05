@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
   def show
     @message = Message.find(params[:id])
     if !@message.belongs_to?(current_user.id) && !current_user.admin?
-      flash[:notice] = "That message does not belong to you."
+      flash[:notice] = t(:message_does_not_belong_to_you)
       redirect_back_or_default(messages_path)
     else
       @message.update_attribute("to_read",true)  if @message.to == current_user
@@ -21,7 +21,7 @@ class MessagesController < ApplicationController
     @message = current_user.outbox_messages.new
     @users = User.find(:all, :order => "login ASC") - [current_user]
     if @users.empty?
-      flash[:notice] = "There's nobody else to send a message to!"
+      flash[:notice] = t(:nobody_else)
       redirect_back_or_default(messages_path)
     end
   end
@@ -29,22 +29,22 @@ class MessagesController < ApplicationController
   def create
     @message = current_user.outbox_messages.new(params[:message])
     if @message.save
-      flash[:notice] = "The message has been sent."
+      flash[:notice] = t(:message_sent)
       redirect_back_or_default(messages_path)
     else
-      flash[:notice] = "This message could not be sent."
+      flash[:notice] = t(:mesage_could_not_be_sent)
       render :action => "new"
     end
   end
  
   def destroy
     @message = Message.find(params[:id]) 
-    if @message.belongs_to?(current_user.id)
+    if @message.belongs_to?(current_user.id) && !current_user.admin?
       @message.update_attribute("#{@message.from_id == current_user.id ? "from" : "to"}_deleted",true) 
       @message.destroy if @message.from_deleted == @message.to_deleted
-      flash[:notice] = "This message has been deleted."
+      flash[:notice] = t(:message_deleted)
     else
-      flash[:notice] = "This message does not belong to you."
+      flash[:notice] = t(:message_does_not_belong_to_you)
     end
     redirect_back_or_default(messages_path)	
   end

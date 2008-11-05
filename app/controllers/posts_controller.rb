@@ -15,11 +15,11 @@ class PostsController < ApplicationController
     @post = @topic.posts.build(params[:post].merge!(:user => current_user))
     if @post.save
       @topic.update_attribute("last_post_id", @post.id)
-      flash[:notice] = "Post has been created."
+      flash[:notice] = t(:post_created)
       go_directly_to_post
     else
       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
-      flash[:notice] = "This post could not be created."
+      flash[:notice] = t(:post_not_created)
       render :action => "new"
     end
   end
@@ -34,20 +34,20 @@ class PostsController < ApplicationController
         @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr, :hidden => params[:silent_edit] == "1")
         @post.edited_by = current_user
       end
-      flash[:notice] = "Post has been updated."
+      flash[:notice] = t(:post_updated)
       go_directly_to_post
     else
-      flash[:notice] = "This post could not be updated."
+      flash[:notice] = t(:post_not_updated)
       render :action => "edit"
     end
   end
   
   def destroy
     @post.destroy
-    flash[:notice] = "Post was deleted."
+    flash[:notice] = t(:post_was_deleted)
     if @post.topic.posts.size.zero?
       @post.topic.destroy
-      flash[:notice] += " This was the only post in the topic, so topic was deleted also."
+      flash[:notice] += t(:post_was_deleted_and_topic_too)
       redirect_to forum_path(@post.forum)
     else
       redirect_to forum_topic_path(@post.forum, @post.topic)
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
   
   private
     def not_found
-      flash[:notice] = "The post you were looking for could not be found."
+      flash[:notice] = t(:post_does_not_exist)
       redirect_back_or_default(forums_path)
     end
     

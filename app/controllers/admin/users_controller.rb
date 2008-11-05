@@ -17,9 +17,9 @@ class Admin::UsersController < Admin::ApplicationController
       params[:banned_ip][:banned_by] = session[:user]
       @banned_ip = BannedIp.new(params[:banned_ip])
       if @banned_ip.save
-        flash[:notice] = "The IP range has been banned."
+        flash[:notice] = t(:ip_banned)
       else
-        flash[:notice] = "The IP range could not be banned."
+        flash[:notice] = t(:ip_not_banned)
       end
     
     else
@@ -34,13 +34,13 @@ class Admin::UsersController < Admin::ApplicationController
   # TODO: Rescue Chronic exceptions when given incorrect dates.
   def ban
     @user = User.find(params[:id])
-    flash[:notice] = "You have selected to ban yourself. If you have no problem with this, go ahead." if @user == current_user
+    flash[:notice] = t(:you_are_banning_yourself) if @user == current_user
     if request.put?
       params[:user][:banned_by] = current_user
       params[:user][:ban_time] = Chronic.parse(params[:user][:ban_time])
       @user.update_attributes(params[:user])
       @user.increment!('ban_times')
-      flash[:notice] = "User has been banned!"
+      flash[:notice] = t(:user_has_been_banned)
       redirect_back_or_default(admin_users_path)
     end
   end
@@ -49,7 +49,7 @@ class Admin::UsersController < Admin::ApplicationController
   # Removes a banned IP immediately.
   def remove_banned_ip
     @banned_ip = BannedIp.find(params[:id]).destroy
-    flash[:notice] = "The IP range has been unbanned."
+    flash[:notice] = t(:ip_range_unbanned)
     redirect_back_or_default ban_ip_admin_users_path
   end
   
@@ -70,10 +70,10 @@ class Admin::UsersController < Admin::ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      flash[:notice] = "This user has been updated."
+      flash[:notice] = t(:user_updated)
       redirect_to admin_users_path
     else
-      flash[:notice] = "This user could not be updated."
+      flash[:notice] = t(:user_not_updated)
       render :action => "edit"
     end
   end

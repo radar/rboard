@@ -18,10 +18,10 @@ class Admin::ForumsController < Admin::ApplicationController
   def create
     @forum = Forum.new(params[:forum])
     if @forum.save
-      flash[:notice] = "Forum has been created."
+      flash[:notice] = t(:forum_created)
       redirect
     else
-      flash[:notice] = "Forum has not been created."
+      flash[:notice] = t(:forum_not_created)
       @forums = Forum.find(:all, :order => "title")
       render :action => "new"
     end
@@ -38,10 +38,10 @@ class Admin::ForumsController < Admin::ApplicationController
   # Updates a forum.
   def update
     if @forum.update_attributes(params[:forum])
-      flash[:notice] = "Forum has been updated."
+      flash[:notice] = t(:forum_updated)
       redirect
     else
-      flash[:notice] = "Forum has not been updated."
+      flash[:notice] = t(:forum_not_updated)
       render :action => "edit"
     end
   end
@@ -49,35 +49,35 @@ class Admin::ForumsController < Admin::ApplicationController
   # Deletes a forum.
   def destroy
     @forum.destroy
-    flash[:notice] = "#{@forum} has been deleted."
+    flash[:notice] = t(:forum_deleted)
     redirect
   end
   
   # Moves a forum one space up using an acts_as_list provided method.
   def move_up
     @forum.move_higher
-    flash[:notice] = "The #{@forum} forum has been moved higher."
+    flash[:notice] = t(:forum_moved_higher, :forum => @forum)
     redirect
   end
   
   # Moves a forum one space down using an acts_as_list provided method.
   def move_down
     @forum.move_lower
-    flash[:notice] = "The #{@forum} forum has been moved lower."
+    flash[:notice] = t(:forum_moved_lower, :forum => @forum)
     redirect
   end
   
   # Moves a forum to the top using an acts_as_list provided method.
   def move_to_top
     @forum.move_to_top
-    flash[:notice] = "The #{@forum} forum has been moved to the top."
+    flash[:notice] = t(:forum_moved_to_top, :forum => @forum)
     redirect
   end
   
   # Moves a forum to the bottom using an acts_as_list helper.
   def move_to_bottom
     @forum.move_to_bottom
-    flash[:notice] = "The #{@forum} forum has been moved to the bottom."
+    flash[:notice] = t(:forum_moved_to_bottom, :forum => @forum)
     redirect
   end
   
@@ -98,7 +98,7 @@ class Admin::ForumsController < Admin::ApplicationController
   
   # Called when the forum could not be found.
   def not_found
-    flash[:notice] = "The forum you were looking for could not be found."
+    flash[:notice] = t(:forum_not_found)
     redirect
   end
 end

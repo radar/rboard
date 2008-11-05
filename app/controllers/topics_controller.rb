@@ -31,10 +31,10 @@ class TopicsController < ApplicationController
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
     if @topic.save
       @topic.update_attribute("last_post_id", @post.id)
-      flash[:notice] = "Topic has been created."
+      flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
-      flash[:notice] = "Topic was not created."
+      flash[:notice] = t(:topic_not_created)
       render :action => "new"
     end
   end
@@ -42,7 +42,7 @@ class TopicsController < ApplicationController
   private
   
   def not_found
-    flash[:notice] = "The topic you were looking for could not be found."
+    flash[:notice] = t(:topic_not_found)
     redirect_to forums_path
   end
   
@@ -60,7 +60,7 @@ class TopicsController < ApplicationController
         end
       end
     else
-      flash[:notice] = "You are not allowed to view topics in that forum."
+      flash[:notice] = t(:not_allowed_to_view_topics)
       redirect_to root_path
     end
     rescue ActiveRecord::RecordNotFound

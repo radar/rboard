@@ -30,10 +30,10 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   
   def update
     if @moderation.update_attributes(params[:moderation])
-      flash[:notice] = "The selected moderation has been updated."
+      flash[:notice] = t(:moderation_updated)
       redirect_to moderator_moderations_path
     else
-      flash[:notice] = "The selected moderation could not be updated."
+      flash[:notice] = t(:moderation_not_updated)
       render :action => "edit"
     end
   end
@@ -64,7 +64,7 @@ class Moderator::ModerationsController < Moderator::ApplicationController
     end
     
     def not_found
-      flash[:notice] = "The moderation you were looking for could not be found."
+      flash[:notice] = t(:moderation_not_found)
       redirect_to moderator_moderations_path
     end
 end

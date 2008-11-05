@@ -26,7 +26,7 @@ class Moderator::EditsController < Moderator::ApplicationController
   end
   
   def not_found
-    flash[:notice] = "The post or edit you were looking for cannot be found."
+    flash[:notice] = t(:post_or_edit_not_found)
     redirect_back_or_default moderator_path
   end
   

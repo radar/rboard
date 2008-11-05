@@ -3,7 +3,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   
   def destroy
     @topic.destroy
-    flash[:notice] = "That topic has been deleted."
+    flash[:notice] = t(:topic_deleted)
     redirect_back_or_default moderator_moderations_path
   end
   
@@ -18,34 +18,34 @@ class Moderator::TopicsController < Moderator::ApplicationController
     case params[:commit]
       when "Lock"
         @moderations_for_topics.each { |m| m.lock! }
-        flash[:notice] = "All selected topics have been locked."
+        flash[:notice] = t(:topics_locked)
       when "Unlock"
         @moderations_for_topics.each { |m| m.unlock! }
-        flash[:notice] = "All selected topics have been unlocked."
+        flash[:notice] = t(:topics_unlocked)
       when "Delete"
         #TODO: maybe ask for confirmation?
         @moderations_for_topics.each { |m| m.destroy! }
-        flash[:notice] = "All selected topics have been deleted."
+        flash[:notice] = t(:topics_deleted)
       when "Sticky"
         @moderations_for_topics.each { |m| m.sticky! }
-        flash[:notice] = "All selected topics have been stickied."
+        flash[:notice] = t(:topics_stickied)
       when "Unsticky"
         @moderations_for_topics.each { |m| m.unsticky! }
-        flash[:notice] = "All selected topics have been unstickied."
+        flash[:notice] = t(:topics_unstickied)
       when "Move"
         move
         return false
     end
     redirect_back_or_default(moderator_moderations_path)
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = "The moderation you were looking for could not be found."
+    flash[:notice] = t(:moderation_not_found)
     redirect_back_or_default moderator_moderations_path
   end
   
   def move
     if params[:new_forum_id]
       @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
-      flash[:notice] = "The selected topics have been moved."
+      flash[:notice] = t(:topics_movied)
       redirect_back_or_default(forum_path(params[:new_forum_id]))
     else
       render
@@ -54,13 +54,13 @@ class Moderator::TopicsController < Moderator::ApplicationController
   
   def toggle_lock
     @topic.toggle!("locked")
-    flash[:notice] = "This topic has been " + (@topic.locked? ? "locked." : "unlocked.")
+    flash[:notice] = t(:topic_locked_or_unlocked, :status => @topic.locked ? "locked" : "unlocked")
     redirect_back_or_default moderator_moderations_path
   end
   
   def toggle_sticky
     @topic.toggle!("sticky")
-    flash[:notice] = "This topic has been " + (@topic.sticky? ? "stickied." : "unstickied.")
+    flash[:notice] = t(:topic_sticky_or_unsticky, :status => @topic.sticky? ? "stickied" : "unstickied")
     redirect_back_or_default moderator_moderations_path
   end
   

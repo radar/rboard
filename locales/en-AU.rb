@@ -101,10 +101,12 @@
    :Author => "Author",
    :by => "by",
    :Delete => "Delete",
+   :Do_not_have_a_user => "Don't have a user?"
    :Edit_Profile => "Edit Profile",
    :forum_statistics => "Forum Statistics",
    :Forum => "Forum",
    :Home => "Home",
+   :in => "in",
    :Last_Post => "Last Post",
    :Lock => "Lock",
    :Login => "Login",
@@ -115,9 +117,11 @@
    :New_Topic => "New Topic",
    :no_forums => "There are no forums.", 
    :None => "None",
+   :Password => "Password"
    :posts_per_topic => "Posts per topic",
    :Posts => "Posts",
    :rBoard => "rBoard", 
+   :Remember_me => "Remember me"
    :recent_users => "Users on in the last 15 minutes",
    :registered_users => "Registered Users",
    :Replies => "Replies",

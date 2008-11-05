@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if !@user.nil?
       @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
     else
-      flash[:notice] = "The user you are looking for does not exist!"
+      flash[:notice] = t(:user_does_not_exist)
       redirect_back_or_default(forums_path)
     end
   end
@@ -24,16 +24,16 @@ class UsersController < ApplicationController
     if !params[:user][:password].nil? &&
        params[:user][:password] == params[:user][:password_confirmation]
       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])
-      flash[:notice] = "Password has been changed. Please remember to use this password from now on. Your profile has been updated."
+      flash[:notice] = t(:password_has_been_changed)
     end
     current_user.update_attributes(params[:user])
-    flash[:notice] ||= "Your profile has been updated."
+    flash[:notice] ||= t(:profile_has_been_updated)
     redirect_to edit_user_path(current_user)
   end
   
   def login
     if request.get? && logged_in?
-      flash[:notice] = "You are already logged in."
+      flash[:notice] = t(:already_logged_in)
       redirect_back_or_default(forums_path) and return false
     end
     return unless request.post?
@@ -46,16 +46,16 @@ class UsersController < ApplicationController
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
-      flash[:notice] = "Logged in successfully"
+      flash[:notice] = t(:logged_in_successfully)
       redirect_back_or_default(forums_path) and return false
     else
-      flash[:notice] = "The username or password you provided is incorrect. Please try again."
+      flash[:notice] = t(:username_or_password_incorrect)
     end
   end
   
   def signup
     if logged_in?
-      flash[:notice] = "You are already logged in. You cannot signup again."
+      flash[:notice] = t(:already_logged_in)
       redirect_back_or_default(forums_path)
     end
     @user = User.new(params[:user])
@@ -63,9 +63,9 @@ class UsersController < ApplicationController
     @user.save!
     self.current_user = @user
     redirect_back_or_default(forums_path)
-    flash[:notice] = "Thanks for signing up!"
+    flash[:notice] = t(:thanks_for_signing_up)
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    flash[:notice] = "There was a problem during signup."
+    flash[:notice] = t(:problem_during_signup)
   end
   
   def logout
@@ -73,13 +73,13 @@ class UsersController < ApplicationController
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "You have been logged out."
+    flash[:notice] = t(:you_have_been_logged_out)
     redirect_to(forums_path)
   end
 
   def ip_is_banned
     unless ip_banned?
-      flash[:notice] = "Your IP is not banned!"
+      flash[:notice] = t(:ip_is_banned)
       redirect_to forums_path
     end
   end
