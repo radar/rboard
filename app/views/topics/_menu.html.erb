@@ -3,7 +3,7 @@
     <%= link_to t(:New_Topic), new_forum_topic_path(@topic.forum) %> |
 	<% end %>
 	
-	<% if !@topic.locked? || is_admin_or_moderator? %>
+	<% if !@topic.locked? || is_moderator? %>
    		<%= link_to t(:New_Reply), new_topic_post_path(@topic) %>
   <% end %>
   

@@ -11,7 +11,7 @@
     </tr>
   <% end %>
   
-  <% if is_admin_or_moderator? %>
+  <% if is_moderator? %>
     <tr>
       <td><%= f.label 'sticky', t(:sticky) %></td>
       <td><%= f.check_box "sticky" %></td>

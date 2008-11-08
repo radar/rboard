@@ -62,6 +62,48 @@ class PostsController < ApplicationController
     render :action => "new"
   end
   
+  # Magic for this method is in lib/array_ext.rb
+  def split
+    @post = @topic.posts.find(params[:id])
+    if request.post?
+      @posts = case params[:direction]
+        when "before"
+          @topic.posts.all_previous(@post)
+        when "before_including"
+          @topic.posts.all_previous(@post, true)
+        when "after_including"
+          @topic.posts.all_next(@post, true)
+        when "after"
+          @topic.posts.all_next(@post)
+        end
+      if @posts.blank?
+        flash[:notice] = "Your selection yielded no posts."
+        redirect_to split_topic_post_path(@topic, params[:id])
+        return false
+      end
+      
+      if @topic.posts.size == @posts.size
+        flash[:notice] = "You cannot take all the posts away from a topic."
+        redirect_to split_topic_post_path(@topic, params[:id])
+        return false
+      end
+      puts params[:how]
+      @subject = case params[:how]
+        when "just_split"
+          "[SPLIT] #{@topic.subject}"
+        when "split_with_subject"
+          "#{params[:subject]}"
+      end
+      @new_topic = @topic.forum.topics.create(:subject => @subject, :user => @posts.first.user, :last_post => @posts.last)
+      @new_topic.posts = @posts
+      flash[:notice] = "Topic has been split successfully."
+      redirect_to forum_topic_path(@new_topic.forum, @new_topic)
+    else
+      @previous_post = @topic.posts.previous(@post)
+      @next_post = @topic.posts.next(@post)
+    end
+  end
+  
   private
     def not_found
       flash[:notice] = t(:post_does_not_exist)

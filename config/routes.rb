@@ -38,7 +38,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
-    topic.resources :posts, :member => { :reply => :get }
+    topic.resources :posts, :member => { :reply => :get, :split => [:get, :post] }
   end
   
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
