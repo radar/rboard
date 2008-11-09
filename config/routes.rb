@@ -5,14 +5,9 @@ ActionController::Routing::Routes.draw do |map|
   map.signup 'signup', :controller => "users", :action => 'signup'
   
   map.search 'search', :controller => "search", :action => "index"
-  
-  # Welcome mat for the admin namespace
-  map.admin 'admin', :controller => "admin/index", :action => "index"
-  
-  # Welcome mat for the moderator namespace
-  map.moderator 'moderator', :controller => "moderator/index", :action => "index"
-  
+    
   map.namespace :admin do |admin|
+    admin.root :controller => "index"
     admin.resources :ranks
     admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
     admin.resources :themes, :member => { :make_default => :put }
@@ -21,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.namespace :moderator do |moderator|
+    moderator.root :controller => "index"
     moderator.resources :topics, :member => { :toggle_lock => :put, :toggle_sticky => :put }, :collection => { :moderate => :post } do |topic|
       topic.resources :moderations
     end
