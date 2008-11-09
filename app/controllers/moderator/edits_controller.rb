@@ -27,7 +27,7 @@ class Moderator::EditsController < Moderator::ApplicationController
   
   def not_found
     flash[:notice] = t(:post_or_edit_not_found)
-    redirect_back_or_default moderator_path
+    redirect_back_or_default moderator_root_path
   end
   
 end

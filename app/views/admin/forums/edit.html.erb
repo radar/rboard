@@ -1,4 +1,4 @@
-<%= link_to t(:admin_section), admin_path %> -> <%= link_to(t(:Forums), admin_forums_path) %> -> <%= t(:editing_forum) %>: <%= @forum.title %>
+<%= link_to t(:admin_section), admin_root_path %> -> <%= link_to(t(:Forums), admin_forums_path) %> -> <%= t(:editing_forum) %>: <%= @forum.title %>
 <% form_for [:admin, @forum] do |f| %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead>

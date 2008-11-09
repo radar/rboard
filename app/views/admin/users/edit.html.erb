@@ -1,4 +1,4 @@
-<%= link_to t(:admin_section), admin_path %> -> <%= link_to(t(:users), admin_users_path) %> -> <%= t(:editing_a_user) %>: <%= @user.login %>
+<%= link_to t(:admin_section), admin_root_path %> -> <%= link_to(t(:users), admin_users_path) %> -> <%= t(:editing_a_user) %>: <%= @user.login %>
 <% form_for [:admin, @user] do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
     <thead>

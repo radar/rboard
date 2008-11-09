@@ -15,9 +15,9 @@ class Moderator::ModerationsController < Moderator::ApplicationController
     moderations = @thing.moderations
     @moderation = moderations.for_user(current_user).first
     if @moderation.nil?
-     forum = @thing.forum
-      moderations.create(:user => current_user, :forum => @forum)
-      @moderated_topics_count = forum.moderations.topics.count
+      forum = @thing.forum
+      moderations.create(:user => current_user, :forum => forum)
+      @moderated_topics_count = forum.moderations.topics.for_user(current_user).count
     else
       destroy
       render :action => :destroy
@@ -43,7 +43,7 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   def destroy
     @moderation ||= Moderation.find(params[:id])
     @moderation.destroy
-    @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.count
+    @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.for_user(current_user).count
   end
   
   # Used for moving a topic, or selection of topics.

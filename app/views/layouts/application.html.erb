@@ -51,11 +51,11 @@
         <% end %>
         <div align='center'>        
           <% if is_moderator? %>
-            <%= link_to "Moderator Section", moderator_path %>
+            <%= link_to "Moderator Section", moderator_root_path %>
           <% end %>
           
           <% if is_admin? %>
-            | <%= link_to "Administration Section", admin_path %>
+            | <%= link_to "Administration Section", admin_root_path %>
           <% end %>
         </div>
     </div>

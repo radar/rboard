@@ -30,8 +30,8 @@ describe Moderator::EditsController do
     
     it "should not be able to go to the index action if a post is not specified" do
       get 'index'
-      response.should redirect_to(moderator_path)
-      flash[:notice].should eql("The post or edit you were looking for cannot be found.")
+      response.should redirect_to(moderator_root_path)
+      flash[:notice].should eql(I18n.t(:post_or_edit_not_found))
     end
     
     it "should be able to go to the index action" do
@@ -52,8 +52,8 @@ describe Moderator::EditsController do
     it "should not be able to see an edit that does not exist" do
       Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       get 'show', :post_id => 1, :id => 123456789
-      response.should redirect_to(moderator_path)
-      flash[:notice].should eql("The post or edit you were looking for cannot be found.")
+      response.should redirect_to(moderator_root_path)
+      flash[:notice].should eql(I18n.t(:post_or_edit_not_found))
     end
   end
   
@@ -75,7 +75,7 @@ describe Moderator::EditsController do
       @edits.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       get 'show', :id => 123456789, :post_id => 1
       flash[:notice].should_not be_nil
-      response.should redirect_to(moderator_path)
+      response.should redirect_to(moderator_root_path)
     end      
   end
 end

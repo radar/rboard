@@ -37,7 +37,7 @@ describe Moderator::ModerationsController do
     it "should be able to create a moderation" do
       Topic.should_receive(:find).and_return(@topic)
       @topic.should_receive(:moderations).and_return(@moderations)
-      @moderations.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:for_user).twice.and_return(@moderations)
       @moderations.should_receive(:first).and_return(nil)
       @moderations.should_receive(:create).and_return(@moderation)
       @topic.should_receive(:forum).and_return(@forum)
@@ -50,7 +50,7 @@ describe Moderator::ModerationsController do
     it "should try to create a moderation, but finding it there should destroy it" do
       Topic.should_receive(:find).and_return(@topic)
       @topic.should_receive(:moderations).and_return(@moderations)
-      @moderations.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:for_user).twice.and_return(@moderations)
       @moderations.should_receive(:first).and_return(@moderation)
       @moderation.should_receive(:destroy).and_return(@moderation)
       @moderation.should_receive(:moderated_object).and_return(@topic)

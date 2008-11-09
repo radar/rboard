@@ -9,8 +9,8 @@
     </thead>
     <tbody>
       <tr>
-        <td valign='top'><b><%= t(:Post) %>:</b></td>
-        <td><%= text_area("post","text", :cols => "80") %></td>
+        <td valign='top'><%= f.label "text", t(:Post) %>:</td>
+        <td><%= f.text_area("text", :cols => "80") %></td>
       </tr>
     </tbody>
     <tfoot>

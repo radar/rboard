@@ -45,7 +45,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   def move
     if params[:new_forum_id]
       @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
-      flash[:notice] = t(:topics_movied)
+      flash[:notice] = t(:topics_moved)
       redirect_back_or_default(forum_path(params[:new_forum_id]))
     else
       render
@@ -54,12 +54,14 @@ class Moderator::TopicsController < Moderator::ApplicationController
   
   def toggle_lock
     @topic.toggle!("locked")
+    @topic.moderations.for_user(current_user).delete_all
     flash[:notice] = t(:topic_locked_or_unlocked, :status => @topic.locked? ? "locked" : "unlocked")
     redirect_back_or_default moderator_moderations_path
   end
   
   def toggle_sticky
     @topic.toggle!("sticky")
+    @topic.moderations.for_user(current_user).delete_all
     flash[:notice] = t(:topic_sticky_or_unsticky, :status => @topic.sticky? ? "stickied" : "unstickied")
     redirect_back_or_default moderator_moderations_path
   end
@@ -70,13 +72,13 @@ class Moderator::TopicsController < Moderator::ApplicationController
       
       # If the user is not allowed to see the topic, then they must not be allowed to change it either.
       if !@topic.forum.viewable?(true, current_user)
-        flash[:notice] = "You are not allowed to access that topic."
+        flash[:notice] = t(:not_allowed_to_access_topic)
         @topic.moderations.for_user(current_user).each { |m| m.destroy }
         redirect_to moderator_moderations_path
       end
       
       rescue ActiveRecord::RecordNotFound
-        flash[:notice] = "The topic you were looking for could not be found."
+        flash[:notice] = t(:topic_not_foudn)
         redirect_to moderator_moderations_path
     end
   

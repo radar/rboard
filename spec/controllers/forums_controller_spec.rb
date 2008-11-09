@@ -46,6 +46,7 @@ describe ForumsController do
     @topics.should_receive(:sorted).and_return(@topics)
     @forum.should_receive(:moderations).and_return(@moderations)
     @moderations.should_receive(:topics).and_return(@moderations)
+    @moderations.should_receive(:for_user).and_return(@moderations)
     @moderations.should_receive(:count).and_return(0)
     @forum.stub!(:position)
     get 'show', { :id => @everybody_forum.id }
@@ -64,6 +65,7 @@ describe ForumsController do
     @forum.should_receive(:children).and_return(@forums)
     @forum.should_receive(:moderations).and_return(@moderations)
     @moderations.should_receive(:topics).and_return(@moderations)
+    @moderations.should_receive(:for_user).and_return(@moderations)
     @moderations.should_receive(:count).and_return(0)    
     @forum.stub!(:position)
     get 'show', { :id => @admin_forum.id }

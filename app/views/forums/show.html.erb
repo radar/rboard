@@ -41,7 +41,7 @@
   	    <% for topic in @topics %>
       	  <tr id='topic_<%= topic.id %>'>
         	  <% if is_moderator? %>
-            	<td align='center'><%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.empty?, :id => "topic_#{topic.id}_moderated"), :url =>  moderator_topic_moderations_path(topic) %></td>
+            	<td align='center'><%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), :url =>  moderator_topic_moderations_path(topic) %></td>
             <% end %>
             <td>
               <% if topic.sticky? %>

@@ -1,4 +1,4 @@
-<%= link_to t(:admin_section), admin_path %> -> <%= t(:Forums) %>
+<%= link_to t(:admin_section), admin_root_path %> -> <%= t(:Forums) %>
 <h2><%= t(:Forums) %></h2>
 <%= link_to t(:New_forum), new_admin_forum_path %>
 <table cellspacing='0' cellpadding='3' width='100%' class='list-table' rules='groups'>
@@ -6,12 +6,12 @@
     <thead>
       <tr>
         <td>&nbsp;</td>
-        <td><%= t(:title_heading) %></td>
-        <td><%= t(:is_visible_to_heading) %></td>
-        <td><%= t(:creator_heading) %></td>
-        <td><%= t(:topics_heading) %></td>
-        <td><%= t(:posts_heading) %></td>
-        <td><%= t(:position_heading) %></td>
+        <td><%= t(:Title) %></td>
+        <td><%= t(:Is_visible_to) %></td>
+        <td><%= t(:Creator) %></td>
+        <td><%= t(:Topics) %></td>
+        <td><%= t(:Posts) %></td>
+        <td><%= t(:Position) %></td>
       </tr>
     </thead>
     <tbody>

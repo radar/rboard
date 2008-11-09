@@ -1,1 +1,20 @@
-Move Topic... to some place.
+<% form_for [:moderation, :move, :topics] do |f| %>
+  <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
+    <thead>
+      <tr>
+        <td colspan='2'><h2><%= t(:Moving_topics) %></h2></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td valign='top'><b><%= t(:Forum) %>:</b></td>
+        <td><%= select_tag "forum_id", options_from_collection_for_select(@forums, "id", "name") %></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan='2'><%= submit_tag(t(:Create)) %> or <%= link_to t(:Cancel), session[:return_to] %></td>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>

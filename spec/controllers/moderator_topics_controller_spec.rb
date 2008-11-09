@@ -26,7 +26,7 @@ describe Moderator::TopicsController do
     end
     
     def not_allowed
-      flash[:notice].should eql("You are not allowed to access that topic.")
+      flash[:notice].should eql(I18n.t(:not_allowed_to_access_topic))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -68,7 +68,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:lock!).and_return(@moderation)
       put 'moderate', { :commit => "Lock", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql("All selected topics have been locked.")
+      flash[:notice].should eql(I18n.t(:topics_locked))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -78,7 +78,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:unlock!).and_return(@moderation)
       put 'moderate', { :commit => "Unlock", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql("All selected topics have been unlocked.")
+      flash[:notice].should eql(I18n.t(:topics_unlocked))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -98,7 +98,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:sticky!).and_return(@moderation)
       put 'moderate', { :commit => "Sticky", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql("All selected topics have been stickied.")
+      flash[:notice].should eql(I18n.t(:topics_stickied))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -108,8 +108,18 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:unsticky!).and_return(@moderation)
       put 'moderate', { :commit => "Unsticky", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql("All selected topics have been unstickied.")
+      flash[:notice].should eql(I18n.t(:topics_unstickied))
       response.should redirect_to(moderator_moderations_path)
+    end
+    
+    it "should be able to move topics for moderations selected on the moderations page" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_return(@moderations)
+      @moderation.should_receive(:move!).and_return(@moderation)
+      put 'moderate', { :commit => "Move", :moderation_ids => [1,2,3], :new_forum_id => 1 }
+      flash[:notice].should eql(I18n.t(:topics_moved))
+      response.should redirect_to(forum_path(1))
     end
     
     it "should not be able to act on moderations that don't belong to them" do
@@ -127,6 +137,9 @@ describe Moderator::TopicsController do
       @topic.should_receive(:forum).and_return(@forum)
       @forum.should_receive(:viewable?).and_return(true)
       @topic.should_receive(:toggle!).and_return(true)
+      @topic.should_receive(:moderations).and_return(@moderations)
+      @moderations.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:delete_all).and_return(0)
       put 'toggle_lock', :id => 1
     end
     
@@ -136,6 +149,9 @@ describe Moderator::TopicsController do
       @topic.should_receive(:forum).and_return(@forum)
       @forum.should_receive(:viewable?).and_return(true)
       @topic.should_receive(:toggle!).and_return(true)
+      @topic.should_receive(:moderations).and_return(@moderations)
+      @moderations.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:delete_all).and_return(0)
       put 'toggle_sticky', :id => 1
     end    
     

@@ -22,7 +22,7 @@ class ForumsController < ApplicationController
     @topics = @forum.topics.sorted.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC"
     @forums = @forum.children
     @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_moderator?
-    @moderated_topics_count = @forum.moderations.topics.count
+    @moderated_topics_count = @forum.moderations.topics.for_user(current_user).count
   end
   
   private

@@ -32,7 +32,7 @@ class MessagesController < ApplicationController
       flash[:notice] = t(:message_sent)
       redirect_back_or_default(messages_path)
     else
-      flash[:notice] = t(:message_could_not_be_sent)
+      flash[:notice] = t(:message_not_sent)
       render :action => "new"
     end
   end
