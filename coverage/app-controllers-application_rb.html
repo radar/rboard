@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-application_rb.html'>app/controllers/application.rb</a>
         </td>
-      <td class='lines_total'><tt>25</tt>
+      <td class='lines_total'><tt>29</tt>
         </td>
-      <td class='lines_code'><tt>14</tt>
+      <td class='lines_code'><tt>18</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>82.8%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='83'/>
+                  <td class='uncovered' width='17'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>72.2%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='72'/>
+                  <td class='uncovered' width='28'/>
                   </tr>
                 </table>
               </td>
@@ -615,14 +615,18 @@ span.run100 {
 </span><span class="marked1"><a name="line15"></a>15   before_filter :ip_banned_redirect
 </span><span class="marked0"><a name="line16"></a>16   before_filter :active_user
 </span><span class="marked1"><a name="line17"></a>17   before_filter :check_page_value
-</span><span class="inferred0"><a name="line18"></a>18   
-</span><span class="marked1"><a name="line19"></a>19   @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?
-</span><span class="inferred0"><a name="line20"></a>20   
-</span><span class="marked1"><a name="line21"></a>21   def check_page_value
-</span><span class="marked0"><a name="line22"></a>22     params[:page] = params[:page].to_i &lt;= 0 ? &quot;1&quot; : params[:page]
-</span><span class="marked1"><a name="line23"></a>23   end
-</span><span class="inferred0"><a name="line24"></a>24   
-</span><span class="inferred1"><a name="line25"></a>25 end
+</span><span class="marked0"><a name="line18"></a>18   before_filter :set_time_zone
+</span><span class="inferred1"><a name="line19"></a>19   
+</span><span class="marked0"><a name="line20"></a>20   @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?
+</span><span class="inferred1"><a name="line21"></a>21   
+</span><span class="marked0"><a name="line22"></a>22   def check_page_value
+</span><span class="uncovered1"><a name="line23"></a>23     params[:page] = params[:page].to_i &lt;= 0 ? &quot;1&quot; : params[:page]
+</span><span class="uncovered0"><a name="line24"></a>24   end
+</span><span class="inferred1"><a name="line25"></a>25   
+</span><span class="marked0"><a name="line26"></a>26   def set_time_zone
+</span><span class="uncovered1"><a name="line27"></a>27     Time.zone = current_user.time_zone if logged_in? &amp;&amp; !current_user.time_zone.nil?
+</span><span class="uncovered0"><a name="line28"></a>28   end
+</span><span class="uncovered1"><a name="line29"></a>29 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

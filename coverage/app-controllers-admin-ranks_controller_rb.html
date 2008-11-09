@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:32 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -616,10 +616,10 @@ span.run100 {
 </span><span class="marked0"><a name="line16"></a>16   def create
 </span><span class="marked1"><a name="line17"></a>17 	  @rank = Rank.new(params[:rank])
 </span><span class="marked0"><a name="line18"></a>18     if @rank.save
-</span><span class="marked1"><a name="line19"></a>19       flash[:notice] = &quot;#{@rank} has been created.&quot;
+</span><span class="marked1"><a name="line19"></a>19       flash[:notice] = t(:rank_created)
 </span><span class="marked0"><a name="line20"></a>20       redirect_to admin_ranks_path
 </span><span class="inferred1"><a name="line21"></a>21     else
-</span><span class="marked0"><a name="line22"></a>22       flash[:notice] = &quot;This rank could not be created.&quot;
+</span><span class="marked0"><a name="line22"></a>22       flash[:notice] = t(:rank_not_created)
 </span><span class="marked1"><a name="line23"></a>23       render :action =&gt; &quot;new&quot;
 </span><span class="inferred0"><a name="line24"></a>24     end
 </span><span class="inferred1"><a name="line25"></a>25   end
@@ -631,10 +631,10 @@ span.run100 {
 </span><span class="inferred1"><a name="line31"></a>31   # Updates a rank.
 </span><span class="marked0"><a name="line32"></a>32   def update
 </span><span class="marked1"><a name="line33"></a>33 	  if @rank.update_attributes(params[:rank])
-</span><span class="marked0"><a name="line34"></a>34 		  flash[:notice] = &quot;#{@rank} has been updated.&quot;
+</span><span class="marked0"><a name="line34"></a>34 		  flash[:notice] = t(:rank_updated)
 </span><span class="marked1"><a name="line35"></a>35 		  redirect_to admin_ranks_path
 </span><span class="inferred0"><a name="line36"></a>36     else
-</span><span class="marked1"><a name="line37"></a>37 		  flash.now[:notice] = &quot;#{@rank} has not been updated.&quot;
+</span><span class="marked1"><a name="line37"></a>37 		  flash[:notice] = t(:rank_not_updated)
 </span><span class="marked0"><a name="line38"></a>38 		  render :action =&gt; &quot;edit&quot;
 </span><span class="inferred1"><a name="line39"></a>39 	  end
 </span><span class="marked0"><a name="line40"></a>40   end
@@ -642,14 +642,14 @@ span.run100 {
 </span><span class="inferred0"><a name="line42"></a>42   # Deletes a rank.
 </span><span class="marked1"><a name="line43"></a>43   def destroy
 </span><span class="marked0"><a name="line44"></a>44 	  @rank.destroy
-</span><span class="marked1"><a name="line45"></a>45 	  flash[:notice] = &quot;#{@rank} has been destroyed.&quot;
+</span><span class="marked1"><a name="line45"></a>45 	  flash[:notice] = t(:rank_deleted)
 </span><span class="marked0"><a name="line46"></a>46     redirect_to admin_ranks_path
 </span><span class="inferred1"><a name="line47"></a>47   end
 </span><span class="inferred0"><a name="line48"></a>48   
 </span><span class="marked1"><a name="line49"></a>49   private
 </span><span class="inferred0"><a name="line50"></a>50     # Will be called from #find_rank when a rank cannot be found.
 </span><span class="marked1"><a name="line51"></a>51     def not_found
-</span><span class="marked0"><a name="line52"></a>52       flash[:notice] = &quot;The rank you were looking for could not be found.&quot;
+</span><span class="marked0"><a name="line52"></a>52       flash[:notice] = t(:rank_not_found)
 </span><span class="marked1"><a name="line53"></a>53       redirect_back_or_default(admin_ranks_path)
 </span><span class="inferred0"><a name="line54"></a>54     end
 </span><span class="inferred1"><a name="line55"></a>55     

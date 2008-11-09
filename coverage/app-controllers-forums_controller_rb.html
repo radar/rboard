@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -598,42 +598,42 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a> 1 class ForumsController &lt; ApplicationController
-</span><span class="marked1"><a name="line2"></a> 2   before_filter :is_visible?, :only =&gt; :show
-</span><span class="marked0"><a name="line3"></a> 3   before_filter :store_location, :only =&gt; :show
-</span><span class="inferred1"><a name="line4"></a> 4   
-</span><span class="marked0"><a name="line5"></a> 5   def index
-</span><span class="marked1"><a name="line6"></a> 6     @forums = Forum.without_parent
-</span><span class="inferred0"><a name="line7"></a> 7     
-</span><span class="marked1"><a name="line8"></a> 8     @forums = if logged_in? 
-</span><span class="marked0"><a name="line9"></a> 9       @forums.viewable_to(current_user)
-</span><span class="inferred1"><a name="line10"></a>10     else
-</span><span class="marked0"><a name="line11"></a>11       @forums.viewable_to_anonymous
-</span><span class="inferred1"><a name="line12"></a>12     end
-</span><span class="inferred0"><a name="line13"></a>13     
-</span><span class="marked1"><a name="line14"></a>14     @lusers = User.recent.map { |u| u.login }.to_sentence
-</span><span class="marked0"><a name="line15"></a>15     @users = User.count
-</span><span class="marked1"><a name="line16"></a>16     @posts = Post.count
-</span><span class="marked0"><a name="line17"></a>17     @topics = Topic.count
-</span><span class="marked1"><a name="line18"></a>18     @ppt = @posts &gt; 0 ? @posts / @topics : 0
-</span><span class="inferred0"><a name="line19"></a>19   end
-</span><span class="inferred1"><a name="line20"></a>20   
-</span><span class="marked0"><a name="line21"></a>21   def show
-</span><span class="marked1"><a name="line22"></a>22     @topics = @forum.topics.sorted.paginate :page =&gt; params[:page], :per_page =&gt; 30, :order =&gt; &quot;sticky DESC&quot;
-</span><span class="marked0"><a name="line23"></a>23     @forums = @forum.children
-</span><span class="marked1"><a name="line24"></a>24     @all_forums = Forum.all(:select =&gt; &quot;id, title&quot;, :order =&gt; &quot;title ASC&quot;) - [@forum] if is_moderator?
-</span><span class="marked0"><a name="line25"></a>25     @moderated_topics_count = @forum.moderations.topics.count
-</span><span class="inferred1"><a name="line26"></a>26   end
-</span><span class="inferred0"><a name="line27"></a>27   
-</span><span class="marked1"><a name="line28"></a>28   private
-</span><span class="marked0"><a name="line29"></a>29   def is_visible?
-</span><span class="marked1"><a name="line30"></a>30     @forum = Forum.find(params[:id], :include =&gt; [{ :topics =&gt; :posts }, :moderations])
-</span><span class="marked0"><a name="line31"></a>31     if !@forum.viewable?(logged_in?, current_user)
-</span><span class="marked1"><a name="line32"></a>32       flash[:notice] = &quot;You do not have the permissions to access that forum.&quot;
-</span><span class="marked0"><a name="line33"></a>33       redirect_to forums_path
-</span><span class="inferred1"><a name="line34"></a>34     end
-</span><span class="inferred0"><a name="line35"></a>35   end
-</span><span class="inferred1"><a name="line36"></a>36 end
+<pre><span class="marked1"><a name="line1"></a> 1 class ForumsController &lt; ApplicationController
+</span><span class="marked0"><a name="line2"></a> 2   before_filter :is_visible?, :only =&gt; :show
+</span><span class="marked1"><a name="line3"></a> 3   before_filter :store_location, :only =&gt; :show
+</span><span class="inferred0"><a name="line4"></a> 4   
+</span><span class="marked1"><a name="line5"></a> 5   def index
+</span><span class="marked0"><a name="line6"></a> 6     @forums = Forum.without_parent
+</span><span class="inferred1"><a name="line7"></a> 7 
+</span><span class="marked0"><a name="line8"></a> 8     @forums = if logged_in? 
+</span><span class="marked1"><a name="line9"></a> 9       @forums.viewable_to(current_user)
+</span><span class="inferred0"><a name="line10"></a>10     else
+</span><span class="marked1"><a name="line11"></a>11       @forums.viewable_to_anonymous
+</span><span class="inferred0"><a name="line12"></a>12     end
+</span><span class="inferred1"><a name="line13"></a>13     
+</span><span class="marked0"><a name="line14"></a>14     @lusers = User.recent.map { |u| u.login }.to_sentence
+</span><span class="marked1"><a name="line15"></a>15     @users = User.count
+</span><span class="marked0"><a name="line16"></a>16     @posts = Post.count
+</span><span class="marked1"><a name="line17"></a>17     @topics = Topic.count
+</span><span class="marked0"><a name="line18"></a>18     @ppt = @posts &gt; 0 ? @posts / @topics : 0
+</span><span class="inferred1"><a name="line19"></a>19   end
+</span><span class="inferred0"><a name="line20"></a>20   
+</span><span class="marked1"><a name="line21"></a>21   def show
+</span><span class="marked0"><a name="line22"></a>22     @topics = @forum.topics.sorted.paginate :page =&gt; params[:page], :per_page =&gt; 30, :order =&gt; &quot;sticky DESC&quot;
+</span><span class="marked1"><a name="line23"></a>23     @forums = @forum.children
+</span><span class="marked0"><a name="line24"></a>24     @all_forums = Forum.all(:select =&gt; &quot;id, title&quot;, :order =&gt; &quot;title ASC&quot;) - [@forum] if is_moderator?
+</span><span class="marked1"><a name="line25"></a>25     @moderated_topics_count = @forum.moderations.topics.count
+</span><span class="inferred0"><a name="line26"></a>26   end
+</span><span class="inferred1"><a name="line27"></a>27   
+</span><span class="marked0"><a name="line28"></a>28   private
+</span><span class="marked1"><a name="line29"></a>29   def is_visible?
+</span><span class="marked0"><a name="line30"></a>30     @forum = Forum.find(params[:id], :include =&gt; [{ :topics =&gt; :posts }, :moderations])
+</span><span class="marked1"><a name="line31"></a>31     if !@forum.viewable?(logged_in?, current_user)
+</span><span class="marked0"><a name="line32"></a>32       flash[:notice] = t(:forum_permission_denied)
+</span><span class="marked1"><a name="line33"></a>33       redirect_to forums_path
+</span><span class="inferred0"><a name="line34"></a>34     end
+</span><span class="inferred1"><a name="line35"></a>35   end
+</span><span class="inferred0"><a name="line36"></a>36 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

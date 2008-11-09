@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-posts_controller_rb.html'>app/controllers/posts_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>89</tt>
+      <td class='lines_total'><tt>135</tt>
         </td>
-      <td class='lines_code'><tt>79</tt>
+      <td class='lines_code'><tt>120</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>71.1%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='71'/>
+                  <td class='uncovered' width='29'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>68.3%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='68'/>
+                  <td class='uncovered' width='32'/>
                   </tr>
                 </table>
               </td>
@@ -598,95 +598,141 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked1"><a name="line1"></a> 1 class PostsController &lt; ApplicationController
-</span><span class="marked0"><a name="line2"></a> 2   before_filter :login_required
-</span><span class="marked1"><a name="line3"></a> 3   before_filter :find_topic
-</span><span class="marked0"><a name="line4"></a> 4   before_filter :find_post, :only =&gt; [:edit, :update, :destroy]
-</span><span class="inferred1"><a name="line5"></a> 5   
-</span><span class="marked0"><a name="line6"></a> 6   def new
-</span><span class="marked1"><a name="line7"></a> 7     @posts = @topic.last_10_posts
-</span><span class="marked0"><a name="line8"></a> 8     @post = @topic.posts.build(:user =&gt; current_user)
-</span><span class="marked1"><a name="line9"></a> 9     if params[:quote]
-</span><span class="marked0"><a name="line10"></a>10       @quoting_post = Post.find(params[:quote])
-</span><span class="marked1"><a name="line11"></a>11       @post.text = &quot;[quote=\&quot;&quot; + @quoting_post.user.login + &quot;\&quot;]&quot; + @quoting_post.text + &quot;[/quote]&quot;
-</span><span class="inferred0"><a name="line12"></a>12     end
-</span><span class="inferred1"><a name="line13"></a>13   end
-</span><span class="inferred0"><a name="line14"></a>14 
-</span><span class="marked1"><a name="line15"></a>15   def create
-</span><span class="marked0"><a name="line16"></a>16     @topic = Topic.find(params[:topic_id], :include =&gt; :posts)
-</span><span class="marked1"><a name="line17"></a>17     @posts = @topic.posts
-</span><span class="marked0"><a name="line18"></a>18     @posts = @posts.find(:all, :order =&gt; &quot;id DESC&quot;, :limit =&gt; 10)
-</span><span class="marked1"><a name="line19"></a>19     @post = @topic.posts.build(params[:post].merge!(:user =&gt; current_user))
-</span><span class="marked0"><a name="line20"></a>20     if @post.save
-</span><span class="marked1"><a name="line21"></a>21       @topic.update_attribute(&quot;last_post_id&quot;, @post.id)
-</span><span class="marked0"><a name="line22"></a>22       flash[:notice] = &quot;Post has been created.&quot;
-</span><span class="marked1"><a name="line23"></a>23       go_directly_to_post
-</span><span class="inferred0"><a name="line24"></a>24     else
-</span><span class="marked1"><a name="line25"></a>25       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
-</span><span class="marked0"><a name="line26"></a>26       flash[:notice] = &quot;This post could not be created.&quot;
-</span><span class="marked1"><a name="line27"></a>27       render :action =&gt; &quot;new&quot;
-</span><span class="inferred0"><a name="line28"></a>28     end
-</span><span class="inferred1"><a name="line29"></a>29   end
-</span><span class="inferred0"><a name="line30"></a>30    
-</span><span class="marked1"><a name="line31"></a>31   def edit
-</span><span class="marked0"><a name="line32"></a>32   end
-</span><span class="inferred1"><a name="line33"></a>33   
-</span><span class="marked0"><a name="line34"></a>34   def update
-</span><span class="marked1"><a name="line35"></a>35     @topic = @post.topic
-</span><span class="marked0"><a name="line36"></a>36     if @post.update_attributes(params[:post])
-</span><span class="marked1"><a name="line37"></a>37       if @post.text_changed?
-</span><span class="marked0"><a name="line38"></a>38         @post.edits.create(:original_content =&gt; @post.text, :current_content =&gt; params[:post][:text], :user =&gt; current_user, :ip =&gt; request.remote_addr, :hidden =&gt; params[:silent_edit] == &quot;1&quot;)
-</span><span class="marked1"><a name="line39"></a>39         @post.edited_by = current_user
-</span><span class="inferred0"><a name="line40"></a>40       end
-</span><span class="marked1"><a name="line41"></a>41       flash[:notice] = &quot;Post has been updated.&quot;
-</span><span class="marked0"><a name="line42"></a>42       go_directly_to_post
-</span><span class="inferred1"><a name="line43"></a>43     else
-</span><span class="marked0"><a name="line44"></a>44       flash[:notice] = &quot;This post could not be updated.&quot;
-</span><span class="marked1"><a name="line45"></a>45       render :action =&gt; &quot;edit&quot;
-</span><span class="inferred0"><a name="line46"></a>46     end
-</span><span class="inferred1"><a name="line47"></a>47   end
-</span><span class="inferred0"><a name="line48"></a>48   
-</span><span class="marked1"><a name="line49"></a>49   def destroy
-</span><span class="marked0"><a name="line50"></a>50     @post.destroy
-</span><span class="marked1"><a name="line51"></a>51     flash[:notice] = &quot;Post was deleted.&quot;
-</span><span class="marked0"><a name="line52"></a>52     if @post.topic.posts.size.zero?
-</span><span class="marked1"><a name="line53"></a>53       @post.topic.destroy
-</span><span class="marked0"><a name="line54"></a>54       flash[:notice] += &quot; This was the only post in the topic, so topic was deleted also.&quot;
-</span><span class="marked1"><a name="line55"></a>55       redirect_to forum_path(@post.forum)
-</span><span class="inferred0"><a name="line56"></a>56     else
-</span><span class="marked1"><a name="line57"></a>57       redirect_to forum_topic_path(@post.forum, @post.topic)
-</span><span class="inferred0"><a name="line58"></a>58     end
-</span><span class="inferred1"><a name="line59"></a>59   end
-</span><span class="inferred0"><a name="line60"></a>60   
-</span><span class="marked1"><a name="line61"></a>61   private
-</span><span class="marked0"><a name="line62"></a>62     def not_found
-</span><span class="marked1"><a name="line63"></a>63       flash[:notice] = &quot;The post you were looking for could not be found.&quot;
-</span><span class="marked0"><a name="line64"></a>64       redirect_back_or_default(forums_path)
-</span><span class="inferred1"><a name="line65"></a>65     end
-</span><span class="inferred0"><a name="line66"></a>66     
-</span><span class="marked1"><a name="line67"></a>67     def find_topic
-</span><span class="marked0"><a name="line68"></a>68       @topic = Topic.find(params[:topic_id], :include =&gt; :posts) unless params[:topic_id].nil?
-</span><span class="marked1"><a name="line69"></a>69     end
-</span><span class="inferred0"><a name="line70"></a>70     
-</span><span class="marked1"><a name="line71"></a>71     def find_post
-</span><span class="marked0"><a name="line72"></a>72       @post = Post.find(params[:id])
-</span><span class="marked1"><a name="line73"></a>73       check_ownership
-</span><span class="inferred0"><a name="line74"></a>74     rescue ActiveRecord::RecordNotFound
-</span><span class="marked1"><a name="line75"></a>75       not_found
-</span><span class="marked0"><a name="line76"></a>76     end
-</span><span class="inferred1"><a name="line77"></a>77     
-</span><span class="marked0"><a name="line78"></a>78     def check_ownership
-</span><span class="marked1"><a name="line79"></a>79       unless @post.belongs_to?(current_user) || is_moderator?
-</span><span class="marked0"><a name="line80"></a>80         flash[:notice] = &quot;You do not own that post.&quot;
-</span><span class="marked1"><a name="line81"></a>81         redirect_back_or_default(forums_path)
-</span><span class="inferred0"><a name="line82"></a>82       end
-</span><span class="marked1"><a name="line83"></a>83     end
-</span><span class="inferred0"><a name="line84"></a>84     
-</span><span class="marked1"><a name="line85"></a>85     def go_directly_to_post
-</span><span class="marked0"><a name="line86"></a>86       page = (@topic.posts.size.to_f / per_page).ceil
-</span><span class="marked1"><a name="line87"></a>87       redirect_to forum_topic_path(@post.forum,@topic) + &quot;/#{page}&quot; + &quot;#post_#{@post.id}&quot;
-</span><span class="inferred0"><a name="line88"></a>88     end
-</span><span class="inferred1"><a name="line89"></a>89 end
+<pre><span class="marked0"><a name="line1"></a>  1 class PostsController &lt; ApplicationController
+</span><span class="marked1"><a name="line2"></a>  2   before_filter :login_required
+</span><span class="marked0"><a name="line3"></a>  3   before_filter :find_topic
+</span><span class="marked1"><a name="line4"></a>  4   before_filter :find_post, :only =&gt; [:edit, :update, :destroy]
+</span><span class="inferred0"><a name="line5"></a>  5   
+</span><span class="marked1"><a name="line6"></a>  6   def new
+</span><span class="marked0"><a name="line7"></a>  7     @posts = @topic.last_10_posts
+</span><span class="marked1"><a name="line8"></a>  8     @post ||= @topic.posts.build(:user =&gt; current_user)
+</span><span class="inferred0"><a name="line9"></a>  9   end
+</span><span class="inferred1"><a name="line10"></a> 10 
+</span><span class="marked0"><a name="line11"></a> 11   def create
+</span><span class="marked1"><a name="line12"></a> 12     @topic = Topic.find(params[:topic_id], :include =&gt; :posts)
+</span><span class="marked0"><a name="line13"></a> 13     @posts = @topic.posts
+</span><span class="marked1"><a name="line14"></a> 14     @posts = @posts.find(:all, :order =&gt; &quot;id DESC&quot;, :limit =&gt; 10)
+</span><span class="marked0"><a name="line15"></a> 15     @post = @topic.posts.build(params[:post].merge!(:user =&gt; current_user))
+</span><span class="marked1"><a name="line16"></a> 16     if @post.save
+</span><span class="marked0"><a name="line17"></a> 17       @topic.update_attribute(&quot;last_post_id&quot;, @post.id)
+</span><span class="marked1"><a name="line18"></a> 18       flash[:notice] = t(:post_created)
+</span><span class="marked0"><a name="line19"></a> 19       go_directly_to_post
+</span><span class="inferred1"><a name="line20"></a> 20     else
+</span><span class="marked0"><a name="line21"></a> 21       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
+</span><span class="marked1"><a name="line22"></a> 22       flash[:notice] = t(:post_not_created)
+</span><span class="marked0"><a name="line23"></a> 23       render :action =&gt; &quot;new&quot;
+</span><span class="inferred1"><a name="line24"></a> 24     end
+</span><span class="inferred0"><a name="line25"></a> 25   end
+</span><span class="inferred1"><a name="line26"></a> 26    
+</span><span class="marked0"><a name="line27"></a> 27   def edit
+</span><span class="marked1"><a name="line28"></a> 28   end
+</span><span class="inferred0"><a name="line29"></a> 29   
+</span><span class="marked1"><a name="line30"></a> 30   def update
+</span><span class="marked0"><a name="line31"></a> 31     @topic = @post.topic
+</span><span class="marked1"><a name="line32"></a> 32     if @post.update_attributes(params[:post])
+</span><span class="marked0"><a name="line33"></a> 33       if @post.text_changed?
+</span><span class="marked1"><a name="line34"></a> 34         @post.edits.create(:original_content =&gt; @post.text, :current_content =&gt; params[:post][:text], :user =&gt; current_user, :ip =&gt; request.remote_addr, :hidden =&gt; params[:silent_edit] == &quot;1&quot;)
+</span><span class="marked0"><a name="line35"></a> 35         @post.edited_by = current_user
+</span><span class="inferred1"><a name="line36"></a> 36       end
+</span><span class="marked0"><a name="line37"></a> 37       flash[:notice] = t(:post_updated)
+</span><span class="marked1"><a name="line38"></a> 38       go_directly_to_post
+</span><span class="inferred0"><a name="line39"></a> 39     else
+</span><span class="marked1"><a name="line40"></a> 40       flash[:notice] = t(:post_not_updated)
+</span><span class="marked0"><a name="line41"></a> 41       render :action =&gt; &quot;edit&quot;
+</span><span class="inferred1"><a name="line42"></a> 42     end
+</span><span class="inferred0"><a name="line43"></a> 43   end
+</span><span class="inferred1"><a name="line44"></a> 44   
+</span><span class="marked0"><a name="line45"></a> 45   def destroy
+</span><span class="marked1"><a name="line46"></a> 46     @post.destroy
+</span><span class="marked0"><a name="line47"></a> 47     flash[:notice] = t(:post_was_deleted)
+</span><span class="marked1"><a name="line48"></a> 48     if @post.topic.posts.size.zero?
+</span><span class="marked0"><a name="line49"></a> 49       @post.topic.destroy
+</span><span class="marked1"><a name="line50"></a> 50       flash[:notice] += t(:topic_too)
+</span><span class="marked0"><a name="line51"></a> 51       redirect_to forum_path(@post.forum)
+</span><span class="inferred1"><a name="line52"></a> 52     else
+</span><span class="marked0"><a name="line53"></a> 53       redirect_to forum_topic_path(@post.forum, @post.topic)
+</span><span class="inferred1"><a name="line54"></a> 54     end
+</span><span class="inferred0"><a name="line55"></a> 55   end
+</span><span class="inferred1"><a name="line56"></a> 56   
+</span><span class="inferred0"><a name="line57"></a> 57   # Not using the find_post method here because we're storing it as quoting_post.
+</span><span class="marked1"><a name="line58"></a> 58   def reply
+</span><span class="marked0"><a name="line59"></a> 59     quoting_post = Post.find(params[:id])
+</span><span class="marked1"><a name="line60"></a> 60     @post = @topic.posts.build(:user =&gt; current_user)
+</span><span class="marked0"><a name="line61"></a> 61     @post.text = &quot;[quote=\&quot;#{quoting_post.user}\&quot;]#{quoting_post.text}[/quote]&quot;
+</span><span class="marked1"><a name="line62"></a> 62     render :action =&gt; &quot;new&quot;
+</span><span class="inferred0"><a name="line63"></a> 63   end
+</span><span class="inferred1"><a name="line64"></a> 64   
+</span><span class="inferred0"><a name="line65"></a> 65   # Magic for this method is in lib/array_ext.rb
+</span><span class="marked1"><a name="line66"></a> 66   def split
+</span><span class="uncovered0"><a name="line67"></a> 67     @post = @topic.posts.find(params[:id])
+</span><span class="uncovered1"><a name="line68"></a> 68     if request.post?
+</span><span class="uncovered0"><a name="line69"></a> 69       @posts = case params[:direction]
+</span><span class="uncovered1"><a name="line70"></a> 70         when &quot;before&quot;
+</span><span class="uncovered0"><a name="line71"></a> 71           @topic.posts.all_previous(@post)
+</span><span class="uncovered1"><a name="line72"></a> 72         when &quot;before_including&quot;
+</span><span class="uncovered0"><a name="line73"></a> 73           @topic.posts.all_previous(@post, true)
+</span><span class="uncovered1"><a name="line74"></a> 74         when &quot;after_including&quot;
+</span><span class="uncovered0"><a name="line75"></a> 75           @topic.posts.all_next(@post, true)
+</span><span class="uncovered1"><a name="line76"></a> 76         when &quot;after&quot;
+</span><span class="uncovered0"><a name="line77"></a> 77           @topic.posts.all_next(@post)
+</span><span class="uncovered1"><a name="line78"></a> 78         end
+</span><span class="uncovered0"><a name="line79"></a> 79       if @posts.blank?
+</span><span class="uncovered1"><a name="line80"></a> 80         flash[:notice] = &quot;Your selection yielded no posts.&quot;
+</span><span class="uncovered0"><a name="line81"></a> 81         redirect_to split_topic_post_path(@topic, params[:id])
+</span><span class="uncovered1"><a name="line82"></a> 82         return false
+</span><span class="uncovered0"><a name="line83"></a> 83       end
+</span><span class="uncovered1"><a name="line84"></a> 84       
+</span><span class="uncovered0"><a name="line85"></a> 85       if @topic.posts.size == @posts.size
+</span><span class="uncovered1"><a name="line86"></a> 86         flash[:notice] = &quot;You cannot take all the posts away from a topic.&quot;
+</span><span class="uncovered0"><a name="line87"></a> 87         redirect_to split_topic_post_path(@topic, params[:id])
+</span><span class="uncovered1"><a name="line88"></a> 88         return false
+</span><span class="uncovered0"><a name="line89"></a> 89       end
+</span><span class="uncovered1"><a name="line90"></a> 90       puts params[:how]
+</span><span class="uncovered0"><a name="line91"></a> 91       @subject = case params[:how]
+</span><span class="uncovered1"><a name="line92"></a> 92         when &quot;just_split&quot;
+</span><span class="uncovered0"><a name="line93"></a> 93           &quot;[SPLIT] #{@topic.subject}&quot;
+</span><span class="uncovered1"><a name="line94"></a> 94         when &quot;split_with_subject&quot;
+</span><span class="uncovered0"><a name="line95"></a> 95           &quot;#{params[:subject]}&quot;
+</span><span class="uncovered1"><a name="line96"></a> 96       end
+</span><span class="uncovered0"><a name="line97"></a> 97       @new_topic = @topic.forum.topics.create(:subject =&gt; @subject, :user =&gt; @posts.first.user, :last_post =&gt; @posts.last)
+</span><span class="uncovered1"><a name="line98"></a> 98       @new_topic.posts = @posts
+</span><span class="uncovered0"><a name="line99"></a> 99       flash[:notice] = &quot;Topic has been split successfully.&quot;
+</span><span class="uncovered1"><a name="line100"></a>100       redirect_to forum_topic_path(@new_topic.forum, @new_topic)
+</span><span class="uncovered0"><a name="line101"></a>101     else
+</span><span class="uncovered1"><a name="line102"></a>102       @previous_post = @topic.posts.previous(@post)
+</span><span class="uncovered0"><a name="line103"></a>103       @next_post = @topic.posts.next(@post)
+</span><span class="uncovered1"><a name="line104"></a>104     end
+</span><span class="uncovered0"><a name="line105"></a>105   end
+</span><span class="inferred1"><a name="line106"></a>106   
+</span><span class="marked0"><a name="line107"></a>107   private
+</span><span class="marked1"><a name="line108"></a>108     def not_found
+</span><span class="marked0"><a name="line109"></a>109       flash[:notice] = t(:post_does_not_exist)
+</span><span class="marked1"><a name="line110"></a>110       redirect_back_or_default(forums_path)
+</span><span class="inferred0"><a name="line111"></a>111     end
+</span><span class="inferred1"><a name="line112"></a>112     
+</span><span class="marked0"><a name="line113"></a>113     def find_topic
+</span><span class="marked1"><a name="line114"></a>114       @topic = Topic.find(params[:topic_id], :include =&gt; :posts) unless params[:topic_id].nil?
+</span><span class="marked0"><a name="line115"></a>115     end
+</span><span class="inferred1"><a name="line116"></a>116     
+</span><span class="marked0"><a name="line117"></a>117     def find_post
+</span><span class="marked1"><a name="line118"></a>118       @post = Post.find(params[:id])
+</span><span class="marked0"><a name="line119"></a>119       check_ownership
+</span><span class="inferred1"><a name="line120"></a>120     rescue ActiveRecord::RecordNotFound
+</span><span class="marked0"><a name="line121"></a>121       not_found
+</span><span class="marked1"><a name="line122"></a>122     end
+</span><span class="inferred0"><a name="line123"></a>123     
+</span><span class="marked1"><a name="line124"></a>124     def check_ownership
+</span><span class="marked0"><a name="line125"></a>125       unless @post.belongs_to?(current_user) || is_moderator?
+</span><span class="marked1"><a name="line126"></a>126         flash[:notice] = &quot;You do not own that post.&quot;
+</span><span class="marked0"><a name="line127"></a>127         redirect_back_or_default(forums_path)
+</span><span class="inferred1"><a name="line128"></a>128       end
+</span><span class="marked0"><a name="line129"></a>129     end
+</span><span class="inferred1"><a name="line130"></a>130     
+</span><span class="marked0"><a name="line131"></a>131     def go_directly_to_post
+</span><span class="marked1"><a name="line132"></a>132       page = (@topic.posts.size.to_f / per_page).ceil
+</span><span class="marked0"><a name="line133"></a>133       redirect_to forum_topic_path(@post.forum,@topic) + &quot;/#{page}&quot; + &quot;#post_#{@post.id}&quot;
+</span><span class="inferred1"><a name="line134"></a>134     end
+</span><span class="inferred0"><a name="line135"></a>135 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

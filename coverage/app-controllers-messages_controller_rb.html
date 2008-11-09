@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -598,66 +598,66 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a> 1 class MessagesController &lt; ApplicationController
-</span><span class="marked1"><a name="line2"></a> 2   before_filter :login_required
-</span><span class="marked0"><a name="line3"></a> 3   before_filter :store_location, :only =&gt; [:index, :sent]
-</span><span class="inferred1"><a name="line4"></a> 4   
-</span><span class="marked0"><a name="line5"></a> 5   def index
-</span><span class="marked1"><a name="line6"></a> 6     @messages = current_user.inbox_messages
-</span><span class="marked0"><a name="line7"></a> 7   end
-</span><span class="inferred1"><a name="line8"></a> 8   
-</span><span class="marked0"><a name="line9"></a> 9   def show
-</span><span class="marked1"><a name="line10"></a>10     @message = Message.find(params[:id])
-</span><span class="marked0"><a name="line11"></a>11     if !@message.belongs_to?(current_user.id) &amp;&amp; !current_user.admin?
-</span><span class="marked1"><a name="line12"></a>12       flash[:notice] = &quot;That message does not belong to you.&quot;
-</span><span class="marked0"><a name="line13"></a>13       redirect_back_or_default(messages_path)
-</span><span class="inferred1"><a name="line14"></a>14     else
-</span><span class="marked0"><a name="line15"></a>15       @message.update_attribute(&quot;to_read&quot;,true)  if @message.to == current_user
-</span><span class="marked1"><a name="line16"></a>16       @message.update_attribute(&quot;from_read&quot;,true) if @message.from == current_user
-</span><span class="inferred0"><a name="line17"></a>17     end
-</span><span class="inferred1"><a name="line18"></a>18   end
-</span><span class="inferred0"><a name="line19"></a>19   
-</span><span class="marked1"><a name="line20"></a>20   def new
-</span><span class="marked0"><a name="line21"></a>21     @message = current_user.outbox_messages.new
-</span><span class="marked1"><a name="line22"></a>22     @users = User.find(:all, :order =&gt; &quot;login ASC&quot;) - [current_user]
-</span><span class="marked0"><a name="line23"></a>23     if @users.empty?
-</span><span class="marked1"><a name="line24"></a>24       flash[:notice] = &quot;There's nobody else to send a message to!&quot;
-</span><span class="marked0"><a name="line25"></a>25       redirect_back_or_default(messages_path)
-</span><span class="inferred1"><a name="line26"></a>26     end
-</span><span class="inferred0"><a name="line27"></a>27   end
-</span><span class="inferred1"><a name="line28"></a>28   
-</span><span class="marked0"><a name="line29"></a>29   def create
-</span><span class="marked1"><a name="line30"></a>30     @message = current_user.outbox_messages.new(params[:message])
-</span><span class="marked0"><a name="line31"></a>31     if @message.save
-</span><span class="marked1"><a name="line32"></a>32       flash[:notice] = &quot;The message has been sent.&quot;
-</span><span class="marked0"><a name="line33"></a>33       redirect_back_or_default(messages_path)
-</span><span class="inferred1"><a name="line34"></a>34     else
-</span><span class="marked0"><a name="line35"></a>35       flash[:notice] = &quot;This message could not be sent.&quot;
-</span><span class="marked1"><a name="line36"></a>36       render :action =&gt; &quot;new&quot;
-</span><span class="inferred0"><a name="line37"></a>37     end
-</span><span class="inferred1"><a name="line38"></a>38   end
-</span><span class="inferred0"><a name="line39"></a>39  
-</span><span class="marked1"><a name="line40"></a>40   def destroy
-</span><span class="marked0"><a name="line41"></a>41     @message = Message.find(params[:id]) 
-</span><span class="marked1"><a name="line42"></a>42     if @message.belongs_to?(current_user.id)
-</span><span class="marked0"><a name="line43"></a>43       @message.update_attribute(&quot;#{@message.from_id == current_user.id ? &quot;from&quot; : &quot;to&quot;}_deleted&quot;,true) 
-</span><span class="marked1"><a name="line44"></a>44       @message.destroy if @message.from_deleted == @message.to_deleted
-</span><span class="marked0"><a name="line45"></a>45       flash[:notice] = &quot;This message has been deleted.&quot;
-</span><span class="inferred1"><a name="line46"></a>46     else
-</span><span class="marked0"><a name="line47"></a>47       flash[:notice] = &quot;This message does not belong to you.&quot;
-</span><span class="inferred1"><a name="line48"></a>48     end
-</span><span class="marked0"><a name="line49"></a>49     redirect_back_or_default(messages_path)	
-</span><span class="inferred1"><a name="line50"></a>50   end
-</span><span class="inferred0"><a name="line51"></a>51   
-</span><span class="marked1"><a name="line52"></a>52   def reply
-</span><span class="marked0"><a name="line53"></a>53     @message = Message.find(params[:id])
-</span><span class="marked1"><a name="line54"></a>54     @users = User.find(:all, :order =&gt; &quot;login ASC&quot;)
-</span><span class="inferred0"><a name="line55"></a>55   end
-</span><span class="inferred1"><a name="line56"></a>56   
-</span><span class="marked0"><a name="line57"></a>57   def sent
-</span><span class="marked1"><a name="line58"></a>58     @messages = current_user.outbox_messages
-</span><span class="marked0"><a name="line59"></a>59   end
-</span><span class="inferred1"><a name="line60"></a>60 end
+<pre><span class="marked1"><a name="line1"></a> 1 class MessagesController &lt; ApplicationController
+</span><span class="marked0"><a name="line2"></a> 2   before_filter :login_required
+</span><span class="marked1"><a name="line3"></a> 3   before_filter :store_location, :only =&gt; [:index, :sent]
+</span><span class="inferred0"><a name="line4"></a> 4   
+</span><span class="marked1"><a name="line5"></a> 5   def index
+</span><span class="marked0"><a name="line6"></a> 6     @messages = current_user.inbox_messages
+</span><span class="marked1"><a name="line7"></a> 7   end
+</span><span class="inferred0"><a name="line8"></a> 8   
+</span><span class="marked1"><a name="line9"></a> 9   def show
+</span><span class="marked0"><a name="line10"></a>10     @message = Message.find(params[:id])
+</span><span class="marked1"><a name="line11"></a>11     if !@message.belongs_to?(current_user.id) &amp;&amp; !current_user.admin?
+</span><span class="marked0"><a name="line12"></a>12       flash[:notice] = t(:message_does_not_belong_to_you)
+</span><span class="marked1"><a name="line13"></a>13       redirect_back_or_default(messages_path)
+</span><span class="inferred0"><a name="line14"></a>14     else
+</span><span class="marked1"><a name="line15"></a>15       @message.update_attribute(&quot;to_read&quot;,true)  if @message.to == current_user
+</span><span class="marked0"><a name="line16"></a>16       @message.update_attribute(&quot;from_read&quot;,true) if @message.from == current_user
+</span><span class="inferred1"><a name="line17"></a>17     end
+</span><span class="inferred0"><a name="line18"></a>18   end
+</span><span class="inferred1"><a name="line19"></a>19   
+</span><span class="marked0"><a name="line20"></a>20   def new
+</span><span class="marked1"><a name="line21"></a>21     @message = current_user.outbox_messages.new
+</span><span class="marked0"><a name="line22"></a>22     @users = User.find(:all, :order =&gt; &quot;login ASC&quot;) - [current_user]
+</span><span class="marked1"><a name="line23"></a>23     if @users.empty?
+</span><span class="marked0"><a name="line24"></a>24       flash[:notice] = t(:nobody_else)
+</span><span class="marked1"><a name="line25"></a>25       redirect_back_or_default(messages_path)
+</span><span class="inferred0"><a name="line26"></a>26     end
+</span><span class="inferred1"><a name="line27"></a>27   end
+</span><span class="inferred0"><a name="line28"></a>28   
+</span><span class="marked1"><a name="line29"></a>29   def create
+</span><span class="marked0"><a name="line30"></a>30     @message = current_user.outbox_messages.new(params[:message])
+</span><span class="marked1"><a name="line31"></a>31     if @message.save
+</span><span class="marked0"><a name="line32"></a>32       flash[:notice] = t(:message_sent)
+</span><span class="marked1"><a name="line33"></a>33       redirect_back_or_default(messages_path)
+</span><span class="inferred0"><a name="line34"></a>34     else
+</span><span class="marked1"><a name="line35"></a>35       flash[:notice] = t(:message_could_not_be_sent)
+</span><span class="marked0"><a name="line36"></a>36       render :action =&gt; &quot;new&quot;
+</span><span class="inferred1"><a name="line37"></a>37     end
+</span><span class="inferred0"><a name="line38"></a>38   end
+</span><span class="inferred1"><a name="line39"></a>39  
+</span><span class="marked0"><a name="line40"></a>40   def destroy
+</span><span class="marked1"><a name="line41"></a>41     @message = Message.find(params[:id]) 
+</span><span class="marked0"><a name="line42"></a>42     if @message.belongs_to?(current_user.id) &amp;&amp; !current_user.admin?
+</span><span class="marked1"><a name="line43"></a>43       @message.update_attribute(&quot;#{@message.from_id == current_user.id ? &quot;from&quot; : &quot;to&quot;}_deleted&quot;,true) 
+</span><span class="marked0"><a name="line44"></a>44       @message.destroy if @message.from_deleted == @message.to_deleted
+</span><span class="marked1"><a name="line45"></a>45       flash[:notice] = t(:message_deleted)
+</span><span class="inferred0"><a name="line46"></a>46     else
+</span><span class="marked1"><a name="line47"></a>47       flash[:notice] = t(:message_does_not_belong_to_you)
+</span><span class="inferred0"><a name="line48"></a>48     end
+</span><span class="marked1"><a name="line49"></a>49     redirect_back_or_default(messages_path)	
+</span><span class="inferred0"><a name="line50"></a>50   end
+</span><span class="inferred1"><a name="line51"></a>51   
+</span><span class="marked0"><a name="line52"></a>52   def reply
+</span><span class="marked1"><a name="line53"></a>53     @message = Message.find(params[:id])
+</span><span class="marked0"><a name="line54"></a>54     @users = User.find(:all, :order =&gt; &quot;login ASC&quot;)
+</span><span class="inferred1"><a name="line55"></a>55   end
+</span><span class="inferred0"><a name="line56"></a>56   
+</span><span class="marked1"><a name="line57"></a>57   def sent
+</span><span class="marked0"><a name="line58"></a>58     @messages = current_user.outbox_messages
+</span><span class="marked1"><a name="line59"></a>59   end
+</span><span class="inferred0"><a name="line60"></a>60 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

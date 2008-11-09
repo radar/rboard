@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/models/moderation.rb - C0 code coverage information</title>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/helpers/index_helper.rb - C0 code coverage information</title>
     <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
     <style type='text/css'>span.cross-ref-title {
  font-size: 140%;
@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:34 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -569,11 +569,11 @@ span.run100 {
       <td class='heading'>Code coverage</td>
       </tr>
     </thead>
-  <tbody><tr class='light'><td><a href='app-models-moderation_rb.html'>app/models/moderation.rb</a>
+  <tbody><tr class='light'><td><a href='app-helpers-index_helper_rb.html'>app/helpers/index_helper.rb</a>
         </td>
-      <td class='lines_total'><tt>41</tt>
+      <td class='lines_total'><tt>2</tt>
         </td>
-      <td class='lines_code'><tt>34</tt>
+      <td class='lines_code'><tt>2</tt>
         </td>
       <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
@@ -598,47 +598,8 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a> 1 class Moderation &lt; ActiveRecord::Base
-</span><span class="marked1"><a name="line2"></a> 2   belongs_to :moderated_object, :polymorphic =&gt; true
-</span><span class="marked0"><a name="line3"></a> 3   belongs_to :user
-</span><span class="marked1"><a name="line4"></a> 4   belongs_to :forum
-</span><span class="marked0"><a name="line5"></a> 5   named_scope :for_user, lambda { |user_id| { :conditions =&gt; [&quot;user_id = ?&quot;, user_id] } }
-</span><span class="marked1"><a name="line6"></a> 6   named_scope :topics, :conditions =&gt; &quot;moderated_object_type = 'Topic'&quot;
-</span><span class="marked0"><a name="line7"></a> 7   named_scope :posts, :conditions =&gt; &quot;moderated_object_type = 'Post'&quot;
-</span><span class="inferred1"><a name="line8"></a> 8   
-</span><span class="marked0"><a name="line9"></a> 9   alias_method :topic, :moderated_object
-</span><span class="marked1"><a name="line10"></a>10   alias_method :post, :moderated_object
-</span><span class="inferred0"><a name="line11"></a>11   
-</span><span class="marked1"><a name="line12"></a>12   def lock!
-</span><span class="marked0"><a name="line13"></a>13     moderated_object.lock!
-</span><span class="marked1"><a name="line14"></a>14     destroy
-</span><span class="inferred0"><a name="line15"></a>15   end
-</span><span class="inferred1"><a name="line16"></a>16   
-</span><span class="marked0"><a name="line17"></a>17   def unlock!
-</span><span class="marked1"><a name="line18"></a>18     moderated_object.unlock!
-</span><span class="marked0"><a name="line19"></a>19     destroy
-</span><span class="inferred1"><a name="line20"></a>20   end
-</span><span class="inferred0"><a name="line21"></a>21   
-</span><span class="marked1"><a name="line22"></a>22   def sticky!
-</span><span class="marked0"><a name="line23"></a>23     moderated_object.sticky!
-</span><span class="marked1"><a name="line24"></a>24     destroy
-</span><span class="inferred0"><a name="line25"></a>25   end
-</span><span class="inferred1"><a name="line26"></a>26   
-</span><span class="marked0"><a name="line27"></a>27   def unsticky!
-</span><span class="marked1"><a name="line28"></a>28     moderated_object.unsticky!
-</span><span class="marked0"><a name="line29"></a>29     destroy
-</span><span class="inferred1"><a name="line30"></a>30   end
-</span><span class="inferred0"><a name="line31"></a>31   
-</span><span class="marked1"><a name="line32"></a>32   def destroy!
-</span><span class="marked0"><a name="line33"></a>33     moderated_object.destroy
-</span><span class="marked1"><a name="line34"></a>34     destroy
-</span><span class="inferred0"><a name="line35"></a>35   end
-</span><span class="inferred1"><a name="line36"></a>36   
-</span><span class="marked0"><a name="line37"></a>37   def move!(new_forum_id)
-</span><span class="marked1"><a name="line38"></a>38     moderated_object.move!(new_forum_id)
-</span><span class="marked0"><a name="line39"></a>39     destroy
-</span><span class="inferred1"><a name="line40"></a>40   end
-</span><span class="marked0"><a name="line41"></a>41 end
+<pre><span class="marked1"><a name="line1"></a>1 module IndexHelper
+</span><span class="inferred0"><a name="line2"></a>2 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

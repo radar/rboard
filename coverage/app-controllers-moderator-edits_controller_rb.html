@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -598,39 +598,39 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked1"><a name="line1"></a> 1 class Moderator::EditsController &lt; Moderator::ApplicationController
-</span><span class="marked0"><a name="line2"></a> 2   before_filter :find_post
-</span><span class="marked1"><a name="line3"></a> 3   before_filter :store_location, :only =&gt; :index
-</span><span class="inferred0"><a name="line4"></a> 4   
-</span><span class="marked1"><a name="line5"></a> 5   def index
-</span><span class="marked0"><a name="line6"></a> 6     @edits = current_user.moderator? ? @post.edits.visible : @post.edits
-</span><span class="marked1"><a name="line7"></a> 7   end
-</span><span class="inferred0"><a name="line8"></a> 8   
-</span><span class="marked1"><a name="line9"></a> 9   def show
-</span><span class="marked0"><a name="line10"></a>10     @edit = if current_user.moderator? 
-</span><span class="marked1"><a name="line11"></a>11       @post.edits.visible.find(params[:id])
-</span><span class="inferred0"><a name="line12"></a>12     else
-</span><span class="marked1"><a name="line13"></a>13       @post.edits.find(params[:id])
-</span><span class="inferred0"><a name="line14"></a>14     end
-</span><span class="inferred1"><a name="line15"></a>15   rescue ActiveRecord::RecordNotFound
-</span><span class="marked0"><a name="line16"></a>16     not_found
-</span><span class="marked1"><a name="line17"></a>17   end
-</span><span class="inferred0"><a name="line18"></a>18   
-</span><span class="marked1"><a name="line19"></a>19   private
-</span><span class="inferred0"><a name="line20"></a>20   
-</span><span class="marked1"><a name="line21"></a>21   def find_post
-</span><span class="marked0"><a name="line22"></a>22     @post = Post.find(params[:post_id], :include =&gt; :edits, :joins =&gt; :topic) unless params[:post_id].nil?
-</span><span class="marked1"><a name="line23"></a>23     not_found if @post.nil?
-</span><span class="inferred0"><a name="line24"></a>24   rescue ActiveRecord::RecordNotFound
-</span><span class="marked1"><a name="line25"></a>25     not_found
-</span><span class="marked0"><a name="line26"></a>26   end
-</span><span class="inferred1"><a name="line27"></a>27   
-</span><span class="marked0"><a name="line28"></a>28   def not_found
-</span><span class="marked1"><a name="line29"></a>29     flash[:notice] = &quot;The post or edit you were looking for cannot be found.&quot;
-</span><span class="marked0"><a name="line30"></a>30     redirect_back_or_default moderator_path
-</span><span class="inferred1"><a name="line31"></a>31   end
-</span><span class="inferred0"><a name="line32"></a>32   
-</span><span class="inferred1"><a name="line33"></a>33 end
+<pre><span class="marked0"><a name="line1"></a> 1 class Moderator::EditsController &lt; Moderator::ApplicationController
+</span><span class="marked1"><a name="line2"></a> 2   before_filter :find_post
+</span><span class="marked0"><a name="line3"></a> 3   before_filter :store_location, :only =&gt; :index
+</span><span class="inferred1"><a name="line4"></a> 4   
+</span><span class="marked0"><a name="line5"></a> 5   def index
+</span><span class="marked1"><a name="line6"></a> 6     @edits = current_user.moderator? ? @post.edits.visible : @post.edits
+</span><span class="marked0"><a name="line7"></a> 7   end
+</span><span class="inferred1"><a name="line8"></a> 8   
+</span><span class="marked0"><a name="line9"></a> 9   def show
+</span><span class="marked1"><a name="line10"></a>10     @edit = if current_user.moderator? 
+</span><span class="marked0"><a name="line11"></a>11       @post.edits.visible.find(params[:id])
+</span><span class="inferred1"><a name="line12"></a>12     else
+</span><span class="marked0"><a name="line13"></a>13       @post.edits.find(params[:id])
+</span><span class="inferred1"><a name="line14"></a>14     end
+</span><span class="inferred0"><a name="line15"></a>15   rescue ActiveRecord::RecordNotFound
+</span><span class="marked1"><a name="line16"></a>16     not_found
+</span><span class="marked0"><a name="line17"></a>17   end
+</span><span class="inferred1"><a name="line18"></a>18   
+</span><span class="marked0"><a name="line19"></a>19   private
+</span><span class="inferred1"><a name="line20"></a>20   
+</span><span class="marked0"><a name="line21"></a>21   def find_post
+</span><span class="marked1"><a name="line22"></a>22     @post = Post.find(params[:post_id], :include =&gt; :edits, :joins =&gt; :topic) unless params[:post_id].nil?
+</span><span class="marked0"><a name="line23"></a>23     not_found if @post.nil?
+</span><span class="inferred1"><a name="line24"></a>24   rescue ActiveRecord::RecordNotFound
+</span><span class="marked0"><a name="line25"></a>25     not_found
+</span><span class="marked1"><a name="line26"></a>26   end
+</span><span class="inferred0"><a name="line27"></a>27   
+</span><span class="marked1"><a name="line28"></a>28   def not_found
+</span><span class="marked0"><a name="line29"></a>29     flash[:notice] = t(:post_or_edit_not_found)
+</span><span class="marked1"><a name="line30"></a>30     redirect_back_or_default moderator_path
+</span><span class="inferred0"><a name="line31"></a>31   end
+</span><span class="inferred1"><a name="line32"></a>32   
+</span><span class="inferred0"><a name="line33"></a>33 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:34 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -607,7 +607,7 @@ span.run100 {
 </span><span class="marked0"><a name="line7"></a> 7   named_scope :viewable_to_anonymous, lambda { { :conditions =&gt; [&quot;is_visible_to_id = ?&quot;, UserLevel.find_by_name(&quot;User&quot;).id] } }
 </span><span class="inferred1"><a name="line8"></a> 8   
 </span><span class="marked0"><a name="line9"></a> 9   has_many :topics, :order =&gt; &quot;topics.created_at DESC&quot;, :dependent =&gt; :destroy 
-</span><span class="marked1"><a name="line10"></a>10   has_many :posts, :through =&gt; :topics, :source =&gt; :posts, :order =&gt; &quot;created_at DESC&quot;
+</span><span class="marked1"><a name="line10"></a>10   has_many :posts, :through =&gt; :topics, :source =&gt; :posts, :order =&gt; &quot;posts.created_at DESC&quot;
 </span><span class="marked0"><a name="line11"></a>11   has_many :moderations
 </span><span class="inferred1"><a name="line12"></a>12   
 </span><span class="marked0"><a name="line13"></a>13   belongs_to :is_visible_to, :class_name =&gt; &quot;UserLevel&quot;

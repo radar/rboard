@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -630,10 +630,10 @@ span.run100 {
 </span><span class="inferred1"><a name="line30"></a>30   
 </span><span class="marked0"><a name="line31"></a>31   def update
 </span><span class="marked1"><a name="line32"></a>32     if @moderation.update_attributes(params[:moderation])
-</span><span class="marked0"><a name="line33"></a>33       flash[:notice] = &quot;The selected moderation has been updated.&quot;
+</span><span class="marked0"><a name="line33"></a>33       flash[:notice] = t(:moderation_updated)
 </span><span class="marked1"><a name="line34"></a>34       redirect_to moderator_moderations_path
 </span><span class="inferred0"><a name="line35"></a>35     else
-</span><span class="marked1"><a name="line36"></a>36       flash[:notice] = &quot;The selected moderation could not be updated.&quot;
+</span><span class="marked1"><a name="line36"></a>36       flash[:notice] = t(:moderation_not_updated)
 </span><span class="marked0"><a name="line37"></a>37       render :action =&gt; &quot;edit&quot;
 </span><span class="inferred1"><a name="line38"></a>38     end
 </span><span class="marked0"><a name="line39"></a>39   end
@@ -664,7 +664,7 @@ span.run100 {
 </span><span class="inferred1"><a name="line64"></a>64     end
 </span><span class="inferred0"><a name="line65"></a>65     
 </span><span class="marked1"><a name="line66"></a>66     def not_found
-</span><span class="marked0"><a name="line67"></a>67       flash[:notice] = &quot;The moderation you were looking for could not be found.&quot;
+</span><span class="marked0"><a name="line67"></a>67       flash[:notice] = t(:moderation_not_found)
 </span><span class="marked1"><a name="line68"></a>68       redirect_to moderator_moderations_path
 </span><span class="inferred0"><a name="line69"></a>69     end
 </span><span class="inferred1"><a name="line70"></a>70 end

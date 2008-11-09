@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:32 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -618,10 +618,10 @@ span.run100 {
 </span><span class="marked1"><a name="line18"></a> 18   def create
 </span><span class="marked0"><a name="line19"></a> 19     @forum = Forum.new(params[:forum])
 </span><span class="marked1"><a name="line20"></a> 20     if @forum.save
-</span><span class="marked0"><a name="line21"></a> 21       flash[:notice] = &quot;Forum has been created.&quot;
+</span><span class="marked0"><a name="line21"></a> 21       flash[:notice] = t(:forum_created)
 </span><span class="marked1"><a name="line22"></a> 22       redirect
 </span><span class="inferred0"><a name="line23"></a> 23     else
-</span><span class="marked1"><a name="line24"></a> 24       flash[:notice] = &quot;Forum has not been created.&quot;
+</span><span class="marked1"><a name="line24"></a> 24       flash[:notice] = t(:forum_not_created)
 </span><span class="marked0"><a name="line25"></a> 25       @forums = Forum.find(:all, :order =&gt; &quot;title&quot;)
 </span><span class="marked1"><a name="line26"></a> 26       render :action =&gt; &quot;new&quot;
 </span><span class="inferred0"><a name="line27"></a> 27     end
@@ -638,10 +638,10 @@ span.run100 {
 </span><span class="inferred1"><a name="line38"></a> 38   # Updates a forum.
 </span><span class="marked0"><a name="line39"></a> 39   def update
 </span><span class="marked1"><a name="line40"></a> 40     if @forum.update_attributes(params[:forum])
-</span><span class="marked0"><a name="line41"></a> 41       flash[:notice] = &quot;Forum has been updated.&quot;
+</span><span class="marked0"><a name="line41"></a> 41       flash[:notice] = t(:forum_updated)
 </span><span class="marked1"><a name="line42"></a> 42       redirect
 </span><span class="inferred0"><a name="line43"></a> 43     else
-</span><span class="marked1"><a name="line44"></a> 44       flash[:notice] = &quot;Forum has not been updated.&quot;
+</span><span class="marked1"><a name="line44"></a> 44       flash[:notice] = t(:forum_not_updated)
 </span><span class="marked0"><a name="line45"></a> 45       render :action =&gt; &quot;edit&quot;
 </span><span class="inferred1"><a name="line46"></a> 46     end
 </span><span class="marked0"><a name="line47"></a> 47   end
@@ -649,35 +649,35 @@ span.run100 {
 </span><span class="inferred0"><a name="line49"></a> 49   # Deletes a forum.
 </span><span class="marked1"><a name="line50"></a> 50   def destroy
 </span><span class="marked0"><a name="line51"></a> 51     @forum.destroy
-</span><span class="marked1"><a name="line52"></a> 52     flash[:notice] = &quot;#{@forum} has been deleted.&quot;
+</span><span class="marked1"><a name="line52"></a> 52     flash[:notice] = t(:forum_deleted)
 </span><span class="marked0"><a name="line53"></a> 53     redirect
 </span><span class="inferred1"><a name="line54"></a> 54   end
 </span><span class="inferred0"><a name="line55"></a> 55   
 </span><span class="inferred1"><a name="line56"></a> 56   # Moves a forum one space up using an acts_as_list provided method.
 </span><span class="marked0"><a name="line57"></a> 57   def move_up
 </span><span class="marked1"><a name="line58"></a> 58     @forum.move_higher
-</span><span class="marked0"><a name="line59"></a> 59     flash[:notice] = &quot;The #{@forum} forum has been moved higher.&quot;
+</span><span class="marked0"><a name="line59"></a> 59     flash[:notice] = t(:forum_moved_higher, :forum =&gt; @forum)
 </span><span class="marked1"><a name="line60"></a> 60     redirect
 </span><span class="inferred0"><a name="line61"></a> 61   end
 </span><span class="inferred1"><a name="line62"></a> 62   
 </span><span class="inferred0"><a name="line63"></a> 63   # Moves a forum one space down using an acts_as_list provided method.
 </span><span class="marked1"><a name="line64"></a> 64   def move_down
 </span><span class="marked0"><a name="line65"></a> 65     @forum.move_lower
-</span><span class="marked1"><a name="line66"></a> 66     flash[:notice] = &quot;The #{@forum} forum has been moved lower.&quot;
+</span><span class="marked1"><a name="line66"></a> 66     flash[:notice] = t(:forum_moved_lower, :forum =&gt; @forum)
 </span><span class="marked0"><a name="line67"></a> 67     redirect
 </span><span class="inferred1"><a name="line68"></a> 68   end
 </span><span class="inferred0"><a name="line69"></a> 69   
 </span><span class="inferred1"><a name="line70"></a> 70   # Moves a forum to the top using an acts_as_list provided method.
 </span><span class="marked0"><a name="line71"></a> 71   def move_to_top
 </span><span class="marked1"><a name="line72"></a> 72     @forum.move_to_top
-</span><span class="marked0"><a name="line73"></a> 73     flash[:notice] = &quot;The #{@forum} forum has been moved to the top.&quot;
+</span><span class="marked0"><a name="line73"></a> 73     flash[:notice] = t(:forum_moved_to_top, :forum =&gt; @forum)
 </span><span class="marked1"><a name="line74"></a> 74     redirect
 </span><span class="inferred0"><a name="line75"></a> 75   end
 </span><span class="inferred1"><a name="line76"></a> 76   
 </span><span class="inferred0"><a name="line77"></a> 77   # Moves a forum to the bottom using an acts_as_list helper.
 </span><span class="marked1"><a name="line78"></a> 78   def move_to_bottom
 </span><span class="marked0"><a name="line79"></a> 79     @forum.move_to_bottom
-</span><span class="marked1"><a name="line80"></a> 80     flash[:notice] = &quot;The #{@forum} forum has been moved to the bottom.&quot;
+</span><span class="marked1"><a name="line80"></a> 80     flash[:notice] = t(:forum_moved_to_bottom, :forum =&gt; @forum)
 </span><span class="marked0"><a name="line81"></a> 81     redirect
 </span><span class="inferred1"><a name="line82"></a> 82   end
 </span><span class="inferred0"><a name="line83"></a> 83   
@@ -698,7 +698,7 @@ span.run100 {
 </span><span class="inferred1"><a name="line98"></a> 98   
 </span><span class="inferred0"><a name="line99"></a> 99   # Called when the forum could not be found.
 </span><span class="marked1"><a name="line100"></a>100   def not_found
-</span><span class="marked0"><a name="line101"></a>101     flash[:notice] = &quot;The forum you were looking for could not be found.&quot;
+</span><span class="marked0"><a name="line101"></a>101     flash[:notice] = t(:forum_not_found)
 </span><span class="marked1"><a name="line102"></a>102     redirect
 </span><span class="inferred0"><a name="line103"></a>103   end
 </span><span class="inferred1"><a name="line104"></a>104 end

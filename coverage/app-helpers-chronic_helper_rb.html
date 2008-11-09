@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/controllers/accounts_controller.rb - C0 code coverage information</title>
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'><head><title>app/helpers/chronic_helper.rb - C0 code coverage information</title>
     <style type='text/css'>body { background-color: rgb(240, 240, 245); }</style>
     <style type='text/css'>span.cross-ref-title {
  font-size: 140%;
@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Thu Oct 23 21:44:22 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -569,11 +569,11 @@ span.run100 {
       <td class='heading'>Code coverage</td>
       </tr>
     </thead>
-  <tbody><tr class='light'><td><a href='app-controllers-accounts_controller_rb.html'>app/controllers/accounts_controller.rb</a>
+  <tbody><tr class='light'><td><a href='app-helpers-chronic_helper_rb.html'>app/helpers/chronic_helper.rb</a>
         </td>
-      <td class='lines_total'><tt>82</tt>
+      <td class='lines_total'><tt>2</tt>
         </td>
-      <td class='lines_code'><tt>75</tt>
+      <td class='lines_code'><tt>2</tt>
         </td>
       <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
@@ -598,88 +598,8 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked1"><a name="line1"></a> 1 class AccountsController &lt; ApplicationController
-</span><span class="marked0"><a name="line2"></a> 2   before_filter :store_location, :only =&gt; [:profile, :index]
-</span><span class="marked1"><a name="line3"></a> 3   before_filter :login_required, :only =&gt; [:profile, :index]
-</span><span class="inferred0"><a name="line4"></a> 4   
-</span><span class="marked1"><a name="line5"></a> 5   def index
-</span><span class="marked0"><a name="line6"></a> 6     @users = User.paginate :page =&gt; params[:page], :per_page =&gt; 30, :order =&gt; &quot;login ASC&quot;
-</span><span class="marked1"><a name="line7"></a> 7   end
-</span><span class="inferred0"><a name="line8"></a> 8   
-</span><span class="marked1"><a name="line9"></a> 9   def login
-</span><span class="marked0"><a name="line10"></a>10     if request.get? &amp;&amp; logged_in?
-</span><span class="marked1"><a name="line11"></a>11       flash[:notice] = &quot;You are already logged in.&quot;
-</span><span class="marked0"><a name="line12"></a>12       redirect_back_or_default(forums_path) and return false
-</span><span class="inferred1"><a name="line13"></a>13     end
-</span><span class="marked0"><a name="line14"></a>14     return unless request.post?
-</span><span class="marked1"><a name="line15"></a>15     self.current_user = User.authenticate(params[:login], params[:password])
-</span><span class="marked0"><a name="line16"></a>16     if logged_in?
-</span><span class="marked1"><a name="line17"></a>17       current_user.update_attribute(&quot;previous_login&quot;,current_user.login_time)
-</span><span class="marked0"><a name="line18"></a>18       current_user.update_attribute(&quot;login_time&quot;,Time.now)
-</span><span class="marked1"><a name="line19"></a>19       current_user.update_attribute(&quot;ip&quot;,request.remote_addr)
-</span><span class="marked0"><a name="line20"></a>20       if params[:remember_me] == &quot;1&quot;
-</span><span class="marked1"><a name="line21"></a>21         self.current_user.remember_me
-</span><span class="marked0"><a name="line22"></a>22         cookies[:auth_token] = { :value =&gt; self.current_user.remember_token , :expires =&gt; self.current_user.remember_token_expires_at }
-</span><span class="inferred1"><a name="line23"></a>23       end
-</span><span class="marked0"><a name="line24"></a>24       flash[:notice] = &quot;Logged in successfully&quot;
-</span><span class="marked1"><a name="line25"></a>25       redirect_back_or_default(forums_path) and return false
-</span><span class="inferred0"><a name="line26"></a>26     else
-</span><span class="marked1"><a name="line27"></a>27       flash[:notice] = &quot;The username or password you provided is incorrect. Please try again.&quot;
-</span><span class="inferred0"><a name="line28"></a>28     end
-</span><span class="inferred1"><a name="line29"></a>29   end
-</span><span class="inferred0"><a name="line30"></a>30   
-</span><span class="marked1"><a name="line31"></a>31   def signup
-</span><span class="marked0"><a name="line32"></a>32     if logged_in?
-</span><span class="marked1"><a name="line33"></a>33       flash[:notice] = &quot;You are already logged in. You cannot signup again.&quot;
-</span><span class="marked0"><a name="line34"></a>34       redirect_back_or_default(forums_path)
-</span><span class="inferred1"><a name="line35"></a>35     end
-</span><span class="marked0"><a name="line36"></a>36     @user = User.new(params[:user])
-</span><span class="marked1"><a name="line37"></a>37     return unless request.post?
-</span><span class="marked0"><a name="line38"></a>38     @user.save!
-</span><span class="marked1"><a name="line39"></a>39     self.current_user = @user
-</span><span class="marked0"><a name="line40"></a>40     redirect_back_or_default(forums_path)
-</span><span class="marked1"><a name="line41"></a>41     flash[:notice] = &quot;Thanks for signing up!&quot;
-</span><span class="inferred0"><a name="line42"></a>42   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-</span><span class="marked1"><a name="line43"></a>43     flash[:notice] = &quot;There was a problem during signup.&quot;
-</span><span class="marked0"><a name="line44"></a>44   end
-</span><span class="inferred1"><a name="line45"></a>45   
-</span><span class="marked0"><a name="line46"></a>46   def logout
-</span><span class="marked1"><a name="line47"></a>47     redirect_to('login') and return false unless logged_in?
-</span><span class="marked0"><a name="line48"></a>48     self.current_user.forget_me if logged_in?
-</span><span class="marked1"><a name="line49"></a>49     cookies.delete :auth_token
-</span><span class="marked0"><a name="line50"></a>50     reset_session
-</span><span class="marked1"><a name="line51"></a>51     flash[:notice] = &quot;You have been logged out.&quot;
-</span><span class="marked0"><a name="line52"></a>52     redirect_to(forums_path)
-</span><span class="inferred1"><a name="line53"></a>53   end
-</span><span class="inferred0"><a name="line54"></a>54   
-</span><span class="marked1"><a name="line55"></a>55   def profile
-</span><span class="marked0"><a name="line56"></a>56     @user = current_user
-</span><span class="marked1"><a name="line57"></a>57     @themes = Theme.find(:all, :order =&gt; &quot;name ASC&quot;)
-</span><span class="marked0"><a name="line58"></a>58     if request.post?
-</span><span class="marked1"><a name="line59"></a>59       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])  if params[:user][:password] == params[:user][:password_confirmation] &amp;&amp; !params[:user][:password].blank? 
-</span><span class="marked0"><a name="line60"></a>60       flash[:notice] = &quot;Password has been changed. Please remember to use this password from now on. Your profile has been updated.&quot; unless params[:user][:crypted_password].nil?
-</span><span class="marked1"><a name="line61"></a>61       current_user.update_attributes(params[:user])
-</span><span class="marked0"><a name="line62"></a>62       flash[:notice] ||= &quot;Your profile has been updated.&quot;
-</span><span class="inferred1"><a name="line63"></a>63     end
-</span><span class="inferred0"><a name="line64"></a>64   end
-</span><span class="inferred1"><a name="line65"></a>65 
-</span><span class="marked0"><a name="line66"></a>66   def show
-</span><span class="marked1"><a name="line67"></a>67     @user = User.find_by_login(params[:id])
-</span><span class="marked0"><a name="line68"></a>68     if !@user.nil?
-</span><span class="marked1"><a name="line69"></a>69       @posts_percentage = Post.count &gt; 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
-</span><span class="inferred0"><a name="line70"></a>70     else
-</span><span class="marked1"><a name="line71"></a>71       flash[:notice] = &quot;The user you are looking for does not exist!&quot;
-</span><span class="marked0"><a name="line72"></a>72       redirect_back_or_default(forums_path)
-</span><span class="inferred1"><a name="line73"></a>73     end
-</span><span class="inferred0"><a name="line74"></a>74   end
-</span><span class="inferred1"><a name="line75"></a>75   
-</span><span class="marked0"><a name="line76"></a>76   def ip_is_banned
-</span><span class="marked1"><a name="line77"></a>77     unless ip_banned?
-</span><span class="marked0"><a name="line78"></a>78       flash[:notice] = &quot;Your IP is not banned!&quot;
-</span><span class="marked1"><a name="line79"></a>79       redirect_to forums_path
-</span><span class="inferred0"><a name="line80"></a>80     end
-</span><span class="marked1"><a name="line81"></a>81   end
-</span><span class="inferred0"><a name="line82"></a>82 end
+<pre><span class="marked0"><a name="line1"></a>1 module ChronicHelper
+</span><span class="inferred1"><a name="line2"></a>2 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>
