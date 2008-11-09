@@ -11,7 +11,7 @@
 	      <% if !post.topic.locked || is_admin? %>
           <%= link_to t(:Reply), new_topic_post_path(post.topic) %> |
           <%= link_to t(:Quote), reply_topic_post_path(post.topic, post) %> 
-            <% if is_owner_or_admin?(post.id) %>
+            <% if post.belongs_to?(current_user) %>
               | <%= link_to t(:Edit), edit_topic_post_path(@topic, post) %> |
                <%= link_to t(:Delete), topic_post_path(@topic, post), :method => "delete", :confirm => t(:confirm_delete_post) %>
             <% end %>

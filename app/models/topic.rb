@@ -7,7 +7,6 @@ class Topic < ActiveRecord::Base
   has_many :posts, :dependent => :destroy, :order => "posts.created_at asc"
   has_many :users, :through => :posts
   
-  named_scope :recent, lambda { { :conditions => ["created_at > ?", 2.weeks.ago] } }
   named_scope :sorted, :order => "posts.created_at DESC", :include => "last_post"
   
   #makes error_messages_for return the wrong number of errors.
@@ -55,5 +54,9 @@ class Topic < ActiveRecord::Base
   
   def last_10_posts
     posts.last(10).reverse
+  end
+  
+  def belongs_to?(other_user)
+    user == other_user
   end
 end

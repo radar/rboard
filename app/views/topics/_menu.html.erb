@@ -15,6 +15,10 @@
       	<%= link_to t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put %>
     	<% end %>
   	<% end %>
+  	
+  	<% if is_admin? || @topic.belongs_to(current_user) %>
+  	  <%= link_to t(:Edit_topic), edit_forum_topic_path(@forum) %>
+  	<% end %>
 <% else %>
   <% if @topic.locked? %>
     <%= t(:Locked!) %>

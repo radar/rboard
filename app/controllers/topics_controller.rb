@@ -39,6 +39,34 @@ class TopicsController < ApplicationController
     end
   end
   
+  def edit
+    @post = @topic.posts.first
+    if !user_has_permission?
+      flash[:notice] = t(:not_allowed_to_edit_topic)
+      redirect_back_or_default forum_topic_path(@forum, @topic)
+    end
+  end
+  
+  def update
+    if !user_has_permission?
+      flash[:notice] = t(:not_allowed_to_edit_topic)
+      redirect_back_or_default forum_topic_path(@forum, @topic)
+    else
+      if @topic.update_attributes(params[:topic])
+        if @topic.posts.first.update_attributes(params[:topic])
+          flash[:notice] = t(:topic_was_updated)
+          redirect_back_or_default forum_topic_path(@forum, @topic)
+        else
+          flash[:notice] = t(:post_is_invalid)
+          render :action => "edit"
+        end
+      else
+        flash[:notice] = t(:topic_is_invalid)
+        render :action => "edit"
+      end
+    end
+  end
+  
   private
   
   def not_found
@@ -65,6 +93,10 @@ class TopicsController < ApplicationController
     end
     rescue ActiveRecord::RecordNotFound
       not_found
+  end
+  
+  def user_has_permission?
+    @topic.belongs_to?(current_user) || current_user.admin?
   end
   
 end

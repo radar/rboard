@@ -54,7 +54,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   
   def toggle_lock
     @topic.toggle!("locked")
-    flash[:notice] = t(:topic_locked_or_unlocked, :status => @topic.locked ? "locked" : "unlocked")
+    flash[:notice] = t(:topic_locked_or_unlocked, :status => @topic.locked? ? "locked" : "unlocked")
     redirect_back_or_default moderator_moderations_path
   end
   

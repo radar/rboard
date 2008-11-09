@@ -25,13 +25,22 @@ describe MessagesController do
   end
   
   it "should be able to create a new message" do
-    Message.should_receive(:new).and_return(@message)
     User.should_receive(:find).with(:all, :order => "login ASC").and_return(@users)
+    User.should_receive(:find).and_return(@user)
+    @user.should_receive(:update_attribute).twice.and_return(Time.now)
+    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    @user.should_receive(:outbox_messages).and_return(@messages)
+    @messages.should_receive(:new).and_return(@message)
     get 'new'
   end
   
   it "a user cannot send a message to themselves" do
     User.should_receive(:find).with(:all, :order => "login ASC").and_return([])
+    User.should_receive(:find).and_return(@user)
+    @user.should_receive(:update_attribute).twice.and_return(Time.now)
+    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    @user.should_receive(:outbox_messages).and_return(@messages)
+    @messages.should_receive(:new).and_return(@message)
     get 'new'
     response.should redirect_to(messages_path)
     flash[:notice].should_not be_blank
@@ -117,6 +126,9 @@ describe MessagesController do
     login_as(:moderator)
     Message.should_receive(:find).with(@to_deleted.id.to_s).and_return(@message)
     User.should_receive(:find).with(:all, :order => "login ASC").and_return(@users)
+    User.should_receive(:find).and_return(@user)
+    @user.should_receive(:update_attribute).twice.and_return(Time.now)
+    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
     get 'reply', :id => @to_deleted.id
   end
   

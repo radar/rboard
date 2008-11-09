@@ -43,10 +43,6 @@ module AuthenticatedSystem
     end
   end
   
-  def is_post_owner_or_admin?(post_id)
-    logged_in? && (Post.find(post_id).user == current_user || current_user.admin?)
-  end
-  
   def ip_banned?
     @ips = BannedIp.find(:all, :conditions => ["ban_time > ?",Time.now]).select do |ip|
       !Regexp.new(ip.ip).match(request.remote_addr).nil? unless ip.nil?

@@ -34,7 +34,7 @@ describe UsersController, "the whole shebang" do
     @user.stub!(:remember_token_expires_at)
     post 'login', { :login => "Administrator", :password => "godly", :remember_me => 1 }
     response.should redirect_to(forums_path)
-    flash[:notice].should eql("Logged in successfully")
+    flash[:notice].should eql("Logged in successfully.")
   end
   
   it "shouldn't log in with an invalid password" do
@@ -69,7 +69,7 @@ describe UsersController, "the whole shebang" do
   it "should not be able to sign up a user when user is already logged in" do
     login_as(:administrator)
     get 'signup', {}
-    flash[:notice].should eql("You are already logged in. You cannot signup again.")
+    flash[:notice].should eql("You are already logged in.")
     response.should redirect_to(forums_path)
   end
   
@@ -106,7 +106,7 @@ describe UsersController, "the whole shebang" do
   it "shouldn't be able to find an invalid user" do
     get 'show', { :id => "non-existant" }
     response.should redirect_to(forums_path)
-    flash[:notice].should eql("The user you are looking for does not exist!")
+    flash[:notice].should eql("The user you are looking for does not exist.")
   end
   
   

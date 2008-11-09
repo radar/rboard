@@ -59,38 +59,53 @@ describe Admin::UsersController, "as an admin" do
   end
   
   it "should be able to begin to ban a user" do
-    User.should_receive(:find).and_return(@user)
+    User.should_receive(:find).twice.and_return(@user)
+    @user.should_receive(:update_attribute).and_return(Time.now)
+    @user.should_receive(:time_zone).twice.and_return("Australia/Adelaide")
+    @user.should_receive(:admin?).and_return(true)
     get 'ban', :id => users(:administrator).id, :user => { } 
   end
   
   it "should give a message if they try to ban themselves" do
-    User.should_receive(:find).and_return(users(:administrator))
+    User.should_receive(:find).twice.and_return(users(:administrator))
     get 'ban', :id => users(:administrator).id, :user => { } 
     flash[:notice].should_not be_nil
   end
   
   it "should be able to ban a user" do
-    User.should_receive(:find).and_return(@user)
+    User.should_receive(:find).twice.and_return(@user)
     @user.should_receive(:update_attributes).and_return(true)
     @user.should_receive(:increment!).with("ban_times").and_return(true)
+    @user.should_receive(:update_attribute).and_return(Time.now)
+    @user.should_receive(:time_zone).twice.and_return("Australia/Adelaide")
+    @user.should_receive(:admin?).and_return(true)
     put 'ban', :id => 1, :user => { }
   end
   
   it "should be able to edit a user" do
-    User.should_receive(:find).and_return(@user)
+    User.should_receive(:find).twice.and_return(@user)
+    @user.should_receive(:update_attribute).and_return(Time.now)
+    @user.should_receive(:time_zone).twice.and_return("Australia/Adelaide")
+    @user.should_receive(:admin?).and_return(true)
     get 'edit', :id => 1
   end
   
   it "should be able to update a user" do 
-    User.should_receive(:find).and_return(@user)
+    User.should_receive(:find).twice.and_return(@user)
+    @user.should_receive(:update_attribute).and_return(Time.now)
+    @user.should_receive(:time_zone).twice.and_return("Australia/Adelaide")
+    @user.should_receive(:admin?).and_return(true)
     @user.should_receive(:update_attributes).with({"signature"=>"Woot!"}).and_return(true)
     put 'update', :id => 1, :user => { :signature => "Woot!"}
     flash[:notice].should_not be_blank
   end
   
   it "should not be able to update a user with invalid params" do
-    User.should_receive(:find).twice.and_return(@user)
+    User.should_receive(:find).at_most(3).times.and_return(@user)
     @user.should_receive(:update_attributes).and_return(false)
+    @user.should_receive(:update_attribute).and_return(Time.now)
+    @user.should_receive(:time_zone).twice.and_return("Australia/Adelaide")
+    @user.should_receive(:admin?).and_return(true)
     put 'update', :id => users(:banned_noob), :user => { :time_display => "" }
     flash[:notice].should_not be_blank
   end

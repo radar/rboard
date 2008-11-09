@@ -47,7 +47,7 @@ class PostsController < ApplicationController
     flash[:notice] = t(:post_was_deleted)
     if @post.topic.posts.size.zero?
       @post.topic.destroy
-      flash[:notice] += t(:post_was_deleted_and_topic_too)
+      flash[:notice] += t(:topic_too)
       redirect_to forum_path(@post.forum)
     else
       redirect_to forum_topic_path(@post.forum, @post.topic)
