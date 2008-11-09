@@ -1,10 +1,10 @@
-<%= link_to(t(:rBoard), forums_path) %> -> <%= link_to @forum.title, forum_path(@forum) %> -> <%= t(:Creating_a_new_topic) %>
+<%= link_to(t(:rBoard), forums_path) %> -> <%= breadcrumb(@forum) %> -> <%= t(:Creating_a_topic) %>
 <%= error_messages_for :post, :topic %>
 <% form_for [@forum, @topic] do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
     <thead>
       <tr>
-        <td colspan='2'><h2><%= t(:Creating_a_new_topic) %> <%= t(:in) %>: <%= @forum.title %></h2></td>
+        <td colspan='2'><h2><%= t(:Creating_a_topic) %> <%= t(:in) %>: <%= @forum.title %></h2></td>
       </tr>
     </thead>
     <%= render :partial => "form", :locals => { :f => f } %>

@@ -1,6 +1,6 @@
 <%= link_to t(:admin_section), admin_root_path %> -> <%= t(:Forums) %>
 <h2><%= t(:Forums) %></h2>
-<%= link_to t(:New_forum), new_admin_forum_path %>
+<%= link_to t(:New_Forum), new_admin_forum_path %>
 <table cellspacing='0' cellpadding='3' width='100%' class='list-table' rules='groups'>
   <% unless @forums.empty? %>
     <thead>

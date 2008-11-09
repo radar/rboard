@@ -47,7 +47,7 @@
       
       <% if @themes.size > 1 %>
         <tr>
-          <td valign='top'><%= f.label 'theme_id', t(:theme) %></td>
+          <td valign='top'><%= f.label 'theme_id', t(:Theme) %></td>
           <td><%= f.select "theme_id", @themes.map { |t| [t.name, t.id] } %></td>
         </tr>
       <% end %>

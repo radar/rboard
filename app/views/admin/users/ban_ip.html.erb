@@ -1,10 +1,10 @@
-<% form_for @banned_ip, :url => ban_ip_users_path do |f| %>
+<% form_for @banned_ip, :url => ban_ip_admin_users_path do |f| %>
   <%= error_messages_for :banned_ip %>
 
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
     <thead>
       <tr>
-        <td colspan='2'><h2><%= t(:ban_an_ip) %></h2></td>
+        <td colspan='2'><h2><%= t(:Ban_an_ip) %></h2></td>
       </tr>
     </thead>
     <tbody>
@@ -34,7 +34,7 @@
     </tfoot>
   </table>
 
-  <h2><%= t(:banned_ips)%></h2>
+  <h2><%= t(:Banned_IPs)%></h2>
   <% unless @banned.empty? %>
     <ul>
       <% for ip in @banned %>

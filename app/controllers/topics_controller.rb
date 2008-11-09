@@ -54,14 +54,14 @@ class TopicsController < ApplicationController
     else
       if @topic.update_attributes(params[:topic])
         if @topic.posts.first.update_attributes(params[:topic])
-          flash[:notice] = t(:topic_was_updated)
+          flash[:notice] = t(:topic_updated)
           redirect_back_or_default forum_topic_path(@forum, @topic)
         else
-          flash[:notice] = t(:post_is_invalid)
+          flash[:notice] = t(:post_not_updated)
           render :action => "edit"
         end
       else
-        flash[:notice] = t(:topic_is_invalid)
+        flash[:notice] = t(:topic_not_updated)
         render :action => "edit"
       end
     end

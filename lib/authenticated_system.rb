@@ -31,14 +31,14 @@ module AuthenticatedSystem
     
   def non_admin_redirect
     if !is_admin?
-      flash[:notice] = "You need to be an admin to do that."
+      flash[:notice] = t(:need_to_be_admin)
       redirect_back_or_default(root_path)
     end
   end
   
   def non_moderator_redirect
     if !is_moderator?
-      flash[:notice] = "You need to be a moderator or an admin to do that."
+      flash[:notice] = t(:need_to_be_admin_or_moderator)
       redirect_back_or_default(root_path)
     end
   end
@@ -99,8 +99,8 @@ module AuthenticatedSystem
     username, passwd = get_auth_data
     self.current_user ||= User.authenticate(username, passwd) || :false if username && passwd
     if !logged_in?
-      flash[:notice] = "You must be logged in to do that."
-      redirect_to(:controller => "users", :action => "login")
+      flash[:notice] = t(:you_must_be_logged_in)
+      redirect_to login_path
     end
   end
   

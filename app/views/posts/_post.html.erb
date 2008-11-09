@@ -13,7 +13,7 @@
           <%= link_to t(:Quote), reply_topic_post_path(post.topic, post) %> 
             <% if post.belongs_to?(current_user) %>
               | <%= link_to t(:Edit), edit_topic_post_path(@topic, post) %> |
-               <%= link_to t(:Delete), topic_post_path(@topic, post), :method => "delete", :confirm => t(:confirm_delete_post) %>
+               <%= link_to t(:Delete), topic_post_path(@topic, post), :method => "delete", :confirm => t(:confirm_post_deletion) %>
             <% end %>
             <% if is_moderator? %>
               | <%= link_to t(:Split), split_topic_post_path(@topic, post) %>
