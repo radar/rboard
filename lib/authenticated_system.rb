@@ -81,10 +81,6 @@ module AuthenticatedSystem
     @current_user = new_user
   end
   
-  def is_owner_or_admin?(id)
-    logged_in? && (current_user.user_level == UserLevel.find_by_name("Administrator") || Post.find(id).user == current_user)
-  end
-  
   # Filter method to enforce a login requirement.
   #
   # To require logins for all actions, use this in your controllers:
@@ -135,8 +131,6 @@ module AuthenticatedSystem
               :time_display,
               :date_display,
               :date_time_display,
-              :is_owner_or_admin?,
-              :can_reply?,
               :per_page
   end
   
