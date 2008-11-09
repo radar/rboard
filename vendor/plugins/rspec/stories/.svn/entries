@@ -1,61 +1,0 @@
-8
-
-dir
-1542
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/stories
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-interop
-dir
-
-helper.rb
-file
-
-
-
-
-2008-08-05T00:55:46.000000Z
-6c263e3c2887fd3487b2bd1b22807078
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-configuration
-dir
-
-stories
-dir
-
-mock_framework_integration
-dir
-
-all.rb
-file
-
-
-
-
-2008-08-05T00:55:46.000000Z
-6237866c4ec7760fa8bf335005a3774c
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-example_groups
-dir
-
-resources
-dir
-
-pending_stories
-dir
-

@@ -1,40 +1,0 @@
-8
-
-dir
-1542
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/generators
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-rspec_controller
-dir
-
-rspec_default_values.rb
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-a6aa83642a56f1262520db0152e7367a
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-rspec
-dir
-
-rspec_model
-dir
-
-rspec_scaffold
-dir
-

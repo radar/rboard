@@ -1,45 +1,0 @@
-8
-
-dir
-1542
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/generators/rspec_model
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-rspec_model_generator.rb
-file
-
-
-
-
-2008-08-05T00:55:44.000000Z
-78fbd830c3f653e163f836e02ffabed5
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-has-props
-
-USAGE
-file
-
-
-
-
-2008-08-05T00:55:44.000000Z
-9491d3df4c1ef2b4171a576a4c65d28b
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-has-props
-
-templates
-dir
-

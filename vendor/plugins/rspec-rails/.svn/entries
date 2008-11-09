@@ -1,115 +1,0 @@
-8
-
-dir
-1542
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-History.txt
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-d2285946e1dd977a315c1ce32be4b9c1
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-Rakefile
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-63ba1ee8aa7708b57e8e8e8f744504c5
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-Manifest.txt
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-d896f1d2453afd89c3c83a59bef426a8
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-spec_resources
-dir
-
-.gitignore
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-3a8ad5d410b5c6fb7711178610b7c5b0
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-init.rb
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-640f74b8156893c1bc98a2050c8589d3
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-lib
-dir
-
-UPGRADE
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-be9376da89cd68249e6b3c72ae03cec0
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-stories
-dir
-
-generators
-dir
-
-spec
-dir
-
-README.txt
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-cb27ed6219ab98a7f58bc6b609ee6e16
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-

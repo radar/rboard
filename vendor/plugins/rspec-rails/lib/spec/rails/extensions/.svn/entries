@@ -1,40 +1,0 @@
-8
-
-dir
-1542
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec-rails/lib/spec/rails/extensions
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-action_controller
-dir
-
-action_view
-dir
-
-object.rb
-file
-
-
-
-
-2008-08-05T00:55:45.000000Z
-0ccfcfc8784c2ad1b081d06a88c65be5
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-active_record
-dir
-
-spec
-dir
-

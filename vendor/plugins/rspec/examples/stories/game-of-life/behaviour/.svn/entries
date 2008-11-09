@@ -1,34 +1,0 @@
-8
-
-dir
-1542
-https://svn.boxensystems.com/svn/projects/sacc/vendor/plugins/rspec/examples/stories/game-of-life/behaviour
-https://svn.boxensystems.com/svn/projects
-
-
-
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-
-svn:special svn:externals svn:needs-lock
-
-everything.rb
-file
-
-
-
-
-2008-08-05T00:55:46.000000Z
-c311ca71e7469cd6094875f659dbc28a
-2008-08-06T03:36:47.925716Z
-1542
-Ryan Bigg
-
-stories
-dir
-
-examples
-dir
-
