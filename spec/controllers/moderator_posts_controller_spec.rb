@@ -23,7 +23,7 @@ describe Moderator::PostsController do
     get 'split', :id => 1
   end
   
-  it "should be able to split a post before" do
+  it "should be able to split a topic based on a single post (before)" do
     @topic.should_receive(:posts).and_return(@posts)
     @posts.should_receive(:find).and_return(@post)
     @posts.should_receive(:all_previous).and_return(@posts + [@post])

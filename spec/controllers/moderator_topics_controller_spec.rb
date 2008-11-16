@@ -7,8 +7,9 @@ describe Moderator::TopicsController do
     login_as(:moderator)
     @admin_topic = topics(:admin)
     @moderator_topic = topics(:moderator)
-    @topic = mock(:topic)
-    @forum = mock(:forum)
+    @topic = mock_model(Topic)
+    @topics = [@topic]
+    @forum = mock_model(Forum)
     @moderation = mock(:moderation)
     @moderations = [@moderation]
   end
@@ -121,7 +122,7 @@ describe Moderator::TopicsController do
       flash[:notice].should eql(I18n.t(:topics_moved))
       response.should redirect_to(forum_path(1))
     end
-    
+      
     it "should not be able to act on moderations that don't belong to them" do
       Moderation.should_receive(:for_user).and_return(@moderations)
       @moderations.should_receive(:topics).and_return(@moderations)

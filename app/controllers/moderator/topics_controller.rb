@@ -52,7 +52,16 @@ class Moderator::TopicsController < Moderator::ApplicationController
       session[:moderated_topics] = params[:moderated_topics]
     end
     @topics ||= Topic.find(session[:moderated_topics])
+    if @topics.size == 1
+      flash[:notice] = t(:only_one_topic_for_merge)
+      redirect_back_or_default forums_path
+    end
     if request.put?
+      # Check if user has access to all topics
+      if @topics.any? { |topic| !topic.forum.viewable?(logged_in?, current_user) }
+        flash[:notice] = t(:topics_do_not_belong_to_you)
+        redirect_back_or_default forums_path
+      end
       @topic = Topic.find(params[:master_topic_id])
       @topic.merge!(session[:moderated_topics], params[:new_subject])
       flash[:notice] = t(:topics_merged)

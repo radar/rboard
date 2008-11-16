@@ -71,21 +71,7 @@
       :error => {
         :header_message => ["Couldn't save this {{object_name}}: 1 error", "Couldn't save this {{object_name}}: {{count}} errors."],
         :message => "Please check the following fields:"
-      }
-    },
-    :active_record => {
-        :errors => {
-          :models => {
-            :topics => { 
-              :attributes => {
-                :subject => {
-                  :too_short => "Subject is too short",
-                  :blank => "Subject cannot be blank"
-                }
-              }
-            }
-          }
-        },
+      },
       :error_messages => {
         :inclusion => "is not in the list",
         :exclusion => "is excluded",
@@ -258,6 +244,7 @@
    :none => "none",
    :of_all_posts => "of all posts",
    :of_all_posts_on_this_forum => "of all posts in this forum",
+   :only_one_topic_for_merge => "You cannot merge a topic into itself.",
    :Password => "Password",
    :password => "password",
    :password_has_been_changed => "Your password has been changed.",
@@ -341,6 +328,7 @@
    :topic_not_found => "The topic you were looking for could not be found.",
    :topic_too => " This was the only post in the topic, so topic was deleted also.",
    :Topics => "Topics",
+   :topics_do_not_belong_to_you => "Those topics do not belong to you.",
    :Topics_created_by => "Topics created by",
    :topics_locked => "All selected topics have been locked.",
    :topics_unlocked => "All selected topics have been unlocked.",
