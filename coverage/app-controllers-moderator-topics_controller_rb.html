@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:46 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -575,20 +575,20 @@ span.run100 {
         </td>
       <td class='lines_code'><tt>67</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>85.5%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='86'/>
-                  <td class='uncovered' width='14'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>82.1%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='82'/>
-                  <td class='uncovered' width='18'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
+                  <td class='uncovered' width='0'/>
                   </tr>
                 </table>
               </td>
@@ -632,10 +632,10 @@ span.run100 {
 </span><span class="marked0"><a name="line32"></a>32       when &quot;Unsticky&quot;
 </span><span class="marked1"><a name="line33"></a>33         @moderations_for_topics.each { |m| m.unsticky! }
 </span><span class="marked0"><a name="line34"></a>34         flash[:notice] = t(:topics_unstickied)
-</span><span class="uncovered1"><a name="line35"></a>35       when &quot;Move&quot;
-</span><span class="uncovered0"><a name="line36"></a>36         move
-</span><span class="uncovered1"><a name="line37"></a>37         return false
-</span><span class="uncovered0"><a name="line38"></a>38     end
+</span><span class="marked1"><a name="line35"></a>35       when &quot;Move&quot;
+</span><span class="marked0"><a name="line36"></a>36         move
+</span><span class="marked1"><a name="line37"></a>37         return false
+</span><span class="inferred0"><a name="line38"></a>38     end
 </span><span class="marked1"><a name="line39"></a>39     redirect_back_or_default(moderator_moderations_path)
 </span><span class="inferred0"><a name="line40"></a>40   rescue ActiveRecord::RecordNotFound
 </span><span class="marked1"><a name="line41"></a>41     flash[:notice] = t(:moderation_not_found)
@@ -643,23 +643,23 @@ span.run100 {
 </span><span class="marked1"><a name="line43"></a>43   end
 </span><span class="inferred0"><a name="line44"></a>44   
 </span><span class="marked1"><a name="line45"></a>45   def move
-</span><span class="uncovered0"><a name="line46"></a>46     if params[:new_forum_id]
-</span><span class="uncovered1"><a name="line47"></a>47       @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
-</span><span class="uncovered0"><a name="line48"></a>48       flash[:notice] = t(:topics_movied)
-</span><span class="uncovered1"><a name="line49"></a>49       redirect_back_or_default(forum_path(params[:new_forum_id]))
-</span><span class="uncovered0"><a name="line50"></a>50     else
-</span><span class="uncovered1"><a name="line51"></a>51       render
-</span><span class="uncovered0"><a name="line52"></a>52     end
-</span><span class="uncovered1"><a name="line53"></a>53   end
-</span><span class="inferred0"><a name="line54"></a>54   
-</span><span class="marked1"><a name="line55"></a>55   def toggle_lock
-</span><span class="marked0"><a name="line56"></a>56     @topic.toggle!(&quot;locked&quot;)
-</span><span class="marked1"><a name="line57"></a>57     flash[:notice] = t(:topic_locked_or_unlocked, :status =&gt; @topic.locked? ? &quot;locked&quot; : &quot;unlocked&quot;)
-</span><span class="marked0"><a name="line58"></a>58     redirect_back_or_default moderator_moderations_path
-</span><span class="inferred1"><a name="line59"></a>59   end
-</span><span class="inferred0"><a name="line60"></a>60   
-</span><span class="marked1"><a name="line61"></a>61   def toggle_sticky
-</span><span class="marked0"><a name="line62"></a>62     @topic.toggle!(&quot;sticky&quot;)
+</span><span class="marked0"><a name="line46"></a>46     if params[:new_forum_id]
+</span><span class="marked1"><a name="line47"></a>47       @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
+</span><span class="marked0"><a name="line48"></a>48       flash[:notice] = t(:topics_moved)
+</span><span class="marked1"><a name="line49"></a>49       redirect_back_or_default(forum_path(params[:new_forum_id]))
+</span><span class="inferred0"><a name="line50"></a>50     end
+</span><span class="marked1"><a name="line51"></a>51   end
+</span><span class="inferred0"><a name="line52"></a>52   
+</span><span class="marked1"><a name="line53"></a>53   def toggle_lock
+</span><span class="marked0"><a name="line54"></a>54     @topic.toggle!(&quot;locked&quot;)
+</span><span class="marked1"><a name="line55"></a>55     @topic.moderations.for_user(current_user).delete_all
+</span><span class="marked0"><a name="line56"></a>56     flash[:notice] = t(:topic_locked_or_unlocked, :status =&gt; @topic.locked? ? &quot;locked&quot; : &quot;unlocked&quot;)
+</span><span class="marked1"><a name="line57"></a>57     redirect_back_or_default moderator_moderations_path
+</span><span class="inferred0"><a name="line58"></a>58   end
+</span><span class="inferred1"><a name="line59"></a>59   
+</span><span class="marked0"><a name="line60"></a>60   def toggle_sticky
+</span><span class="marked1"><a name="line61"></a>61     @topic.toggle!(&quot;sticky&quot;)
+</span><span class="marked0"><a name="line62"></a>62     @topic.moderations.for_user(current_user).delete_all
 </span><span class="marked1"><a name="line63"></a>63     flash[:notice] = t(:topic_sticky_or_unsticky, :status =&gt; @topic.sticky? ? &quot;stickied&quot; : &quot;unstickied&quot;)
 </span><span class="marked0"><a name="line64"></a>64     redirect_back_or_default moderator_moderations_path
 </span><span class="inferred1"><a name="line65"></a>65   end
@@ -670,13 +670,13 @@ span.run100 {
 </span><span class="inferred0"><a name="line70"></a>70       
 </span><span class="inferred1"><a name="line71"></a>71       # If the user is not allowed to see the topic, then they must not be allowed to change it either.
 </span><span class="marked0"><a name="line72"></a>72       if !@topic.forum.viewable?(true, current_user)
-</span><span class="marked1"><a name="line73"></a>73         flash[:notice] = &quot;You are not allowed to access that topic.&quot;
+</span><span class="marked1"><a name="line73"></a>73         flash[:notice] = t(:not_allowed_to_access_topic)
 </span><span class="marked0"><a name="line74"></a>74         @topic.moderations.for_user(current_user).each { |m| m.destroy }
 </span><span class="marked1"><a name="line75"></a>75         redirect_to moderator_moderations_path
 </span><span class="inferred0"><a name="line76"></a>76       end
 </span><span class="inferred1"><a name="line77"></a>77       
 </span><span class="inferred0"><a name="line78"></a>78       rescue ActiveRecord::RecordNotFound
-</span><span class="marked1"><a name="line79"></a>79         flash[:notice] = &quot;The topic you were looking for could not be found.&quot;
+</span><span class="marked1"><a name="line79"></a>79         flash[:notice] = t(:topic_not_foudn)
 </span><span class="marked0"><a name="line80"></a>80         redirect_to moderator_moderations_path
 </span><span class="marked1"><a name="line81"></a>81     end
 </span><span class="inferred0"><a name="line82"></a>82   

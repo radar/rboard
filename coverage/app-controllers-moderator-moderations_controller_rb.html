@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:46 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -615,9 +615,9 @@ span.run100 {
 </span><span class="marked0"><a name="line15"></a>15     moderations = @thing.moderations
 </span><span class="marked1"><a name="line16"></a>16     @moderation = moderations.for_user(current_user).first
 </span><span class="marked0"><a name="line17"></a>17     if @moderation.nil?
-</span><span class="marked1"><a name="line18"></a>18      forum = @thing.forum
-</span><span class="marked0"><a name="line19"></a>19       moderations.create(:user =&gt; current_user, :forum =&gt; @forum)
-</span><span class="marked1"><a name="line20"></a>20       @moderated_topics_count = forum.moderations.topics.count
+</span><span class="marked1"><a name="line18"></a>18       forum = @thing.forum
+</span><span class="marked0"><a name="line19"></a>19       moderations.create(:user =&gt; current_user, :forum =&gt; forum)
+</span><span class="marked1"><a name="line20"></a>20       @moderated_topics_count = forum.moderations.topics.for_user(current_user).count
 </span><span class="inferred0"><a name="line21"></a>21     else
 </span><span class="marked1"><a name="line22"></a>22       destroy
 </span><span class="marked0"><a name="line23"></a>23       render :action =&gt; :destroy
@@ -643,7 +643,7 @@ span.run100 {
 </span><span class="marked0"><a name="line43"></a>43   def destroy
 </span><span class="marked1"><a name="line44"></a>44     @moderation ||= Moderation.find(params[:id])
 </span><span class="marked0"><a name="line45"></a>45     @moderation.destroy
-</span><span class="marked1"><a name="line46"></a>46     @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.count
+</span><span class="marked1"><a name="line46"></a>46     @moderated_topics_count = @moderation.moderated_object.forum.moderations.topics.for_user(current_user).count
 </span><span class="inferred0"><a name="line47"></a>47   end
 </span><span class="inferred1"><a name="line48"></a>48   
 </span><span class="inferred0"><a name="line49"></a>49   # Used for moving a topic, or selection of topics.

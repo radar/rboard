@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:46 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -571,24 +571,24 @@ span.run100 {
     </thead>
   <tbody><tr class='light'><td><a href='app-controllers-moderator-posts_controller_rb.html'>app/controllers/moderator/posts_controller.rb</a>
         </td>
-      <td class='lines_total'><tt>3</tt>
+      <td class='lines_total'><tt>51</tt>
         </td>
-      <td class='lines_code'><tt>2</tt>
+      <td class='lines_code'><tt>46</tt>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_total'>78.4%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='78'/>
+                  <td class='uncovered' width='22'/>
                   </tr>
                 </table>
               </td>
             </tr>
           </table>
         </td>
-      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>100.0%</tt>
+      <td><table cellspacing='0' cellpadding='0' align='right'><tr><td><tt class='coverage_code'>76.1%</tt>
               &nbsp;</td>
-            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='100'/>
-                  <td class='uncovered' width='0'/>
+            <td><table cellspacing='0' class='percent_graph' cellpadding='0' width='100'><tr><td class='covered' width='76'/>
+                  <td class='uncovered' width='24'/>
                   </tr>
                 </table>
               </td>
@@ -598,9 +598,57 @@ span.run100 {
       </tr>
     </tbody>
   </table>
-<pre><span class="marked0"><a name="line1"></a>1 class Moderator::PostsController &lt; Moderator::ApplicationController
-</span><span class="inferred1"><a name="line2"></a>2   
-</span><span class="inferred0"><a name="line3"></a>3 end
+<pre><span class="marked0"><a name="line1"></a> 1 class Moderator::PostsController &lt; Moderator::ApplicationController
+</span><span class="marked1"><a name="line2"></a> 2   before_filter :find_topic
+</span><span class="inferred0"><a name="line3"></a> 3   
+</span><span class="inferred1"><a name="line4"></a> 4   # Magic for this method is in lib/array_ext.rb
+</span><span class="marked0"><a name="line5"></a> 5   def split
+</span><span class="marked1"><a name="line6"></a> 6     @post = @posts.find(params[:id])
+</span><span class="marked0"><a name="line7"></a> 7     if request.post?
+</span><span class="marked1"><a name="line8"></a> 8       @split_posts = case params[:direction]
+</span><span class="marked0"><a name="line9"></a> 9         when &quot;before&quot;
+</span><span class="marked1"><a name="line10"></a>10           @posts.all_previous(@post)
+</span><span class="marked0"><a name="line11"></a>11         when &quot;before_including&quot;
+</span><span class="marked1"><a name="line12"></a>12           @posts.all_previous(@post, true)
+</span><span class="marked0"><a name="line13"></a>13         when &quot;after_including&quot;
+</span><span class="marked1"><a name="line14"></a>14           @posts.all_next(@post, true)
+</span><span class="marked0"><a name="line15"></a>15         when &quot;after&quot;
+</span><span class="marked1"><a name="line16"></a>16           @posts.all_next(@post)
+</span><span class="inferred0"><a name="line17"></a>17         end
+</span><span class="marked1"><a name="line18"></a>18       if @split_posts.blank?
+</span><span class="uncovered0"><a name="line19"></a>19         flash[:notice] = t(:selection_yielded_no_posts)
+</span><span class="uncovered1"><a name="line20"></a>20         redirect_to split_moderator_topic_post_path(@topic, params[:id])
+</span><span class="uncovered0"><a name="line21"></a>21         return false
+</span><span class="uncovered1"><a name="line22"></a>22       end
+</span><span class="inferred0"><a name="line23"></a>23       
+</span><span class="marked1"><a name="line24"></a>24       if @split_posts.size == @posts.size
+</span><span class="uncovered0"><a name="line25"></a>25         flash[:notice] = t(:cannot_take_all_posts_away)
+</span><span class="uncovered1"><a name="line26"></a>26         redirect_to split_moderator_topic_post_path(@topic, params[:id])
+</span><span class="uncovered0"><a name="line27"></a>27         return false
+</span><span class="uncovered1"><a name="line28"></a>28       end
+</span><span class="marked0"><a name="line29"></a>29       @subject = case params[:how]
+</span><span class="marked1"><a name="line30"></a>30         when &quot;just_split&quot;
+</span><span class="marked0"><a name="line31"></a>31           &quot;[SPLIT] #{@topic.subject}&quot;
+</span><span class="uncovered1"><a name="line32"></a>32         when &quot;split_with_subject&quot;
+</span><span class="uncovered0"><a name="line33"></a>33           &quot;#{params[:subject]}&quot;
+</span><span class="uncovered1"><a name="line34"></a>34       end
+</span><span class="marked0"><a name="line35"></a>35       @new_topic = @topic.forum.topics.create(:subject =&gt; @subject, :user =&gt; @posts.first.user, :last_post =&gt; @split_posts.last)
+</span><span class="marked1"><a name="line36"></a>36       @new_topic.posts = @split_posts
+</span><span class="marked0"><a name="line37"></a>37       flash[:notice] = t(:topic_has_been_split)
+</span><span class="marked1"><a name="line38"></a>38       redirect_to forum_topic_path(@new_topic.forum, @new_topic)
+</span><span class="inferred0"><a name="line39"></a>39     else
+</span><span class="marked1"><a name="line40"></a>40       @previous_post = @posts.previous(@post)
+</span><span class="marked0"><a name="line41"></a>41       @next_post = @posts.next(@post)
+</span><span class="inferred1"><a name="line42"></a>42     end
+</span><span class="inferred0"><a name="line43"></a>43   end
+</span><span class="inferred1"><a name="line44"></a>44   
+</span><span class="marked0"><a name="line45"></a>45   private
+</span><span class="inferred1"><a name="line46"></a>46   
+</span><span class="marked0"><a name="line47"></a>47   def find_topic
+</span><span class="marked1"><a name="line48"></a>48     @topic = Topic.find(params[:topic_id], :joins =&gt; :posts)
+</span><span class="marked0"><a name="line49"></a>49     @posts = @topic.posts
+</span><span class="inferred1"><a name="line50"></a>50   end
+</span><span class="inferred0"><a name="line51"></a>51 end
 </span></pre><hr/>
     <p>Generated using the <a href='http://eigenclass.org/hiki.rb?rcov'>rcov code coverage analysis tool for Ruby</a>
    version 0.8.1.2.</p>

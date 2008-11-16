@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:34 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:48 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -631,14 +631,14 @@ span.run100 {
 </span><span class="inferred0"><a name="line31"></a> 31     
 </span><span class="marked1"><a name="line32"></a> 32   def non_admin_redirect
 </span><span class="marked0"><a name="line33"></a> 33     if !is_admin?
-</span><span class="marked1"><a name="line34"></a> 34       flash[:notice] = &quot;You need to be an admin to do that.&quot;
+</span><span class="marked1"><a name="line34"></a> 34       flash[:notice] = t(:need_to_be_admin)
 </span><span class="marked0"><a name="line35"></a> 35       redirect_back_or_default(root_path)
 </span><span class="inferred1"><a name="line36"></a> 36     end
 </span><span class="marked0"><a name="line37"></a> 37   end
 </span><span class="inferred1"><a name="line38"></a> 38   
 </span><span class="marked0"><a name="line39"></a> 39   def non_moderator_redirect
 </span><span class="marked1"><a name="line40"></a> 40     if !is_moderator?
-</span><span class="marked0"><a name="line41"></a> 41       flash[:notice] = &quot;You need to be a moderator or an admin to do that.&quot;
+</span><span class="marked0"><a name="line41"></a> 41       flash[:notice] = t(:need_to_be_admin_or_moderator)
 </span><span class="marked1"><a name="line42"></a> 42       redirect_back_or_default(root_path)
 </span><span class="inferred0"><a name="line43"></a> 43     end
 </span><span class="marked1"><a name="line44"></a> 44   end
@@ -699,8 +699,8 @@ span.run100 {
 </span><span class="marked0"><a name="line99"></a> 99     username, passwd = get_auth_data
 </span><span class="marked1"><a name="line100"></a>100     self.current_user ||= User.authenticate(username, passwd) || :false if username &amp;&amp; passwd
 </span><span class="marked0"><a name="line101"></a>101     if !logged_in?
-</span><span class="marked1"><a name="line102"></a>102       flash[:notice] = &quot;You must be logged in to do that.&quot;
-</span><span class="marked0"><a name="line103"></a>103       redirect_to(:controller =&gt; &quot;users&quot;, :action =&gt; &quot;login&quot;)
+</span><span class="marked1"><a name="line102"></a>102       flash[:notice] = t(:you_must_be_logged_in)
+</span><span class="marked0"><a name="line103"></a>103       redirect_to login_path
 </span><span class="inferred1"><a name="line104"></a>104     end
 </span><span class="inferred0"><a name="line105"></a>105   end
 </span><span class="inferred1"><a name="line106"></a>106   

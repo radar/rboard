@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:34 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -601,13 +601,13 @@ span.run100 {
 <pre><span class="marked1"><a name="line1"></a> 1 class Post &lt; ActiveRecord::Base
 </span><span class="marked0"><a name="line2"></a> 2   belongs_to :user
 </span><span class="marked1"><a name="line3"></a> 3   belongs_to :topic
-</span><span class="inferred0"><a name="line4"></a> 4   
-</span><span class="marked1"><a name="line5"></a> 5   has_many :edits, :order =&gt; &quot;created_at DESC&quot;, :dependent =&gt; :destroy
-</span><span class="marked0"><a name="line6"></a> 6   has_many :moderations, :as =&gt; :moderated_object, :dependent =&gt; :destroy
-</span><span class="inferred1"><a name="line7"></a> 7   
-</span><span class="marked0"><a name="line8"></a> 8   validates_length_of :text, :minimum =&gt; 4
-</span><span class="marked1"><a name="line9"></a> 9   validates_presence_of :text
-</span><span class="marked0"><a name="line10"></a>10   belongs_to :edited_by, :class_name =&gt; &quot;User&quot;
+</span><span class="marked0"><a name="line4"></a> 4   belongs_to :edited_by, :class_name =&gt; &quot;User&quot;
+</span><span class="inferred1"><a name="line5"></a> 5   
+</span><span class="marked0"><a name="line6"></a> 6   has_many :edits, :order =&gt; &quot;created_at DESC&quot;, :dependent =&gt; :destroy
+</span><span class="marked1"><a name="line7"></a> 7   has_many :moderations, :as =&gt; :moderated_object, :dependent =&gt; :destroy
+</span><span class="inferred0"><a name="line8"></a> 8   
+</span><span class="marked1"><a name="line9"></a> 9   validates_length_of :text, :minimum =&gt; 4
+</span><span class="marked0"><a name="line10"></a>10   validates_presence_of :text
 </span><span class="inferred1"><a name="line11"></a>11   
 </span><span class="marked0"><a name="line12"></a>12   define_index do
 </span><span class="marked1"><a name="line13"></a>13       indexes text

@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:47 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -654,14 +654,14 @@ span.run100 {
 </span><span class="uncovered1"><a name="line54"></a> 54     else
 </span><span class="uncovered0"><a name="line55"></a> 55       if @topic.update_attributes(params[:topic])
 </span><span class="uncovered1"><a name="line56"></a> 56         if @topic.posts.first.update_attributes(params[:topic])
-</span><span class="uncovered0"><a name="line57"></a> 57           flash[:notice] = t(:topic_was_updated)
+</span><span class="uncovered0"><a name="line57"></a> 57           flash[:notice] = t(:topic_updated)
 </span><span class="uncovered1"><a name="line58"></a> 58           redirect_back_or_default forum_topic_path(@forum, @topic)
 </span><span class="uncovered0"><a name="line59"></a> 59         else
-</span><span class="uncovered1"><a name="line60"></a> 60           flash[:notice] = t(:post_is_invalid)
+</span><span class="uncovered1"><a name="line60"></a> 60           flash[:notice] = t(:post_not_updated)
 </span><span class="uncovered0"><a name="line61"></a> 61           render :action =&gt; &quot;edit&quot;
 </span><span class="uncovered1"><a name="line62"></a> 62         end
 </span><span class="uncovered0"><a name="line63"></a> 63       else
-</span><span class="uncovered1"><a name="line64"></a> 64         flash[:notice] = t(:topic_is_invalid)
+</span><span class="uncovered1"><a name="line64"></a> 64         flash[:notice] = t(:topic_not_updated)
 </span><span class="uncovered0"><a name="line65"></a> 65         render :action =&gt; &quot;edit&quot;
 </span><span class="uncovered1"><a name="line66"></a> 66       end
 </span><span class="uncovered0"><a name="line67"></a> 67     end

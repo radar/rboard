@@ -553,7 +553,7 @@ span.run100 {
 </style>
     </head>
   <body><h3>C0 code coverage information</h3>
-    <p>Generated on Sun Nov 09 11:39:33 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
+    <p>Generated on Sat Nov 15 14:40:46 +1030 2008 with <a href='http://eigenclass.org/hiki/rcov'>rcov 0.8.1.2</a>
       </p>
     <hr/>
     <pre><span class='marked0'>Code reported as executed by Ruby looks like this...
@@ -622,7 +622,7 @@ span.run100 {
 </span><span class="marked0"><a name="line22"></a>22     @topics = @forum.topics.sorted.paginate :page =&gt; params[:page], :per_page =&gt; 30, :order =&gt; &quot;sticky DESC&quot;
 </span><span class="marked1"><a name="line23"></a>23     @forums = @forum.children
 </span><span class="marked0"><a name="line24"></a>24     @all_forums = Forum.all(:select =&gt; &quot;id, title&quot;, :order =&gt; &quot;title ASC&quot;) - [@forum] if is_moderator?
-</span><span class="marked1"><a name="line25"></a>25     @moderated_topics_count = @forum.moderations.topics.count
+</span><span class="marked1"><a name="line25"></a>25     @moderated_topics_count = @forum.moderations.topics.for_user(current_user).count
 </span><span class="inferred0"><a name="line26"></a>26   end
 </span><span class="inferred1"><a name="line27"></a>27   
 </span><span class="marked0"><a name="line28"></a>28   private
