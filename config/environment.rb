@@ -2,7 +2,7 @@
 # Uncomment this to force production mode.
 # ENV['RAILS_ENV'] ||= 'production'
 
-RAILS_GEM_VERSION = '2.1.1' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.2.0' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -10,7 +10,7 @@ Rails::Initializer.run do |config|
   
   config.gem 'chronic'
   config.gem 'ultraviolet', :lib => "uv"
-  
+   
   config.frameworks -= [:action_web_service, :action_mailer]
   config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
 
@@ -21,11 +21,11 @@ end
 # Application specific variables
 DEFAULT_STYLESHEET = 1
 PER_PAGE = 30
-TIME_DISPLAY = "%d %B %Y %I:%M:%S%p"
+TIME_DISPLAY = "%I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
-RAILS_RELATIVE_URL_ROOT = "http://localhost"
 I18n.load_path = Dir.glob("#{RAILS_ROOT}/locales/*.rb")
 I18n.default_locale = "en-AU"
 require 'array_ext'
+RAILS_RELATIVE_URL_ROOT = "http://localhost"
 #for some reason it doesn't automatically detect the admin's application controller.
 Admin::ApplicationController

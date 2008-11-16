@@ -74,6 +74,18 @@
       }
     },
     :active_record => {
+        :errors => {
+          :models => {
+            :topics => { 
+              :attributes => {
+                :subject => {
+                  :too_short => "Subject is too short",
+                  :blank => "Subject cannot be blank"
+                }
+              }
+            }
+          }
+        },
       :error_messages => {
         :inclusion => "is not in the list",
         :exclusion => "is excluded",
@@ -133,6 +145,7 @@
    :confirm_unban_ip => "Are you sure you want to unban this ip?",
    :confirm_user_deletion => "Are you sure you want to delete this user?",
    :Create => "Create",
+   :create_one => "create one",
    :Creator => "Creator",
    :Creating_a_forum => "Creating a forum",
    :Creating_a_rank => "Creating a rank",
@@ -203,6 +216,8 @@
    :make_default => "make default",
    :Member_List => "Member List",
    :Member_since => "Member since",
+   :Merge => "Merge",
+   :Merging => "Merging",
    :message_deleted => "Message has been deleted.",
    :message_not_sent => "This message could not be sent.",
    :Message_from => "Message from",
@@ -299,8 +314,9 @@
    :split_with_subject => "Split with subject",
    :Splitting => "Splitting",
    :Sticky => "Sticky",
+   :Subforums => "Subforums",
    :Subject => "Subject",
-   :subforums => "subforums",
+   :Subforums_For => "Subforums For",
    :Text => "Text",
    :thanks_for_signing_up => "Thanks for signing up!",
    :Themes => "Themes",
@@ -354,7 +370,7 @@
    :Yes => "Yes",
    :you_are_banning_yourself => "You are banning yourself",
    :you_have_been_logged_out => "You have been logged out.",
-   :you_must_be_logged_in => "You must be logged in.",
+   :you_must_be_logged_in => "You must be logged in to do that.",
    :you_should_create_forum => "Maybe you should create a forum."
   }
 }

@@ -16,7 +16,7 @@
                <%= link_to t(:Delete), topic_post_path(@topic, post), :method => "delete", :confirm => t(:confirm_post_deletion) %>
             <% end %>
             <% if is_moderator? %>
-              | <%= link_to t(:Split), split_topic_post_path(@topic, post) %>
+              | <%= link_to t(:Split), split_moderator_topic_post_path(@topic, post) %>
             <% end %>
         <% else %>
           Locked

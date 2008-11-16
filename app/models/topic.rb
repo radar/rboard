@@ -52,6 +52,16 @@ class Topic < ActiveRecord::Base
     update_attribute("sticky", false)
   end
   
+  def merge!(topic_ids, new_subject=nil)
+    other_topic_ids = topic_ids - [id.to_s]
+    self.subject = new_subject unless new_subject.blank?
+    self.posts += Topic.find(other_topic_ids, :include => :posts).map(&:posts).flatten!.sort_by(&:created_at)
+    Topic.find(other_topic_ids).map(&:destroy)
+    self.last_post = posts.last
+    moderations.delete_all
+    save!
+  end
+  
   def last_10_posts
     posts.last(10).reverse
   end

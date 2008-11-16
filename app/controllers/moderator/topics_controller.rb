@@ -1,5 +1,5 @@
 class Moderator::TopicsController < Moderator::ApplicationController
-  before_filter :find_topic, :except => [:moderate]
+  before_filter :find_topic, :except => [:moderate, :merge]
   
   def destroy
     @topic.destroy
@@ -35,10 +35,31 @@ class Moderator::TopicsController < Moderator::ApplicationController
       when "Move"
         move
         return false
+      when "Merge"
+        merge
+        render :action => "merge"
+        return false
     end
-    redirect_back_or_default(moderator_moderations_path)
+    redirect_back_or_default(moderator_moderations_path) 
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t(:moderation_not_found)
+    redirect_back_or_default moderator_moderations_path
+  end
+  
+  def merge
+    if params[:moderated_topics]
+      @topics = Topic.find(params[:moderated_topics])
+      session[:moderated_topics] = params[:moderated_topics]
+    end
+    @topics ||= Topic.find(session[:moderated_topics])
+    if request.put?
+      @topic = Topic.find(params[:master_topic_id])
+      @topic.merge!(session[:moderated_topics], params[:new_subject])
+      flash[:notice] = t(:topics_merged)
+      redirect_back_or_default forums_path
+    end    
+  rescue ActiveRecord::RecordNotFound
+    flash[:notice] = t(:topic_not_found)
     redirect_back_or_default moderator_moderations_path
   end
   
@@ -47,8 +68,6 @@ class Moderator::TopicsController < Moderator::ApplicationController
       @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
       flash[:notice] = t(:topics_moved)
       redirect_back_or_default(forum_path(params[:new_forum_id]))
-    else
-      render
     end
   end
   
@@ -78,7 +97,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
       end
       
       rescue ActiveRecord::RecordNotFound
-        flash[:notice] = t(:topic_not_foudn)
+        flash[:notice] = t(:topic_not_found)
         redirect_to moderator_moderations_path
     end
   

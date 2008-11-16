@@ -1,6 +1,6 @@
-<%= link_to(t(:rBoard), forums_path) %> <%= breadcrumb(@forum) %>
+<%= link_to(t(:rBoard), forums_path) %> -> <%= breadcrumb(@forum) %>
   <% unless @forums.empty? %>
-    <h2><%= t(:subforums) %> <%= @forum.title %></h2>
+    <h2><%= t(:Subforums) %> <%= @forum.title %></h2>
     <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
       <thead>
         <tr>
@@ -55,13 +55,13 @@
               <% end %>
             </td>
             <td class='topic_subject'>
-              <b><%= link_to(topic.subject, forum_topic_path(topic.forum, topic)) %>
+              <b><%= link_to(h(topic.subject), forum_topic_path(topic.forum, topic)) %>
                  <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %></b>
             </td>
             <td align='center'><%= topic.posts.size - 1 %></td>
             <td align='center'><%= topic.views %></td>
-            <td align='center'><%= link_to(topic.user.login, topic.user.login) %></td>
-            <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to topic.last_post.user.login, topic.last_post.user %></td>
+            <td align='center'><%= link_to(h(topic.user.login), topic.user) %></td>
+            <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user.login), topic.last_post.user %></td>
           </tr>
         <% end %>
       </tbody>

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Topic, "in general" do
-  fixtures :topics, :forums
+  fixtures :topics, :forums, :users
   before do
     @topic = mock("topic")
     @forum = mock("forum")
@@ -10,6 +10,7 @@ describe Topic, "in general" do
     @everybody = forums(:everybody)
     @sub_of_everybody = forums(:sub_of_everybody)
     @admins_only = forums(:admins_only)
+    @administrator = users(:administrator)
     # Remove the call to reverse for an interesting failing test
     @posts = @valid_topic.posts.reverse
   end
@@ -78,5 +79,20 @@ describe Topic, "in general" do
     @valid_topic.move!(@sub_of_everybody.id)
     @valid_topic.forum_id.should eql(@sub_of_everybody.id)
   end
+  
+  it "should be able to merge two topics" do
+    Topic.count.should eql(6)
+    topic = @everybody.topics.create(:subject => "subject", :user => @administrator)
+    post = topic.posts.create(:text => "First post", :user => @administrator)
+    other_topic = @everybody.topics.create(:subject => "second subject", :user => @administrator)
+    other_post = other_topic.posts.create(:text => "Second post", :user => @administrator)
+    yet_another_post = topic.posts.create(:text => "Third post", :user => @administrator)
+    topic.posts.size.should eql(2)
+    other_topic.posts.size.should eql(1)
+    Topic.count.should eql(8)
+    topic.merge!([other_topic.id])
+    topic.posts.size.should eql(3)
+    Topic.count.should eql(7)
+  end  
   
 end

@@ -36,41 +36,68 @@ describe TopicsController do
       login_as(:plebian)
     end
     
+    def find_forum
+      Forum.should_receive(:find).and_return(@forum)
+    end
+    
+    def forum_not_viewable
+      find_forum
+      @forum.should_receive(:viewable?).and_return(false)
+    end
+    
+    def forum_viewable
+      find_forum
+      @forum.should_receive(:viewable?).and_return(true)
+    end
+    
+    def forum_not_viewable_aftermath
+      response.should redirect_to(root_path)
+      flash[:notice].should eql(I18n.t(:not_allowed_to_view_topics))
+    end
+      
+    
     it "should redirect to the forums show action if index is requested" do
       get 'index', :forum_id => @everybody.id
       response.should redirect_to(forum_path(@everybody.id))
     end
   
     it "should stop a user from being able to create a topic in a restricted forum" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(false)
       get 'new', { :forum_id => @admin_forum.id }
-      response.should redirect_to(root_path)
-      flash[:notice].should eql("You are not allowed to view topics in that forum.")
+      forum_not_viewable_aftermath
     end
     
     it "should not create a topic if a user is not allowed" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(false)
+      forum_not_viewable
       post 'create', { :topic => { :subject => "Test!" }, :post => { :text => "Testing!" }, :forum_id => @admin_forum.id }
-      response.should redirect_to(root_path)
-      flash[:notice].should eql("You are not allowed to view topics in that forum.")
+      forum_not_viewable_aftermath
     end
     
     it "should not be able to see a restricted topic" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(false)
+      forum_not_viewable
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(root_path)
-      flash[:notice].should eql("You are not allowed to view topics in that forum.")
+      forum_not_viewable_aftermath
     end
     
     it "should not be able to see topics that do not exist" do
-      Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).and_return(true)
+      forum_viewable
       @forum.should_receive(:topics).and_return(@topics)
       @topics.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       get 'show', { :forum_id => @everybody.id, :id => 123456789 }
+      flash[:notice].should eql(I18n.t(:topic_not_found))
+      response.should redirect_to(forums_path)
+    end
+    
+    it "should not be able to edit a restricted topic" do
+      forum_not_viewable
+      get 'edit', { :forum_id => @everybody.id, :id => 1 }
+      forum_not_viewable_aftermath
+    end
+    
+    it "should not be able to update a restricted topic" do
+      forum_not_viewable
+      
+      put 'update', { :forum_id => @everybody.id, :id => 1 }
+      forum_not_viewable_aftermath
     end
   end
   
