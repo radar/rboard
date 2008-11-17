@@ -1,4 +1,5 @@
-.h1 PLEASE RUN RAKE INSTALL WHEN TRYING THIS APPLICATION
+PLEASE RUN `RAKE INSTALL` WHEN TRYING THIS APPLICATION
+====================================================
 
 1. Why?
 
