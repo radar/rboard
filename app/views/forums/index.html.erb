@@ -13,12 +13,22 @@
 </tbody>
   <% else %>
     <thead>
-      <tr><td colspan='5' align='center'><b><%= t(:no_forums) %><% unless is_admin? %><%= t(:administrator_should_create_forum) %><% else %><%= link_to t(:you_should_create_forum), new_admin_forum_path %><% end %></b></td>
+      <tr>
+        <td colspan='5' align='center'>
+          <b>
+            <%= t(:no_forums) %>
+            <% unless is_admin? %>
+              <%= t(:administrator_should_create_forum) %>
+            <% else %>
+              <%= link_to t(:you_should_create_forum), new_admin_forum_path %>
+            <% end %>
+          </b>
+        </td>
+      </tr>
     </thead>
   <% end %>
   
-  <tfoot>
-  </tfoot>
+
 </table><br />
 <% if logged_in? %>
   <table cellspacing='0' cellpadding='5' class='info-box' width='100%' rules='groups'>

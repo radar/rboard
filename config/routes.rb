@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.chronic 'chronic', :controller => 'chronic'
   end
   
+  
   map.namespace :moderator do |moderator|
     moderator.root :controller => "index"
     moderator.resources :topics, :member => { :toggle_lock => :put, :toggle_sticky => :put }, :collection => { :moderate => :post, :merge => :put } do |topic|
