@@ -230,15 +230,4 @@ describe TopicsController do
     
   end
   
-  describe TopicsController, "for logged in moderator" do
-    before do
-      login_as(:moderator)
-    end
-    
-    it "should not be able to lock any topic in the admin forum" do
-      put 'lock', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
-      response.should redirect_to(root_path)
-      flash[:notice].should eql("You are not allowed to view topics in that forum.")
-    end
-  end
 end
