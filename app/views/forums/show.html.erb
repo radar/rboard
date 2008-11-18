@@ -83,7 +83,7 @@
       <tr>
         <td align='center'>
           <% if @forum.topics_creatable_by?(logged_in?, current_user) %>
-            <%= t(:no_topics_for_forum) %> <%= t(:why_not) << link_to(t(:create_one?), new_forum_topic_path(@forum)) %>
+            <%= t(:no_topics_for_forum) %> <%= t(:why_not) %> <%= link_to(t(:create_one?), new_forum_topic_path(@forum)) %>
           <% end %>
         </td>
       </tr>

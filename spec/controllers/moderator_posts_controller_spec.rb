@@ -15,6 +15,20 @@ describe Moderator::PostsController do
     Topic.should_receive(:find).and_return(@topic)
   end
   
+  def split
+    @topic.should_receive(:posts).and_return(@posts)
+    @posts.should_receive(:find).and_return(@post)
+  end
+  
+  def split_success
+    @topic.should_receive(:subject).and_return("Subject")
+    @topic.should_receive(:forum).twice.and_return(@forum)
+    @forum.should_receive(:topics).and_return(@topics)
+    @post.should_receive(:user).and_return(@user)
+    @topics.should_receive(:create).and_return(@topic)
+    @topic.should_receive(:posts=).and_return(@posts)
+  end
+  
   it "should be able to begin to split a post" do
     @topic.should_receive(:posts).and_return(@posts)
     @posts.should_receive(:find).and_return(@post)
@@ -23,45 +37,28 @@ describe Moderator::PostsController do
     get 'split', :id => 1
   end
   
-  it "should be able to split a topic based on a single post (before)" do
-    @topic.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:find).and_return(@post)
-    @posts.should_receive(:all_previous).and_return(@posts + [@post])
-    @topic.should_receive(:subject).and_return("Subject")
-    @topic.should_receive(:forum).twice.and_return(@forum)
-    @forum.should_receive(:topics).and_return(@topics)
-    @post.should_receive(:user).and_return(@user)
-    @topics.should_receive(:create).and_return(@topic)
-    @topic.should_receive(:posts=).and_return(@posts)
-    post 'split', { :id => 1, :direction => "before", :how => "just_split" }
+  it "should be able to split a topic before and including a specific post" do
+    split
+    split_success
+    @posts.should_receive(:all_previous).with(@post, true).and_return(@posts + [@post])
+    post 'split', { :id => 1, :direction => "before_including", :how => "just_split", :topic_id => 1 }
+    response.should redirect_to(forum_topic_path(@forum, @topic))    
   end
   
-  it "should be able to split a post before and including that post" do
-    split_mocking
-    @posts.should_receive(:all_previous).and_return(@posts + [@post])
-    post 'split', { :id => 1, :direction => "before_including", :how => "just_split" }
+  it "should be able to split a topic after and including a specific post" do
+    split
+    split_success
+    @posts.should_receive(:all_next).with(@post, true).and_return(@posts + [@post])
+    post 'split', { :id => 1, :direction => "after_including", :how => "just_split", :topic_id => 1 }
+    response.should redirect_to(forum_topic_path(@forum, @topic))
   end
   
-  it "should be able to split a post after and including" do
-    split_mocking
-    @posts.should_receive(:all_next).and_return(@posts + [@post])
-    post 'split', { :id => 1, :direction => "after_including", :how => "just_split" }
-  end
-  
-  it "should be able to split a post after" do
-    split_mocking
-    @posts.should_receive(:all_next).and_return(@posts + [@post])
+  it "should not be able to split a topic after a specific post if there are no posts" do
+    split
+    @posts.should_receive(:all_next).with(@post).and_return(@posts)
     post 'split', { :id => 1, :direction => "after", :how => "just_split" }
+    flash[:notice].should eql(t(:cannot_take_all_posts_away))
+    response.should redirect_to(split_moderator_topic_post_path(@topic, 1))
   end
-  
-  def split_mocking
-    @topic.should_receive(:subject).and_return("Subject")
-    @topic.should_receive(:forum).twice.and_return(@forum)
-    @forum.should_receive(:topics).and_return(@topics)
-    @post.should_receive(:user).and_return(@user)
-    @topic.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:find).and_return(@post)
-    @topics.should_receive(:create).and_return(@topic)
-    @topic.should_receive(:posts=).and_return(@posts)
-  end
+
 end

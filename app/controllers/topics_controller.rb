@@ -43,14 +43,14 @@ class TopicsController < ApplicationController
     @post = @topic.posts.first
     if !user_has_permission?
       flash[:notice] = t(:not_allowed_to_edit_topic)
-      redirect_back_or_default forum_topic_path(@forum, @topic)
+      redirect_to forum_topic_path(@forum, @topic)
     end
   end
   
   def update
     if !user_has_permission?
       flash[:notice] = t(:not_allowed_to_edit_topic)
-      redirect_back_or_default forum_topic_path(@forum, @topic)
+      redirect_to forum_topic_path(@forum, @topic)
     else
       if @topic.update_attributes(params[:topic])
         if @topic.posts.first.update_attributes(params[:topic])

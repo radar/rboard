@@ -235,7 +235,7 @@
    :No => "No",
    :nobody_else => "There is nobody else to send a message to.",
    :nobody_is_banned => "nobody is banned",
-   :no_topics_for_forum => "no topics for forum",
+   :no_topics_for_forum => "There are no topics for this forum.",
    :no_forums => "There are no forums.",
    :no_new_messages => "no new messages",
    :no_ranks => "There are no ranks.",

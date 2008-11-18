@@ -13,6 +13,10 @@ def logout
   request.session[:user] = nil
 end
 
+def t(*args)
+  I18n.t(*args)
+end
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
