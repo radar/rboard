@@ -19,7 +19,7 @@ describe ForumsController do
   it "should restrict which forums it shows when logged in" do
     login_as(:plebian)
     Forum.should_receive(:without_parent).and_return(@forums)
-    @forums.should_receive(:viewable_to).and_return(@forums)
+    # @forums.should_receive(:viewable_to).and_return(@forums)
     get 'index'
   end
   
