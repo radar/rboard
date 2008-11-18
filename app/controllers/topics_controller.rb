@@ -79,7 +79,7 @@ class TopicsController < ApplicationController
   def find_forum
     @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
     if @forum.viewable?(logged_in?, current_user)
-      @topic = @forum.topics.find(params[:id], :joins => :posts)
+      @topic = @forum.topics.find(params[:id], :joins => :posts) if params[:id]
     else
       flash[:notice] = t(:not_allowed_to_view_topics)
       redirect_to root_path

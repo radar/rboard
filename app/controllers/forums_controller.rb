@@ -3,7 +3,6 @@ class ForumsController < ApplicationController
   before_filter :store_location, :only => :show
   
   def index
-    puts request.inspect
     @forums = Forum.without_parent
 
     @forums = if logged_in? 
