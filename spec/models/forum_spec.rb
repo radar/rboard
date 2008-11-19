@@ -40,7 +40,7 @@ describe Forum, "in general" do
   it "should be able to find all descendants of a forum" do
     @everybody.descendants.size.should eql(2)
     @everybody.descendants.should eql([@sub_of_sub_of_everybody, @sub_of_everybody])
-    @sub_of_everybody.descendants.size.should eql(3)
+    @sub_of_everybody.descendants.size.should eql(1)
     @sub_of_everybody.descendants.should eql([@sub_of_sub_of_everybody])
     @sub_of_sub_of_everybody.descendants.size.should eql(0)
     @sub_of_sub_of_everybody.descendants.should be_empty
