@@ -6,5 +6,3 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
-desc "Run the spec suite"
-task :default => :spec

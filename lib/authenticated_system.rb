@@ -59,7 +59,9 @@ module AuthenticatedSystem
   end
   
   def theme
-    logged_in? ? current_user.theme : Theme.find(:first)
+    (Dir.entries("#{RAILS_ROOT}/public/themes") - ['.svn','..','.']).each { |theme| Theme.create(:name => theme) } if Theme.count == 0   
+    theme = logged_in? && !current_user.theme.nil? ? current_user.theme : Theme.find_by_is_default(true)
+    theme.nil? ? Theme.first : theme
   end
   
   def active_user
