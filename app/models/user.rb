@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   belongs_to :theme
   belongs_to :user_level
   
-  before_save :encrypt_password
+  before_create :encrypt_password
   before_create :set_theme
   before_create :make_admin
   
@@ -108,8 +108,10 @@ class User < ActiveRecord::Base
   
   protected
   def encrypt_password
-    self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
-    self.crypted_password = encrypt(password)
+    if new_record?
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--")
+      self.crypted_password = encrypt(password)
+    end
   end
   
   def password_required?
