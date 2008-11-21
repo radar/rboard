@@ -9,7 +9,6 @@ class Post < ActiveRecord::Base
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
-  acts_as_foreigner
   
   define_index do
       indexes text
