@@ -14,9 +14,8 @@ Feature: Manage users
     Then I should see "Logged in as <a href=\"/users/1\">admin</a>"
   
   Scenario: Should not show the user list to anonymous users
-    Given I am logged in as "admin" who is an "Administrator"
-    And I am on the users page
-    Then I should see "<h2>Users</h2>"
+    Given I am on the users page
+    Then I should be redirected to "/forums"
     
     
 

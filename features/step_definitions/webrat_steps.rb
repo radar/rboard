@@ -90,6 +90,10 @@ Then /^I should not see "(.*)"$/ do |text|
   response.body.should_not =~ /#{text}/m
 end
 
+Then /^I should be redirected to "(.*)"$/ do |url|
+  response.should redirect_to(url)
+end
+
 Then /^the "(.*)" checkbox should be checked$/ do |label|
   field_labeled(label).should be_checked
 end
