@@ -15,7 +15,7 @@ Feature: Manage users
   
   Scenario: Should not show the user list to anonymous users
     Given I am on the users page
-    Then I should be redirected to "/forums"
+    Then flash notice should be You must be logged in to do that.
     
     
 
