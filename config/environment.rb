@@ -17,13 +17,12 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
   
 end
-
 # Application specific variables
 DEFAULT_STYLESHEET = 1
 PER_PAGE = 30
 TIME_DISPLAY = "%I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
-I18n.load_path = Dir.glob("#{RAILS_ROOT}/locales/*.rb")
+I18n.load_path = Dir.glob("#{RAILS_ROOT}/config/locales/*.rb")
 I18n.default_locale = "en-AU"
 require 'array_ext'
 RAILS_RELATIVE_URL_ROOT = "http://localhost"

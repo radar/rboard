@@ -9,6 +9,7 @@ class Post < ActiveRecord::Base
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
+  
   define_index do
       indexes text
       indexes user.login, :as => :user, :sortable => true
