@@ -22,8 +22,8 @@ describe Admin::RanksController do
   
   before do
     login_as(:administrator)
-    @rank = mock("rank")
-    @ranks = mock("ranks")
+    @rank = mock_model(Rank)
+    @ranks = [@rank]
     @god = ranks(:god)
   end
   

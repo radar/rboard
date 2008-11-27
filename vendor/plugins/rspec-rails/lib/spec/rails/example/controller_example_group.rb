@@ -125,7 +125,7 @@ module Spec
 
         attr_reader :response, :request, :controller
 
-        def initialize(defined_description, options={}, &implementation) #:nodoc:
+        def initialize(defined_description, &implementation) #:nodoc:
           super
           controller_class_name = self.class.controller_class_name
           if controller_class_name
@@ -247,11 +247,8 @@ module Spec
         Spec::Example::ExampleGroupFactory.register(:controller, self)
       end
       
-      # Returned by _pick_template when running controller examples in isolation mode.
-      class PickedTemplate 
-        # Do nothing when running controller examples in isolation mode.
+      class PickedTemplate
         def render_template(*ignore_args); end
-        # Do nothing when running controller examples in isolation mode.
         def render_partial(*ignore_args);  end
       end
     end

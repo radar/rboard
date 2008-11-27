@@ -31,6 +31,7 @@ module Spec
     end
     
     describe "#allow_message_expectations_on_nil" do
+      include SandboxedOptions
       
       it "should not effect subsequent examples" do
         example_group = Class.new(ExampleGroup)

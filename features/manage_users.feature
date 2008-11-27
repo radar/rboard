@@ -1,7 +1,3 @@
-Before do
-  Factory(:theme)
-end
-
 Feature: Manage users
   
   Scenario: Register new user

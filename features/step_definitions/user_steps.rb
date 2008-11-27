@@ -7,7 +7,9 @@ Given /I am on the users page/ do
 end
 
 Given /I am logged in as (.*)/ do |login|
-  @user = Factory(login.to_sym)
+  Factory(:anne)
+  Factory(:madeline)
+  Factory(:bob)
   visits "/login"  
   fills_in("login", :with => login.to_s)  
   fills_in("password", :with => "password")  

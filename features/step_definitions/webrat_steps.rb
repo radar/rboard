@@ -83,7 +83,6 @@ When /^I attach the file at "(.*)" to "(.*)" $/ do |path, field|
 end
 
 Then /^I should see "(.*)"$/ do |text|
-  puts Factory(:anne).inspect
   response.body.should =~ /#{text}/m
 end
 
@@ -93,6 +92,14 @@ end
 
 Then /flash notice should be (.*)/ do |text|
   flash[:notice].should eql(text)
+end
+
+Then /^I should not be redirected/ do
+  response.status.should_not eql(302)
+end
+
+Then /^I should be redirected/ do
+  response.status.should eql(302)
 end
 
 Then /^the "(.*)" checkbox should be checked$/ do |label|

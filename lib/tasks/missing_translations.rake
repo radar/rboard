@@ -29,7 +29,7 @@ def look_for_candidates(locale, dir="#{RAILS_ROOT}/app")
     end
   end
   rescue I18n::MissingInterpolationArgument
-     puts "\n\nTranslations missing in #{real_entry}:" unless alerted
+     puts "\n\nInterpolation possibly missing in #{real_entry}:" unless alerted
      alerted = true
      puts "    INTERPOLATION REQUIRED: #{translation} (locale: #{locale})" 
 end

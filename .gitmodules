@@ -1,9 +1,0 @@
-[submodule "vendor/plugins/acts_as_snook"]
-	path = vendor/plugins/acts_as_snook
-	url = git://github.com/rsl/acts_as_snook.git
-[submodule "vendor/plugins/cucumber"]
-	path = vendor/plugins/cucumber
-	url = git://github.com/aslakhellesoy/cucumber.git
-[submodule "vendor/plugins/webrat"]
-	path = vendor/plugins/webrat
-	url = git://github.com/brynary/webrat.git

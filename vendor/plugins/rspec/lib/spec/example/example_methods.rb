@@ -1,8 +1,9 @@
 module Spec
   module Example
     module ExampleMethods
-      
+      extend ExampleGroupMethods
       extend ModuleReopeningFix
+      include ModuleInclusionWarnings
       
       def execute(options, instance_variables)
         options.reporter.example_started(self)
@@ -11,13 +12,13 @@ module Spec
         execution_error = nil
         Timeout.timeout(options.timeout) do
           begin
-            before_each_example
+            before_example
             eval_block
           rescue Exception => e
             execution_error ||= e
           end
           begin
-            after_each_example
+            after_example
           rescue Exception => e
             execution_error ||= e
           end
@@ -38,17 +39,17 @@ module Spec
         raise Spec::Expectations::ExpectationNotMetError.new(message)
       end
 
-      def eval_each_fail_fast(examples) #:nodoc:
-        examples.each do |example|
-          instance_eval(&example)
+      def eval_each_fail_fast(procs) #:nodoc:
+        procs.each do |proc|
+          instance_eval(&proc)
         end
       end
 
-      def eval_each_fail_slow(examples) #:nodoc:
+      def eval_each_fail_slow(procs) #:nodoc:
         first_exception = nil
-        examples.each do |example|
+        procs.each do |proc|
           begin
-            instance_eval(&example)
+            instance_eval(&proc)
           rescue Exception => e
             first_exception ||= e
           end
@@ -58,10 +59,6 @@ module Spec
 
       def description
         @_defined_description || ::Spec::Matchers.generated_description || "NO NAME"
-      end
-      
-      def options
-        @_options
       end
 
       def __full_description
@@ -89,12 +86,12 @@ module Spec
       include Matchers
       include Pending
       
-      def before_each_example
+      def before_example
         setup_mocks_for_rspec
         self.class.run_before_each(self)
       end
 
-      def after_each_example
+      def after_example
         self.class.run_after_each(self)
         verify_mocks_for_rspec
       ensure

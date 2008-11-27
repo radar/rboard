@@ -6,11 +6,11 @@ describe PostsController, "as plebian" do
     login_as(:plebian)
     @post = mock_model(Post)
     @posts = [@post]
-    @user = mock("user")
-    @topic = mock("topic")
+    @user = mock_model(User)
+    @topic = mock_model(Topic)
     @real_topic = topics(:user)
-    @forum = mock("forum")
-    @edit = mock("edit")
+    @forum = mock_model(Forum)
+    @edit = mock_model(Edit)
     @edits = [@edit]
     @first_post = posts(:user)
     @pleban = users(:plebian)

@@ -7,33 +7,33 @@ module Spec
         attr_accessor :examples_ran
       end
 
-      @@class_variable = :class_variable
-      CONSTANT = :constant
+      @@klass_variable_set = true
+      CONSTANT = :foobar
 
       before do
-        @instance_variable = :instance_variable
+        @instance_variable = :hello
       end
-      
-      after(:all) do
+
+      it "should run" do
         self.class.examples_ran = true
       end
 
       it "should have access to instance variables" do
-        @instance_variable.should == :instance_variable
+        @instance_variable.should == :hello
       end
 
       it "should have access to class variables" do
-        @@class_variable.should == :class_variable
+        @@klass_variable_set.should == true
       end
 
       it "should have access to constants" do
-        CONSTANT.should == :constant
+        CONSTANT.should == :foobar
       end
 
       it "should have access to methods defined in the Example Group" do
         a_method.should == 22
       end
-      
+
       def a_method
         22
       end

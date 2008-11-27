@@ -1,40 +1,31 @@
 module Spec
   module Example
     class SharedExampleGroup < Module
-      module ClassMethods
-        def register(*args, &block)
-          new_example_group = new(*args, &block)
-          shared_example_groups << new_example_group unless already_registered?(new_example_group)
-          new_example_group
-        end
-        
-        def find(example_group_description)
-          shared_example_groups.find {|b| b.description == example_group_description}
+      class << self
+        def add_shared_example_group(new_example_group)
+          guard_against_redefining_existing_example_group(new_example_group)
+          shared_example_groups << new_example_group
         end
 
-        def clear
-          shared_example_groups.clear
-        end
-        
-        def include?(group)
-          shared_example_groups.include?(group)
-        end
-        
-        def count
-          shared_example_groups.length
+        def find_shared_example_group(example_group_description)
+          shared_example_groups.find do |b|
+            b.description == example_group_description
+          end
         end
 
-      private
-      
         def shared_example_groups
-          @shared_example_groups ||= []
+          # TODO - this needs to be global, or at least accessible from
+          # from subclasses of Example in a centralized place. I'm not loving
+          # this as a solution, but it works for now.
+          $shared_example_groups ||= []
         end
-      
-        def already_registered?(new_example_group)
-          existing_example_group = find(new_example_group.description)
-          return false unless existing_example_group
-          return true if new_example_group.equal?(existing_example_group)
-          return true if spec_path(new_example_group) == spec_path(existing_example_group)
+
+        private
+        def guard_against_redefining_existing_example_group(new_example_group)
+          existing_example_group = find_shared_example_group(new_example_group.description)
+          return unless existing_example_group
+          return if new_example_group.equal?(existing_example_group)
+          return if spec_path(new_example_group) == spec_path(existing_example_group)
           raise ArgumentError.new("Shared Example '#{existing_example_group.description}' already exists")
         end
 
@@ -42,21 +33,25 @@ module Spec
           File.expand_path(example_group.spec_path)
         end
       end
-
-      extend ClassMethods
       include ExampleGroupMethods
+      public :include
 
       def initialize(*args, &example_group_block)
-        set_description(*args)
+        describe(*args)
         @example_group_block = example_group_block
+        self.class.add_shared_example_group(self)
       end
 
       def included(mod) # :nodoc:
         mod.module_eval(&@example_group_block)
       end
 
-      def each_ancestor_example_group_class(superclass_last=false)
-        yield self
+      def execute_in_class_hierarchy(superclass_last=false)
+        classes = [self]
+        superclass_last ? classes << ExampleMethods : classes.unshift(ExampleMethods)
+        classes.each do |example_group|
+          yield example_group
+        end
       end
     end
   end

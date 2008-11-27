@@ -4,15 +4,15 @@ describe ForumsController do
   fixtures :users, :forums, :user_levels
 
   before do
-    @forum = mock(:forum)
+    @forum = mock_model(Forum)
     @forums = [@forum]
-    @topic = mock(:topic)
+    @topic = mock_model(Topic)
     @topics = [@topic]
     @admin_forum = forums(:admins_only)
     @everybody_forum = forums(:everybody)
     @admin_level = user_levels(:administrator)
     @user_level = user_levels(:user)
-    @moderation = mock(:moderation)
+    @moderation = mock_model(Moderation)
     @moderations = [@moderation]
   end
 

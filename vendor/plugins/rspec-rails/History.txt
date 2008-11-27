@@ -1,26 +1,3 @@
-=== Maintenance
-
-* 1 minor enhancement
-
-  * improve rdoc for render_template (Patch from Andrew Premdas). Fixes #571.
-
-=== Version 1.1.11 / 2008-10-24
-
-* No changes to rspec-rails - release to align with bug-fix release in rspec ... again :(
-
-=== Version 1.1.10 / 2008-10-24
-
-* No changes to rspec-rails - release to align with bug-fix release in rspec
-
-=== Version 1.1.9 / 2008-10-20
-
-* 4 bug fixes
-
-  * require 'rubygems' in script/spec
-  * fix failure message for error_on and errors_on (Patch from Mike Vincent). Fixes #566.
-  * fix issues that arise in view spec if passing actual template name to render (Patch from Mike Vincent). Fixes #551.
-  * fixed bug accessing assigns from helper examples
-
 === Version 1.1.8 / 2008-10-03
 
 * 2 bug fixes
@@ -38,7 +15,7 @@
 
 * 1 bug fix
 
-  * fixed regression where values assigned to the assigns hash were not accessible from the example (#549)
+	* fixed regression where values assigned to the assigns hash were not accessible from the example (#549)
 
 === Version 1.1.5 / 2008-09-28
 

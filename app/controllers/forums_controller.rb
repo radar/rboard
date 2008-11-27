@@ -31,6 +31,7 @@ class ForumsController < ApplicationController
     if !@forum.viewable?(logged_in?, current_user)
       flash[:notice] = t(:forum_permission_denied)
       redirect_to forums_path
+    else
     end
   end
 end

@@ -10,7 +10,7 @@ describe Moderator::TopicsController do
     @topic = mock_model(Topic)
     @topics = [@topic]
     @forum = mock_model(Forum)
-    @moderation = mock(:moderation)
+    @moderation = mock_model(Moderation)
     @moderations = [@moderation]
   end
   

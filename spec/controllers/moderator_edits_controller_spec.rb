@@ -4,9 +4,9 @@ describe Moderator::EditsController do
   fixtures :users, :posts, :topics, :edits
   
   before do
-    @edit = mock(:edit)
+    @edit = mock_model(Edit)
     @edits = [@edit]
-    @post = mock(:post)
+    @post = mock_model(Post)
     @posts = [@post]
   end
   

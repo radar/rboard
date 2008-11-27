@@ -26,9 +26,4 @@ describe "BDD framework" do
     @bdd_framework.should be_intuitive
   end
 
-  it "should not respond to test" do
-    #this will fail
-    @bdd_framework.test
-  end
-
 end

@@ -21,13 +21,13 @@ class TopicsController < ApplicationController
    end
   
   def new
-    @topic = Topic.new
+    @topic = @forum.topics.new
     @post = @topic.posts.build
   end
   
   def create
-    @topic = current_user.topics.build(params[:topic].merge(:forum_id => params[:forum_id]))
-    @post = @topic.posts.build(params[:post].merge(:user_id => current_user.id))
+    @topic = current_user.topics.build(params[:topic].merge(:forum => @forum))
+    @post = @topic.posts.build(params[:post].merge(:user => current_user))
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
     if @topic.save
       @topic.update_attribute("last_post_id", @post.id)

@@ -23,23 +23,23 @@ Factory.define :anne, :class => User do |u|
   u.login 'anne'
   u.password 'password'
   u.password_confirmation 'password'
-  u.email 'admin@rboard.com'
-  u.user_level Factory.create(:administrator)
+  u.email 'anne@rboard.com'
+  u.user_level { |user_level| user_level.association(:administrator) }
 end
 
 Factory.define :madeline, :class => User do |u|
-  u.login 'anne'
+  u.login 'madeline'
   u.password 'password'
   u.password_confirmation 'password'
-  u.email 'admin@rboard.com'
+  u.email 'madeline@rboard.com'
   u.user_level Factory(:moderator)
 end
 
 Factory.define :bob, :class => User do |u|
-  u.login 'anne'
+  u.login 'bob'
   u.password 'password'
   u.password_confirmation 'password'
-  u.email 'admin@rboard.com'
+  u.email 'bob@rboard.com'
   u.user_level Factory(:user)
 end
 
@@ -51,15 +51,22 @@ end
 Factory.define :admin_forum, :class => "Forum" do |f|
   f.title "Admins Only"
   f.description "This is the admin only forum"
-  f.is_visible_to Factory(:administrator)
-  f.topics_created_by Factory(:administrator)
+  f.is_visible_to { |is_visible_to| is_visible_to.association(:administrator) }
+  f.topics_created_by { |topics_created_by| topics_created_by.association(:administrator) }
 end
 
 Factory.define :moderator_forum, :class => "Forum" do |f|
   f.title "Moderators Only"
   f.description "This is the moderator only forum"
-  f.is_visible_to Factory(:moderator)
-  f.topics_created_by Factory(:moderator)
+  f.is_visible_to { |is_visible_to| is_visible_to.association(:moderator) }
+  f.topics_created_by { |topics_created_by| topics_created_by.association(:moderator) }
+end
+
+Factory.define :user_forum, :class => "Forum" do |f|
+  f.title "Users Only"
+  f.description "This is the users only forum"
+  f.is_visible_to { |is_visible_to| is_visible_to.association(:user) }
+  f.topics_created_by { |topics_created_by| topics_created_by.association(:user) }
 end
 
 # Comment out the next line if you're not using RSpec's matchers (should / should_not) in your steps.

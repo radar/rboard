@@ -3,8 +3,8 @@ class Forum < ActiveRecord::Base
   acts_as_tree :order => :position
   
   named_scope :without_parent, :conditions => ["parent_id IS ?", nil], :order => "position"
-  named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level_id] } }
-  named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").id] } }
+  named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
+  named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").position] } }
   
   has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
@@ -48,29 +48,15 @@ class Forum < ActiveRecord::Base
     find_all_by_parent_id(nil)
   end
   
-  def root
-    parent.nil? ? self : (parent.root == parent ? parent : parent.root)
-  end
-  
-  def ancestors(list=[])
-    if parent.nil?
-      list << parent
-    else
-      list << parent
-      parent.ancestors(list)
-    end
-    list.compact
-  end
-  
   def sub?
     !parent_id.nil?
   end
   
   def viewable?(logged_in=true, user=nil)
-    (logged_in && is_visible_to.position <= user.user_level.position) || (!logged_in && is_visible_to.position == UserLevel.find_by_name("User").position)
+    (logged_in && is_visible_to_id <= user.user_level.position) || (!logged_in && is_visible_to == UserLevel.find_by_name("User"))
   end
   
   def topics_creatable_by?(logged_in=true, user=nil)
-    (logged_in && topics_created_by.position <= user.user_level.position) || (!logged_in && topics_created_by.position == UserLevel.find_by_name("User").position)
+    (logged_in && topics_created_by_id <= user.user_level.position) || (!logged_in && topics_created_by == UserLevel.find_by_name("User"))
   end
 end

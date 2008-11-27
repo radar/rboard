@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe MessagesController do
   fixtures :messages, :users
   before do
-    @user = mock("user")
+    @user = mock_model(User)
     @users = [@users]
-    @message = mock("message")
+    @message = mock_model(Message)
     @messages = [@message]
     login_as(:plebian)
     @administrator = users(:administrator)

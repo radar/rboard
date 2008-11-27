@@ -5,15 +5,15 @@ describe Admin::UsersController, "as an admin" do
 
   before do
     login_as(:administrator)
-    @user = mock("user")
+    @user = mock_model(User)
     @users = [@user]
-    @banned_ip = mock("banned_ip")
+    @banned_ip = mock_model(BannedIp)
     @banned_ips = [@banned_ips]
-    @rank = mock("rank")
+    @rank = mock_model(Rank)
     @ranks = [@rank]
-    @user_level = mock("user_level")
+    @user_level = mock_model(UserLevel)
     @user_levels = [@user_level]
-    @posts = [mock("posts")]
+    @posts = [mock_model(Post)]
   end
   
   it "should redirect standard users away" do

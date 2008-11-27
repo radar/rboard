@@ -3,8 +3,8 @@ module Spec
 
     class BaseExpectation
       attr_reader :sym
-      attr_writer :expected_received_count, :method_block, :expected_from
-      protected :expected_received_count=, :method_block=, :expected_from=
+      attr_writer :expected_received_count, :method_block, :expected_from, :args_to_yield
+      protected :expected_received_count=, :method_block=, :expected_from=, :args_to_yield=
       attr_accessor :error_generator
       protected :error_generator, :error_generator=
       
@@ -35,7 +35,7 @@ module Spec
         new_gen = error_generator.clone
         new_gen.opts = opts
         child.error_generator = new_gen
-        child.clone_args_to_yield @args_to_yield
+        child.args_to_yield = @args_to_yield.clone
         child
       end
       
@@ -84,11 +84,6 @@ module Spec
       end
       
       def and_yield(*args)
-        if @args_to_yield_were_cloned
-          @args_to_yield.clear
-          @args_to_yield_were_cloned = false
-        end
-        
         @args_to_yield << args
         self
       end
@@ -99,7 +94,6 @@ module Spec
       
       def invoke(args, block)
         if @expected_received_count == 0
-          @failed_fast = true
           @actual_received_count += 1
           @error_generator.raise_expectation_error @sym, @expected_received_count, @actual_received_count, *args
         end
@@ -179,15 +173,6 @@ module Spec
           @return_block.call(*args)
         end
       end
-
-      def clone_args_to_yield(args)
-        @args_to_yield = args.clone
-        @args_to_yield_were_cloned = true
-      end
-      
-      def failed_fast?
-        @failed_fast
-      end
     end
     
     class MessageExpectation < BaseExpectation
@@ -197,7 +182,7 @@ module Spec
       end
        
       def verify_messages_received   
-        return if expected_messages_received? || failed_fast?
+        return if expected_messages_received?
     
         generate_error
       rescue Spec::Mocks::MockExpectationError => error

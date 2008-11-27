@@ -26,7 +26,7 @@ describe Admin::ForumsController do
   describe Admin::ForumsController, "admins" do
   
     before do
-      @forum = mock("forum")
+      @forum = mock_model(Forum)
       @forums = [@forum]
       login_as(:administrator)
     end
@@ -91,6 +91,8 @@ describe Admin::ForumsController do
   
     it "shouldn't be able to update a forum with invalid attributes" do
       Forum.should_receive(:find).with("1").and_return(@forum)
+      Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
+      @forum.should_receive(:descendants).and_return(@forums)
       @forum.should_receive(:update_attributes).and_return(false)
       put 'update', { :id => 1, :forum => { :title => "", :description => "" }}
     end

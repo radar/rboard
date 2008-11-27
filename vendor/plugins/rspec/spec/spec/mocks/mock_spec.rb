@@ -451,19 +451,9 @@ module Spec
       it "should not mess with the stub's yielded values when also mocked" do
         @mock.stub!(:yield_back).and_yield(:stub_value)
         @mock.should_receive(:yield_back).and_yield(:mock_value)
-        @mock.yield_back{|v| v.should == :mock_value }
-        @mock.yield_back{|v| v.should == :stub_value }
+        @mock.yield_back{|v| v}.should == :mock_value
+        @mock.yield_back{|v| v}.should == :stub_value
         @mock.rspec_verify
-      end
-
-      it "should yield multiple values after a similar stub" do
-        File.stub!(:open).and_yield(:stub_value)
-        File.should_receive(:open).and_yield(:first_call).and_yield(:second_call)
-        yielded_args = []
-        File.open {|v| yielded_args << v }
-        yielded_args.should == [:first_call, :second_call]
-        File.open {|v| v.should == :stub_value }
-        File.rspec_verify
       end
 
       it "should assign stub return values" do

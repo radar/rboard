@@ -2,8 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Topic, "in general" do
   fixtures :topics, :forums, :users
   before do
-    @topic = mock("topic")
-    @forum = mock("forum")
+    @topic = mock_model(Topic)
+    @forum = mock_model(Forum)
     @invalid_topic = topics(:invalid)
     @valid_topic = topics(:user_3)
     @another_valid_topic = topics(:user_2)

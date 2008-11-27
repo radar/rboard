@@ -1,4 +1,4 @@
-Story: Getting correct output with flexmock
+Story: Getting correct output
 
   As an RSpec user who prefers flexmock
   I want to be able to use flexmock without rspec mocks interfering

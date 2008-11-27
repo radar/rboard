@@ -4,7 +4,7 @@ describe Admin::ThemesController do
   fixtures :users, :themes, :user_levels
   before do
     login_as(:administrator)
-    @theme = mock(:theme)
+    @theme = mock_model(Theme)
     @themes = [@theme]
   end
 

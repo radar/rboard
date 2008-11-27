@@ -11,7 +11,7 @@ class Admin::ForumsController < Admin::ApplicationController
   def new
     @forum = Forum.new
     @forums = Forum.find(:all, :order => "title")
-    @user_levels = UserLevel.find(:all, :order => "id DESC")
+    @user_levels = UserLevel.find(:all, :order => "position ASC")
   end
   
   # Creates a new forum.
@@ -23,6 +23,7 @@ class Admin::ForumsController < Admin::ApplicationController
     else
       flash[:notice] = t(:forum_not_created)
       @forums = Forum.find(:all, :order => "title")
+      @user_levels = UserLevel.find(:all, :order => "position ASC")
       render :action => "new"
     end
   end
@@ -32,7 +33,8 @@ class Admin::ForumsController < Admin::ApplicationController
     # We do this so we can't make a forum a sub of itself, or any of its descendants...
     # As this would cause circular references which just aren't cool.
     @forums = Forum.find(:all, :order => "title") - [@forum] - @forum.descendants
-    @user_levels = UserLevel.find(:all, :order => "id DESC")
+    @user_levels = UserLevel.find(:all, :order => "position ASC")
+    
   end
   
   # Updates a forum.
@@ -41,6 +43,8 @@ class Admin::ForumsController < Admin::ApplicationController
       flash[:notice] = t(:forum_updated)
       redirect
     else
+      @forums = Forum.find(:all, :order => "title") - [@forum] - @forum.descendants
+      @user_levels = UserLevel.find(:all, :order => "position ASC")
       flash[:notice] = t(:forum_not_updated)
       render :action => "edit"
     end

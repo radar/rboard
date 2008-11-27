@@ -2,7 +2,7 @@
 # Uncomment this to force production mode.
 # ENV['RAILS_ENV'] ||= 'production'
 
-RAILS_GEM_VERSION = '2.2.0' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -21,9 +21,9 @@ end
 DEFAULT_STYLESHEET = 1
 PER_PAGE = 30
 TIME_DISPLAY = "%I:%M:%S%p"
-DATE_DISPLAY = "%d %B %Y"
-I18n.load_path = Dir.glob("#{RAILS_ROOT}/config/locales/*.rb")
-I18n.default_locale = "en-AU"
+DATE_DISPLAY = "%d %B %Y" 
+# Change this if your locale is not english
+# I18n.default_locale = "en"
 require 'array_ext'
 RAILS_RELATIVE_URL_ROOT = "http://localhost"
 #for some reason it doesn't automatically detect the admin's application controller.
