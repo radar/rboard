@@ -61,7 +61,7 @@ describe TopicsController do
     
     it "should not show a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).with(false, :false).and_return(false)
+      @forum.should_receive(:viewable?).with(:false).and_return(false)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
       response.should redirect_to(root_path)
       flash[:notice].should eql("You are not allowed to view topics in that forum.")

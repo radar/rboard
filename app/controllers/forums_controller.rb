@@ -1,5 +1,4 @@
 class ForumsController < ApplicationController
-  before_filter :is_visible?, :only => :show
   before_filter :store_location, :only => :show
   
   def index
@@ -19,19 +18,16 @@ class ForumsController < ApplicationController
   end
   
   def show
-    @topics = @forum.topics.sorted.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC"
-    @forums = @forum.children
-    @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_moderator?
-    @moderated_topics_count = @forum.moderations.topics.for_user(current_user).count
-  end
-  
-  private
-  def is_visible?
     @forum = Forum.find(params[:id], :include => [{ :topics => :posts }, :moderations])
     if !@forum.viewable?(logged_in?, current_user)
       flash[:notice] = t(:forum_permission_denied)
       redirect_to forums_path
     else
+      @topics = @forum.topics.sorted.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC"
+      @forums = @forum.children
+      @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_moderator?
+      @moderated_topics_count = @forum.moderations.topics.for_user(current_user).count
     end
   end
+  
 end

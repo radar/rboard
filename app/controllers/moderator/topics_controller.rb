@@ -47,11 +47,11 @@ class Moderator::TopicsController < Moderator::ApplicationController
   end
   
   def merge
-    if params[:moderated_topics]
-      @topics = Topic.find(params[:moderated_topics])
-      session[:moderated_topics] = params[:moderated_topics]
+    if params[:moderation_ids]
+      @topics = Topic.find(params[:moderation_ids])
+      session[:moderation_ids] = params[:moderated_ids]
     end
-    @topics ||= Topic.find(session[:moderated_topics])
+    @topics ||= Topic.find(session[:moderated_ids])
     if @topics.size == 1
       flash[:notice] = t(:only_one_topic_for_merge)
       redirect_back_or_default forums_path
@@ -63,7 +63,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         redirect_back_or_default forums_path
       end
       @topic = Topic.find(params[:master_topic_id])
-      @topic.merge!(session[:moderated_topics], params[:new_subject])
+      @topic.merge!(session[:moderation_ids], params[:new_subject])
       flash[:notice] = t(:topics_merged)
       redirect_back_or_default forums_path
     end    
