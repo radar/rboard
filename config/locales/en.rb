@@ -143,6 +143,7 @@
    :Date_joined => "Date joined",
    :Delete => "Delete",
    :Description => "Description",
+   :Display_Name => "Display Name",
    :Do_not_have_a_user => "Don't have a user?",
    :Edit => "Edit",
    :Edit_History => "Edit History",

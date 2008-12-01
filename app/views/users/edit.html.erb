@@ -7,6 +7,11 @@
       </tr>
       
       <tr>
+        <td valign='top'><%= f.label "display_name", t(:Display_Name) %></td>
+        <td><%= f.text_field :display_name %></td>
+      </tr>
+      
+      <tr>
         <td valign='top'><%= f.label "password", "New Password"  %></td>
         <td><%= f.password_field "password", :value => "" %></td>
       </tr>
