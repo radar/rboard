@@ -53,7 +53,7 @@ class Forum < ActiveRecord::Base
   end
   
   def viewable?(user=nil)
-    (user != :false && is_visible_to_id <= user.user_level.position) || (user == :false && is_visible_to == UserLevel.find_by_name("User"))
+    (user != :false && is_visible_to_id <= user.user_level.position) || (umaser == :false && is_visible_to == UserLevel.find_by_name("User"))
   end
   
   def topics_creatable_by?(user=nil)
