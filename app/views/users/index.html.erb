@@ -16,7 +16,7 @@
   <tbody>
     <% for user in @users %>
       <tr>
-        <td align='center'><%= link_to(user.login, :controller => "users", :action => user.login) %></td>
+        <td align='center'><%= link_to user, user_path(user) %></td>
         <td align='center'><%= user.created_at.strftime(date_display) %></td>
         <td align='center'><%= user.posts.size %></td>
         <td align='center'><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No) %></td>

@@ -25,7 +25,7 @@
               <%= link_to t(:Signup), signup_users_path %>
            
           <% else %>
-            Logged in as <%= link_to current_user.login, current_user %> |
+            Logged in as <%= link_to current_user, current_user %> |
             <%= link_to t(:Edit_Profile), [:edit, current_user] %> |
             <%= link_to t(:Member_List), users_path %> | 
             <%= link_to t(:Search), search_path %> | 
@@ -39,7 +39,7 @@
         <% if user_banned? %>
           <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1><%= current_user.banned_by.login %> banned you and stated "<%= current_user.ban_reason %>" as the reason. Your ban expires in <%= time_ago_in_words(current_user.ban_time) %><br /><br /></div>
         <% elsif flash[:ip] %>
-          <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1>This ban will expire in <%= time_ago_in_words(flash[:ip].ban_time) %> and was set by <%= flash[:ip].user.login %>
+          <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1>This ban will expire in <%= time_ago_in_words(flash[:ip].ban_time) %> and was set by <%= flash[:ip].user %>
             <% unless flash[:ip].reason.blank? %>
               stating  <%= flash[:ip].reason %> as the reason.
             <% else %>

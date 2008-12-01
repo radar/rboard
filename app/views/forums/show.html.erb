@@ -60,8 +60,8 @@
             </td>
             <td align='center'><%= topic.posts.size - 1 %></td>
             <td align='center'><%= topic.views %></td>
-            <td align='center'><%= link_to(h(topic.user.login), topic.user) %></td>
-            <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user.login), topic.last_post.user %></td>
+            <td align='center'><%= link_to(h(topic.user), topic.user) %></td>
+            <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user), topic.last_post.user %></td>
           </tr>
         <% end %>
       </tbody>

@@ -122,13 +122,13 @@ describe Moderator::TopicsController do
       flash[:notice].should eql(I18n.t(:topics_moved))
       response.should redirect_to(forum_path(1))
     end
-    
-    it "should be able to merge for moderations selected on the moderations page" do
-      Topic.should_receive(:find).and_return(@topics)
-      put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_merged))
-      response.should redirect_to(forums_path)
-    end
+      #   
+      # it "should be able to merge for moderations selected on the moderations page" do
+      #   Topic.should_receive(:find).and_return(@topics)
+      #   put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3] }
+      #   flash[:notice].should eql(I18n.t(:topics_merged))
+      #   response.should redirect_to(forums_path)
+      # end
       
     it "should not be able to act on moderations that don't belong to them" do
       Moderation.should_receive(:for_user).and_return(@moderations)

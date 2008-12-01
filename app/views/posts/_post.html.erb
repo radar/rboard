@@ -1,7 +1,7 @@
 <table cellspacing='0' cellpadding='5' width='100%' class='post' id='post_<%= post.id %>'>
   <thead>
     <tr>
-      <td rowspan='2' valign='top' width='15%'><b><%= post.user.login %></b></td>
+      <td rowspan='2' valign='top' width='15%'><b><%= post.user.to_s %></b></td>
       <td valign='top'>
         <a name='post_<%= post.id %>' href='<%= forum_topic_path(post.topic.forum, post.topic) + "/#{(params[:page] || 1)}" + "#post_#{post.id}" %>'>
         #<%= per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1 %></a> <%= post.local_time.strftime(date_time_display) %>

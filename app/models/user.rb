@@ -38,7 +38,12 @@ class User < ActiveRecord::Base
   end
   
   def to_s
-    login
+    output = display_name unless display_name.blank?
+    output ||= login
+  end
+  
+  def to_param
+    to_s.parameterize
   end
   
   def local_time

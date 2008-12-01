@@ -12,7 +12,7 @@
     <% for edit in @edits %>
       <tr>
         <td><%= link_to edit.created_at.strftime(date_display + " " + time_display), [@post, edit] %></td>
-        <td><%= edit.user.login %></td>
+        <td><%= edit.user %></td>
         <td><%= edit.ip %></td>
       </tr>
     <% end %>
