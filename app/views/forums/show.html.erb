@@ -18,7 +18,7 @@
 <br />
 <h2><%= t(:Viewing_forum) %> <%= @forum.title %></h2>
 <%= will_paginate @topics %>
-<% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
+<% if @forum.topics_creatable_by?(current_user)  %>
   <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
@@ -82,7 +82,7 @@
     <thead>
       <tr>
         <td align='center'>
-          <% if @forum.topics_creatable_by?(logged_in?, current_user) %>
+          <% if @forum.topics_creatable_by?(current_user) %>
             <%= t(:no_topics_for_forum) %> <%= t(:why_not) %> <%= link_to(t(:create_one?), new_forum_topic_path(@forum)) %>
           <% end %>
         </td>
@@ -90,7 +90,7 @@
     </thead>
   <% end %>
 </table>
-<% if @forum.topics_creatable_by?(logged_in?, current_user)  %>
+<% if @forum.topics_creatable_by?(current_user)  %>
   <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <%= will_paginate @topics %>
