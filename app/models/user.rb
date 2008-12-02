@@ -32,6 +32,11 @@ class User < ActiveRecord::Base
   before_create :encrypt_password
   before_create :set_theme
   before_create :make_admin
+  before_save :set_permalink
+  
+  def set_permalink
+    self.permalink = display_name.parameterize
+  end
   
   def set_theme
     self.theme = Theme.find(:first)

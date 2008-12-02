@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_login(params[:id])
+    @user = User.find_by_permalink(params[:id])
     if !@user.nil?
       @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
     else
