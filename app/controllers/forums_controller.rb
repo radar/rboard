@@ -19,7 +19,7 @@ class ForumsController < ApplicationController
   
   def show
     @forum = Forum.find(params[:id], :include => [{ :topics => :posts }, :moderations])
-    if !@forum.viewable?(logged_in?, current_user)
+    if !@forum.viewable?(current_user)
       flash[:notice] = t(:forum_permission_denied)
       redirect_to forums_path
     else
