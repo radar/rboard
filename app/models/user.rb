@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   before_save :set_permalink
   
   def set_permalink
-    self.permalink = display_name.parameterize
+    self.permalink = to_s.parameterize
   end
   
   def set_theme

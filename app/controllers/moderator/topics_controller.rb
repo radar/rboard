@@ -58,7 +58,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
     end
     if request.put?
       # Check if user has access to all topics
-      if @topics.any? { |topic| !topic.forum.viewable?(logged_in?, current_user) }
+      if @topics.any? { |topic| !topic.forum.viewable?(current_user) }
         flash[:notice] = t(:topics_do_not_belong_to_you)
         redirect_back_or_default forums_path
       end
@@ -99,7 +99,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
       @topic = Topic.find(params[:id])
       
       # If the user is not allowed to see the topic, then they must not be allowed to change it either.
-      if !@topic.forum.viewable?(true, current_user)
+      if !@topic.forum.viewable?(current_user)
         flash[:notice] = t(:not_allowed_to_access_topic)
         @topic.moderations.for_user(current_user).each { |m| m.destroy }
         redirect_to moderator_moderations_path
