@@ -10,7 +10,7 @@ class ForumsController < ApplicationController
       @forums.viewable_to_anonymous
     end
     
-    @lusers = User.recent.map { |u| u.login }.to_sentence
+    @lusers = User.recent.map { |u| u.to_s }.to_sentence
     @users = User.count
     @posts = Post.count
     @topics = Topic.count
