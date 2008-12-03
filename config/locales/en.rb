@@ -257,7 +257,7 @@
    :Position => "Position",
    :Post => "Post",
    :post_created => "Post has been created.",
-   :Post_excerpt => "Post excerpt:",
+   :Post_excerpt => "Post excerpt",
    :post_does_not_exist => "The post you were looking for could not be found.",
    :post_or_edit_not_found => "The post or edit you were looking for cannot be found.",
    :post_was_deleted => "Post was deleted.",

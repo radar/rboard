@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    if !params[:user][:password].nil? &&
+    if !params[:user][:password].blank? &&
        params[:user][:password] == params[:user][:password_confirmation]
       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])
       flash[:notice] = t(:password_has_been_changed)
