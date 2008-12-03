@@ -30,7 +30,6 @@ class TopicsController < ApplicationController
     @post = @topic.posts.build(params[:post].merge(:user => current_user))
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
     if @topic.save
-      @topic.update_attribute("last_post_id", @post.id)
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)
     else

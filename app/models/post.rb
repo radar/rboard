@@ -37,6 +37,7 @@ class Post < ActiveRecord::Base
     end
     post.forum.last_post = post
     post.forum.last_post_forum = nil
+    post.forum.increment(:posts_count)
     post.forum.save
   end
   

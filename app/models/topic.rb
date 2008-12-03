@@ -4,9 +4,10 @@ class Topic < ActiveRecord::Base
   belongs_to :last_post, :class_name => "Post"
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
-  has_many :posts, :dependent => :destroy, :order => "posts.created_at asc"
+  has_many :posts, :order => "posts.created_at asc"
   has_many :users, :through => :posts
   
+  named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").position] } }
   named_scope :sorted, :order => "posts.created_at DESC", :include => "last_post"
   
   #makes error_messages_for return the wrong number of errors.
@@ -15,8 +16,29 @@ class Topic < ActiveRecord::Base
   validates_presence_of :subject, :forum_id, :user_id
   attr_protected :sticky, :locked
   
+  # Instead of using a counter_cache on the belongs_to we do this
+  # because counter_cache doesn't take into account funky move! methods
+  after_create :set_last_post
+  after_create :increment_counters
+  before_destroy :decrement_counters
+  
   #silence the error messages
-  def validates_associated_post_records;   end
+  def validates_associated_post_records; end
+  
+  def decrement_counters
+    forum.decrement!(:topics_count)
+    forum.decrement!(:posts_count, posts.count)
+    posts.delete_all
+  end
+  
+  def set_last_post
+    update_attribute("last_post_id", posts.last.id)
+  end
+  
+  def increment_counters
+    forum.increment!(:topics_count)
+    forum.increment!(:posts_count)
+  end
   
   def to_s
     subject
@@ -27,6 +49,10 @@ class Topic < ActiveRecord::Base
     was_old_last_post = old_forum.last_post == last_post
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
+    new_forum.increment!(:topics_count)
+    new_forum.increment!(:posts_count, posts.count)
+    old_forum.decrement!(:topics_count)
+    old_forum.decrement!(:posts_count, posts.count)
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
     new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
     
