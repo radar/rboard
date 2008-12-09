@@ -9,7 +9,9 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.root :controller => "index"
     admin.resources :ranks
-    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any }
+    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any } do |user|
+      user.resources :ips
+    end
     admin.resources :themes, :member => { :make_default => :put }
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
     admin.chronic 'chronic', :controller => 'chronic'

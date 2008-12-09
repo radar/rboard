@@ -9,7 +9,7 @@
       <td><%= t(:Banned) %></td>
       <td><%= t(:Banned_until)%></td>
       <td><%= t(:Times_banned) %></td>
-      <td><%= t(:IP) %></td>
+      <td><%= t(:Last_IP) %></td>
       
   </tr></thead>
   <tbody>
@@ -25,7 +25,12 @@
         <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:yes) : t(:no) %></td>
         <td><%= user.ban_time.nil? ? t(:never) : user.ban_time.ordinalize %></td>
         <td><%= user.ban_times %></td>
-        <td><%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), ban_ip_admin_user_path(user.ip) %></td>
+        <td>
+          <%= user.ip %>
+          <% if !user.ips.empty? %> 
+            (<%= link_to pluralize(user.ips.count, "other IP"), admin_user_ips_path(user) %>)
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

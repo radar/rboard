@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081203035846) do
+ActiveRecord::Schema.define(:version => 20081206235445) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(:version => 20081203035846) do
 
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"
   add_index "forums", ["topics_count"], :name => "index_forums_on_topics_count"
+
+  create_table "ip_users", :force => true do |t|
+    t.integer  "ip_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ips", :force => true do |t|
+    t.string   "ip",         :limit => 15
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "messages", :force => true do |t|
     t.integer  "from_id"

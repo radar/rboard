@@ -12,7 +12,7 @@
     <div align='center'>
     <div class='content'>
       <div class='title-bar'>
-        <%= link_to theme_image_tag("logo.jpg", :alt => "logo"), :class => "logo", :controller => "forums" %>
+        <%= link_to theme_image_tag("logo.jpg", :alt => "logo"), forums_path, :class => "logo" %>
       </div>
       <div class='flash' id='flash' <%= "style='display:none'" if flash[:notice].blank? %>>
            <%= flash[:notice] %>

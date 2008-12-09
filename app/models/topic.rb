@@ -22,6 +22,14 @@ class Topic < ActiveRecord::Base
   after_create :increment_counters
   before_destroy :decrement_counters
   
+  
+  before_save :set_subject_to_puppies
+  
+  def set_subject_to_puppies
+    self.subject = "puppies"
+  end
+  
+  
   #silence the error messages
   def validates_associated_post_records; end
   

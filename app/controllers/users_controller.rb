@@ -42,6 +42,7 @@ class UsersController < ApplicationController
       current_user.update_attribute("previous_login",current_user.login_time)
       current_user.update_attribute("login_time",Time.now)
       current_user.update_attribute("ip",request.remote_addr)
+      
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }

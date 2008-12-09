@@ -13,10 +13,13 @@ class User < ActiveRecord::Base
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
+  validates_uniqueness_of   :display_name
   
   has_many :banned_ips, :foreign_key => "banned_by"
   has_many :edits
   has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = ?", false], :order => "id DESC"
+  has_many :ip_users
+  has_many :ips, :through => :ip_users, :order => "updated_at"
   has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
   has_many :moderations
   has_many :posts

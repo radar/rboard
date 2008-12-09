@@ -194,6 +194,7 @@
    :Is_default => "Is default?",
    :Is_visible_to => "Is visible to",
    :Items_per_page => "Items per page",
+   :Last_IP => "Last IP",
    :Last_Post => "Last Post",
    :Lock => "Lock",
    :Lock_this_topic => "Lock this topic",

@@ -82,11 +82,14 @@ describe Topic, "in general" do
   
   it "should be able to merge two topics" do
     Topic.count.should eql(6)
-    topic = @everybody.topics.create(:subject => "subject", :user => @administrator)
-    post = topic.posts.create(:text => "First post", :user => @administrator)
-    other_topic = @everybody.topics.create(:subject => "second subject", :user => @administrator)
-    other_post = other_topic.posts.create(:text => "Second post", :user => @administrator)
-    yet_another_post = topic.posts.create(:text => "Third post", :user => @administrator)
+    topic = @everybody.topics.build(:subject => "subject", :user => @administrator)
+    post = topic.posts.build(:text => "First post", :user => @administrator)
+    topic.save
+    other_topic = @everybody.topics.build(:subject => "second subject", :user => @administrator)
+    other_post = other_topic.posts.build(:text => "Second post", :user => @administrator)
+    yet_another_post = topic.posts.build(:text => "Third post", :user => @administrator)
+    topic.save
+    other_topic.save
     topic.posts.size.should eql(2)
     other_topic.posts.size.should eql(1)
     Topic.count.should eql(8)

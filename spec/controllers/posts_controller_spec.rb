@@ -11,6 +11,8 @@ describe PostsController, "as plebian" do
     @real_topic = topics(:user)
     @forum = mock_model(Forum)
     @edit = mock_model(Edit)
+    @ip = mock_model(Ip)
+    @ips = [@ip]
     @edits = [@edit]
     @first_post = posts(:user)
     @pleban = users(:plebian)
@@ -90,6 +92,10 @@ describe PostsController, "as plebian" do
   end
   
   it "should be able to create a post" do
+    User.should_receive(:find).and_return(@user)
+    @user.stub!(:per_page).and_return(30)
+    @user.stub!(:update_attribute)
+    @user.stub!(:time_zone)
     Topic.should_receive(:find).with("1", :include => :posts).twice.and_return(@topic)
     @topic.should_receive(:posts).at_most(3).times.and_return(@posts)
     @posts.should_receive(:find).with(:all, :order => "id DESC", :limit => 10)
@@ -97,8 +103,10 @@ describe PostsController, "as plebian" do
     @post.should_receive(:save).and_return(true)
     @post.should_receive(:forum).twice.and_return(@forum)
     @post.should_receive(:topic).and_return(@topic)
-    @topic.should_receive(:update_attribute).with("last_post_id", @post.id).and_return(true)
-    post 'create', {:post => { :text => "This is a new post" }, :topic_id => 1 }
+    @topic.should_receive(:set_last_post).and_return(true)
+    @user.should_receive(:ips).and_return(@ips)
+    @ips.should_receive(:find_or_create_by_ip).and_return(@ip)
+    post 'create', { :post => { :text => "This is a new post" }, :topic_id => 1 }
     flash[:notice].should eql("Post has been created.")
     response.should redirect_to(forum_topic_path(@post.forum, @post.topic) + "/1#post_#{@post.id}")
   end

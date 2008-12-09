@@ -14,7 +14,8 @@ class PostsController < ApplicationController
     @posts = @posts.find(:all, :order => "id DESC", :limit => 10)
     @post = @topic.posts.build(params[:post].merge!(:user => current_user))
     if @post.save
-      @topic.update_attribute("last_post_id", @post.id)
+      @topic.set_last_post
+      IpUser.create(:ip => Ip.find_or_create_by_ip(request.remote_addr), :user => current_user)
       flash[:notice] = t(:post_created)
       go_directly_to_post
     else
