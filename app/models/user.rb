@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :login, :email, :case_sensitive => false
-  validates_uniqueness_of   :display_name
+  validates_uniqueness_of   :display_name, :allow_nil => true
   
   has_many :banned_ips, :foreign_key => "banned_by"
   has_many :edits

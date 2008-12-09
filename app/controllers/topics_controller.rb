@@ -26,11 +26,11 @@ class TopicsController < ApplicationController
   end
   
   def create
-    @topic = current_user.topics.build(params[:topic].merge(:forum => @forum))
-    @post = @topic.posts.build(params[:post].merge(:user => current_user))
+    ip = Ip.find_or_create_by_ip(request.remote_addr)
+    @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => ip))
+    @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => ip))
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
     if @topic.save
-      current_user.ips.find_or_create_by_ip(request.remote_addr)
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)
     else

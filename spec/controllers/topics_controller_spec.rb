@@ -10,8 +10,6 @@ describe TopicsController do
     @forum = mock_model(Forum)
     @forums = [@forum]
     @user = mock_model(User)
-    @ip = mock_model(Ip)
-    @ips = [@ip]
     @admin_forum = forums(:admins_only)
     @everybody = forums(:everybody)
     @admin_topic = topics(:admin)
@@ -232,8 +230,6 @@ describe TopicsController do
       @posts.should_receive(:build).and_return(@post)
       @topic.should_receive(:forum).and_return(@forum)
       @topic.should_receive(:save).and_return(true)
-      @user.should_receive(:ips).and_return(@ips)
-      @ips.should_receive(:find_or_create_by_ip).and_return(@ip)
       post 'create', { :topic => { :subject => "Subject"}, :post => { :text => "New text!"}, :forum_id => forums(:admins_only).id }
       flash[:notice].should eql("Topic has been created.")
       

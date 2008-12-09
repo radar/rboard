@@ -1,5 +1,6 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
+  belongs_to :ip
   belongs_to :forum
   belongs_to :last_post, :class_name => "Post"
 
@@ -14,19 +15,18 @@ class Topic < ActiveRecord::Base
   validates_associated :posts, :message => nil
   validates_length_of :subject, :minimum => 4
   validates_presence_of :subject, :forum_id, :user_id
+  
   attr_protected :sticky, :locked
   
   # Instead of using a counter_cache on the belongs_to we do this
   # because counter_cache doesn't take into account funky move! methods
   after_create :set_last_post
+  after_create :log_ip
   after_create :increment_counters
   before_destroy :decrement_counters
   
-  
-  before_save :set_subject_to_puppies
-  
-  def set_subject_to_puppies
-    self.subject = "puppies"
+  def log_ip
+    IpUser.create(:user => user, :ip => ip)
   end
   
   

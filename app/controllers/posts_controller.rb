@@ -10,12 +10,13 @@ class PostsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id], :include => :posts)
-    @posts = @topic.posts
-    @posts = @posts.find(:all, :order => "id DESC", :limit => 10)
-    @post = @topic.posts.build(params[:post].merge!(:user => current_user))
+    posts = @topic.posts
+    @posts = posts.find(:all, :order => "id DESC", :limit => 10)
+    ip = Ip.find_or_create_by_ip(request.remote_addr)
+    @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => ip))
+    
     if @post.save
       @topic.set_last_post
-      IpUser.create(:ip => Ip.find_or_create_by_ip(request.remote_addr), :user => current_user)
       flash[:notice] = t(:post_created)
       go_directly_to_post
     else

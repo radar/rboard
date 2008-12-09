@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :user
+  belongs_to :ip
   belongs_to :topic
   belongs_to :edited_by, :class_name => "User"
   
@@ -17,9 +18,13 @@ class Post < ActiveRecord::Base
       set_property :delta => true
     end
 
+  after_create :log_ip
   after_create :update_forum
   after_destroy :find_latest_post
 
+  def log_ip
+    IpUser.create(:user => user, :ip => ip)
+  end
   
   def update_forum
     forum.last_post = self

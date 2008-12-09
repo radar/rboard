@@ -11,8 +11,6 @@ describe PostsController, "as plebian" do
     @real_topic = topics(:user)
     @forum = mock_model(Forum)
     @edit = mock_model(Edit)
-    @ip = mock_model(Ip)
-    @ips = [@ip]
     @edits = [@edit]
     @first_post = posts(:user)
     @pleban = users(:plebian)
@@ -104,8 +102,6 @@ describe PostsController, "as plebian" do
     @post.should_receive(:forum).twice.and_return(@forum)
     @post.should_receive(:topic).and_return(@topic)
     @topic.should_receive(:set_last_post).and_return(true)
-    @user.should_receive(:ips).and_return(@ips)
-    @ips.should_receive(:find_or_create_by_ip).and_return(@ip)
     post 'create', { :post => { :text => "This is a new post" }, :topic_id => 1 }
     flash[:notice].should eql("Post has been created.")
     response.should redirect_to(forum_topic_path(@post.forum, @post.topic) + "/1#post_#{@post.id}")

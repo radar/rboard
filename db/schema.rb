@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081206235445) do
+ActiveRecord::Schema.define(:version => 20081209115320) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -103,9 +103,11 @@ ActiveRecord::Schema.define(:version => 20081206235445) do
     t.string   "edit_reason"
     t.boolean  "delta"
     t.boolean  "deleted",      :default => false
+    t.integer  "ip_id"
   end
 
   add_index "posts", ["id", "topic_id"], :name => "index_posts_on_id_and_topic_id"
+  add_index "posts", ["ip_id"], :name => "index_posts_on_ip_id"
 
   create_table "ranks", :force => true do |t|
     t.string  "name"
@@ -129,9 +131,11 @@ ActiveRecord::Schema.define(:version => 20081206235445) do
     t.integer  "last_post_id"
     t.boolean  "delta"
     t.boolean  "deleted",      :default => false
+    t.integer  "ip_id"
   end
 
   add_index "topics", ["id", "forum_id"], :name => "index_topics_on_id_and_forum_id"
+  add_index "topics", ["ip_id"], :name => "index_topics_on_ip_id"
 
   create_table "user_levels", :id => false, :force => true do |t|
     t.string  "name"
