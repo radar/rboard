@@ -117,9 +117,8 @@ describe Admin::UsersController, "as an admin" do
   end
   
   it "should be able to look up a user's details" do
-    User.should_receive(:find_by_login).and_return(@user)
-    @user.should_receive(:posts).and_return(@posts)
-    get 'user', :id => "Administrator"
+    User.should_receive(:find_by_permalink).and_return(@user)
+    get 'show', :id => "administrator"
   end
   
  

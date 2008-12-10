@@ -5,7 +5,11 @@ describe UsersController, "the whole shebang" do
   before do
     @user = mock_model(User)
     @users = [@user]
+    @ip = mock_model(Ip)
+    @ips = [@ip]
+    @ip_user = mock_model(IpUser)
   end
+  
   #Delete this example and add some real ones
   it "should not display a list of users to not logged in people" do
     User.should_not_receive("paginate")
@@ -27,8 +31,12 @@ describe UsersController, "the whole shebang" do
   
   it "should be able to log in a user" do
     User.should_receive(:authenticate).and_return(@user)
-    @user.should_receive(:update_attribute).at_least(3).times
-    @user.stub!(:login_time)
+    @user.should_receive(:previous_login=).and_return(Time.now)
+    @user.should_receive(:login_time=).and_return(Time.now)
+    @user.should_receive(:login_time).and_return(Time.now)
+    @user.should_receive(:ip=).and_return(Time.now)
+    Ip.should_receive(:find_or_create_by_ip).and_return(@ip)
+    IpUser.should_receive(:create).and_return(@ip_user)
     @user.should_receive(:remember_me).and_return(true)
     @user.stub!(:remember_token)
     @user.stub!(:remember_token_expires_at)
@@ -46,8 +54,13 @@ describe UsersController, "the whole shebang" do
   
   it "should remember a logged in person" do
     User.should_receive(:authenticate).and_return(@user)
-    @user.should_receive(:update_attribute).at_least(3).times
-    @user.stub!(:login_time)
+    @user.should_receive(:previous_login=).and_return(Time.now)
+    @user.should_receive(:login_time=).and_return(Time.now)
+    @user.should_receive(:login_time).and_return(Time.now)
+    @user.should_receive(:ip=).and_return(Time.now)
+    Ip.should_receive(:find_or_create_by_ip).and_return(@ip)
+    IpUser.should_receive(:create).and_return(@ip_user)
+    @user.should_receive(:save).and_return(true)
     post 'login', { :login => "Administrator", :password => "godly"}
   end
   
