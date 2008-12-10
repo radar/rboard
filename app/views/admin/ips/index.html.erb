@@ -3,30 +3,18 @@
 <table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'>
   <thead>
     <tr>
-      <td>&nbsp;</td>
       <td><%= t(:IP) %></td>
+      <td><%= t(:Topics) %></td>
+      <td><%= t(:Posts) %></td>
       
     </tr>
   </thead>
   <tbody>
-    <% for user in @users %>
+    <% for ip in @ips %>
       <tr>
-        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_user_path(user), :method => :delete, :confirm => t(:confirm_user_deletion) %>
-          <%= link_to theme_image_tag("edit.jpg"), edit_admin_user_path(user) %>
-          <%= link_to theme_image_tag("ban.jpg"), ban_admin_user_path(user), :confirm => t(:confirm_user_ban) %></td>
-        <td><%= link_to user.login, admin_user_path(user) %></td>
-        <td><%= link_to user.display_name, admin_user_path(user) %></td>
-        <td><%= user.created_at.strftime date_time_display %></td>
-        <td><%= user.posts.size %></td>
-        <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:yes) : t(:no) %></td>
-        <td><%= user.ban_time.nil? ? t(:never) : user.ban_time.ordinalize %></td>
-        <td><%= user.ban_times %></td>
-        <td>
-          <%= user.ip %>
-          <% if !user.ips.empty? %> 
-            (<%= link_to pluralize(user.ips.count, "other IP"), admin_user_ips_path(user) %>)
-          <% end %>
-        </td>
+        <td><%= link_to ip.ip, admin_ip_path(ip) %></td>
+        <td><%= link_to t(:topics, :count => ip.topics.count), admin_ip_topics_path(ip) %></td>
+        <td><%= link_to t(:posts, :count => ip.posts.count), admin_ip_posts_path(ip) %></td>
       </tr>
     <% end %>
   </tbody>

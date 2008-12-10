@@ -51,7 +51,8 @@ module AuthenticatedSystem
   end
   
   def ip_banned_redirect
-    redirect_to :controller => "/users", :action => "ip_is_banned" unless params[:action] == "ip_is_banned"  if ip_banned?
+    puts params.inspect
+    redirect_to :controller => ip_is_banned_users_path unless params[:action] == "ip_is_banned"  if ip_banned?
   end
   
   def user_banned?

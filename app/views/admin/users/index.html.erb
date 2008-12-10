@@ -1,4 +1,7 @@
-<%= link_to t(:admin_section), admin_root_path %> -> <%= t(:Users) %>
+<%= link_to t(:admin_section), admin_root_path %> -> <%= t(:Users) %> 
+<% if @ip %>
+  <%= t(:for) %> <%= @ip %> 
+<% end %>
 <h2><%= t(:Users) %></h2>
 <table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'><thead>
     <tr><td>&nbsp;</td>
@@ -22,13 +25,13 @@
         <td><%= link_to user.display_name, admin_user_path(user) %></td>
         <td><%= user.created_at.strftime date_time_display %></td>
         <td><%= user.posts.size %></td>
-        <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:yes) : t(:no) %></td>
-        <td><%= user.ban_time.nil? ? t(:never) : user.ban_time.ordinalize %></td>
+        <td><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No) %></td>
+        <td><%= user.ban_time.nil? ? t(:Never) : user.ban_time.ordinalize %></td>
         <td><%= user.ban_times %></td>
         <td>
-          <%= user.ip %>
+          <%= user.ip %> <%= link_to theme_image_tag("ban.jpg"), ban_ip_admin_users_path(:ip => user.ip) %>
           <% if !user.ips.empty? %> 
-            (<%= link_to pluralize(user.ips.count, "other IP"), admin_user_ips_path(user) %>)
+            (<%= link_to t(:other_IPs, :count => user.ips.count), admin_user_ips_path(user) %>)
           <% end %>
         </td>
       </tr>

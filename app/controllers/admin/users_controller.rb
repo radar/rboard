@@ -1,5 +1,39 @@
 class Admin::UsersController < Admin::ApplicationController
   before_filter :store_location, :only => [:index]
+  before_filter :find_ip
+  
+  # Show all the users, in no particular order.
+  def index
+    @users = if @ip
+      @ip.users
+    else
+      User.all
+    end
+  end
+  
+  def show
+    @user = User.find_by_permalink(params[:id])
+  end
+  
+  # Edit the details for a specific user. 
+  def edit
+    @user = User.find(params[:id])
+    @ranks = Rank.find_all_by_custom(true)
+    @userlevels = UserLevel.find(:all)
+  end
+  
+  # Updates the details for a specific user.  
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      flash[:notice] = t(:user_updated)
+      redirect_to admin_users_path
+    else
+      flash[:notice] = t(:user_not_updated)
+      render :action => "edit"
+    end
+  end
+  
   
   # Used for banning ips
   # Firstly gathers the time to ban to and parses it using Chronic
@@ -54,33 +88,10 @@ class Admin::UsersController < Admin::ApplicationController
   end
   
   
-  # Show all the users, in no particular order.
-  def index
-    @users = User.find(:all)
+  private
+  
+  def find_ip
+    @ip = Ip.find(params[:ip_id]) unless params[:ip_id].nil?
   end
   
-  # Edit the details for a specific user. 
-  def edit
-    @user = User.find(params[:id])
-    @ranks = Rank.find_all_by_custom(true)
-    @userlevels = UserLevel.find(:all)
-  end
-  
-  # Updates the details for a specific user.  
-  def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:notice] = t(:user_updated)
-      redirect_to admin_users_path
-    else
-      flash[:notice] = t(:user_not_updated)
-      render :action => "edit"
-    end
-  end
-  
-  # Is this even used any more?  
-  def user
-    @user = User.find_by_login(params[:id])
-    @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
-  end
 end

@@ -12,6 +12,11 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any } do |user|
       user.resources :ips
     end
+    admin.resources :ips do |ip|
+      ip.resources :topics, :only => [:index]
+      ip.resources :posts, :only => [:index]
+      ip.resources :users, :only => [:index]
+    end
     admin.resources :themes, :member => { :make_default => :put }
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
     admin.chronic 'chronic', :controller => 'chronic'
@@ -47,7 +52,7 @@ ActionController::Routing::Routes.draw do |map|
     post.resources :edits
   end
   
-  map.resources :users, :member => { :profile => :any }, :collection => { :signup => [:get, :post]}
+  map.resources :users, :member => { :profile => :any }, :collection => { :signup => [:get, :post], :ip_is_banned => :get }
   
   # pretty pagination links
   map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"

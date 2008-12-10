@@ -1,7 +1,11 @@
 class Admin::IpsController < Admin::ApplicationController
   before_filter :find_user
   def index
-    @ips = @user.ips
+    @ips = @user.ips.find(:all, :include => [:topics, :posts])
+  end
+  
+  def show
+    @ip = Ip.find(params[:id], :include => [:topics, :posts])
   end
   
   private

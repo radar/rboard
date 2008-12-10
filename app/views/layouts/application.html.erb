@@ -36,19 +36,7 @@
         <div class='time-now'>
           
         <%= t(:time_now) %> <%= Time.now.strftime(date_time_display) %> </div><br /><br />
-        <% if user_banned? %>
-          <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1><%= current_user.banned_by.login %> banned you and stated "<%= current_user.ban_reason %>" as the reason. Your ban expires in <%= time_ago_in_words(current_user.ban_time) %><br /><br /></div>
-        <% elsif flash[:ip] %>
-          <div class='ban-box' align='center'><h1>YOU ARE BANNED</h1>This ban will expire in <%= time_ago_in_words(flash[:ip].ban_time) %> and was set by <%= flash[:ip].user %>
-            <% unless flash[:ip].reason.blank? %>
-              stating  <%= flash[:ip].reason %> as the reason.
-            <% else %>
-              without stating a reason.
-            <% end %>
-          <br /> </div>
-        <% else %>
-            <%= yield %>
-        <% end %>
+        <%= yield %>
         <div align='center'>        
           <% if is_moderator? %>
             <%= link_to "Moderator Section", moderator_root_path %>

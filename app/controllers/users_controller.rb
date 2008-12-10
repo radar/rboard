@@ -39,13 +39,18 @@ class UsersController < ApplicationController
     return unless request.post?
     self.current_user = User.authenticate(params[:login], params[:password])
     if logged_in?
-      current_user.update_attribute("previous_login",current_user.login_time)
-      current_user.update_attribute("login_time",Time.now)
-      current_user.update_attribute("ip",request.remote_addr)
+      current_user.previous_login = current_user.login_time
+      current_user.login_time = Time.now
+      current_user.ip = request.remote_addr
+      ip = Ip.find_or_create_by_ip(request.remote_addr)
+      IpUser.create(:user => current_user, :ip => ip)
       
+      # #remember_me calls save internally, so don't bother saving it twice
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+      else
+        current_user.save
       end
       flash[:notice] = t(:logged_in_successfully)
       redirect_back_or_default(forums_path) and return false

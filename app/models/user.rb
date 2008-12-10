@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   has_many :edits
   has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = ?", false], :order => "id DESC"
   has_many :ip_users
-  has_many :ips, :through => :ip_users, :order => "updated_at"
+  has_many :ips, :through => :ip_users, :order => "ips.updated_at DESC"
   has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
   has_many :moderations
   has_many :posts
@@ -80,6 +80,10 @@ class User < ActiveRecord::Base
   
   def user?
     user_level.to_s == "User"
+  end
+  
+  def banned?
+     ban_time < Time.now if !ban_time.nil?
   end
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

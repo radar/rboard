@@ -1,0 +1,32 @@
+<%= link_to t(:admin_section), admin_root_path %> -> <%= t(:IPs) %> -> <%= link_to @ip, admin_ip_path(@ip) %> -> <%= t(:Posts) %>
+<h2><%= t(:Posts) %> <%= t(:for) %> <%= link_to @ip, admin_ip_path(@ip) %></h2>
+<table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'>
+  <thead>
+    <tr>
+      <td><%= t(:User) %></td>
+      <td><%= t(:Text) %></td>
+      <td><%= t(:Created_at) %></td>
+      <td><%= t(:Topic) %></td>
+      <td><%= t(:Forum) %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless @posts.empty? %>
+      <% for post in @posts %>
+        <tr>
+          <td><%= link_to post.user, admin_user_path(post.user) %></td>
+          <td><%= link_to truncate(post.text, 80), forum_topic_path(post.topic.forum, post.topic) + "#post_#{post.id}" %></td>
+          <td><%= post.created_at.strftime(date_time_display) %></td>
+          <td><%= link_to post.topic, forum_topic_path(post.topic.forum, post.topic) %></td>
+          <td><%= link_to post.topic.forum, forum_path(post.topic.forum) %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan='4'><%= t(:no_posts, :by => @ip) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+  </tfoot>
+</table>
