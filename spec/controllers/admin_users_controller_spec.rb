@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::UsersController, "as an admin" do
-  fixtures :users, :banned_ips, :user_levels
+  fixtures :users, :banned_ips, :user_levels, :ips
 
   before do
     login_as(:administrator)
@@ -14,6 +14,7 @@ describe Admin::UsersController, "as an admin" do
     @user_level = mock_model(UserLevel)
     @user_levels = [@user_level]
     @posts = [mock_model(Post)]
+    @ip = mock_model(Ip)
   end
   
   it "should redirect standard users away" do
@@ -31,9 +32,16 @@ describe Admin::UsersController, "as an admin" do
   end
   
   it "should allow admins free reign" do
+    User.should_receive(:all).and_return(@users)
     get 'index'
     response.should_not redirect_to(root_path)
     flash[:notice].should be_blank
+  end
+  
+  it "should show users who have connected from a certain ip" do
+    Ip.should_receive(:find).and_return(@ip)
+    @ip.should_receive(:users).and_return(@users)
+    get 'index', :ip_id => 1
   end
   
   it "should be able to begin banning an ip" do

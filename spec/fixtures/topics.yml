@@ -2,28 +2,33 @@ admin:
   subject: First topic!
   forum: admins_only
   user: administrator
+  ip: localhost
 
 moderator:
   subject: Second topic!
   user: moderator
   forum: moderators_only
+  ip: localhost
 
 user:
   subject: Third topic!
   user: plebian
   forum: everybody
+  ip: localhost
 
 user_2:
   subject: Fourth topic!
   user: plebian
   forum: everybody
-  created_at: <%= (Time.now + 5.minutes).to_s(:db) %> 
+  created_at: <%= (Time.now + 5.minutes).to_s(:db) %>
+  ip: localhost
 
 user_3:
   subject: Fifth topic!
   user: plebian
   forum: sub_of_everybody
   last_post: user_3
+  ip: localhost
   
 invalid:
   id: 4

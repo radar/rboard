@@ -119,7 +119,7 @@ describe UsersController, "the whole shebang" do
   it "shouldn't be able to find an invalid user" do
     get 'show', { :id => "non-existant" }
     response.should redirect_to(forums_path)
-    flash[:notice].should eql("The user you are looking for does not exist.")
+    flash[:notice].should eql(t(:user_not_found))
   end
   
   

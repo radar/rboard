@@ -96,6 +96,10 @@ describe Topic, "in general" do
     topic.merge!([other_topic.id])
     topic.posts.size.should eql(3)
     Topic.count.should eql(7)
-  end  
+  end
+  
+  it "should belong to a user" do
+    @valid_topic.belongs_to?(users(:plebian)).should be_true
+  end
   
 end

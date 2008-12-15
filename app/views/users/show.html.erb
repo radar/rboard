@@ -1,39 +1,36 @@
 
-<table cellspacing='0' cellpadding='5' width='100%' class='posts'>
-  <tr>
-    <td rowspan='2' valign='top' width='4%'><b><%= @user %></b><br /> 
-      <% if @user.admin? %>
-        <b><font color='red'><%= t(:Administrator) %></font></b>
-      <% end %> 
-      <% if @user.moderator? %>
-        <b><font color='green'><%= t(:Moderator) %></font></b>
-      <% end %> 
-      <% if @user.user? %>
-        <b><font color='Blue'><%= t(:User) %></font></b>
-      <% end %> 
-      <br />
-      
-      <% if !@user.email.blank? %>
-            <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br />
+<table cellspacing='0' cellpadding='5' width='100%' class='user'>
+  <thead>
+    <tr>
+      <td colspan='2'>
+        <h2 style='padding:0px;margin:0px'><%= @user %></h2>
+        <%= @user.user_level %>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td valign='top' width='20%'><b><%= @user %></b><br /> 
+  
+        <% if !@user.email.blank? %>
+              <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br />
+          <% end %>
+    
+      </td>
+      <td valign='top'>
+        <b><%= t(:Date_joined) %>:</b> <%= @user.created_at.strftime date_display %> <br />
+        <b><%= t(:Posts) %>:</b> <%= @user.posts.size %>, <%= t(:about) %> <%= @posts_percentage %>% <%= t(:of_all_posts_on_this_forum) %><br />
+        <b><%= t(:Bans) %>:</b> <%= @user %> <%= t(:has_been_banned) %><%= @user.ban_times %><%= t(:times) %>. <br />
+        <% if !@user.ban_time.nil? && @user.ban_time > Time.now %>
+          <h2><%= t(:is_currently_banned, :user => @user) %>!</h2>
+          <%= t(:banned_by, :user => @user.banned_by.login) %><%= t(:ban_expires_in, :time => time_ago_in_words(@user.ban_time)) %>.<br /><br />
+          <%= t(:reason_stated_was, :reason => @user.ban_reason) %></i><br /><br />
         <% end %>
-        
-    </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td valign='top' colspan='2'>
-      <b><%= t(:Date_joined) %>:</b> <%= @user.created_at.strftime date_display %> <br />
-      <b><%= t(:Posts) %>:</b> <%= @user.posts.size %>, <%= t(:about) %> <%= @posts_percentage %>% <%= t(:of_all_posts_on_this_forum) %><br />
-      <b><%= t(:Bans) %>:</b> <%= @user %> <%= t(:has_been_banned) %><%= @user.ban_times %><%= t(:times) %>. <br />
-      <% if !@user.ban_time.nil? && @user.ban_time > Time.now %>
-        <h2><%= t(:is_currently_banned, :user => @user) %>!</h2>
-        <%= t(:banned_by, :user => @user.banned_by.login) %><%= t(:ban_expires_in, :time => time_ago_in_words(@user.ban_time)) %>.<br /><br />
-        <%= t(:reason_stated_was, :reason => @user.ban_reason) %></i><br /><br />
-      <% end %>
-      <% unless @user.signature.blank? %><br />
-        ____________<br />
-        <%= bbcode sanitize(@user.signature) %>
-      <% end %>
-    </td>
-  </tr>
+        <% unless @user.signature.blank? %><br />
+          ____________<br />
+          <%= bbcode sanitize(@user.signature) %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
 </table>

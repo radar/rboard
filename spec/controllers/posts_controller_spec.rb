@@ -62,7 +62,7 @@ describe PostsController, "as plebian" do
     @post.should_receive(:text_changed?).and_return(true)
     @post.should_receive(:edits).and_return(@edits)
     @edits.should_receive(:create).and_return(@edit)
-    @post.should_receive(:edited_by=).and_return(@user)
+    @post.should_receive(:update_attribute).and_return(@user)
     put 'update', :id => @first_post.id, :post => { :text => "Hooray!" }
     flash[:notice].should_not be_nil
   end

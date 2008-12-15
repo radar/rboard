@@ -18,7 +18,6 @@ Rails::Initializer.run do |config|
   
 end
 # Application specific variables
-DEFAULT_STYLESHEET = 1
 PER_PAGE = 30
 TIME_DISPLAY = "%I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y" 
@@ -26,5 +25,3 @@ DATE_DISPLAY = "%d %B %Y"
 # I18n.default_locale = "en"
 require 'array_ext'
 RAILS_RELATIVE_URL_ROOT = "http://localhost"
-#for some reason it doesn't automatically detect the admin's application controller.
-Admin::ApplicationController

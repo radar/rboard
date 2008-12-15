@@ -21,13 +21,6 @@ describe TopicsController do
     Forum.should_receive(:find).and_return(@forum)
   end
   
-  def find_user
-    User.should_receive(:find).and_return(@user)
-    @user.stub!(:per_page).and_return(30)
-    @user.stub!(:update_attribute)
-    @user.stub!(:time_zone)
-  end
-  
   def forum_not_viewable
     find_user
     find_forum

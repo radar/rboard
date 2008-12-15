@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if !@user.nil?
       @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
     else
-      flash[:notice] = t(:user_does_not_exist)
+      flash[:notice] = t(:user_not_found)
       redirect_back_or_default(forums_path)
     end
   end

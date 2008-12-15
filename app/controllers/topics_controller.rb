@@ -91,5 +91,9 @@ class TopicsController < ApplicationController
   def user_has_permission?
     @topic.belongs_to?(current_user) || current_user.admin?
   end
+    
+  def create_ip
+    IpUser.create(:ip => Ip.find_or_create_by_ip(request.remote_addr), :user => current_user)
+  end
   
 end

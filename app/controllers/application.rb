@@ -1,19 +1,22 @@
-#should be an exact duplication of application_controller.rb. This is because the Admin::ApplicationController inheritance from
-#ApplicationController complains that it can't find ApplicationController unless it's named application_controller.
-#ruby script/console will complain that it can't find application.rb, so we need both!
 class ApplicationController < ActionController::Base
   #Never, ever show password in the logs. Ever!
   filter_parameter_logging "password"
 
   include AuthenticatedSystem
   
-  require 'chronic'
-  require 'custom_methods'
-  
+  # Login in the user from a cookie session store.
   before_filter :login_from_cookie
+  
+  # Redirect to the banned page if the requesting IP is banned.
   before_filter :ip_banned_redirect
+  
+  # Mark the current user as active if they're logged in.
   before_filter :active_user
+  
+  # Sets the page value to be a proper one if something nonsense is specified.
   before_filter :check_page_value
+  
+  # Sets the timezone to be the timezone that the user's specified.
   before_filter :set_time_zone
   
   @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?

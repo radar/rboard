@@ -113,12 +113,12 @@ img {
   margin-top:2px;
 }
 
-.post, .action-box {
+.post, .action-box, .user {
   border:1px solid #84AFD3;
   margin:2px;
 }
 
-.post tbody, .action-box tbody {
+.post tbody, .action-box tbody, .user tbody {
   background:#E1F1FF none repeat scroll 0%;
 }
 

@@ -11,6 +11,7 @@ class Admin::UsersController < Admin::ApplicationController
     end
   end
   
+  # See details for a particular user.
   def show
     @user = User.find_by_permalink(params[:id])
   end

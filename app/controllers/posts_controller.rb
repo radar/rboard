@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_filter :login_required
   before_filter :find_topic
   before_filter :find_post, :only => [:edit, :update, :destroy]
+  before_filter :create_ip, :only => [:create, :update]
   
   def new
     @posts = @topic.last_10_posts
@@ -12,8 +13,8 @@ class PostsController < ApplicationController
     @topic = Topic.find(params[:topic_id], :include => :posts)
     posts = @topic.posts
     @posts = posts.find(:all, :order => "id DESC", :limit => 10)
-    ip = Ip.find_or_create_by_ip(request.remote_addr)
-    @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => ip))
+    
+    @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => @ip))
     
     if @post.save
       @topic.set_last_post
@@ -33,8 +34,13 @@ class PostsController < ApplicationController
     @topic = @post.topic
     if @post.update_attributes(params[:post])
       if @post.text_changed?
-        @post.edits.create(:original_content => @post.text, :current_content => params[:post][:text], :user => current_user, :ip => request.remote_addr, :hidden => params[:silent_edit] == "1")
-        @post.edited_by = current_user
+        @post.edits.create(:original_content => @post.text,
+                           :current_content => params[:post][:text],
+                           :user => current_user, 
+                           :ip => request.remote_addr,
+                           :hidden => params[:silent_edit] == "1",
+                           :ip => @ip)
+        @post.update_attribute("edited_by", current_user)
       end
       flash[:notice] = t(:post_updated)
       go_directly_to_post
@@ -65,6 +71,7 @@ class PostsController < ApplicationController
   end
   
   private
+  
     def not_found
       flash[:notice] = t(:post_does_not_exist)
       redirect_back_or_default(forums_path)
@@ -79,6 +86,11 @@ class PostsController < ApplicationController
       check_ownership
     rescue ActiveRecord::RecordNotFound
       not_found
+    end
+    
+    def create_ip
+      @ip = Ip.find_or_create_by_ip(request.remote_addr)
+      IpUser.create(:ip => @ip, :user => current_user)
     end
     
     def check_ownership

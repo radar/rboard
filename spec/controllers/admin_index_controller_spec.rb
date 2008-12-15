@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::IndexController do
  fixtures :users, :posts, :user_levels
-  #Delete this example and add some real ones
   it "should show the admin page" do
    login_as(:administrator)
    get 'index'

@@ -83,7 +83,7 @@ class User < ActiveRecord::Base
   end
   
   def banned?
-     ban_time < Time.now if !ban_time.nil?
+    ban_time.nil? ? false : ban_time > Time.now
   end
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

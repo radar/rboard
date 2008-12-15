@@ -17,6 +17,13 @@ def t(*args)
   I18n.t(*args)
 end
 
+def find_user
+  User.should_receive(:find).and_return(@user)
+  @user.stub!(:per_page).and_return(30)
+  @user.stub!(:update_attribute)
+  @user.stub!(:time_zone)
+end
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record

@@ -20,7 +20,7 @@
         <td align='center'><%= user.created_at.strftime(date_display) %></td>
         <td align='center'><%= user.posts.size %></td>
         <td align='center'><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No) %></td>
-        <td align='center'><%= user.ban_time.nil? ? t(:Never) : user.ban_time.ordinalize %></td>
+        <td align='center'><%= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(:long_ordinal) %></td>
         <td align='center'><%= user.ban_times %></td>
         <% if is_admin? %>
           <td align='center'><%= user.ip %></td>

@@ -27,7 +27,10 @@ ActiveRecord::Schema.define(:version => 20081209115320) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "hidden",           :default => false
+    t.integer  "ip_id"
   end
+
+  add_index "edits", ["ip_id"], :name => "index_edits_on_ip_id"
 
   create_table "forums", :force => true do |t|
     t.string  "title"

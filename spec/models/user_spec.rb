@@ -28,6 +28,7 @@ describe User, "with users" do
     @user = users(:administrator)
     @other_user = users(:moderator)
     @plebian = users(:plebian)
+    @banned_noob = users(:banned_noob)
     @god = ranks(:god)
   end
   
@@ -60,6 +61,11 @@ describe User, "with users" do
     @plebian.user?.should be_true
   end
   
+  it "should be able to tell if the user is banned" do
+    @user.banned?.should be_false
+    @banned_noob.banned?.should be_true
+  end
+  
   it "should be able to authenticate a user" do
     User.authenticate("Plebian", "only_human").should_not be_nil
     User.authenticate("Plebian", "wrong password").should be_nil
@@ -69,5 +75,9 @@ describe User, "with users" do
   it "should be able to find a rank for a user" do
     @user.rank.should eql(@god.name)
     @other_user.rank.should eql("Moderator")
+  end
+  
+  it "should return the correct time" do
+    @user.local_time.should eql(@user.created_at.localtime)
   end
 end

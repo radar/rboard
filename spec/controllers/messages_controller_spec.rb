@@ -26,9 +26,7 @@ describe MessagesController do
   
   it "should be able to create a new message" do
     User.should_receive(:find).with(:all, :order => "login ASC").and_return(@users)
-    User.should_receive(:find).and_return(@user)
-    @user.should_receive(:update_attribute).twice.and_return(Time.now)
-    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    find_user
     @user.should_receive(:outbox_messages).and_return(@messages)
     @messages.should_receive(:new).and_return(@message)
     get 'new'
@@ -36,9 +34,7 @@ describe MessagesController do
   
   it "a user cannot send a message to themselves" do
     User.should_receive(:find).with(:all, :order => "login ASC").and_return([])
-    User.should_receive(:find).and_return(@user)
-    @user.should_receive(:update_attribute).twice.and_return(Time.now)
-    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    find_user
     @user.should_receive(:outbox_messages).and_return(@messages)
     @messages.should_receive(:new).and_return(@message)
     get 'new'
@@ -125,13 +121,23 @@ describe MessagesController do
   it "should let a user reply to a message" do
     login_as(:moderator)
     Message.should_receive(:find).with(@to_deleted.id.to_s).and_return(@message)
+    @message.should_receive(:belongs_to?).and_return(true)
     User.should_receive(:find).with(:all, :order => "login ASC").and_return(@users)
-    User.should_receive(:find).and_return(@user)
-    @user.should_receive(:update_attribute).twice.and_return(Time.now)
-    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    find_user
     get 'reply', :id => @to_deleted.id
   end
   
+  it "should not allow the user to reply to a message that is not theirs" do
+    login_as(:plebian)
+    Message.should_receive(:find).with(@to_deleted.id.to_s).and_return(@message)
+    @message.should_receive(:belongs_to?).and_return(false)
+    User.should_receive(:find).with(:all, :order => "login ASC").and_return(@users)
+    find_user
+    get 'reply', :id => @to_deleted.id
+    response.should redirect_to(messages_path)
+    flash[:notice].should eql(t(:message_does_not_belong_to_you))
+  end
+    
   it "should show their outbox" do
     login_as(:plebian)
     get 'sent'

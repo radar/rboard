@@ -1,6 +1,9 @@
 class ForumsController < ApplicationController
   before_filter :store_location, :only => :show
   
+  # Shows all root forums.
+  # Limits this selection to forums the current user has access to.
+  # Also gathers stats for the Compulsory Stat Box.
   def index
     @forums = Forum.without_parent
 
@@ -17,6 +20,8 @@ class ForumsController < ApplicationController
     @ppt = @posts > 0 ? @posts / @topics : 0
   end
   
+  # Shows a forum.
+  # Checks first if the current user can see it.
   def show
     @forum = Forum.find(params[:id], :include => [{ :topics => :posts }, :moderations])
     if !@forum.viewable?(current_user)

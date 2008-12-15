@@ -68,5 +68,9 @@ describe Post, "general" do
     @post.belongs_to?(@administrator).should be_false
   end
   
+  it "should return the localtime" do
+    @post.local_time.should eql(@post.created_at.localtime)
+  end
+  
 end
 
