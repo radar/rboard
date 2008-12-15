@@ -13,7 +13,7 @@ class Array
   end
   
   def all_next(element, included=false)
-    (included ? self[index(element)..-1] : self[(index(element)-1)..-1]) if index(element) && last != element
+    (included ? self[index(element)..-1] : self[(index(element)+1)..-1]) if index(element) && last != element
   end
 end
     
