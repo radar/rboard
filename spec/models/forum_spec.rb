@@ -73,5 +73,5 @@ describe Forum, "in general" do
     @everybody.sub?.should eql(false)
     @sub_of_everybody.sub?.should eql(true)
   end
-  
+    
 end

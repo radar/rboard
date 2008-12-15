@@ -3,6 +3,7 @@ class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :find_forum
   before_filter :moderator_login_required, :only => [:lock, :unlock]
+  before_filter :create_ip, :only => [:create, :update]
   
   def index
     redirect_to forum_path(@forum)
@@ -26,9 +27,8 @@ class TopicsController < ApplicationController
   end
   
   def create
-    ip = Ip.find_or_create_by_ip(request.remote_addr)
-    @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => ip))
-    @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => ip))
+    @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
+    @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
     if @topic.save
       flash[:notice] = t(:topic_created)
@@ -93,7 +93,8 @@ class TopicsController < ApplicationController
   end
     
   def create_ip
-    IpUser.create(:ip => Ip.find_or_create_by_ip(request.remote_addr), :user => current_user)
+    @ip = Ip.find_or_create_by_ip(request.remote_addr)
+    IpUser.create(:ip => @ip, :user => current_user)
   end
   
 end

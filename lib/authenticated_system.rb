@@ -55,10 +55,11 @@ module AuthenticatedSystem
   end
   
   def user_banned?
-    logged_in? ? !current_user.ban_time.nil? && @current_user.ban_time > Time.now : false
+    logged_in? ? current_user.banned? : false
   end
   
   def theme
+    # Create the themes if they don't exist. I know, it's cheating.
     (Dir.entries("#{RAILS_ROOT}/public/themes") - ['.svn','..','.']).each { |theme| Theme.create(:name => theme) } if Theme.count == 0   
     theme = logged_in? && !current_user.theme.nil? ? current_user.theme : Theme.find_by_is_default(true)
     theme.nil? ? Theme.first : theme

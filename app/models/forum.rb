@@ -54,13 +54,13 @@ class Forum < ActiveRecord::Base
   
   # If the user is logged in, then user will not be :false
   # Check if a forum is visible to a user
-  def viewable?(user=nil)
+  def viewable?(user=:false)
     (user != :false && is_visible_to_id <= user.user_level.position) || (user == :false && is_visible_to == UserLevel.find_by_name("User"))
   end
   
   # If the user is logged in, then user will not be :false
   # Check if a forum can have topics posted into it by a user
-  def topics_creatable_by?(user=nil)
+  def topics_creatable_by?(user=:false)
     (user != :false && topics_created_by_id <= user.user_level.position) || (user == false && topics_created_by == UserLevel.find_by_name("User"))
   end
 end
