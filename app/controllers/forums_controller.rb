@@ -1,5 +1,5 @@
 class ForumsController < ApplicationController
-  before_filter :store_location, :only => :show
+  before_filter :store_location, :only => [:index, :show]
   
   # Shows all root forums.
   # Limits this selection to forums the current user has access to.
