@@ -33,6 +33,7 @@ class Forum < ActiveRecord::Base
           ancestor.last_post_forum = self
         end
       else
+        # does this ever get called? Test it and find out.
         ancestor.last_post = nil
         ancestor.last_post_forum = nil
       end
@@ -61,6 +62,6 @@ class Forum < ActiveRecord::Base
   # If the user is logged in, then user will not be :false
   # Check if a forum can have topics posted into it by a user
   def topics_creatable_by?(user=:false)
-    (user != :false && topics_created_by_id <= user.user_level.position) || (user == false && topics_created_by == UserLevel.find_by_name("User"))
+    (user != :false && topics_created_by_id <= user.user_level.position) || (user == :false && topics_created_by == UserLevel.find_by_name("User"))
   end
 end

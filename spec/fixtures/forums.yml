@@ -1,38 +1,38 @@
 admins_only:
   title: Administrators Only!
   description: Top secret admin stuff goes here!
-  is_visible_to: administrator
-  topics_created_by: administrator
+  is_visible_to_id: 3
+  topics_created_by_id: 3
   position: 1
   
 moderators_only:
   title: Moderators Only!
   description: top secret moderator discussion!
-  is_visible_to: moderator
-  topics_created_by: noderator
+  is_visible_to_id: 2
+  topics_created_by_id: 2
   position: 2
 
 everybody:
   title: General Discussion!
   description: Anything and everyone is welcome to discuss whatever!
-  is_visible_to: user
-  topics_created_by: user
+  is_visible_to_id: 1
+  topics_created_by_id: 1
   position: 3
   last_post: user
 
 sub_of_everybody:
   title: Unmoderated Discussion
   description: Totally unmoderated!
-  is_visible_to: user
-  topics_created_by: user
+  is_visible_to_id: 1
+  topics_created_by_id: 1
   position: 1
   parent: everybody
   
 sub_of_sub_of_everybody:
   title: Unmoderated Unmoderated Discussion
   description: Really really unmoderated!
-  is_visible_to: user
-  topics_created_by: user
+  is_visible_to_id: 1
+  topics_created_by_id: 1 
   position: 1
   parent: sub_of_everybody
 

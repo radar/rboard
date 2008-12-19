@@ -1,6 +1,6 @@
 class Topic < ActiveRecord::Base
   belongs_to :user
-  belongs_to :ip
+  belongs_to :ip  
   belongs_to :forum
   belongs_to :last_post, :class_name => "Post"
 

@@ -17,8 +17,6 @@ class TopicsController < ApplicationController
        format.html
        format.rss
      end
-   rescue ActiveRecord::RecordNotFound
-     not_found
    end
   
   def new

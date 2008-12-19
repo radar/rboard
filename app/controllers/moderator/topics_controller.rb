@@ -36,12 +36,12 @@ class Moderator::TopicsController < Moderator::ApplicationController
         move
         return false
       when "Merge"
+        params[:moderation_ids] = @moderations_for_topics.map(&:moderated_object_id)
         merge
-        render :action => "merge"
         return false
     end
     redirect_back_or_default(moderator_moderations_path) 
-  rescue ActiveRecord::RecordNotFound
+  rescue ActiveRecord::RecordNotFound => e
     flash[:notice] = t(:moderation_not_found)
     redirect_back_or_default moderator_moderations_path
   end
@@ -55,12 +55,14 @@ class Moderator::TopicsController < Moderator::ApplicationController
     if @topics.size == 1
       flash[:notice] = t(:only_one_topic_for_merge)
       redirect_back_or_default forums_path
+      return false
     end
-    if request.put?
+    if request.put? && params[:new_subject]
       # Check if user has access to all topics
       if @topics.any? { |topic| !topic.forum.viewable?(current_user) }
-        flash[:notice] = t(:topics_do_not_belong_to_you)
+        flash[:notice] = t(:topics_not_accessible_by_you)
         redirect_back_or_default forums_path
+        return false
       end
       @topic = Topic.find(params[:master_topic_id])
       @topic.merge!(session[:moderation_ids], params[:new_subject])

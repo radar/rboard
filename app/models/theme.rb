@@ -5,7 +5,7 @@ class Theme < ActiveRecord::Base
   validates_uniqueness_of :name
   
   def to_s
-    File.readlines("#{RAILS_ROOT}/public/themes/#{name}/style.css").to_s
+    File.readlines("#{THEMES_DIRECTORY}/#{name}/style.css").to_s
   end
   
 end

@@ -8,7 +8,8 @@ describe Moderator::TopicsController do
     @admin_topic = topics(:admin)
     @moderator_topic = topics(:moderator)
     @topic = mock_model(Topic)
-    @topics = [@topic]
+    @single_topic = [@topic]
+    @topics = [@topic, @topic]
     @forum = mock_model(Forum)
     @moderation = mock_model(Moderation)
     @moderations = [@moderation]
@@ -122,13 +123,64 @@ describe Moderator::TopicsController do
       flash[:notice].should eql(I18n.t(:topics_moved))
       response.should redirect_to(forum_path(1))
     end
-      #   
-      # it "should be able to merge for moderations selected on the moderations page" do
-      #   Topic.should_receive(:find).and_return(@topics)
-      #   put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3] }
-      #   flash[:notice].should eql(I18n.t(:topics_merged))
-      #   response.should redirect_to(forums_path)
-      # end
+      
+    it "should be able to begin to merge for moderations selected on the moderations page" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_return(@moderations)
+      @moderation.should_receive(:moderated_object_id).and_return(1)
+      Topic.should_receive(:find).and_return(@topics)
+      put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3] }
+    end
+    
+    it "should be able to begin to merge for moderations selected on the moderations page" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_return(@moderations)
+      @moderation.should_receive(:moderated_object_id).and_return(1)
+      Topic.should_receive(:find).and_return(@topics, @topic)
+      @topic.should_receive(:forum).twice.and_return(@forum)
+      @topic.should_receive(:merge!).and_return(true)
+      @forum.should_receive(:viewable?).twice.and_return(true)
+      put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
+      flash[:notice].should eql(I18n.t(:topics_merged))
+      response.should redirect_to(forums_path)
+    end
+    
+    it "shouldn't be able to merge a single topic" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_return(@moderations)
+      @moderation.should_receive(:moderated_object_id).and_return(1)
+      Topic.should_receive(:find).and_return(@single_topic)
+      put 'moderate', { :commit => "Merge", :moderation_ids => [1], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1] }
+      flash[:notice].should eql(I18n.t(:only_one_topic_for_merge))
+      response.should redirect_to(forums_path)
+    end
+    
+    it "shouldn't be able to merge topics in forums they do not have access to" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_return(@moderations)
+      @moderation.should_receive(:moderated_object_id).and_return(1)
+      Topic.should_receive(:find).and_return(@topics)
+      @topic.should_receive(:forum).and_return(@forum)
+      @forum.should_receive(:viewable?).and_return(false)
+      put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
+      flash[:notice].should eql(I18n.t(:topics_not_accessible_by_you))
+      response.should redirect_to(forums_path)
+    end
+    
+    it "shouldn't be able to merge topics that don't exist" do
+      Moderation.should_receive(:for_user).and_return(@moderations)
+      @moderations.should_receive(:topics).and_return(@moderations)
+      @moderations.should_receive(:find).and_return(@moderations)
+      @moderation.should_receive(:moderated_object_id).and_return(1)
+      Topic.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+      put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
+      flash[:notice].should eql(I18n.t(:topic_not_found))
+      response.should redirect_to(moderator_moderations_path)
+    end
       
     it "should not be able to act on moderations that don't belong to them" do
       Moderation.should_receive(:for_user).and_return(@moderations)

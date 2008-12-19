@@ -24,4 +24,6 @@ DATE_DISPLAY = "%d %B %Y"
 # Change this if your locale is not english
 # I18n.default_locale = "en"
 require 'array_ext'
+require 'themes_loader'
+THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
 RAILS_RELATIVE_URL_ROOT = "http://localhost"

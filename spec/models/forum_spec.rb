@@ -18,12 +18,14 @@ describe Forum, "creation" do
 end
 
 describe Forum, "in general" do
-  fixtures :forums, :topics, :posts
+  fixtures :forums, :topics, :posts, :users, :user_levels
   
   before do
     @everybody = forums(:everybody)
     @sub_of_everybody = forums(:sub_of_everybody)
     @sub_of_sub_of_everybody = forums(:sub_of_sub_of_everybody)
+    @admins_only = forums(:admins_only)
+    @moderators_only = forums(:moderators_only)
     @user_topic = topics(:user)
     @user_topic_2 = topics(:user_2)
   end
@@ -72,6 +74,48 @@ describe Forum, "in general" do
   it "should return true if the forum is a subforum of another" do
     @everybody.sub?.should eql(false)
     @sub_of_everybody.sub?.should eql(true)
+  end
+  
+  it "should be able to determine if a topic is visible by a user" do
+    @administrator = users(:administrator)
+    @moderator = users(:moderator)
+    @plebian = users(:plebian)
+    
+    @everybody.viewable?(:false).should be_true
+    @everybody.viewable?(@administrator).should be_true
+    @everybody.viewable?(@moderator).should be_true
+    @everybody.viewable?(@plebian).should be_true
+
+    @moderators_only.viewable?(:false).should be_false
+    @moderators_only.viewable?(@administrator).should be_true
+    @moderators_only.viewable?(@moderator).should be_true
+    @moderators_only.viewable?(@plebian).should be_false
+
+    @admins_only.viewable?(:false).should be_false
+    @admins_only.viewable?(@administrator).should be_true
+    @admins_only.viewable?(@moderator).should be_false
+    @admins_only.viewable?(@plebian).should be_false
+  end
+  
+  it "should be able to determine if a topic is creatable by a user" do
+    @administrator = users(:administrator)
+    @moderator = users(:moderator)
+    @plebian = users(:plebian)
+    
+    @everybody.topics_creatable_by?(:false).should be_true
+    @everybody.topics_creatable_by?(@administrator).should be_true
+    @everybody.topics_creatable_by?(@moderator).should be_true
+    @everybody.topics_creatable_by?(@plebian).should be_true
+    
+    @moderators_only.topics_creatable_by?(:false).should be_false
+    @moderators_only.topics_creatable_by?(@administrator).should be_true
+    @moderators_only.topics_creatable_by?(@moderator).should be_true
+    @moderators_only.topics_creatable_by?(@plebian).should be_false
+    
+    @admins_only.topics_creatable_by?(:false).should be_false
+    @admins_only.topics_creatable_by?(@administrator).should be_true
+    @admins_only.topics_creatable_by?(@moderator).should be_false
+    @admins_only.topics_creatable_by?(@plebian).should be_false
   end
     
 end

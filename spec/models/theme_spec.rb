@@ -7,7 +7,7 @@ describe Theme, "general" do
   end
   
   it "should load the stylesheet" do
-    @theme.to_s.should eql(File.readlines("#{RAILS_ROOT}/public/themes/blue/style.css").to_s)
+    @theme.to_s.should eql(File.readlines("#{THEMES_DIRECTORY}/blue/style.css").to_s)
   end
   
 end
