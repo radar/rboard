@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  # For distance_of_time_in_words
+  include ActionView::Helpers::DateHelper
   belongs_to :user
   belongs_to :ip
   belongs_to :topic
@@ -10,17 +12,27 @@ class Post < ActiveRecord::Base
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
-  
   define_index do
       indexes text
       indexes user.login, :as => :user, :sortable => true
       has user_id, created_at, updated_at
       set_property :delta => true
-    end
+  end
+  
+  delegate :subject, :to => :topic
 
   after_create :log_ip
   after_create :update_forum
+  before_create :stop_spam
   after_destroy :find_latest_post
+  
+  attr_protected :forum_id, :user_id
+  
+  def stop_spam
+    if user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS
+      errors.add_to_base("You can only post once every #{distance_of_time_in_words(Time.now, Time.now - TIME_BETWEEN_POSTS)}") and return false
+    end
+  end
 
   def log_ip
     IpUser.create(:user => user, :ip => ip)

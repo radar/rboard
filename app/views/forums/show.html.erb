@@ -1,3 +1,7 @@
+<% content_for :feed do %>
+  <link rel="alternate" type="application/rss+xml" title="<%= @forum.title %> Feed" href="<%= forum_url(@forum, :format => :rss) %>" />
+<% end %>
+
 <%= link_to(t(:rBoard), forums_path) %> -> <%= breadcrumb(@forum) %>
   <% unless @forums.empty? %>
     <h2><%= t(:Subforums) %> <%= @forum.title %></h2>

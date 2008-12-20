@@ -45,6 +45,7 @@ describe Post, "general" do
     @new_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
     @new_post.forum.last_post.should eql(nil)
     @sub_topic.save.should be_true
+    @sub_topic.posts.should_not be_empty
     @new_post.forum.sub?.should be_true
     @new_post.forum.last_post.should eql(@new_post)
     @new_post.forum.ancestors.each do |ancestor| 
@@ -70,6 +71,13 @@ describe Post, "general" do
   
   it "should return the localtime" do
     @post.local_time.should eql(@post.created_at.localtime)
+  end
+  
+  it "should not be able to be flooded" do
+    @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
+    @sub_topic.save.should be_true
+    other_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
+    other_post.save.should be_false
   end
   
 end

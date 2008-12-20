@@ -20,7 +20,7 @@ end
 # Application specific variables
 PER_PAGE = 30
 TIME_DISPLAY = "%I:%M:%S%p"
-DATE_DISPLAY = "%d %B %Y" 
+DATE_DISPLAY = "%d %B %Y"
 # Change this if your locale is not english
 # I18n.default_locale = "en"
 require 'array_ext'

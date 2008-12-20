@@ -88,8 +88,8 @@ describe Topic, "in general" do
     other_topic = @everybody.topics.build(:subject => "second subject", :user => @administrator)
     other_post = other_topic.posts.build(:text => "Second post", :user => @administrator)
     yet_another_post = topic.posts.build(:text => "Third post", :user => @administrator)
-    topic.save
-    other_topic.save
+    topic.save(false)
+    other_topic.save(false)
     topic.posts.size.should eql(2)
     other_topic.posts.size.should eql(1)
     Topic.count.should eql(8)

@@ -101,7 +101,7 @@ class PostsController < ApplicationController
     end
     
     def go_directly_to_post
-      page = (@topic.posts.size.to_f / per_page).ceil
+      page = (@topic.posts.count.to_f / per_page).ceil
       redirect_to forum_topic_path(@post.forum,@topic) + "/#{page}" + "#post_#{@post.id}"
     end
 end

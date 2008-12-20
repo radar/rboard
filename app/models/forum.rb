@@ -25,7 +25,7 @@ class Forum < ActiveRecord::Base
     post ||= posts.last
     self.last_post = post
     self.last_post_forum = nil
-    self.save
+    save
     for ancestor in (ancestors - [new_forum])
       if !post.nil?
         if ancestor.last_post.nil? || (ancestor.last_post.created_at < post.created_at)
