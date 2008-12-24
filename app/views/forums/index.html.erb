@@ -1,5 +1,60 @@
-<table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
-  <% unless @forums.empty? %>
+<% if @categories.empty? && @forums.empty? %>
+  <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
+    <thead>
+      <tr>
+        <td align='center'>
+          <%= t(:no_categories_or_forums) %>
+          <% unless is_admin? %>
+            <%= t(:administrator_should_create_category_or_forum) %>
+          <% else %>
+            <%= link_to t(:you_should_create_category_or_forum), admin_root_path %>
+          <% end %>
+        </td>
+      </tr>
+    </thead>
+  </table>
+<% end %>
+
+<% for category in @categories %>
+  <% div_for category do %>
+    <h2><%= category.name %></h2>
+    <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
+      <% unless category.forums.empty? %>
+        <thead>
+          <tr>
+            <td align='left' width='40%'><%= t(:Forum) %></td>
+            <td align='center' width='100px'><%= t(:Topics) %></td>
+            <td align='center' width='100px'><%= t(:Posts) %></td>
+            <td align='right'><%= t(:Last_Post) %></td>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render :partial => category.forums %>
+        </tbody>
+      <% else %>
+        <thead>
+          <tr>
+            <td align='center'>
+              <b>
+                <%= t(:no_forums) %>
+                <% unless is_admin? %>
+                  <%= t(:administrator_should_create_forum) %>
+                <% else %>
+                  <%= link_to t(:you_should_create_forum), new_admin_forum_path %>
+                <% end %>
+              </b>
+            </td>
+          </tr>
+        </thead>
+      <% end %>
+
+    </table>
+  <% end %>
+<% end %>
+
+<br />
+<% unless @forums.empty? %>
+  <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
     <thead>
       <tr>
         <td align='left' width='40%'><%= t(:Forum) %></td>
@@ -8,28 +63,14 @@
         <td align='right'><%= t(:Last_Post) %></td>
       </tr>
     </thead>
-<tbody>
-  <%= render :partial => "forum", :collection => @forums %>
-</tbody>
-  <% else %>
-    <thead>
-      <tr>
-        <td colspan='5' align='center'>
-          <b>
-            <%= t(:no_forums) %>
-            <% unless is_admin? %>
-              <%= t(:administrator_should_create_forum) %>
-            <% else %>
-              <%= link_to t(:you_should_create_forum), new_admin_forum_path %>
-            <% end %>
-          </b>
-        </td>
-      </tr>
-    </thead>
-  <% end %>
-  
+    <tbody>
+      <%= render :partial => @forums %>
+    </tbody>
+  </table>
+<% end %>
 
-</table><br />
+
+<br />
 <% if logged_in? %>
   <table cellspacing='0' cellpadding='5' class='info-box' width='100%' rules='groups'>
     <thead>

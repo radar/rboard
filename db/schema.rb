@@ -9,13 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081209115320) do
+ActiveRecord::Schema.define(:version => 20081224075206) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
     t.string   "reason"
     t.integer  "banned_by"
     t.datetime "ban_time"
+  end
+
+  create_table "categories", :force => true do |t|
+    t.string  "name"
+    t.integer "parent_id"
+    t.integer "position"
   end
 
   create_table "edits", :force => true do |t|
@@ -43,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20081209115320) do
     t.integer "last_post_forum_id"
     t.integer "topics_count",         :default => 0
     t.integer "posts_count",          :default => 0
+    t.integer "category_id"
   end
 
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"

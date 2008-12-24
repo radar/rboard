@@ -5,6 +5,7 @@ module NamespacedHelper
        (params[:controller] == "admin/ranks" && name == "ranks") ||
        (params[:controller] == "admin/themes" && name == "themes") ||
        (params[:controller] == "admin/forums" && name == "forums") ||
+       (params[:controller] == "admin/categories" && name == "categories") ||
        (params[:controller] == "admin/users" && name == "ip_banning" && params[:action] == "ban_ip")
        (params[:controller] == "moderator/moderations" && name == "moderations")
       'selected'

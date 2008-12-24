@@ -19,4 +19,4 @@
     <% end %>
   </td>
 </tr>
-<%= render :partial => "forum", :collection => forum.children.sort_by(&:position), :locals => { :extender => true, :depth => depth+1 }  %>
+<%= render :partial => forum.children.sort_by(&:position), :locals => { :extender => true, :depth => depth+1 }  %>

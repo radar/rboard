@@ -1,6 +1,7 @@
 class Admin::ForumsController < Admin::ApplicationController
   before_filter :store_location, :only => [:index, :show]
   before_filter :find_forum, :except => [:new, :create, :index]
+  before_filter :find_category
   
   # Shows all top-level forums.
   def index
@@ -10,13 +11,21 @@ class Admin::ForumsController < Admin::ApplicationController
   # Initializes a new forum.
   def new
     @forum = Forum.new
-    @forums = Forum.find(:all, :order => "title")
+    @forums, @categories = if @category
+      [@category.forums.find(:all, :order => "title ASC"), []]
+    else
+      [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
+    end
     @user_levels = UserLevel.find(:all, :order => "position ASC")
   end
   
   # Creates a new forum.
   def create
-    @forum = Forum.new(params[:forum])
+    @forum = if @category
+      @category.forums.build(params[:forum])
+    else
+      Forum.new(params[:forum])
+    end
     if @forum.save
       flash[:notice] = t(:forum_created)
       redirect
@@ -32,7 +41,13 @@ class Admin::ForumsController < Admin::ApplicationController
   def edit
     # We do this so we can't make a forum a sub of itself, or any of its descendants...
     # As this would cause circular references which just aren't cool.
-    @forums = Forum.find(:all, :order => "title") - [@forum] - @forum.descendants
+    
+    @forums, @categories = if @category
+      [@category.forums.find(:all, :order => "title ASC"), []]
+    else
+      [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
+    end
+    @forums -= [@forum] + @forum.descendants
     @user_levels = UserLevel.find(:all, :order => "position ASC")
     
   end
@@ -91,6 +106,10 @@ class Admin::ForumsController < Admin::ApplicationController
   # Got tired of writing it all out for the move_* actions
   def redirect
     redirect_back_or_default(admin_forums_path)
+  end
+  
+  def find_category
+    @category = Category.find(params[:category_id]) if params[:category_id]
   end
   
   # Find a forum. Most of the actions in this controller need a forum object.

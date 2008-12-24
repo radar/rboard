@@ -5,7 +5,8 @@ class ForumsController < ApplicationController
   # Limits this selection to forums the current user has access to.
   # Also gathers stats for the Compulsory Stat Box.
   def index
-    @forums = Forum.without_parent
+    @categories = Category.without_parent
+    @forums = Forum.without_category
 
     @forums = if logged_in? 
       @forums.viewable_to(current_user)

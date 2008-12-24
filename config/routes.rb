@@ -8,18 +8,23 @@ ActionController::Routing::Routes.draw do |map|
     
   map.namespace :admin do |admin|
     admin.root :controller => "index"
-    admin.resources :ranks
-    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any } do |user|
-      user.resources :ips
+    
+    admin.resources :categories, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put } do |category|
+      category.resources :forums
     end
+    
+    admin.chronic 'chronic', :controller => 'chronic'
+    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
     admin.resources :ips do |ip|
       ip.resources :topics, :only => [:index]
       ip.resources :posts, :only => [:index]
       ip.resources :users, :only => [:index]
     end
+    admin.resources :ranks
     admin.resources :themes, :member => { :make_default => :put }
-    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
-    admin.chronic 'chronic', :controller => 'chronic'
+    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any } do |user|
+      user.resources :ips
+    end
   end
   
   
@@ -36,6 +41,10 @@ ActionController::Routing::Routes.draw do |map|
     end
     
     moderator.resources :moderations
+  end
+  
+  map.resources :categories do |category|
+    category.resources :forums
   end
   
   map.resources :forums, :collection => { :list => :get } do |forum|

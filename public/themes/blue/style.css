@@ -80,7 +80,11 @@ img {
   padding:0px;
 }
 
-.forums, .forum, .info-box, .list-table {
+.category {
+  padding:5px;
+}
+
+.forums, .forum, .info-box, .list-table, .category {
   border:1px solid #84AFD3;
 }
 
