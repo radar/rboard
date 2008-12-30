@@ -33,7 +33,7 @@ describe Admin::ForumsController do
   
     it "should be able to begin making a new forum" do
       Forum.should_receive(:new).and_return(@forum)
-      Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
+      Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
       get 'new'
       response.should_not redirect_to(login_path)
     end
@@ -75,8 +75,8 @@ describe Admin::ForumsController do
   end
   
   it "should be able to begin to edit a forum" do
+    Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
     Forum.should_receive(:find).with("1").and_return(@forum)
-    Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
     @forum.should_receive(:descendants).and_return(@forums)
     get 'edit', :id => 1 
   end

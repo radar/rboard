@@ -4,6 +4,7 @@ admins_only:
   is_visible_to_id: 3
   topics_created_by_id: 3
   position: 1
+  category: test
   
 moderators_only:
   title: Moderators Only!
@@ -11,6 +12,7 @@ moderators_only:
   is_visible_to_id: 2
   topics_created_by_id: 2
   position: 2
+  category: test
 
 everybody:
   title: General Discussion!
@@ -19,6 +21,7 @@ everybody:
   topics_created_by_id: 1
   position: 3
   last_post: user
+  category: test
 
 sub_of_everybody:
   title: Unmoderated Discussion
@@ -27,6 +30,7 @@ sub_of_everybody:
   topics_created_by_id: 1
   position: 1
   parent: everybody
+  category: test
   
 sub_of_sub_of_everybody:
   title: Unmoderated Unmoderated Discussion
@@ -35,8 +39,10 @@ sub_of_sub_of_everybody:
   topics_created_by_id: 1 
   position: 1
   parent: sub_of_everybody
+  category: test
 
 invalid:
   id: 5
   is_visible_to: user
+  category: test
 

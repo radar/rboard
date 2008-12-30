@@ -17,6 +17,9 @@ class Forum < ActiveRecord::Base
   belongs_to :last_post_forum, :class_name => "Forum"
   
   validates_presence_of :title, :description
+  
+  after_save :update_category_visibility
+  after_destroy :update_category_visibility
     
   def to_s
     title
@@ -65,4 +68,12 @@ class Forum < ActiveRecord::Base
   def topics_creatable_by?(user=:false)
     (user != :false && topics_created_by_id <= user.user_level.position) || (user == :false && topics_created_by == UserLevel.find_by_name("User"))
   end
+  
+  private
+  
+    def update_category_visibility
+      if category
+        self.category.update_attribute("is_visible_to", UserLevel.find(category.forums.find(:all, :joins => :is_visible_to).map { |f| f.is_visible_to.position }.sort.last))
+      end
+    end
 end

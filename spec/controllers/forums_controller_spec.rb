@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ForumsController do
-  fixtures :users, :forums, :user_levels
+  fixtures :users, :forums, :user_levels, :categories
 
   before do
     @forum = mock_model(Forum)
@@ -16,19 +16,12 @@ describe ForumsController do
     @moderations = [@moderation]
   end
 
-  it "should restrict which forums it shows when logged in" do
+  it "should gather forums" do
     login_as(:plebian)
-    Forum.should_receive(:without_parent).and_return(@forums)
-    @forums.should_receive(:viewable_to).and_return(@forums)
+    Forum.should_receive(:without_category).and_return(@forums)
     get 'index'
   end
   
-  it "should restrict which forums it shows to annoymous users" do
-    Forum.should_receive(:without_parent).and_return(@forums)
-    @forums.should_receive(:viewable_to_anonymous).and_return(@forums)
-    get 'index'
-  end
- 
   it "should not show the admin forum to anonymous users" do
     Forum.should_receive(:find).and_return(@forum)
     @forum.should_receive(:viewable?).and_return(false)

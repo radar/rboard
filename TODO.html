@@ -5,387 +5,280 @@
   <meta http-equiv="Content-Style-Type" content="text/css">
   <title></title>
   <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="949.35">
+  <meta name="CocoaVersion" content="949.43">
   <style type="text/css">
     p.p1 {margin: 0.0px 0.0px 14.0px 0.0px; font: 22.0px Lucida Grande}
     p.p2 {margin: 0.0px 0.0px 14.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande}
     p.p3 {margin: 0.0px 0.0px 7.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande; min-height: 17.0px}
     p.p4 {margin: 0.0px 0.0px 11.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande}
-    p.p6 {margin: 0.0px 0.0px 12.0px 0.0px; line-height: 19.0px; font: 18.0px Lucida Grande}
-    span.s1 {text-decoration: line-through}
-    span.s2 {text-decoration: underline ; color: #2350ab}
-    ul.ul1 {list-style-type: disc}
-    ul.ul2 {list-style-type: circle}
-    ul.ul3 {list-style-type: square}
+    p.p5 {margin: 0.0px 0.0px 0.0px 36.0px; text-indent: -36.0px; line-height: 19.0px; font: 14.0px Lucida Grande}
+    p.p6 {margin: 0.0px 0.0px 0.0px 72.0px; text-indent: -72.0px; line-height: 19.0px; font: 14.0px Lucida Grande}
+    p.p7 {margin: 0.0px 0.0px 0.0px 72.0px; text-indent: -72.0px; line-height: 19.0px; font: 14.0px Lucida Grande; color: #ff0300}
+    p.p8 {margin: 0.0px 0.0px 0.0px 108.0px; text-indent: -108.0px; line-height: 19.0px; font: 14.0px Lucida Grande; color: #ff0300}
+    p.p9 {margin: 0.0px 0.0px 0.0px 36.0px; text-indent: -36.0px; line-height: 19.0px; font: 14.0px Lucida Grande; color: #ff0300}
+    p.p10 {margin: 0.0px 0.0px 0.0px 108.0px; text-indent: -108.0px; line-height: 19.0px; font: 14.0px Lucida Grande}
+    p.p11 {margin: 0.0px 0.0px 12.0px 0.0px; line-height: 19.0px; font: 18.0px Lucida Grande}
+    span.s1 {letter-spacing: 0.0px}
+    span.s2 {text-decoration: line-through ; letter-spacing: 0.0px}
+    span.s3 {letter-spacing: 0.0px color: #ff0300}
+    span.s4 {letter-spacing: 0.0px color: #ff0000}
+    span.s5 {letter-spacing: 0.0px color: #000000}
+    span.s6 {font: 14.0px Lucida Grande; letter-spacing: 0.0px}
+    span.Apple-tab-span {white-space:pre}
   </style>
 </head>
 <body>
-<p class="p1"><b>Rails Forum Feature Jam</b></p>
-<p class="p2">Anything that is <span class="s1">crossed out</span> Cool features, we can prioritize later in terms of which we’d want most. :) Included is the original rorBB feature list as well, assume that anything not crossed out is a gotta have. Basically, we’d like to make the transition as fluid as possible from punBB, so we’d like to have every feature from that forum package that we use.</p>
-<p class="p2">The moderation stuff is super important to us, and those are some of the main things missing from the rails-based forum options available today.</p>
-<p class="p3"><br></p>
-<p class="p2"><b>Here’s What RAILSFORUM Wrote:</b></p>
-<p class="p4"><b>MODERATION</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Topic Level:</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">delete topics (<s>physically remove</s> and with restore option)</li>
-
-  </ul>
-
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">User Level:</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">user notes (not necessary but nice)</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><s>ban/unban users</s> (by name and email address)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">ban/unban IP ranges</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">capture user IP address</li>
-    <ul class="ul3">
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">IP history (any IP the user has posted from)</li>
-    </ul>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Miscellaneous:</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Post reporting (user press report button, enter reason for report, report is sent to moderator area or via email to moderators)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Able to censor words (for spammers, mostly)</span></li>
-  </ul>
-</ul>
-<p class="p2">Inline moderation: Post level edits can be done inline: each post has a check box viewable to moderators… mods check the posts that need moderation then choose the action from a drop down.</p>
-<p class="p4"><b>FORUM FUNCTION</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Quick Reply</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Quick Edit (vB 3.6-style?)- (bust post editing in some form is necessary)</span></li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Quoting (i.e., via bbcode and also a “Reply with Quote” button)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Better bbcode (i.e., allow attributes like [url=<a href="http://www.yahoo.com/"><span class="s2">http://www.yahoo.com/</span></a>]Yahoo[/url]) (calibre-bbcode gem?)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Code highlighting (syntax gem?)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Signatures</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Avatars (real, hosted—not gravatars, which are slow and tiny)</span> (Though since we have them now, they’d be really nice)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">RSS feeds for new topics (per forum), new posts (per forum and per topic), and whole forum (posts and topics)</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Dashboard/control panel-based subscriptions—users can subscribe to threads, and threads with new posts are printed to a “subscriptions” area on the dashboard/cp</span></li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Search (whole forum, per forum, per user, (per post?))</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Userlist (sort by alpha, join date, posts)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Private message system</span></li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">File attachements</span></li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Expanded profile fields (DOB, location, website, etc.)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">User ranks (based on post count, customizable)</span> (Though since we have them now, they’d be really nice)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Support for graphical smilies</span> (Though since we have them now, they’d be really nice)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Visual representation of unread topics (including previously read topics with new replies)</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Show all new(/newly replied to) posts and mark all forums read links</li>
-  </ul>
-</ul>
-<p class="p4"><b>FORUM CATEGORIZATION/NAVIGATION</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Catoegories (for forums)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Tag system</span></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Users can tag topics (forum-wide del.icio.us?)</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Tags are gathered (tag cloud?) in their dashboard</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Tags are also gathered on a forum-wide tag page</span></li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Ability to reorder forums</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Ability to rename forums (note: forums should have descriptions)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Forums show numbers topics/replies (PunBB-style)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Threads show number of replies/view (PunBB-style)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Each thread has a URL (obviously), each post has its own URL too</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Last 24hrs. topic links: new, recently updated, unanswered (that one is all-time)</li>
-</ul>
-<p class="p4"><b>FORUM PERMISSIONS</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Limit forum access (control over who can post, reply, and view forums)</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Forum access is contolled on a user group basis and also on a forum basis</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Moderator levels (control which moderation tasks moderators have access to)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">User groups (used for moderation levels, and also forum access—user groups can be based on post count, length of membership, automatic (i.e., all new members are added), or custom (i.e., mods/admins must place users in groups manually)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Forum function permissions</span></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Signatures (control over number of lines/characters, what bbcode is allowed (i.e., to disallow image code))</span> (Though it would be VERY nice to forbit IMG tags in sigs somehow—image sigatures really make a forum hard to read)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Avatars (size, dimensions, filetype)</span> (Only necessary if we have avatars!)</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Control over which forums count toward viewable user postcount (this can be helpful)</span></li>
-</ul>
-<p class="p2">And of course: A PunBB converter</p>
-<p class="p3"><br></p>
-<p class="p2"><b>Here’s What RORBB Had Already:</b></p>
-<p class="p4"><b>Core Features</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Database Agnostic</span></li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Categories for Forums</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Forums and <span class="s1">Sub Forums</span></li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Topics</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Editable Title</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Messages</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Message Quoting</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Textile/Markdown Support</span> (would rather have bbcode, to be honest! Textile, because of _ = italic, really screws up code samples when people neglect to use code tags, as they do often)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Message Preview (before posting)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Editable</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Full-text searching</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Users</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Role based Security</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Profiles</li>
-    <ul class="ul3">
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Avatars</span> (See above)</li>
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Other Info (location, website, IM handles)</li>
-    </ul>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Member List</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Profile pages</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Ajax</span> (Bells and whistles—unimportant for now, but certainly nice)</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Unobtrusive</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Fully Degradable</li>
-  </ul>
-</ul>
-<p class="p4"><b>Cool Features (IF NOT CROSSED OUT, ASSUME IT SHOULD BE CONSIDERED CORE)</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Integrated installer</span> (Not necessary for first, Rails Forum release)</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Topics</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Track Posts, Views and Last Post</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Taggable Topics</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Read/Unread Status (for each user)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Quick View First Unread Post</span></li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Messages</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">DHTML <span class="s1">Textile Tool</span> (you mean wysiwyg editor? nice, but not necessary)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Smilies</span> (See above)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">IP Tracking</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Report Abuse</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Quick Post</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Message rating</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Code syntax highlighting</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">View Modes</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Normal</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Compressed</span> (don’t care about this for a first release)</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Easy and advanced search options – Regular Expressions?</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Users</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Online/Offline Status</span> (This one would be VERY nice, however)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Profiles</li>
-    <ul class="ul3">
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Signatures</li>
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Privacy Settings for Personal Info</span> (easier to just allow them not to enter certain stuff)</li>
-    </ul>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Karma/ Reputation</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Buddy list</span></li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Ability to chose forum theme/layout</span></li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Private Messaging</span></li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Member List</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Search</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Topic subscriptions</span></li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">RSS Feeds</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><span class="s1">Web Service </span>API</li>
-</ul>
-<p class="p1"><b>Database Schema</b></p>
-<p class="p4"><b>Current</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>forums</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">name</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">description</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">position</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>topics</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">forum_id</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">name</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>posts</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">topic_id</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">user_id</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">content</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">created_at</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">updated_at</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>users</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">name</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">email</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">password_hash</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">password_salt</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">created_at</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">updated_at</li>
-  </ul>
-</ul>
-<p class="p4"><b>Possible Additions</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>forums</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">parent_id</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>topics</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">sticky (boolean)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">view_count</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>posts</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">ip</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>users</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">role_id</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">last_login_at</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">ip</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>roles</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">name<br>
-Whatever general permissions go here</li>
-  </ul>
-</ul>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande"><b>permissions</b></li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">role_id</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">forum_id</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">can_view</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">can_read</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">can_post</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">can_edit</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">can_delete</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">can_sticky<br>
-Other forum access permissions go here</li>
-  </ul>
-</ul>
-<p class="p1"><b>Feature Listing</b></p>
-<p class="p2">I took the liberty in splitting the list into two sections. The idea being that if the feature should be integrated into the system from the start, then it is a <b>Core Feature</b>. If it is fairly straight-forward to add on later, then it is a <b>Cool Feature</b>. Please move things around as you see fit. If you think this is a bad idea, you can revert it back to one list – I’m okay with that. —Ryan</p>
-<p class="p4"><b>Core Features</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Database Agnostic</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Categories for Forums</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Forums and Sub-Forums</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Topics</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Editable Title</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Messages</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Message Quoting</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Textile/Markdown Support</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Message Preview (before posting)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Editable</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Full-text searching</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Users</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Role based Security</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Profiles</li>
-    <ul class="ul3">
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Avatars</li>
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Other Info (location, website, IM handles)</li>
-    </ul>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Member List</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Profile pages</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Ajax</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Unobtrusive</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Fully Degradable</li>
-  </ul>
-</ul>
-<p class="p4"><b>Cool Features</b></p>
-<ul class="ul1">
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Integrated installer</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Topics</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Track Posts, Views and Last Post</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Taggable Topics</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Read/Unread Status (for each user)</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Quick View First Unread Post</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Messages</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">DHTML Textile Tool</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Smilies</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">IP Tracking</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Report Abuse</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Quick Post</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Message rating</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Code syntax highlighting</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">View Modes</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Normal</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Compressed</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Easy and advanced search options – Regular Expressions?</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Users</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Online/Offline Status</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Profiles</li>
-    <ul class="ul3">
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Signatures</li>
-      <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Privacy Settings for Personal Info</li>
-    </ul>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Karma/ Reputation</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Buddy list</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Ability to chose forum theme/layout</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Private Messaging</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Member List</li>
-  <ul class="ul2">
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Search</li>
-    <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Topic subscriptions</li>
-  </ul>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">RSS Feeds</li>
-  <li style="margin: 0.0px 0.0px 0.0px 0.0px; line-height: 19.0px; font: 14.0px Lucida Grande">Web Service API</li>
-</ul>
-<p class="p6"><b>Innovative Ideas</b></p>
-<p class="p2">Here is a list of innovative ideas which may revolutionize online forums. Can you think of something that another forum doesn’t have (or very few forums have) that seems useful? Write it down here. Some of these items may already be mentioned on the Feature List, but here you can describe them in more detail. Writing it down here does not mean we will implement it. Just try to fill this list with ideas no matter how crazy they seem.</p>
-<p class="p2"><b>Quick View</b><br>
-While you are in the topic list, click on a “quick view” button on a topic to see the first post in that topic which you haven’t read. This post will appear instantly under the topic – right in the topic list. You can then click Read More to read the rest of the unread posts if there are any.</p>
-<p class="p2"><b>Quick Search</b><br>
-Most forum searches require you to do an advanced search to find anything. Instead, there should be an AJAXified quick search which allows you to type in a couple words and a list of topics will instantly appear below.</p>
-<p class="p2"><b>Flag Topic</b><br>
-Are you especially interested in a topic? Quickly flag a topic and it will be placed in highest priority. When starting or replying to a topic, it is automatically flagged for you. It can notify you somehow when posts are made to that topic (how it notifies you can be a preference).</p>
-<p class="p2"><b>Ignore Topic</b><br>
-When you are browsing the list of topics and you see one that you know you are not interested in, just hit the ignore button and the topic will instantly disappear. The only time you will see it again is if you choose to look at your ignored topics.</p>
-<p class="p2"><b>Topic Priorities</b><br>
-Each topic could have a priority for a given user. This priority is calculated based on the user’s previous actions to determine if the topic may be of interest to the user. The user can sort topics by priority.</p>
-<p class="p2"><b>Auto Pre-Post Search</b><br>
-We a user is creating a new topic, and after they enter the title, an ajax request would be sent to search for topics with similar titles. The results would appear in a side bar on the right.</p>
-<p class="p2"><b>Split Topic</b><br>
-When creating a new message, the user will have the option of creating a new topic. This would be for situations when a topic makes the user think of something that really warrants a new topic. There could be some sort of link from the orginal topic say, “topic split here”.</p>
-<p class="p2"><b>In Reply To</b><br>
-In order to keep track of multiple conversations in one topic, a message could be marked as “In Reply To” another specific messages. Icons could be used to represent this visually. I’d like to study this more, because it might actually make things more complicated and confusing.</p>
-<p class="p2"><b>RSS for Everything</b><br>
-Every changing list could have an associated RSS feed. That way you can subscribe to anything: search results, user’s posts, replies to your flagged topics, etc.</p>
-<p class="p2"><b>Smart Language Selection for Syntax Highlighting</b><br>
-Each forum could have a default language for the syntax highlighting. This way the Ruby forum would default to Ruby, the JavaScript forum could default to Javascript, the Database forum default to SQL, etc. It would also be nice to add some auto-detecting of what language it is written in, so HTML with eruby in the Ruby forum would have correct highlighting, that sort of thing.</p>
+<p class="p1"><span class="s1"><b>Rails Forum Feature Jam</b></span></p>
+<p class="p2"><span class="s1">Anything that is </span><span class="s2">crossed out</span><span class="s1"> is a cool feature, anything that is not crossed out is a gotta have. Cool features, we can prioritize later in terms of which we’d want most. :) Included is the original rorBB feature list as well, assume that anything not crossed out is a gotta have. Basically, we’d like to make the transition as fluid as possible from punBB, so we’d like to have every feature from that forum package that we use.</span></p>
+<p class="p2"><span class="s1">The moderation stuff is super important to us, and those are some of the main things missing from the rails-based forum options available today.</span></p>
+<p class="p2"><span class="s1">Anything marked as </span><span class="s3">red is complete.</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><b>Here’s What RAILSFORUM Wrote:</b></span></p>
+<p class="p4"><span class="s1"><b>MODERATION</b></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Topic Level:</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s4">move topics</span><span class="s1"> (with redirect)</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">close/open topics</span><span class="s5"> </span><span class="s1">(mods/admins can still reply)</span><span class="s5">,</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s3">delete topics</span><span class="s1"> (</span><span class="s3">physically remove</span><span class="s1"> and with restore option)</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">rename topics</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">stick topics</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">edit history for topics (see who performed what edits and when)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Post Level:</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">edit posts (users their own, mods/admins any—silent edits for admins are nice)</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">split posts</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">merge posts (less important than the others)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>User Level:</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">user notes (not necessary but nice)</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">ban/unban users</span><span class="s5"> (</span><span class="s1">by name (actually done via a flag on the record)</span><span class="s5"> and email address)</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">ban/unban IP ranges</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">capture user IP address</span></p>
+<p class="p8"><span class="s5"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span></span><span class="s1">IP history (any IP the user has posted from)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Miscellaneous:</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Post reporting (user press report button, enter reason for report, report is sent to moderator area or via email to moderators)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Able to censor words (for spammers, mostly)</span></p>
+<p class="p2"><span class="s1">Inline moderation: Post level edits can be done inline: each post has a check box viewable to moderators… mods check the posts that need moderation then choose the action from a drop down.</span></p>
+<p class="p4"><span class="s1"><b>FORUM FUNCTION</b></span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Quick Reply</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Quick Edit (vB 3.6-style?)- (bust post editing in some form is necessary)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Quoting (i.e., via bbcode and also a “Reply with Quote” button)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Better bbcode (i.e., allow attributes like [url=<a href="http://www.yahoo.com/"><span class="s6">http://www.yahoo.com/</span></a>]Yahoo[/url]) (calibre-bbcode gem?)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Code highlighting (syntax gem?)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Signatures</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Avatars (real, hosted—not gravatars, which are slow and tiny)</span><span class="s1"> (Though since we have them now, they’d be really nice)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">RSS feeds for new topics (per forum), new posts (per forum and per topic), and whole forum (posts and topics)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Dashboard/control panel-based subscriptions—users can subscribe to threads, and threads with new posts are printed to a “subscriptions” area on the dashboard/cp</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Search (</span><span class="s3">whole forum (kinda, needs tidying up),</span><span class="s1"> per forum, per user, (per post?))</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Userlist (sort by alpha,</span><span class="s5"> join date, posts)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Private message system</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">File attachements</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Expanded profile fields (DOB, location, website, etc.)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">User ranks (based on post count, customizable) (Though since we have them now, they’d be really nice)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Support for graphical smilies</span><span class="s1"> (Though since we have them now, they’d be really nice)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Visual representation of unread topics (including previously read topics with new replies)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Show all new(/newly replied to) posts and mark all forums read links</span></p>
+<p class="p4"><span class="s1"><b>FORUM CATEGORIZATION/NAVIGATION</b></span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Catoegories (for forums)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Tag system</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Users can tag topics (forum-wide del.icio.us?)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Tags are gathered (tag cloud?) in their dashboard</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Tags are also gathered on a forum-wide tag page</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Ability to reorder forums</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Ability to rename forums (note: forums should have descriptions)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Forums show numbers topics/replies (PunBB-style)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Threads show number of replies/view (PunBB-style)</span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Each thread has a URL (obviously), each post has its own URL too</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Last 24hrs. topic links: new, recently updated, unanswered (that one is all-time)</span></p>
+<p class="p4"><span class="s1"><b>FORUM PERMISSIONS</b></span></p>
+<p class="p9"><span class="s5"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s1">Limit forum access (control over who can post, reply, and view forums)</span></p>
+<p class="p7"><span class="s5"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s1">Forum access is controlled on a user group basis and</span><span class="s5"> </span><span class="s1">also on a forum basis</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Moderator levels (control which moderation tasks moderators have access to)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>User groups (used for moderation levels, and also forum access—user groups can be based on post count, length of membership, automatic (i.e., all new members are added), or custom (i.e., mods/admins must place users in groups manually)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Forum function permissions</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Signatures (control over number of lines/characters, what bbcode is allowed (i.e., to disallow image code))</span><span class="s1"> (Though it would be VERY nice to forbit IMG tags in sigs somehow—image sigatures really make a forum hard to read)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Avatars (size, dimensions, filetype)</span><span class="s1"> (Only necessary if we have avatars!)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Control over which forums count toward viewable user postcount (this can be helpful)</span></p>
+<p class="p2"><span class="s1">And of course: A PunBB converter</span></p>
+<p class="p3"><span class="s1"></span><br></p>
+<p class="p2"><span class="s1"><b>Here’s What RORBB Had Already:</b></span></p>
+<p class="p4"><span class="s1"><b>Core Features</b></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Database Agnostic</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Categories for Forums</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Forums and </span><span class="s2">Sub Forums</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Topics</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Editable Title</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Messages</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Message Quoting</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Textile/Markdown Support</span><span class="s1"> (would rather have bbcode, to be honest! Textile, because of _ = italic, really screws up code samples when people neglect to use code tags, as they do often)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Message Preview (before posting)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Editable</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Full-text searching</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Users</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Role based Security</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Profiles</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span></span><span class="s2">Avatars</span><span class="s1"> (See above)</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span>Other Info (location, website, IM handles)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Member List</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Profile pages</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Ajax</span><span class="s1"> (Bells and whistles—unimportant for now, but certainly nice)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Unobtrusive</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Fully Degradable</span></p>
+<p class="p4"><span class="s1"><b>Cool Features (IF NOT CROSSED OUT, ASSUME IT SHOULD BE CONSIDERED CORE)</b></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Integrated installer</span><span class="s1"> (Not necessary for first, Rails Forum release)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Topics</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Track Posts, Views and Last Post</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Taggable Topics</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Read/Unread Status (for each user)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Quick View First Unread Post</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Messages</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>DHTML </span><span class="s2">Textile Tool</span><span class="s1"> (you mean wysiwyg editor? nice, but not necessary)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Smilies</span><span class="s1"> (See above)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>IP Tracking</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Report Abuse</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Quick Post</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Message rating</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Code syntax highlighting</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>View Modes</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Normal</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Compressed</span><span class="s1"> (don’t care about this for a first release)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Easy and advanced search options – Regular Expressions?</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Users</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Online/Offline Status</span><span class="s1"> (This one would be VERY nice, however)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Profiles</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span>Signatures</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span></span><span class="s2">Privacy Settings for Personal Info</span><span class="s1"> (easier to just allow them not to enter certain stuff)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Karma/ Reputation</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Buddy list</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Ability to chose forum theme/layout</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Private Messaging</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Member List</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Search</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span></span><span class="s2">Topic subscriptions</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>RSS Feeds</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span></span><span class="s2">Web Service </span><span class="s1">API</span></p>
+<p class="p1"><span class="s1"><b>Database Schema</b></span></p>
+<p class="p4"><span class="s1"><b>Current</b></span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>forums</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>name</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>description</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>position</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>topics</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>forum_id</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>name</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>posts</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>topic_id</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>user_id</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>content</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>created_at</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>updated_at</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>users</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>name</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>email</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>password_hash</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>password_salt</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>created_at</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>updated_at</span></p>
+<p class="p4"><span class="s1"><b>Possible Additions</b></span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>forums</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>parent_id</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>topics</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>sticky (boolean)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>view_count</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>posts</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>ip</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>users</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>role_id</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>last_login_at</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>ip</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>roles</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>name<br>
+Whatever general permissions go here</span></p>
+<p class="p5"><span class="s1"><b><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>permissions</b></span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>role_id</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>forum_id</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>can_view</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>can_read</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>can_post</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>can_edit</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>can_delete</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>can_sticky<br>
+Other forum access permissions go here</span></p>
+<p class="p1"><span class="s1"><b>Feature Listing</b></span></p>
+<p class="p2"><span class="s1">I took the liberty in splitting the list into two sections. The idea being that if the feature should be integrated into the system from the start, then it is a <b>Core Feature</b>. If it is fairly straight-forward to add on later, then it is a <b>Cool Feature</b>. Please move things around as you see fit. If you think this is a bad idea, you can revert it back to one list – I’m okay with that. —Ryan</span></p>
+<p class="p4"><span class="s1"><b>Core Features</b></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Database Agnostic</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Categories for Forums</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Forums and Sub-Forums</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Topics</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Editable Title</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Messages</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Message Quoting</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Textile/Markdown Support</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Message Preview (before posting)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Editable</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Full-text searching</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Users</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Role based Security</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Profiles</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span>Avatars</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span>Other Info (location, website, IM handles)</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Member List</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Profile pages</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Ajax</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Unobtrusive</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Fully Degradable</span></p>
+<p class="p4"><span class="s1"><b>Cool Features</b></span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Integrated installer</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Topics</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Track Posts, Views and Last Post</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Taggable Topics</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Read/Unread Status (for each user)</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Quick View First Unread Post</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Messages</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>DHTML Textile Tool</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Smilies</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>IP Tracking</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Report Abuse</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Quick Post</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Message rating</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Code syntax highlighting</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>View Modes</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Normal</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Compressed</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Easy and advanced search options – Regular Expressions?</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Users</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Online/Offline Status</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Profiles</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span>Signatures</span></p>
+<p class="p10"><span class="s1"><span class="Apple-tab-span">	</span>▪<span class="Apple-tab-span">	</span>Privacy Settings for Personal Info</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Karma/ Reputation</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Buddy list</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Ability to chose forum theme/layout</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Private Messaging</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Member List</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Search</span></p>
+<p class="p6"><span class="s1"><span class="Apple-tab-span">	</span>◦<span class="Apple-tab-span">	</span>Topic subscriptions</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>RSS Feeds</span></p>
+<p class="p5"><span class="s1"><span class="Apple-tab-span">	</span>•<span class="Apple-tab-span">	</span>Web Service API</span></p>
+<p class="p11"><span class="s1"><b>Innovative Ideas</b></span></p>
+<p class="p2"><span class="s1">Here is a list of innovative ideas which may revolutionize online forums. Can you think of something that another forum doesn’t have (or very few forums have) that seems useful? Write it down here. Some of these items may already be mentioned on the Feature List, but here you can describe them in more detail. Writing it down here does not mean we will implement it. Just try to fill this list with ideas no matter how crazy they seem.</span></p>
+<p class="p2"><span class="s1"><b>Quick View</b><br>
+While you are in the topic list, click on a “quick view” button on a topic to see the first post in that topic which you haven’t read. This post will appear instantly under the topic – right in the topic list. You can then click Read More to read the rest of the unread posts if there are any.</span></p>
+<p class="p2"><span class="s1"><b>Quick Search</b><br>
+Most forum searches require you to do an advanced search to find anything. Instead, there should be an AJAXified quick search which allows you to type in a couple words and a list of topics will instantly appear below.</span></p>
+<p class="p2"><span class="s1"><b>Flag Topic</b><br>
+Are you especially interested in a topic? Quickly flag a topic and it will be placed in highest priority. When starting or replying to a topic, it is automatically flagged for you. It can notify you somehow when posts are made to that topic (how it notifies you can be a preference).</span></p>
+<p class="p2"><span class="s1"><b>Ignore Topic</b><br>
+When you are browsing the list of topics and you see one that you know you are not interested in, just hit the ignore button and the topic will instantly disappear. The only time you will see it again is if you choose to look at your ignored topics.</span></p>
+<p class="p2"><span class="s1"><b>Topic Priorities</b><br>
+Each topic could have a priority for a given user. This priority is calculated based on the user’s previous actions to determine if the topic may be of interest to the user. The user can sort topics by priority.</span></p>
+<p class="p2"><span class="s1"><b>Auto Pre-Post Search</b><br>
+We a user is creating a new topic, and after they enter the title, an ajax request would be sent to search for topics with similar titles. The results would appear in a side bar on the right.</span></p>
+<p class="p2"><span class="s1"><b>Split Topic</b><br>
+When creating a new message, the user will have the option of creating a new topic. This would be for situations when a topic makes the user think of something that really warrants a new topic. There could be some sort of link from the orginal topic say, “topic split here”.</span></p>
+<p class="p2"><span class="s1"><b>In Reply To</b><br>
+In order to keep track of multiple conversations in one topic, a message could be marked as “In Reply To” another specific messages. Icons could be used to represent this visually. I’d like to study this more, because it might actually make things more complicated and confusing.</span></p>
+<p class="p2"><span class="s1"><b>RSS for Everything</b><br>
+Every changing list could have an associated RSS feed. That way you can subscribe to anything: search results, user’s posts, replies to your flagged topics, etc.</span></p>
+<p class="p2"><span class="s1"><b>Smart Language Selection for Syntax Highlighting</b><br>
+Each forum could have a default language for the syntax highlighting. This way the Ruby forum would default to Ruby, the JavaScript forum could default to Javascript, the Database forum default to SQL, etc. It would also be nice to add some auto-detecting of what language it is written in, so HTML with eruby in the Ruby forum would have correct highlighting, that sort of thing.</span></p>
 </body>
 </html>

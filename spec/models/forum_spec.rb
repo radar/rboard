@@ -117,5 +117,14 @@ describe Forum, "in general" do
     @admins_only.topics_creatable_by?(@moderator).should be_false
     @admins_only.topics_creatable_by?(@plebian).should be_false
   end
+  
+  it "should set the category's viewable status when saved or destroyed" do
+    @everybody.category.is_visible_to.should eql(user_levels(:user))
+    @everybody.save
+    @everybody.category.is_visible_to.should eql(user_levels(:administrator))
+    @admins_only.destroy
+    @everybody.reload
+    @everybody.category.is_visible_to.should eql(user_levels(:moderator))
+  end
     
 end
