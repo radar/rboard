@@ -11,3 +11,5 @@ coverage
 coverage/*
 config/*.sphinx.conf
 config/deploy.rb
+.gitignore.swp
+
