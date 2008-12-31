@@ -80,6 +80,12 @@ describe Topic, "in general" do
     @valid_topic.forum_id.should eql(@sub_of_everybody.id)
   end
   
+  it "should be able to move a topic and leave a redirect" do
+    @valid_topic.move!(@sub_of_everybody.id, true)
+    @valid_topic.forum_id.should eql(@sub_of_everybody.id)
+    Topic.find_by_moved_to_id(@valid_topic.id).should_not be_nil
+  end
+  
   it "should be able to merge two topics" do
     Topic.count.should eql(6)
     topic = @everybody.topics.build(:subject => "subject", :user => @administrator)

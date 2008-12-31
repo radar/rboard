@@ -34,8 +34,8 @@ class Moderation < ActiveRecord::Base
     destroy
   end
   
-  def move!(new_forum_id)
-    moderated_object.move!(new_forum_id)
+  def move!(new_forum_id, leave_redirect=false)
+    moderated_object.move!(new_forum_id, leave_redirect)
     destroy
   end
 end

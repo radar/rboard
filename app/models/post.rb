@@ -29,7 +29,7 @@ class Post < ActiveRecord::Base
   attr_protected :forum_id, :user_id
   
   def stop_spam
-    if user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS
+    if !user.posts.last.nil? && user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS
       errors.add_to_base("You can only post once every #{distance_of_time_in_words(Time.now, Time.now - TIME_BETWEEN_POSTS)}") and return false
     end
   end

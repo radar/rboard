@@ -3,6 +3,7 @@ class Topic < ActiveRecord::Base
   belongs_to :ip  
   belongs_to :forum
   belongs_to :last_post, :class_name => "Post"
+  belongs_to :moved_to, :class_name => "Topic"
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
   has_many :posts, :order => "posts.created_at asc"
@@ -16,7 +17,7 @@ class Topic < ActiveRecord::Base
   validates_length_of :subject, :minimum => 4
   validates_presence_of :subject, :forum_id, :user_id
   
-  attr_protected :sticky, :locked
+  attr_protected :sticky, :locked, :moved, :moved_to
   
   # Instead of using a counter_cache on the belongs_to we do this
   # because counter_cache doesn't take into account funky move! methods
@@ -40,7 +41,7 @@ class Topic < ActiveRecord::Base
   end
   
   def set_last_post
-    update_attribute("last_post_id", posts.last.id)
+    update_attribute("last_post_id", posts.last.id) unless moved
   end
   
   def increment_counters
@@ -52,7 +53,7 @@ class Topic < ActiveRecord::Base
     subject
   end
   
-  def move!(new_forum_id)
+  def move!(new_forum_id, leave_redirect=false)
     old_forum = Forum.find(forum_id)
     was_old_last_post = old_forum.last_post == last_post
     new_forum = Forum.find(new_forum_id)
@@ -61,6 +62,12 @@ class Topic < ActiveRecord::Base
     new_forum.increment!(:posts_count, posts.count)
     old_forum.decrement!(:topics_count)
     old_forum.decrement!(:posts_count, posts.count)
+    if leave_redirect
+      redirect = old_forum.topics.build(:subject => subject, :created_at => created_at, :user => user)
+      redirect.moved = true
+      redirect.moved_to = self
+      redirect.save!
+    end
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
     new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
     

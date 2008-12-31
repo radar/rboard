@@ -1,12 +1,17 @@
 class ForumsController < ApplicationController
   before_filter :store_location, :only => [:index, :show]
+  before_filter :find_category
   
   # Shows all root forums.
   # Limits this selection to forums the current user has access to.
   # Also gathers stats for the Compulsory Stat Box.
   def index
-    @categories = Category.without_parent.viewable_to(current_user)
-    @forums = Forum.without_category
+     if @category
+      @forums = @category.forums
+    else
+      @categories = Category.without_parent.viewable_to(current_user)
+      @forums = Forum.without_category
+    end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence
     @users = User.count
     @posts = Post.count
@@ -28,5 +33,11 @@ class ForumsController < ApplicationController
       @moderated_topics_count = @forum.moderations.topics.for_user(current_user).count
     end
   end
+  
+  private
+  
+    def find_category
+      @category = Category.find(params[:category_id]) unless params[:category_id].blank?
+    end
   
 end

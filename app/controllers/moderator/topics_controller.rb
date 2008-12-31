@@ -76,7 +76,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   
   def move
     if params[:new_forum_id]
-      @moderations_for_topics.each { |m| m.move!(params[:new_forum_id]) }
+      @moderations_for_topics.each { |m| m.move!(params[:new_forum_id], params[:leave_redirect] == '1') }
       flash[:notice] = t(:topics_moved)
       redirect_back_or_default(forum_path(params[:new_forum_id]))
     end

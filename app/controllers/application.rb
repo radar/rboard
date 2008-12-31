@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def check_page_value
     params[:page] = params[:page].to_i <= 0 ? "1" : params[:page]
   end
-  
+
   def set_time_zone
     Time.zone = current_user.time_zone if logged_in? && !current_user.time_zone.nil?
   end

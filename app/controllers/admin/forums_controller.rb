@@ -11,12 +11,7 @@ class Admin::ForumsController < Admin::ApplicationController
   # Initializes a new forum.
   def new
     @forum = Forum.new
-    @forums, @categories = if @category
-      [@category.forums.find(:all, :order => "title ASC"), []]
-    else
-      [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
-    end
-    @user_levels = UserLevel.find(:all, :order => "position ASC")
+    find_forums
   end
   
   # Creates a new forum.
@@ -31,8 +26,7 @@ class Admin::ForumsController < Admin::ApplicationController
       redirect
     else
       flash[:notice] = t(:forum_not_created)
-      @forums = Forum.find(:all, :order => "title")
-      @user_levels = UserLevel.find(:all, :order => "position ASC")
+      find_forums
       render :action => "new"
     end
   end
@@ -41,15 +35,7 @@ class Admin::ForumsController < Admin::ApplicationController
   def edit
     # We do this so we can't make a forum a sub of itself, or any of its descendants...
     # As this would cause circular references which just aren't cool.
-    
-    @forums, @categories = if @category
-      [@category.forums.find(:all, :order => "title ASC"), []]
-    else
-      [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
-    end
-    @forums -= [@forum] + @forum.descendants
-    @user_levels = UserLevel.find(:all, :order => "position ASC")
-    
+    find_forums
   end
   
   # Updates a forum.
@@ -58,9 +44,8 @@ class Admin::ForumsController < Admin::ApplicationController
       flash[:notice] = t(:forum_updated)
       redirect
     else
-      @forums = Forum.find(:all, :order => "title") - [@forum] - @forum.descendants
-      @user_levels = UserLevel.find(:all, :order => "position ASC")
       flash[:notice] = t(:forum_not_updated)
+      find_forums
       render :action => "edit"
     end
   end
@@ -117,6 +102,15 @@ class Admin::ForumsController < Admin::ApplicationController
     @forum = Forum.find(params[:id]) unless params[:id].nil?
     rescue ActiveRecord::RecordNotFound
       not_found
+  end
+  
+  def find_forums
+    @forums, @categories = if @category
+      [@category.forums.find(:all, :order => "title ASC"), []]
+    else
+      [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
+    end
+    @user_levels = UserLevel.find(:all, :order => "position ASC")
   end
   
   # Called when the forum could not be found.

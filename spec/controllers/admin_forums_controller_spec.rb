@@ -48,7 +48,7 @@ describe Admin::ForumsController do
     it "should not create a forum with invalid parameters" do 
       Forum.should_receive(:new).and_return(@forum)
       @forum.should_receive(:save).and_return(false)
-      Forum.should_receive(:find).with(:all, :order => "title")
+      Forum.should_receive(:find).with(:all, :order => "title ASC")
       post 'create', { :forum => { } }
       flash[:notice].should_not be_blank
       response.should render_template("new")
@@ -77,7 +77,6 @@ describe Admin::ForumsController do
   it "should be able to begin to edit a forum" do
     Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
     Forum.should_receive(:find).with("1").and_return(@forum)
-    @forum.should_receive(:descendants).and_return(@forums)
     get 'edit', :id => 1 
   end
     
@@ -91,8 +90,7 @@ describe Admin::ForumsController do
   
     it "shouldn't be able to update a forum with invalid attributes" do
       Forum.should_receive(:find).with("1").and_return(@forum)
-      Forum.should_receive(:find).with(:all, :order => "title").and_return(@forums)
-      @forum.should_receive(:descendants).and_return(@forums)
+      Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
       @forum.should_receive(:update_attributes).and_return(false)
       put 'update', { :id => 1, :forum => { :title => "", :description => "" }}
     end

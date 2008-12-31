@@ -45,11 +45,19 @@
   	    <% for topic in @topics %>
       	  <tr id='topic_<%= topic.id %>'>
         	  <% if is_moderator? %>
-            	<td align='center'><%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), :url =>  moderator_topic_moderations_path(topic) %></td>
+            	<td align='center'>
+            	  <% if !topic.moved? %>
+            	    <%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), :url => moderator_topic_moderations_path(topic) %>
+            	  <% else %>
+            	    <%= link_to_remote check_box_tag("moderated_topics[]", topic.moved_to.id, !topic.moved_to.moderations.for_user(current_user).empty?, :id => "topic_#{topic.moved_to.id}_moderated"), :url => moderator_topic_moderations_path(topic.moved_to) %>
+            	  <% end %>
+            	</td>
             <% end %>
             <td>
               <% if topic.sticky? %>
                 <%= theme_image_tag("sticky.jpg") %>
+              <% elsif topic.moved? %>
+                <%= theme_image_tag("moved.jpg") %>
               <% elsif logged_in? && !current_user.previous_login.nil? && topic.posts.last.created_at > current_user.previous_login && !topic.locked %>
                 <%= theme_image_tag("new.jpg") %>
               <% elsif topic.locked? %>
@@ -59,13 +67,21 @@
               <% end %>
             </td>
             <td class='topic_subject'>
-              <b><%= link_to(h(topic.subject), forum_topic_path(topic.forum, topic)) %>
-                 <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %></b>
+              <b>
+                <%= link_to(h(topic.subject), topic.moved? ? forum_topic_path(1, topic.moved_to) : forum_topic_path(topic.forum, topic)) %>
+                 <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %>
+              </b>
             </td>
-            <td align='center'><%= topic.posts.size - 1 %></td>
+            <td align='center'><%= (topic.moved? ? topic.moved_to.posts.count : topic.posts.count) - 1 %></td>
             <td align='center'><%= topic.views %></td>
             <td align='center'><%= link_to(h(topic.user), topic.user) %></td>
-            <td align='right' width='15%'><%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user), topic.last_post.user %></td>
+            <td align='right' width='15%'>
+            <% if topic.moved? %>
+              -
+            <% else %>
+              <%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user), topic.last_post.user %>
+            <% end %>  
+              </td>
           </tr>
         <% end %>
       </tbody>

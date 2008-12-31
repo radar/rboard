@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081229035814) do
+ActiveRecord::Schema.define(:version => 20081231013302) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -144,6 +144,8 @@ ActiveRecord::Schema.define(:version => 20081229035814) do
     t.boolean  "delta"
     t.boolean  "deleted",      :default => false
     t.integer  "ip_id"
+    t.boolean  "moved",        :default => false
+    t.integer  "moved_to_id"
   end
 
   add_index "topics", ["id", "forum_id"], :name => "index_topics_on_id_and_forum_id"
