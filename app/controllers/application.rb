@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   #Never, ever show password in the logs. Ever!
-  filter_parameter_logging "password"
+  filter_parameter_logging "password", "password_confirmation"
 
   include AuthenticatedSystem
   
