@@ -32,7 +32,7 @@ class TopicsController < ApplicationController
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
-      flash[:notice] = t(:topic_not_created)
+      flash.now[:notice] = t(:topic_not_created)
       render :action => "new"
     end
   end
@@ -55,11 +55,11 @@ class TopicsController < ApplicationController
           flash[:notice] = t(:topic_updated)
           redirect_back_or_default forum_topic_path(@forum, @topic)
         else
-          flash[:notice] = t(:post_not_updated)
+          flash.now[:notice] = t(:post_not_updated)
           render :action => "edit"
         end
       else
-        flash[:notice] = t(:topic_not_updated)
+        flash.now[:notice] = t(:topic_not_updated)
         render :action => "edit"
       end
     end

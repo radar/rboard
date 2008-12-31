@@ -22,7 +22,7 @@ class PostsController < ApplicationController
       go_directly_to_post
     else
       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
-      flash[:notice] = t(:post_not_created)
+      flash.now[:notice] = t(:post_not_created)
       render :action => "new"
     end
   end
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
       flash[:notice] = t(:post_updated)
       go_directly_to_post
     else
-      flash[:notice] = t(:post_not_updated)
+      flash.now[:notice] = t(:post_not_updated)
       render :action => "edit"
     end
   end
