@@ -77,7 +77,4 @@ describe User, "with users" do
     @other_user.rank.should eql("Moderator")
   end
   
-  it "should return the correct time" do
-    @user.local_time.should eql(@user.created_at.localtime)
-  end
 end

@@ -54,10 +54,6 @@ class User < ActiveRecord::Base
     to_s.parameterize
   end
   
-  def local_time
-    created_at.localtime
-  end
-  
   #misc. user information
   def rank
     rank = Rank.find_by_id(rank_id)
