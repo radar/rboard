@@ -20,13 +20,24 @@ class Post < ActiveRecord::Base
   end
   
   delegate :subject, :to => :topic
+  attr_protected :forum_id, :user_id
 
   after_create :log_ip
   after_create :update_forum
   before_create :stop_spam
   after_destroy :find_latest_post
   
-  attr_protected :forum_id, :user_id
+  # belongs_to doesn't work with :through.
+  before_create :increment_counter
+  before_destroy :decrement_counter
+  
+  def increment_counter
+    forum.increment!(:posts_count)
+  end
+  
+  def decrement_counter
+    forum.decrement!(:posts_count)
+  end
   
   def stop_spam
     if !user.posts.last.nil? && user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS

@@ -68,7 +68,7 @@
             </td>
             <td class='topic_subject'>
               <b>
-                <%= link_to(h(topic.subject), topic.moved? ? forum_topic_path(1, topic.moved_to) : forum_topic_path(topic.forum, topic)) %>
+                <%= link_to(h(topic.subject), topic.moved? ? forum_topic_path(topic.moved_to.forum, topic.moved_to) : forum_topic_path(topic.forum, topic)) %>
                  <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %>
               </b>
             </td>
