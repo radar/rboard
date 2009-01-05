@@ -17,7 +17,7 @@ Rails::Initializer.run do |config|
   
 end
 # Application specific variables
-PER_PAGE = 30
+PER_PAGE = 25
 TIME_DISPLAY = "%I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
 THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
