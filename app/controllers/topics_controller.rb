@@ -10,14 +10,16 @@ class TopicsController < ApplicationController
   end
   
   def show
-     @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
-     @topic.increment!("views")
-     @post = Post.new
-     respond_to do |format|
-       format.html
-       format.rss
-     end
-   end
+    @subscription = current_user.subscriptions.first(:conditions => { :topic_id => params[:id] })  
+    @subscription.update_attribute("posts_count", 0) if @subscription
+    @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
+    @topic.increment!("views")
+    @post = Post.new
+    respond_to do |format|
+      format.html
+      format.rss
+    end
+  end
   
   def new
     @topic = @forum.topics.new

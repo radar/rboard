@@ -51,16 +51,19 @@ ActionController::Routing::Routes.draw do |map|
     forum.resources :topics, :member => { :lock => :put, :unlock => :put }
   end
   
-  map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
-    topic.resources :posts, :member => { :reply => :get }
-  end
-  
   map.resources :messages, :member => { :reply => :get }, :collection => { :sent => :get }
   
   map.resources :posts, :member => { :destroy => :any } do |post|
     post.resources :edits
   end
   
+  map.resources :subscriptions
+  
+  map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
+    topic.resources :posts, :member => { :reply => :get }
+    topic.resources :subscriptions
+  end
+
   map.resources :users, :member => { :profile => :any }, :collection => { :signup => [:get, :post], :ip_is_banned => :get }
   
   # pretty pagination links

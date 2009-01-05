@@ -33,6 +33,7 @@
             <%= link_to t(:Member_List), users_path %> | 
             <%= link_to t(:Search), search_path %> | 
             <%= link_to t(:x_new_messages, :count => @current_user.unread_messages.size), messages_path %> |
+            <%= link_to t(:Subscriptions), subscriptions_path %> |
             <%= link_to t(:Logout), logout_path %>
        <% end %>
         </div>

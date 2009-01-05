@@ -9,6 +9,8 @@ class Topic < ActiveRecord::Base
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
   has_many :posts, :order => "posts.created_at asc", :dependent => :destroy
+  has_many :subscriptions
+  has_many :subscribers, :through => :subscriptions, :class_name => "User"
   has_many :users, :through => :posts
   
   named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").position] } }
@@ -42,6 +44,8 @@ class Topic < ActiveRecord::Base
   
   def set_last_post
     update_attribute("last_post_id", posts.last.id) unless moved
+    # TODO: May be intensive if a lot of people have all subscribed to the same topic.
+    subscriptions.map { |s| s.increment!(:posts_count) }
   end
   
   def increment_counters
