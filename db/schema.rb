@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090105020743) do
+ActiveRecord::Schema.define(:version => 20090107065715) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -195,6 +195,10 @@ ActiveRecord::Schema.define(:version => 20090105020743) do
     t.string   "time_zone"
     t.string   "display_name"
     t.string   "permalink"
+    t.boolean  "auto_subscribe",                          :default => true
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
   end
 
   add_index "users", ["id", "user_level_id"], :name => "index_users_on_id_and_user_level_id"

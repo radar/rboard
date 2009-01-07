@@ -30,7 +30,7 @@ class TopicsController < ApplicationController
     @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
-    @topic.subscriptions.create(:user => current_user)
+    @topic.subscriptions.build(:user => current_user) if current_user.auto_subscribe?
     if @topic.save
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)

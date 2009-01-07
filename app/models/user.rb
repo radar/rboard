@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_many :subscribed_topics, :through => :subscriptions
   has_many :topics
   has_many :unread_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = ? AND to_deleted = ?", false, false]
+  
+  has_attached_file :avatar, :styles => { :thumbnail => "100>" }
 
   belongs_to :banned_by, :class_name => "User", :foreign_key => "banned_by"
   belongs_to :style
@@ -82,6 +84,10 @@ class User < ActiveRecord::Base
   
   def banned?
     ban_time.nil? ? false : ban_time > Time.now
+  end
+  
+  def has_avatar?
+    !avatar_file_name.blank?
   end
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

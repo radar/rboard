@@ -1,4 +1,4 @@
-<% form_for current_user do |f| %>
+<% form_for current_user, :html => { :multipart => true } do |f| %>
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead><tr><td colspan='2'><h2><%= t(:Editing_your_profile) %></h2></td></tr></thead>
     <tbody>
@@ -12,32 +12,32 @@
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "password", "New Password"  %></td>
+        <td valign='top'><%= f.label "password", t(:New_Password)  %></td>
         <td><%= f.password_field "password", :value => "" %></td>
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "password_confirmation", "New Password Confirmation" %></td>
+        <td valign='top'><%= f.label "password_confirmation", t(:New_Password_Confirmation) %></td>
         <td><%= f.password_field "password_confirmation", :value => "" %></td>
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "signature" %></td>
+        <td valign='top'><%= f.label "signature", t(:Signature) %></td>
         <td><%= f.text_area "signature", :cols => 80, :rows => 5 %></td>
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "email" %></td>
+        <td valign='top'><%= f.label "email", t(:Email) %></td>
         <td><%= f.text_field "email"  %></td>
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "time_zone" %></td>
+        <td valign='top'><%= f.label "time_zone", t(:Time_Zone) %></td>
         <td><%= f.time_zone_select "time_zone" %></td>
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "date_display", "Date &amp; Time Display" %></b></td>
+        <td valign='top'><%= f.label "date_display", t(:Date_and_Time_Display) %></b></td>
         <td>
           <%= f.text_field "date_display", :size => 10 %> 
           <%= f.text_field "time_display", :size => 10 %>
@@ -63,13 +63,34 @@
       </tr>
       
       <% if current_user.email %>
-        <tr><td valign='top'>
-          <b><%= t(:Current) %> <a href='http://gravatar.com/'><%= t(:Gravatar) %></a></b></td>
+        <tr>
+          <td valign='top'>
+            <b><%= t(:Current) %> <a href='http://gravatar.com/'><%= t(:Gravatar) %></a></b>
+          </td>
           <td>
             <%= image_tag "http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(current_user.email) %>
           </td>
         </tr>
       <% end %>
+      <% if current_user.has_avatar? %> 
+        <tr>
+          <td valign='top'>
+            <b><%= t(:Current_avatar) %></b>
+          </td>
+          <td>
+            <%= image_tag current_user.avatar(:thumbnail) %>
+          </td>
+        </tr>
+      <% end %>
+        <tr>
+          <td valign='top'>
+            <b><%= t(:Upload_new_avatar) %></b>
+          </td>
+          <td>
+            <%= f.file_field :avatar %>
+          </td>
+      
+            
     </tbody>
     <tfoot>
       <tr>
