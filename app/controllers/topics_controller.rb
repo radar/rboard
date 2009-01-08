@@ -10,14 +10,16 @@ class TopicsController < ApplicationController
   end
   
   def show
-     @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
-     @topic.increment!("views")
-     @post = Post.new
-     respond_to do |format|
-       format.html
-       format.rss
-     end
-   end
+    @subscription = current_user.subscriptions.first(:conditions => { :topic_id => params[:id] })  
+    @subscription.update_attribute("posts_count", 0) if @subscription
+    @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
+    @topic.increment!("views")
+    @post = Post.new
+    respond_to do |format|
+      format.html
+      format.rss
+    end
+  end
   
   def new
     @topic = @forum.topics.new
@@ -28,6 +30,7 @@ class TopicsController < ApplicationController
     @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
+    @topic.subscriptions.build(:user => current_user) if current_user.auto_subscribe?
     if @topic.save
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)

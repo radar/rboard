@@ -12,4 +12,4 @@ coverage/*
 config/*.sphinx.conf
 config/deploy.rb
 .gitignore.swp
-
+public/avatars

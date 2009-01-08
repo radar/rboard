@@ -4,9 +4,13 @@ class Topic < ActiveRecord::Base
   belongs_to :forum
   belongs_to :last_post, :class_name => "Post"
   belongs_to :moved_to, :class_name => "Topic"
+  
+  has_one :redirect, :class_name => "Topic", :foreign_key => "moved_to_id", :dependent => :destroy
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
-  has_many :posts, :order => "posts.created_at asc"
+  has_many :posts, :order => "posts.created_at asc", :dependent => :destroy
+  has_many :subscriptions
+  has_many :subscribers, :through => :subscriptions, :class_name => "User"
   has_many :users, :through => :posts
   
   named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").position] } }
@@ -36,12 +40,12 @@ class Topic < ActiveRecord::Base
   
   def decrement_counters
     forum.decrement!(:topics_count)
-    forum.decrement!(:posts_count, posts.count)
-    posts.delete_all
   end
   
   def set_last_post
     update_attribute("last_post_id", posts.last.id) unless moved
+    # TODO: May be intensive if a lot of people have all subscribed to the same topic.
+    subscriptions.map { |s| s.increment!(:posts_count) }
   end
   
   def increment_counters
@@ -54,19 +58,28 @@ class Topic < ActiveRecord::Base
   end
   
   def move!(new_forum_id, leave_redirect=false)
-    old_forum = Forum.find(forum_id)
+     # May actually have selected a shadow redirect topic.
+    actual_topic = moved_to.nil? ? self : self.moved_to
+    old_forum = Forum.find(actual_topic.forum_id)
     was_old_last_post = old_forum.last_post == last_post
     new_forum = Forum.find(new_forum_id)
     update_attribute("forum_id", new_forum_id)
+    
     new_forum.increment!(:topics_count)
     new_forum.increment!(:posts_count, posts.count)
     old_forum.decrement!(:topics_count)
     old_forum.decrement!(:posts_count, posts.count)
+    
     if leave_redirect
       redirect = old_forum.topics.build(:subject => subject, :created_at => created_at, :user => user)
       redirect.moved = true
       redirect.moved_to = self
       redirect.save!
+    else
+      if self.redirect
+        self.redirect.forum.decrement!(:posts_count, posts.count)
+        self.redirect.destroy
+      end
     end
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
     new_forum.update_last_post(new_forum, posts.last) if is_new_last_post

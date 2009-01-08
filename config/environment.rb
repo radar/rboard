@@ -21,7 +21,7 @@ PER_PAGE = 25
 TIME_DISPLAY = "%I:%M:%S%p"
 DATE_DISPLAY = "%d %B %Y"
 THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
-RAILS_RELATIVE_URL_ROOT = "http://localhost"
+RAILS_RELATIVE_URL_ROOT = "http://localhost:3000"
 # Change this if your locale is not english
 # I18n.default_locale = "en"
 require 'array_ext'

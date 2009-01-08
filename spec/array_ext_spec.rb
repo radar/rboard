@@ -13,8 +13,16 @@ describe Array do
     [1,2,3,4,5].previous(3).should eql(2)
   end
   
+  it "should be able to find no previous element for the first" do
+    [1,2,3,4,5].previous(1).should eql(nil)
+  end
+  
   it "should be able to find the next element in the array" do
     [1,2,3,4,5].next(3).should eql(4)
+  end
+  
+  it "should be able to find no next element for the first" do
+    [1,2,3,4,5].next(5).should eql(nil)
   end
   
   it "should be able to find the susequent elements in an array" do
