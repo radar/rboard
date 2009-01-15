@@ -404,6 +404,7 @@
    :user_level => "user level",
    :users => "users",
    :Users => "Users",
+   :user_deleted, "The user has been deleted.",
    :user_has_been_banned => "The user has been banned.",
    :user_updated => "The user has been updated.",
    :user_not_updated => "The user could not be updated.",

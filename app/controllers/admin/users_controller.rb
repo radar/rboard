@@ -25,7 +25,7 @@ class Admin::UsersController < Admin::ApplicationController
   
   # Updates the details for a specific user.  
   def update
-    @user = User.find(params[:id])
+    @user = User.find_by_permalink(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated)
       redirect_to admin_users_path
@@ -33,6 +33,13 @@ class Admin::UsersController < Admin::ApplicationController
       flash[:notice] = t(:user_not_updated)
       render :action => "edit"
     end
+  end
+  
+  def destroy
+    @user = User.find_by_permalink(params[:id])
+    @user.destroy
+    flash[:notice] = t(:user_deleted)
+    redirect_to admin_users_path
   end
   
   
