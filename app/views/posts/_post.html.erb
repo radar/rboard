@@ -29,7 +29,7 @@
       <td valign='top' width='20%'>
         <b><%= post.user.rank %><br /></b>
         <% if post.user.has_avatar? %>
-          <%= image_tag post.user.avatar(:thumb) %>
+          <%= image_tag post.user.avatar(:thumbnail) %><br />
         <% elsif !post.user.email.blank? %>
           <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=") %><br />
         <% end %>
