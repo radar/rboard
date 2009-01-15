@@ -1,6 +1,10 @@
 PLEASE RUN `RAKE INSTALL` WHEN TRYING THIS APPLICATION
 ====================================================
 
+Yes it requires Sphinx which you can get from http://sphinxsearch.org and this works on MySQL and PostgreSQL. To install it download it, extract it, run ./configure && make && sudo make install and then in the rboard application run rake ts:config && rake ts:in && rake ts:start. This should start up the thinking sphinx daemon.
+
+Alternatively, you could just comment out all the define_index lines in the models.
+
 1. Why?
 
 Why not? I use forum systems every day and I figured the best way to learn more about Rails was to build one in it. Rboard's evolved into much, much more now and is my favourite project to work on.
