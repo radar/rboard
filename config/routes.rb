@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :ranks
     admin.resources :themes, :member => { :make_default => :put }
-    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any } do |user|
+    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any, :remove_banned_ip => :post } do |user|
       user.resources :ips
     end
   end

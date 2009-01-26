@@ -4,6 +4,11 @@ class PostsController < ApplicationController
   before_filter :find_post, :only => [:edit, :update, :destroy]
   before_filter :create_ip, :only => [:create, :update]
   
+  def index
+    @posts = current_user.posts.paginate :per_page => per_page, :page => params[:page]
+    
+  end
+  
   def new
     @posts = @topic.last_10_posts
     @post ||= @topic.posts.build(:user => current_user)

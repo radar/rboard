@@ -9,6 +9,8 @@ describe TopicsController do
     @posts = [@post]
     @forum = mock_model(Forum)
     @forums = [@forum]
+    @subscription = mock_model(Subscription)
+    @subscriptions = [@subscription]
     @user = mock_model(User)
     @admin_forum = forums(:admins_only)
     @everybody = forums(:everybody)
@@ -143,6 +145,21 @@ describe TopicsController do
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:increment!).with("views")
       @topic.should_receive(:posts).and_return(@posts)
+      @user.should_receive(:subscriptions).and_return(@subscriptions)
+      @subscriptions.should_receive(:find_by_topic_id).and_return(nil)
+      @forum.stub!(:title)
+      @topic.stub!(:subject)
+      get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
+    end
+    
+    it "should reset the posts count when a user views a topic they are subscribed to" do
+      @forum.should_receive(:topics).and_return(@topics)
+      @topics.should_receive(:find).and_return(@topic)
+      @topic.should_receive(:increment!).with("views")
+      @topic.should_receive(:posts).and_return(@posts)
+      @user.should_receive(:subscriptions).and_return(@subscriptions)
+      @subscriptions.should_receive(:find_by_topic_id).and_return(@subscription)
+      @subscription.should_receive(:update_attribute).with("posts_count", 0)
       @forum.stub!(:title)
       @topic.stub!(:subject)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
@@ -207,9 +224,12 @@ describe TopicsController do
     
     it "should not be able to create a new topic with a blank subject" do
       @user.should_receive(:topics).and_return(@topics)
+      @user.should_receive(:auto_subscribe?).and_return(true)
       @topics.should_receive(:build).and_return(@topic)
       @topic.should_receive(:posts).and_return(@posts)
       @posts.should_receive(:build).and_return(@post)
+      @topic.should_receive(:subscriptions).and_return(@subscriptions)
+      @subscriptions.should_receive(:build).and_return(@subscription)      
       @topic.should_receive(:save).and_return(false)
       post 'create', { :topic => { :subject => ""}, :post => { :text => "New text!"}, :forum_id => forums(:admins_only).id }
       flash[:notice].should eql("Topic was not created.")
@@ -218,9 +238,12 @@ describe TopicsController do
     
     it "should be able to create a topic" do
       @user.should_receive(:topics).and_return(@topics)
+      @user.should_receive(:auto_subscribe?).and_return(true)
       @topics.should_receive(:build).and_return(@topic)
       @topic.should_receive(:posts).and_return(@posts)
       @posts.should_receive(:build).and_return(@post)
+      @topic.should_receive(:subscriptions).and_return(@subscriptions)
+      @subscriptions.should_receive(:build).and_return(@subscription)
       @topic.should_receive(:forum).and_return(@forum)
       @topic.should_receive(:save).and_return(true)
       post 'create', { :topic => { :subject => "Subject"}, :post => { :text => "New text!"}, :forum_id => forums(:admins_only).id }

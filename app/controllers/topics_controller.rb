@@ -11,7 +11,7 @@ class TopicsController < ApplicationController
   
   def show
     if logged_in?
-      @subscription = current_user.subscriptions.first(:conditions => { :topic_id => params[:id] })  
+      @subscription = current_user.subscriptions.find_by_topic_id(params[:id])
       @subscription.update_attribute("posts_count", 0) if @subscription
     end
     @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => { :user => :user_level }
