@@ -3,9 +3,6 @@
 <%= submit_tag t(:Search) %>
 <% end %>
 <% if request.post? %>
-<%= t(:search_returned) %> <%= @posts.size %> <%= t(:results) %>:
-  <% for post in @posts %>
-    <h2><%= t(:In) %><%= link_to post.topic, [post.topic.forum, post.topic] %></h2>
-    <%= render :partial => post %>
-  <% end %>
+<%= t(:Search_returned) %> <%= t(:results, :count => @posts.size) %>: 
+  <%= render :partial => @posts, :locals => { :show_topic => true }%>
 <% end %>

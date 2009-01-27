@@ -7,7 +7,7 @@
 <%= pagination = will_paginate(@posts) %>
 <%= render :partial => "menu" %>
 <br />
-<%= render :partial => @posts %>
+<%= render :partial => @posts, :locals => { :show_topic => false } %>
 <% if logged_in? %>
   <table class='action-box' width='100%' cellpadding='2' cellspacing='0'>
     <thead>
