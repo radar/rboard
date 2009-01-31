@@ -26,7 +26,6 @@ module ApplicationHelper
     else
       image_tag "/#{f}", html_options 
     end
-    
   end
   
    def breadcrumb(forum, breadcrumb='')
