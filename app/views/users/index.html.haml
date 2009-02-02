@@ -1,0 +1,26 @@
+%h2= t(:Users)
+= will_paginate @users
+%table.forums{ :cellspacing => "0", :rules => "groups", :cellpadding => "2", :width => "100%" }
+  %thead
+    %tr
+      %td{ :align => "center" }= t(:Login)
+      %td{ :align => "center" }= t(:Member_since)
+      %td{ :align => "center" }= t(:Posts)
+      %td{ :align => "center" }= t(:Banned)
+      %td{ :align => "center" }= t(:Banned_until)
+      %td{ :align => "center" }= t(:Times_banned)
+      - if is_admin?
+        %td{ :align => "center" }= t(:IP)
+  %tbody
+    - for user in @users
+      %tr
+        %td{ :align => "center" }= link_to user, user_path(user)
+        %td{ :align => "center" }= user.created_at.strftime(date_display)
+        %td{ :align => "center" }= user.posts.size
+        %td{ :align => "center" }= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No)
+        %td{ :align => "center" }= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(:long_ordinal)
+        %td{ :align => "center" }= user.ban_times
+        - if is_admin?
+          %td{ :align => "center" }= user.ip
+  %tfoot
+= will_paginate @users

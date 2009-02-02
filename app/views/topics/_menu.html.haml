@@ -1,0 +1,23 @@
+- if logged_in?
+  - if @forum.topics_creatable_by?(current_user)
+    = link_to t(:New_Topic), new_forum_topic_path(@topic.forum)
+    |
+  - if !@topic.locked? || is_moderator?
+    = link_to t(:New_Reply), new_topic_post_path(@topic)
+  - if is_admin?
+      |
+    - if @topic.locked?
+      = link_to t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put
+    - else
+      = link_to t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put
+  - if is_admin? || @topic.belongs_to?(current_user)
+    |
+    = link_to t(:Edit_topic), edit_forum_topic_path(@forum)
+    |
+  - if @subscription
+    = link_to t(:Unsubscribe), topic_subscription_path(@topic, @subscription), :method => :delete
+  - else
+    = link_to t(:Subscribe), topic_subscriptions_path(@topic), :method => :post
+- else
+  - if @topic.locked?
+    = t(:Locked!)

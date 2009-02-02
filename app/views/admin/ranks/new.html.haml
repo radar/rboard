@@ -1,0 +1,17 @@
+= link_to t(:admin_section), admin_root_path
+\->
+= link_to t(:Ranks), admin_ranks_path
+\->
+= t(:Creating_a_rank)
+- form_for [:admin, @rank] do |f|
+  %table.action-box{ :cellspacing => "0", :cellpadding => "5", :width => "100%" }
+    %thead
+      %tr
+        %td
+          %h2
+            = t(:Creating_a_rank)
+    = render :partial => "form", :locals => { :f => f }
+    %tfoot
+      %tr
+        %td{ :colspan => "2" }
+          = submit_tag "Create"

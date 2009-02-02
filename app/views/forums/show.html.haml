@@ -1,0 +1,98 @@
+- content_for :feed do
+  %link{ :href => forum_url(@forum, :format =&gt; :rss), :title => "#{@forum.title} Feed", :rel => "alternate", :type => "application/rss+xml" }
+= link_to(t(:rBoard), forums_path)
+\->
+= breadcrumb(@forum)
+- unless @forums.empty?
+  %h2
+    = t(:Subforums)
+    = @forum.title
+  %table.forums{ :cellspacing => "0", :rules => "groups", :cellpadding => "2", :width => "100%" }
+    %thead
+      %tr
+        %td{ :align => "left", :width => "40%" }
+          = t(:Forums)
+        %td{ :align => "center", :width => "100px" }
+          = t(:Topics)
+        %td{ :align => "center", :width => "100px" }
+          = t(:Posts)
+        %td{ :align => "right" }
+          = t(:Last_Post)
+    %tbody
+      = render :partial => "forum", :collection => @forums
+%br
+%h2
+  = t(:Viewing_forum)
+  = @forum.title
+= will_paginate @topics
+- if @forum.topics_creatable_by?(current_user)
+  = link_to(t(:New_Topic), new_forum_topic_path(@forum))
+%table.forum{ :cellspacing => "0", :rules => "groups", :cellpading => "0", :width => "100%" }
+  - unless @topics.empty?
+    - form_tag moderate_moderator_topics_path do
+      %thead
+        %tr
+          - if is_moderator?
+            %td{ :width => "50px" }= t(:Moderation)
+          %td &nbsp;
+          %td{ :align => "left" }= t(:Topic)
+          %td{ :align => "center" }= t(:Replies)
+          %td{ :align => "center" }= t(:Views)
+          %td{ :align => "center" }= t(:Author)
+          %td{ :align => "right" }= t(:Last_Post)
+    %tbody
+      - for topic in @topics
+        %tr{ :id => "topic_#{topic.id}" }
+          - if is_moderator?
+            %td{ :align => "center" }
+              - if !topic.moved?
+                = link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), :url => moderator_topic_moderations_path(topic)
+              - else
+                = link_to_remote check_box_tag("moderated_topics[]", topic.moved_to.id, !topic.moved_to.moderations.for_user(current_user).empty?, :id => "topic_#{topic.moved_to.id}_moderated"), :url => moderator_topic_moderations_path(topic.moved_to)
+          %td
+            - if topic.sticky?
+              = theme_image_tag("sticky.jpg")
+            - elsif topic.moved?
+              = theme_image_tag("moved.jpg")
+            - elsif logged_in? && !current_user.previous_login.nil? && topic.posts.last.created_at > current_user.previous_login && !topic.locked
+              = theme_image_tag("new.jpg")
+            - elsif topic.locked?
+              = theme_image_tag("locked.jpg")
+            - else
+              = theme_image_tag("old.jpg")
+          %td.topic_subject
+            %b
+              = link_to(h(topic.subject), topic.moved? ? forum_topic_path(topic.moved_to.forum, topic.moved_to) : forum_topic_path(topic.forum, topic))
+              = will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id })
+          %td{ :align => "center" }= (topic.moved? ? topic.moved_to.posts.count : topic.posts.count) - 1
+          %td{ :align => "center" }= topic.views
+          %td{ :align => "center" }= link_to(h(topic.user), topic.user)
+          %td{ :align => "right", :width => "15%" }
+            - if topic.moved?
+              \-
+            - else
+              = time_ago_in_words(topic.posts.last.created_at)
+              = t(:ago)
+              = t(:by)
+              = link_to h(topic.last_post.user), topic.last_post.user
+    - if is_admin?
+      %tfoot
+        %tr
+          %td{ :align => "right", :colspan => "8" }
+            - if is_moderator?
+              %span#moderated_topics_count
+                - unless @moderated_topics_count.zero?
+                  = pluralize(@moderated_topics_count, "topic")
+                  = t(:selected_for_moderation)
+            = render :partial => "topics/buttons"
+  - else
+    %thead
+      %tr
+        %td{ :align => "center" }
+          - if @forum.topics_creatable_by?(current_user)
+            = t(:no_topics_for_forum)
+            = t(:why_not)
+            = link_to(t(:create_one?), new_forum_topic_path(@forum))
+- if @forum.topics_creatable_by?(current_user)
+  = link_to(t(:New_Topic), new_forum_topic_path(@forum))
+= will_paginate @topics

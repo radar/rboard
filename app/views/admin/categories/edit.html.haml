@@ -1,0 +1,22 @@
+= link_to t(:admin_section), admin_root_path
+\->
+= link_to(t(:Categories), admin_categories_path)
+\->
+= t(:Editing_a_category)
+\:
+= @category.name
+= error_messages_for :category
+- form_for [:admin, @category] do |f|
+%table.action-box{ :cellspacing => "0", :cellpadding => "2", :width => "100%" }
+  %thead
+    %tr
+      %td{ :colspan => "2" }
+        %h2
+          = t(:Editing_a_category)
+          \:
+          = @category.name
+  = render :partial => "form", :locals => { :f => f }
+  %tfoot
+    %tr
+      %td{ :colspan => "2" }
+        = f.submit t(:Update)

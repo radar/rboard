@@ -1,0 +1,57 @@
+!!! Strict
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %title
+      rBoard -
+      = params[:controller].capitalize
+      \-
+      = params[:action].capitalize
+    %link{ :href => "/themes/#{theme.name}/style.css", :rel => "stylesheet" }
+    = stylesheet_link_tag "ultraviolet/lazy"
+    = stylesheet_link_tag "ultraviolet/general"
+    = javascript_include_tag :defaults
+    = yield :feed
+  %body
+    %div{ :align => "center" }
+      .content
+        .title-bar
+          = link_to theme_image_tag("logo.jpg", :alt => "logo"), forums_path, :class => "logo"
+        <div class='flash' id='flash'
+        = "style='display:none'" if flash[:notice].blank?
+        >
+        = flash[:notice]
+      - 
+      .menu-bar
+        = link_to t(:Home), forums_path
+        |
+        - unless logged_in?
+          = link_to t(:Login), login_path
+          |
+          = link_to t(:Signup), signup_users_path
+        - else
+          Logged in as
+          = link_to current_user, current_user
+          |
+          = link_to t(:Edit_Profile), [:edit, current_user]
+          |
+          = link_to t(:Member_List), users_path
+          |
+          = link_to t(:Search), search_path
+          |
+          = link_to t(:x_new_messages, :count => @current_user.unread_messages.size), messages_path
+          |
+          = link_to t(:Subscriptions), subscriptions_path
+          |
+          = link_to t(:Logout), logout_path
+      .time-now
+        = t(:time_now)
+        = Time.now.strftime(date_time_display)
+      %br
+      %br
+      = yield
+      %div{ :align => "center" }
+        - if is_moderator?
+          = link_to "Moderator Section", moderator_root_path
+        - if is_admin?
+          |
+          = link_to "Administration Section", admin_root_path

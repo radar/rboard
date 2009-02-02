@@ -1,0 +1,29 @@
+= link_to t(:admin_section), admin_root_path
+\->
+= t(:IPs)
+\->
+= @ip
+%h2
+  = @ip
+%table.list-table{ :cellspacing => "0", :rules => "groups", :cellpadding => "2", :width => "100%" }
+  %thead
+    %tr
+      %td
+        = t(:IP)
+      %td
+        = t(:Topics)
+      %td
+        = t(:Posts)
+      %td
+        = t(:Users)
+  %tbody
+    %tr
+      %td
+        = link_to @ip.ip, admin_ip_path(@ip)
+      %td
+        = link_to t(:topics, :count => ip.topics.count), admin_ip_topics_path(@ip)
+      %td
+        = link_to t(:posts, :count => ip.posts.count), admin_ip_posts_path(@ip)
+      %td
+        = link_to t(:users, :count => ip.users.count), admin_ip_users_path(@ip)
+  %tfoot

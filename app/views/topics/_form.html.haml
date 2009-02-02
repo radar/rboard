@@ -1,0 +1,18 @@
+%tbody
+  %tr
+    %td{ :width => "100px" }
+      = f.label 'subject', t(:Subject)
+    %td
+      = f.text_field 'subject'
+  - fields_for @post do |post|
+    %tr
+      %td{ :valign => "top" }
+        = f.label 'text', t(:Text)
+      %td
+        = post.text_area "text", :cols => "80"
+  - if is_moderator?
+    %tr
+      %td
+        = f.label 'sticky', t(:Sticky)
+      %td
+        = f.check_box "sticky"

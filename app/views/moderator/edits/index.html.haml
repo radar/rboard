@@ -1,0 +1,24 @@
+= link_to t(:Moderator_Section), moderator_root_path
+\->
+= t(:Edit_History)
+= t(:for_a_post)
+%h2
+  = t(:Edit_History)
+%table.forums{ :cellspacing => "0", :cellpadding => "0", :width => "100%" }
+  %thead
+    %tr
+      %td
+        = t(:Timestamp)
+      %td
+        Edited By
+      %td
+        IP
+  %tbody
+    - for edit in @edits
+      %tr
+        %td
+          = link_to edit.created_at.strftime(date_display + " " + time_display), [@post, edit]
+        %td
+          = edit.user
+        %td
+          = edit.ip

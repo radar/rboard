@@ -1,0 +1,8 @@
+- inside_layout "application" do
+  %ul#moderator-navlist
+    %li
+      = link_to "Index", moderator_root_path,  :class => selected("index")
+    %li
+      = link_to "Moderation", moderator_moderations_path, :class => selected("moderation")
+  #moderator-page
+    = yield

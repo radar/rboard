@@ -1,0 +1,25 @@
+- content_for :feed do
+  %link{ :href => forum_topic_url(@topic.forum, @topic, :format =&gt; :rss), :title => "#{@topic.subject} Feed", :rel => "alternate", :type => "application/rss+xml" }
+= link_to(t(:rBoard), forums_path)
+\->
+= breadcrumb(@topic.forum)
+\->
+= h @topic.subject
+%h2
+  = h @topic.subject
+= pagination = will_paginate(@posts)
+= render :partial => "menu"
+%br
+= render :partial => @posts
+- if logged_in?
+  %table.action-box{ :cellspacing => "0", :cellpadding => "2", :width => "100%" }
+    %thead
+      %tr
+        %td{ :colspan => "2" }
+          %h3
+            = t(:Quick_Reply)
+    %tbody
+      - form_for [@topic, @post] do |f|
+        = render :partial => "posts/form", :locals => { :f => f, :rows => 10, :cols => 70 }
+= render :partial => "menu"
+= pagination

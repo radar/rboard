@@ -1,0 +1,21 @@
+= link_to(t(:rBoard), forums_path)
+\->
+= link_to @forum.title, forum_path(@forum)
+\->
+= t(:Editing_a_topic)
+= error_messages_for :post, :topic
+- form_for [@forum, @topic] do |f|
+  %table.action-box{ :cellspacing => "0", :cellpadding => "2", :width => "100%" }
+    %thead
+      %tr
+        %td{ :colspan => "2" }
+          %h2
+            = t(:Editing_a_topic)
+            = t(:in)
+            \:
+            = @forum.title
+    = render :partial => "form", :locals => { :f => f }
+    %tfoot
+      %tr
+        %td{ :colspan => "2" }
+          = submit_tag(t(:Update))

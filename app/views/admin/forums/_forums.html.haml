@@ -1,0 +1,19 @@
+%table.list-table{ :cellspacing => "0", :rules => "groups", :cellpadding => "3", :width => "100%" }
+  - unless @forums.empty?
+    %thead
+      %tr
+        %td &nbsp;
+        %td= t(:Title)
+        %td= t(:Is_visible_to)
+        %td= t(:Creator)
+        %td= t(:Topics)
+        %td= t(:Posts)
+        %td= t(:Position)
+    %tbody
+      = render :partial => "admin/forums/forum", :collection => @forums, :locals => { :depth => 0, :extender => false }
+  - else
+    %thead
+      %tr
+        %td{ :align => "center", :colspan => "3" }
+          = t(:no_forums)
+          = link_to t(:user_should_create), @category.nil? ? new_admin_forum_path : new_admin_category_forum_path(@category)

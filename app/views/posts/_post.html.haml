@@ -1,0 +1,63 @@
+%table.post{ :cellspacing => "0", :id => "post_#{post.id}", :cellpadding => "5", :width => "100%" }
+  %thead
+    %tr
+      %td{ :rowspan => "2", :valign => "top", :width => "15%" }
+        %b= post.user.to_s
+      %td{ :valign => "top" }
+        %a{ :name => "post_#{post.id}", :href => forum_topic_path(post.topic.forum, post.topic) + &quot;/#{(params[:page] || 1)}&quot; + &quot;#post_#{post.id}&quot; }
+          \#
+          = per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1
+        \-
+        = post.created_at.strftime(date_time_display)
+        - unless post.edits.empty?
+          \-
+          = link_to_if(is_moderator? && !post.edits.empty?, pluralize(post.edits.size, "edit"), moderator_post_edits_path(post))
+      %td{ :valign => "top", :align => "right" }
+        - if !post.topic.locked || is_admin?
+          = link_to t(:Reply), new_topic_post_path(post.topic)
+          |
+          = link_to t(:Quote), reply_topic_post_path(post.topic, post)
+        - if post.belongs_to?(current_user)
+          |
+          = link_to t(:Edit), edit_topic_post_path(@topic, post)
+          |
+          = link_to t(:Delete), topic_post_path(@topic, post), :method => "delete", :confirm => t(:confirm_post_deletion)
+        - if is_moderator?
+          |
+          = link_to t(:Split), split_moderator_topic_post_path(@topic, post)
+  %tbody
+    %tr
+      %td{ :valign => "top", :width => "20%" }
+        %b
+          = post.user.rank
+          %br
+        - if post.user.has_avatar?
+          = image_tag post.user.avatar(:thumbnail)
+          %br
+        - elsif !post.user.email.blank?
+          = image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=")
+          %br
+        %b
+          = t(:Posts)
+          \:
+        = post.user.posts.size
+        %br
+        %b
+          = t(:Date_joined)
+          \:
+        = post.user.created_at.strftime(date_display)
+      %td{ :valign => "top", :colspan => "2" }
+        = bbcode(post.text)
+        - unless post.user.signature.blank?
+          %br
+          ____________
+          %br
+          = bbcode(post.user.signature)
+        - if !post.edits.empty?
+          %br
+          %br
+          %span.edit-note
+            = t(:This_post_was_edited_by)
+            = post.editor.login
+            = time_ago_in_words(post.updated_at)
+            = t(:ago)

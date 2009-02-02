@@ -1,0 +1,9 @@
+%table.action-box{ :cellspacing => "2", :cellpadding => "0", :width => "100%" }
+  %thead
+    %tr
+      %td{ :colspan => "2" }
+        Editing Moderation Item for
+        = @moderation.thing
+  %tbody
+    - form_for [:moderator, @moderation] do |f|
+      = render :partial => "form"

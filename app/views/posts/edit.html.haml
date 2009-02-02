@@ -1,0 +1,13 @@
+= error_messages_for 'post'
+- form_for [@topic, @post] do |f|
+  = hidden_field_tag("quote", params[:quote])
+  %table.action-box{ :cellspacing => "0", :cellpadding => "2", :width => "100%" }
+    %thead
+      %tr
+        %td{ :colspan => "2" }
+          %h2
+            = t(:Editing_a_reply_in)
+            = @topic.subject
+    = render :partial => "form", :locals => { :f => f, :cols => 70, :rows => 20 }
+%table.posts{ :cellspacing => "0", :cellpadding => "5", :width => "100%" }
+  = render :collection => @posts

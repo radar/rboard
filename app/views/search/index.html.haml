@@ -1,0 +1,15 @@
+- form_tag do
+  = t(:Search)
+  \:
+  = text_field_tag "query"
+  = submit_tag t(:Search)
+- if request.post?
+  = t(:search_returned)
+  = @posts.size
+  = t(:results)
+  \:
+  - for post in @posts
+    %h2
+      = t(:In)
+      = link_to post.topic, [post.topic.forum, post.topic]
+    = render :partial => post

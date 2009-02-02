@@ -1,0 +1,63 @@
+%table.posts{ :cellspacing => "0", :cellpadding => "5", :width => "100%" }
+  %tr
+    %td{ :rowspan => "2", :valign => "top", :width => "4%" }
+      %b
+        = @user
+      %br
+      - if @user.admin?
+        %b
+          %font{ :color => "red" }
+            = t(:Administrator)
+      - elsif @user.moderator?
+        %b
+          %font{ :color => "green" }
+            = t(:Moderator)
+      - else @user.user?
+        %b
+          %font{ :color => "Blue" }
+            = t(:User)
+      %br
+      - if @user.has_avatar?
+        = image_tag @user.avatar(:thumb)
+      - elsif !@user.email.blank?
+        = image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=")
+      %br
+  %tr
+    %td
+    %td{ :valign => "top", :colspan => "2" }
+      %b= t(:Date_joined)
+      = @user.created_at.strftime(date_display)
+      %br
+      %b= t(:Posts)
+      = @user.posts.size
+      ,
+      = t(:about)
+      = @posts_percentage
+      \%
+      = t(:of_all_posts)
+      %br
+      %b= t(:Last_IP)
+      = @user.ip
+      %br
+      %b= t(:Bans)
+      = @user
+      = t(:has_been_banned, :times => @user.ban_times)
+      \.
+      %br
+      - if !@user.ban_time.nil? && @user.ban_time > Time.now
+        %h2
+          = @user
+          = t(:is_currently_banned)
+        = t(:user_was_banned_by, :banned_by => @user.banned_by)
+        = t(:ban_expires_in, :expiry => time_ago_in_words(@user.ban_time))
+        \.
+        %br
+        %br
+        = t(:the_reason_was, :reason => @user.ban_reason)
+        %br
+        %br
+      - unless @user.signature.blank?
+        %br
+        ____________
+        %br
+        = bbcode(@user.signature)

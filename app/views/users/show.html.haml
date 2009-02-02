@@ -1,0 +1,59 @@
+%table.user{ :cellspacing => "0", :cellpadding => "5", :width => "100%" }
+  %thead
+    %tr
+      %td{ :colspan => "2" }
+        %h2{ :style => "padding:0px;margin:0px" }
+          = @user
+        = @user.user_level
+  %tbody
+    %tr
+      %td{ :valign => "top", :width => "20%" }
+        %b
+          = @user
+        %br
+        - if @user.has_avatar?
+          = image_tag @user.avatar(:thumbnail)
+        - elsif !@user.email.blank?
+          = image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=")
+      %td{ :valign => "top" }
+        %b
+          = t(:Date_joined)
+          \:
+        = @user.created_at.strftime date_display
+        %br
+        %b
+          = t(:Posts)
+          \:
+        = @user.posts.size
+        ,
+        = t(:about)
+        = @posts_percentage
+        \%
+        = t(:of_all_posts_on_this_forum)
+        %br
+        %b
+          = t(:Bans)
+          \:
+        = @user
+        = t(:has_been_banned)
+        = @user.ban_times
+        = t(:times)
+        \.
+        %br
+        - if !@user.ban_time.nil? && @user.ban_time > Time.now
+          %h2
+            = t(:is_currently_banned, :user => @user)
+            \!
+          = t(:banned_by, :user => @user.banned_by.login)
+          = t(:ban_expires_in, :time => time_ago_in_words(@user.ban_time))
+          \.
+          %br
+          %br
+          = t(:reason_stated_was, :reason => @user.ban_reason)
+          %br
+          %br
+        - unless @user.signature.blank?
+          %br
+          ____________
+          %br
+          = bbcode sanitize(@user.signature)

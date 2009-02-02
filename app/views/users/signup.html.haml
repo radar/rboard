@@ -1,0 +1,33 @@
+= error_messages_for :user
+%table.forums{ :cellspacing => "0", :rules => "groups", :cellpadding => "2", :width => "100%" }
+  %thead
+    %tr
+      %td{ :align => "left", :width => "40%" }
+        %b
+          = t(:Signup)
+  %tbody
+    %tr
+      %td{ :align => "left" }
+        - form_for :user do |f|
+          %p
+            %label{ :for => "login" }= t(:Login)
+            %br
+            = f.text_field :login
+          %p
+            %label{ :for => "display_name" }= t(:Display_Name)
+            %br
+            = f.text_field :display_name
+          %p
+            %label{ :for => "email" }= t(:Email)
+            %br
+            = f.text_field :email
+          %p
+            %label{ :for => "password" }= t(:Password)
+            %br
+            = f.password_field :password
+          %p
+            %label{ :for => "password_confirmation" }= t(:Confirm_Password)
+            %br
+            = f.password_field :password_confirmation
+          %p= submit_tag t(:Signup)
+    %tfoot
