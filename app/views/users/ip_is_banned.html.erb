@@ -1,6 +1,6 @@
 <div class='ban-box' align='center'>
   <h1>YOU ARE BANNED</h1>
-  <% if current_user.banned? %>
+  <% if logged_in? && current_user.banned? %>
     <%= t(:Banned_by) %> <%= current_user.banned_by.login %> <%= t(:banned_you) %> <%= t(:reason_stated, :reason => current_user.ban_reason) %>  
     <%= time_ago_in_words(current_user.ban_time) %> until <%= t(:Ban_expiry) %>.
     <br /><br />
