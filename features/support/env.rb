@@ -16,3 +16,5 @@ require 'cucumber/rails/rspec'
 require 'webrat/core/matchers'
 
 require 'faker'
+puts "TEST"
+`rake setup`
