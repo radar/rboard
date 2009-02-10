@@ -8,6 +8,11 @@ In order to start using rBoard you should only have to clone the repository, and
 
     git clone git://github.com/Radar/rboard.git rBoard
     cd rBoard
+
+Then create a `config/database.yml` file for your database.
+
+Then simply run:
+
     rake install # DO NOT FORGET THIS STEP
     
 ## Requirements
