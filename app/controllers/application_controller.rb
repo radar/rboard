@@ -19,13 +19,7 @@ class ApplicationController < ActionController::Base
   # Sets the timezone to be the timezone that the user's specified.
   before_filter :set_time_zone
   
-  # Sets the default theme
-  
-  before_filter :set_default_theme
-  
-  def set_default_theme
-    @default_theme = Theme.find_by_is_default(true)
-  end
+  @default_theme = Theme.find_by_is_default(true) if Theme.table_exists?
   
   def check_page_value
     params[:page] = params[:page].to_i <= 0 ? "1" : params[:page]

@@ -154,7 +154,7 @@
    :Create => "Create",
    :create_one? => "create one?",
    :Created_at => "Created at",
-   :Creator => "Creator",
+   :Creator_of_topics => "Creator of topics",
    :Creating_a_category => "Creating a category",
    :Creating_a_forum => "Creating a forum",
    :Creating_a_rank => "Creating a rank",
