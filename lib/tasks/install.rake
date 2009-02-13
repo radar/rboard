@@ -1,4 +1,4 @@
-task :install => :environment do
+task :install => ['db:create:all', :environment] do
   Rake::Task["db:schema:load"].invoke
   Theme.create(:name => "blue", :is_default => true)
   # Because position is the primary key, you cannot set it normally

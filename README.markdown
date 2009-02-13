@@ -1,34 +1,60 @@
-PLEASE RUN `RAKE INSTALL` WHEN TRYING THIS APPLICATION
-====================================================
+# rBoard
 
-Yes it requires Sphinx which you can get from http://sphinxsearch.org and this works on MySQL and PostgreSQL. To install it download it, extract it, run ./configure && make && sudo make install and then in the rboard application run rake ts:config && rake ts:in && rake ts:start. This should start up the thinking sphinx daemon.
+rBoard is a kick-ass forum system built in Ruby on Rails. One of it's primary goals is being able to set it up quickly and easily, and still have it blow your mind with an awesome and stable feature set.
+
+## How to get it up and running
+
+In order to start using rBoard you should only have to clone the repository, and run `rake install`:
+
+    git clone git://github.com/Radar/rboard.git rBoard
+    cd rBoard
+
+Then create a `config/database.yml` file for your database.
+
+Then simply run:
+
+    rake install # DO NOT FORGET THIS STEP
+    
+## Requirements
+
+This app requires Sphinx which can be obtained from the Sphinx [website](http://sphinxsearch.com). Sphinx works with both MySQL and PostgreSQL. 
 
 Alternatively, you could just comment out all the define_index lines in the models.
 
-1. Why?
+### Sphinx Installation
 
-Why not? I use forum systems every day and I figured the best way to learn more about Rails was to build one in it. Rboard's evolved into much, much more now and is my favourite project to work on.
+  1. download Sphinx
+  2. extract it
+  3. run `./configure && make && sudo make install` 
+  4. `cd` to rBoard app folder
+  5. run `rake ts:config && rake ts:in && rake ts:start`. This should start up the thinking sphinx daemon.
 
-2. Who?
+## OAQ (Occasionally Asked Questions)
 
-One developer, so far. My name's Radar, but sometimes people call me Ryan or "dickhead". I wrote all of the code you see before you today.
+  1. Why?
 
-3. What?
+    Why not? I use forum systems every day and I figured the best way to learn more about Rails was to build one in it. rBoard's evolved into much, much more now and is my favourite project to work on.
 
-This is rboard, a forum system built in Rails.
+  2. Who?
 
-4. How?
+    One developer, so far. My name's Radar, but sometimes people call me Ryan or "dickhead". I wrote all of the code you see before you today.
 
-To install it, type rake install and this should do all the magic for you.
+  3. What?
 
-5. When (is it stable)?
+    This is rBoard, a forum system built in Rails.
 
-Master is usually kept in a stable manner whilst I tinker in my own personal branch also called Radar.
+  4. How?
 
-6. It's broken.
+    To install it, type `rake install` and this should do all the magic for you.
 
-Any problems, you can contact me through my user on Github (Radar) or radarlistener@gmail.com
+  5. When (is it stable)?
 
-7. I love you.
+    The `master` branch is usually kept in a stable manner whilst I tinker in my own personal branch, usually called `Radar`.
 
-You can send money to radarlistener@gmail.com and I may love you back.
+  6. OMG it is broken -- why!?!?
+
+    If you have any problems, you can contact me [through GitHub](http://github.com/inbox/new/Radar) or by [emailing me](mailto:radarlistener@gmail.com)
+
+  7. I love you.
+
+    You can send money to `radarlistener@gmail.com` and I may love you back.
