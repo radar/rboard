@@ -6,15 +6,17 @@ class Forum < ActiveRecord::Base
   named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
   named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
   
-  has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
-  has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
   has_many :moderations
+  has_many :people_permissions
+  has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
+  has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
+
   
   belongs_to :category
   belongs_to :is_visible_to, :class_name => "UserLevel"
-  belongs_to :topics_created_by, :class_name => "UserLevel"
   belongs_to :last_post, :class_name => "Post"
   belongs_to :last_post_forum, :class_name => "Forum"
+  belongs_to :topics_created_by, :class_name => "UserLevel"
   
   validates_presence_of :title, :description
   

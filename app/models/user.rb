@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  
+  include Permissions
   attr_accessor :password
   
   named_scope :recent, lambda { { :conditions => ["login_time > ?", 15.minutes.ago] } }
@@ -17,11 +17,16 @@ class User < ActiveRecord::Base
   
   has_many :banned_ips, :foreign_key => "banned_by"
   has_many :edits
+  has_many :group_users
+  has_many :groups, :through => :group_users
+  has_many :group_permissions, :through => :groups, :source => :permissions
   has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = ?", false], :order => "id DESC"
   has_many :ip_users
   has_many :ips, :through => :ip_users, :order => "ips.updated_at DESC"
   has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
   has_many :moderations
+  has_many :people_permissions, :as => "people"
+  has_many :permissions, :through => :people_permissions
   has_many :posts
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
   has_many :subscriptions
