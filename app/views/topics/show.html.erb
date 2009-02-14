@@ -8,7 +8,7 @@
 <%= render :partial => "menu" %>
 <br />
 <%= render :partial => @posts, :locals => { :show_topic => false } %>
-<% if logged_in? %>
+<% if current_user.can?(:reply) %>
   <table class='action-box' width='100%' cellpadding='2' cellspacing='0'>
     <thead>
       <tr>

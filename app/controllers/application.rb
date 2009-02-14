@@ -20,8 +20,9 @@ class ApplicationController < ActionController::Base
   before_filter :set_time_zone
   
   # Sets the default theme
-  
   before_filter :set_default_theme
+  
+  private
   
   def set_default_theme
     @default_theme = Theme.find_by_is_default(true)
@@ -33,5 +34,13 @@ class ApplicationController < ActionController::Base
 
   def set_time_zone
     Time.zone = current_user.time_zone if logged_in? && !current_user.time_zone.nil?
+  end
+  
+  def active_user
+    if logged_in?
+      current_user.login_time = Time.now
+      # Without callbacks / validations, it is much faster.
+      current_user.save(false)
+    end
   end
 end

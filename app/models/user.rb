@@ -44,16 +44,10 @@ class User < ActiveRecord::Base
   before_create :encrypt_password
   before_create :set_theme
   before_create :make_admin
+  
   before_save :set_permalink
-  
-  def set_permalink
-    self.permalink = to_s.parameterize
-  end
-  
-  def set_theme
-    self.theme = Theme.find(:first)
-  end
-  
+  before_save :set_default_group_if_none
+
   def to_s
     output = display_name unless display_name.blank?
     output ||= login
@@ -68,23 +62,6 @@ class User < ActiveRecord::Base
     rank = Rank.find_by_id(rank_id)
 	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC") if rank.nil?
 	  rank.nil? ? user_level.name : rank.name
-  end
-  
-  #permission checking 
-  def make_admin
-    self.user_level = UserLevel.find(:first, :order => "position desc") if User.count == 0
-  end
-  
-  def admin?
-    user_level.to_s == "Administrator"
-  end
-  
-  def moderator?
-    user_level.to_s == "Moderator"
-  end
-  
-  def user?
-    user_level.to_s == "User"
   end
   
   def banned?
@@ -142,5 +119,19 @@ class User < ActiveRecord::Base
   
   def password_required?
     crypted_password.blank? || !password.blank?
+  end
+  
+  private
+  
+  def set_permalink
+    self.permalink = to_s.parameterize
+  end
+  
+  def set_theme
+    self.theme = Theme.find(:first)
+  end
+  
+  def set_default_group_if_none
+    #TODO
   end
 end

@@ -41,11 +41,11 @@
       <%= t(:time_now) %> <%= Time.now.strftime(date_time_display) %> </div><br /><br />
       <%= yield %>
       <div align='center'>        
-        <% if is_moderator? %>
+        <% if current_user.can?(:access_moderator_section) %>
           <%= link_to "Moderator Section", moderator_root_path %>
         <% end %>
         
-        <% if is_admin? %>
+        <% if current_user.can?(:access_admin_section) %>
           | <%= link_to "Administration Section", admin_root_path %>
         <% end %>
       </div>

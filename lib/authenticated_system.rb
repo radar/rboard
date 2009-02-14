@@ -21,28 +21,6 @@ module AuthenticatedSystem
     date_display + " " + time_display
   end
   
-  def is_admin?
-    logged_in? && current_user.admin?
-  end
-  
-  def is_moderator?
-    logged_in? && (current_user.admin? || current_user.moderator?)
-  end
-    
-  def non_admin_redirect
-    if !is_admin?
-      flash[:notice] = t(:need_to_be_admin)
-      redirect_back_or_default(root_path)
-    end
-  end
-  
-  def non_moderator_redirect
-    if !is_moderator?
-      flash[:notice] = t(:need_to_be_admin_or_moderator)
-      redirect_back_or_default(root_path)
-    end
-  end
-  
   def ip_banned?
     @ips = BannedIp.find(:all, :conditions => ["ban_time > ?",Time.now]).select do |ip|
       !Regexp.new(ip.ip).match(request.remote_addr).nil? unless ip.nil?
@@ -62,10 +40,6 @@ module AuthenticatedSystem
     ThemesLoader.new
     theme = logged_in? && !current_user.theme.nil? ? current_user.theme : Theme.find_by_is_default(true)
     theme.nil? ? Theme.first : theme
-  end
-  
-  def active_user
-    current_user.update_attribute("login_time",Time.now) if logged_in?
   end
   
   def logged_in?
@@ -125,8 +99,6 @@ module AuthenticatedSystem
     base.send :helper_method, 
               :current_user,
               :logged_in?,
-              :is_admin?,
-              :is_moderator?,
               :ip_banned?,
               :user_banned?,
               :theme,

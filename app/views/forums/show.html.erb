@@ -22,7 +22,7 @@
 <br />
 <h2><%= t(:Viewing_forum) %> <%= @forum.title %></h2>
 <%= will_paginate @topics %>
-<% if @forum.topics_creatable_by?(current_user)  %>
+<% if current_user.can?(:start_new_topics, @forum) %>
   <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
@@ -85,13 +85,11 @@
           </tr>
         <% end %>
       </tbody>
-      <% if is_admin? %>
+      <% if current_user.can(:moderate_topics) %>
         <tfoot>
           <tr>
             <td align='right' colspan='8'>
-              <% if is_moderator? %>
-                <span id='moderated_topics_count'><% unless @moderated_topics_count.zero? %><%= pluralize(@moderated_topics_count, "topic") %><%= t(:selected_for_moderation) %><% end %></span>
-              <% end %>
+              <span id='moderated_topics_count'><% unless @moderated_topics_count.zero? %><%= pluralize(@moderated_topics_count, "topic") %><%= t(:selected_for_moderation) %><% end %></span>
               <%= render :partial => "topics/buttons" %>
             </td>
           </tr>
@@ -110,7 +108,7 @@
     </thead>
   <% end %>
 </table>
-<% if @forum.topics_creatable_by?(current_user)  %>
+<% if current_user.can?(:start_new_topics, @forum) %>
   <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
 <% end %>
 <%= will_paginate @topics %>
