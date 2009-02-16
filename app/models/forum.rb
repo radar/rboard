@@ -3,25 +3,23 @@ class Forum < ActiveRecord::Base
   acts_as_tree :order => :position
   
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
-  named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
-  named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
+ # named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
+#  named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
   
   has_many :moderations
-  has_many :people_permissions
+  has_many :user_permissions
+  has_many :group_permissions
+  has_many :users, :through => :user_permissions
+  has_many :groups, :through => :group_permissions
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
   has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
 
   
   belongs_to :category
-  belongs_to :is_visible_to, :class_name => "UserLevel"
   belongs_to :last_post, :class_name => "Post"
   belongs_to :last_post_forum, :class_name => "Forum"
-  belongs_to :topics_created_by, :class_name => "UserLevel"
   
   validates_presence_of :title, :description
-  
-  after_save :update_category_visibility
-  after_destroy :update_category_visibility
     
   def to_s
     title
@@ -70,12 +68,4 @@ class Forum < ActiveRecord::Base
   def topics_creatable_by?(user=:false)
     (user != :false && topics_created_by_id <= user.user_level.position) || (user == :false && topics_created_by == UserLevel.find_by_name("User"))
   end
-  
-  private
-  
-    def update_category_visibility
-      if category
-        self.category.update_attribute("is_visible_to", UserLevel.find(category.forums.find(:all, :joins => :is_visible_to).map { |f| f.is_visible_to.position }.sort.last))
-      end
-    end
 end

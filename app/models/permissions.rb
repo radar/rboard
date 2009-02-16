@@ -1,25 +1,26 @@
 module Permissions
+  THINGS = ['forum', 'category']
+  PEOPLE = ['user', 'group']
+  
   def self.included(klass)
     
     klass.class_eval do
-      def overall_permissions
-        [permissions, group_permissions].map { |perms| perms.all(:conditions => ["people_permissions.forum_id IS NULL"]) }.flatten!
+      # Here we can pass an object to check if the user or any the user's groups
+      # has permissions on that particular option.
+      def overall_permissions(thing = nil)
+        [permissions, group_permissions].map do |permissions|
+          next if permissions == []
+          permissions.all(:include => :group_permissions, :conditions => 
+            THINGS.map do |t|
+              "user_permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}") << ' OR ' <<    
+              "group_permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}")      
+            end.join(" AND ")
+          )
+        end.flatten!.compact
       end
-      
-      def overall_permissions_for(forum)
-        [permissions, group_permissions].map { |perms| perms.all(:conditions => ["people_permissions.forum_id = ?", forum[:id]]) }.flatten!
-      end
-      
-      def find_permissions(forum = nil)
-        if forum
-          overall_permissions_for(forum)
-        else
-          overall_permissions
-        end
-      end
-      
-      def can?(action, forum = nil)
-        permissions = find_permissions(forum)
+            
+      def can?(action, thing = nil)
+        permissions = overall_permissions(thing)
         !!permissions.detect { |p| p.send("can_#{action}") }
       end
     end

@@ -1,11 +1,9 @@
 <% inside_layout "application" do %>
   <ul id='admin-navlist'>
     <li><%= link_to "Index", admin_root_path,  :class => selected("index")  %></li>
-    <li><%= link_to "Categories", admin_categories_path, :class => selected("categories") %></li>
-    <li><%= link_to "Forums", admin_forums_path, :class => selected("forums") %></li>
-    <li><%= link_to "Users", admin_users_path, :class => selected("users") %></li>
-    <li><%= link_to "Ranks", admin_ranks_path, :class => selected("ranks") %></li>
-    <li><%= link_to "Themes", admin_themes_path, :class => selected("themes") %></li>
+    <% for section in @sections %>
+      <li><%= link_to section.titleize, send("admin_#{section}_path"), :class => selected(section) %></li>
+    <% end %>
     <li><%= link_to "IP Banning", ban_ip_admin_users_path, :class => selected("ip_banning") %>
    
   </ul>

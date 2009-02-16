@@ -9,7 +9,7 @@ class ForumsController < ApplicationController
      if @category
       @forums = @category.forums
     else
-      @categories = Category.without_parent.viewable_to(current_user)
+      @categories = Category.all(:include => :users, :conditions => ["users.id = ?", current_user])
       @forums = Forum.without_category
     end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence

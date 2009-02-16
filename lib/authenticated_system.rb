@@ -43,12 +43,12 @@ module AuthenticatedSystem
   end
   
   def logged_in?
-    current_user != :false
+    current_user.login != User.anonymous 
   end
   
   # Accesses the current user from the session.
   def current_user
-    @current_user ||= (session[:user] && User.find_by_id(session[:user])) || :false
+    @current_user ||= (session[:user] && User.find_by_id(session[:user])) || User.anonymous
   end
   
   # Store the given user in the session.
@@ -73,7 +73,7 @@ module AuthenticatedSystem
   #
   def login_required
     username, passwd = get_auth_data
-    self.current_user ||= User.authenticate(username, passwd) || :false if username && passwd
+    self.current_user ||= User.authenticate(username, passwd) || User.anonymous if username && passwd
     if !logged_in?
       flash[:notice] = t(:you_must_be_logged_in)
       redirect_to login_path

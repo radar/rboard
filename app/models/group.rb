@@ -2,9 +2,9 @@ class Group < ActiveRecord::Base
   belongs_to :owner, :class_name => "User"
   
   has_many :group_users
-  has_many :people_permissions, :as => "people"
-  has_many :permissions, :through => :people_permissions
   has_many :users, :through => :group_users
+  has_many :group_permissions
+  has_many :permissions, :through => :group_permissions
   
   validates_presence_of :name
   

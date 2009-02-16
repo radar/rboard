@@ -24,5 +24,6 @@ THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
 RAILS_RELATIVE_URL_ROOT = "http://localhost:3000"
 # Change this if your locale is not english
 # I18n.default_locale = "en"
+require 'class_ext'
 require 'array_ext'
 require 'themes_loader'

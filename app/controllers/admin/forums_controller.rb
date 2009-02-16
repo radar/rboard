@@ -110,7 +110,6 @@ class Admin::ForumsController < Admin::ApplicationController
     else
       [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
     end
-    @user_levels = UserLevel.find(:all, :order => "position ASC")
   end
   
   # Called when the forum could not be found.
