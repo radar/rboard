@@ -102,7 +102,7 @@ describe Forum, "in general" do
     @moderator = users(:moderator)
     @plebian = users(:plebian)
     
-    @everybody.topics_creatable_by?(:false).should be_true
+    @everybody.topics_creatable_by?(:false).should be_false
     @everybody.topics_creatable_by?(@administrator).should be_true
     @everybody.topics_creatable_by?(@moderator).should be_true
     @everybody.topics_creatable_by?(@plebian).should be_true

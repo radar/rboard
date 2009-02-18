@@ -4,7 +4,7 @@ class Forum < ActiveRecord::Base
   
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
   named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
-  named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
+  named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("Anonymous").position } } }
   
   has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
@@ -60,13 +60,13 @@ class Forum < ActiveRecord::Base
   # If the user is logged in, then user will not be :false
   # Check if a forum is visible to a user
   def viewable?(user=:false)
-    (user != :false && is_visible_to_id <= user.user_level.position) || (user == :false && is_visible_to == UserLevel.find_by_name("User"))
+    (user != :false && is_visible_to_id <= user.user_level.position) || (user == :false && is_visible_to == UserLevel.find_by_name("Anonymous"))
   end
   
   # If the user is logged in, then user will not be :false
   # Check if a forum can have topics posted into it by a user
   def topics_creatable_by?(user=:false)
-    (user != :false && topics_created_by_id <= user.user_level.position) || (user == :false && topics_created_by == UserLevel.find_by_name("User"))
+    (user != :false && topics_created_by_id <= user.user_level.position) || (user == :false && topics_created_by == UserLevel.find_by_name("Anonymous"))
   end
   
   private

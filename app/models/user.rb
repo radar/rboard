@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   
   before_create :encrypt_password
   before_create :set_theme
-  before_create :make_admin
+  before_create :set_user_level
   before_save :set_permalink
   
   def set_permalink
@@ -66,8 +66,12 @@ class User < ActiveRecord::Base
   end
   
   #permission checking 
-  def make_admin
-    self.user_level = UserLevel.find(:first, :order => "position desc") if User.count == 0
+  def set_user_level
+    self.user_level = if User.count == 0
+      UserLevel.find_by_name("Administrator")
+    else
+      UserLevel.find_by_name("User")
+    end
   end
   
   def admin?

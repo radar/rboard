@@ -3,7 +3,7 @@ administrator:
   salt: a22702db41bc60286a75d8b0d8bb416a2b9707e4
   #password is godly
   crypted_password: b5859b5094f6747b8a7f11918e336bb524ec5f38
-  user_level_id: 3
+  user_level_id: 4
   rank_id: 1
   permalink: administrator
   remember_token_expires_at: <%= (Time.now + 2.weeks).to_s(:db) %>
@@ -13,7 +13,7 @@ moderator:
   #password is wanna_be_just_like_you
   salt: 510bef3ba3999d017bcb041919f97f624806ec65
   crypted_password: a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977
-  user_level_id: 2
+  user_level_id: 3
   permalink: moderator
   
 plebian:
@@ -21,7 +21,7 @@ plebian:
   #password is only_human
   salt: 8de4e91a969b7049ab1a53d57afbab578cc78021
   crypted_password: a561a12d86ed27a6c6adf52a327979fcf74c1f3c
-  user_level_id: 1
+  user_level_id: 2
   login_time: <%= (Time.now - 5.minutes).to_s(:db) %>
   permalink: plebian
 
