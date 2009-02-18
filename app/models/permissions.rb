@@ -10,7 +10,7 @@ module Permissions
       def overall_permissions(thing = nil)
         [permissions, group_permissions].map do |permissions|
           next if permissions == []
-          permissions.all(:include => :group_permissions, :conditions => 
+          permissions.all(:include => [:group_permissions, :user_permissions], :conditions => 
             THINGS.map do |t|
               "user_permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}") << ' OR ' <<    
               "group_permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}")      

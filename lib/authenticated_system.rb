@@ -43,7 +43,7 @@ module AuthenticatedSystem
   end
   
   def logged_in?
-    current_user.login != User.anonymous 
+    !current_user.anonymous?
   end
   
   # Accesses the current user from the session.

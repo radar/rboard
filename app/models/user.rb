@@ -116,6 +116,10 @@ class User < ActiveRecord::Base
     find_by_login("anonymous")
   end
   
+  def anonymous?
+    login == "anonymous"
+  end
+  
   protected
   def encrypt_password
     if new_record?
