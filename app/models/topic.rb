@@ -9,12 +9,14 @@ class Topic < ActiveRecord::Base
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
   has_many :posts, :order => "posts.created_at asc", :dependent => :destroy
+  has_many :read_topics
+  has_many :readers, :through => :read_topics, :source => :user
   has_many :subscriptions
   has_many :subscribers, :through => :subscriptions, :class_name => "User"
   has_many :users, :through => :posts
   
   named_scope :viewable_to_anonymous, lambda { { :conditions => ["is_visible_to_id = ?", UserLevel.find_by_name("User").position] } }
-  named_scope :sorted, :order => "posts.created_at DESC", :include => "last_post"
+  named_scope :sorted, :order => "posts.created_at DESC, sticky DESC", :include => [:last_post, :readers]
   
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil

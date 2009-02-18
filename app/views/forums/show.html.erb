@@ -58,10 +58,10 @@
                 <%= theme_image_tag("sticky.jpg") %>
               <% elsif topic.moved? %>
                 <%= theme_image_tag("moved.jpg") %>
-              <% elsif logged_in? && !current_user.previous_login.nil? && topic.posts.last.created_at > current_user.previous_login && !topic.locked %>
-                <%= theme_image_tag("new.jpg") %>
               <% elsif topic.locked? %>
                 <%= theme_image_tag("locked.jpg") %>
+              <% elsif logged_in? && !topic.readers.include?(current_user) %>
+                <%= theme_image_tag("new.jpg") %>
               <% else %>
                 <%= theme_image_tag("old.jpg") %>
               <% end %>

@@ -11,6 +11,7 @@ class TopicsController < ApplicationController
   
   def show
     if logged_in?
+      @topic.readers << current_user if !@topic.readers.include?(current_user)
       @subscription = current_user.subscriptions.find_by_topic_id(params[:id])
       @subscription.update_attribute("posts_count", 0) if @subscription
     end
