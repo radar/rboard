@@ -16,6 +16,16 @@ describe PostsController, "as plebian" do
     @pleban = users(:plebian)
   end
   
+  it "should be able to get posts for the current user" do
+    User.should_receive(:find).twice.and_return(@user)
+    @user.should_receive(:update_attribute).twice
+    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    @user.should_receive(:per_page).and_return(30)
+    @user.should_receive(:posts).and_return(@posts)
+    @posts.should_receive(:paginate).and_return(@posts)
+    get 'index', :user_id => 1
+  end
+  
   it "should be able to start a new post" do
     Topic.should_receive(:find).and_return(@topic)
     @topic.should_receive(:last_10_posts).and_return(@posts)

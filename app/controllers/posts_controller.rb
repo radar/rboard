@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
   before_filter :login_required
   before_filter :find_topic
+  before_filter :find_user, :only => [:index]
   before_filter :find_post, :only => [:edit, :update, :destroy]
   before_filter :create_ip, :only => [:create, :update]
   
   def index
-    @posts = current_user.posts.paginate :per_page => per_page, :page => params[:page]
+    @posts = @user.posts.paginate :per_page => per_page, :page => params[:page]
     
   end
   
@@ -91,6 +92,10 @@ class PostsController < ApplicationController
       check_ownership
     rescue ActiveRecord::RecordNotFound
       not_found
+    end
+    
+    def find_user
+      @user = User.find(params[:user_id])
     end
     
     def create_ip
