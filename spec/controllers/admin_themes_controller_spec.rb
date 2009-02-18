@@ -10,6 +10,7 @@ describe Admin::ThemesController do
 
   #Delete this example and add some real ones
   it "should be able show all themes" do
+    Theme.should_receive(:find).with(:first, :conditions => { :is_default => true }).and_return(@theme)
     Theme.should_receive(:find).with(:all, :order => "name ASC").and_return(@themes)
     get 'index'
   end

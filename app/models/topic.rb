@@ -45,6 +45,7 @@ class Topic < ActiveRecord::Base
   end
   
   def set_last_post
+    readers.clear
     update_attribute("last_post_id", posts.last.id) unless moved
     # TODO: May be intensive if a lot of people have all subscribed to the same topic.
     subscriptions.map { |s| s.increment!(:posts_count) }

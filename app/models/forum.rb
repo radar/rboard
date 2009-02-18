@@ -73,7 +73,7 @@ class Forum < ActiveRecord::Base
   
     def update_category_visibility
       if category
-        self.category.update_attribute("is_visible_to", UserLevel.find(category.forums.find(:all, :joins => :is_visible_to).map { |f| f.is_visible_to.position }.sort.last))
+        self.category.update_attribute("is_visible_to_id", UserLevel.find(category.forums.find(:all, :joins => :is_visible_to).map { |f| f.is_visible_to.position }.sort.last))
       end
     end
 end

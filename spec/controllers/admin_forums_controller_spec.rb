@@ -28,13 +28,26 @@ describe Admin::ForumsController do
     before do
       @forum = mock_model(Forum)
       @forums = [@forum]
+      @category = mock_model(Category)
+      @categories = [@category]
+      @user_level = mock_model(UserLevel)
       login_as(:administrator)
     end
   
     it "should be able to begin making a new forum" do
       Forum.should_receive(:new).and_return(@forum)
       Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
+      Category.should_receive(:find).with(:all, :order => "name asc").and_return(@categories)
       get 'new'
+      response.should_not redirect_to(login_path)
+    end
+    
+    it "should be able to begin making a new forum in a category" do
+      Category.should_receive(:find).and_return(@category)
+      @category.should_receive(:forums).twice.and_return(@forums)
+      @forums.should_receive(:build).and_return(@forum)
+      @forums.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
+      get 'new', :category_id => 1
       response.should_not redirect_to(login_path)
     end
   
@@ -42,9 +55,22 @@ describe Admin::ForumsController do
       Forum.should_receive(:new).and_return(@forum)
       @forum.should_receive(:save).and_return(true)
       post 'create', { :forum => { :title => "Brand New Forum", :description => "Oh Yeah!"} }
+      flash[:notice].should eql(I18n.t(:forum_created))
       response.should redirect_to(admin_forums_path)
     end
-  
+    
+    it "should be able to create a new forum inside a category" do
+      Category.should_receive(:find).and_return(@category)
+      @category.should_receive(:forums).and_return(@forums)
+      @forums.should_receive(:find).with(:all, :joins => :is_visible_to).and_return(@forums)
+      @forum.should_receive(:is_visible_to).and_return(@user_level)
+      @user_level.should_receive(:position).and_return(3)
+      @category.should_receive(:update_attribute).with("is_visible_to_id", UserLevel.find(3))
+      post 'create', { :forum => { :title => "Brand New Forum", :description => "Oh Yeah!", :category_id => 1 } }
+      flash[:notice].should eql(I18n.t(:forum_created))
+      response.should redirect_to(admin_forums_path)
+    end
+    
     it "should not create a forum with invalid parameters" do 
       Forum.should_receive(:new).and_return(@forum)
       @forum.should_receive(:save).and_return(false)
@@ -59,26 +85,26 @@ describe Admin::ForumsController do
       get 'index'
     end
   
-  it "should not be able to edit a forum that doesn't exist" do
-    Forum.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
-    get 'edit', { :id => 123456789 }
-    flash[:notice].should_not be_blank
-    response.should redirect_to(admin_forums_path)
-  end
+    it "should not be able to edit a forum that doesn't exist" do
+      Forum.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
+      get 'edit', { :id => 123456789 }
+      flash[:notice].should_not be_blank
+      response.should redirect_to(admin_forums_path)
+    end
   
-  it "should be able to update a forum" do
-    Forum.should_receive(:find).with("1").and_return(@forum)
-    @forum.should_receive(:update_attributes).and_return(true)
-    put 'update', { :id => 1, :forum => { :title => "Title", :description => "description"}}
-    flash[:notice].should_not be_nil
-    response.should redirect_to(admin_forums_path)
-  end
+    it "should be able to update a forum" do
+      Forum.should_receive(:find).with("1").and_return(@forum)
+      @forum.should_receive(:update_attributes).and_return(true)
+      put 'update', { :id => 1, :forum => { :title => "Title", :description => "description"}}
+      flash[:notice].should_not be_nil
+      response.should redirect_to(admin_forums_path)
+    end
   
-  it "should be able to begin to edit a forum" do
-    Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
-    Forum.should_receive(:find).with("1").and_return(@forum)
-    get 'edit', :id => 1 
-  end
+    it "should be able to begin to edit a forum" do
+      Forum.should_receive(:find).with(:all, :order => "title ASC").and_return(@forums)
+      Forum.should_receive(:find).with("1").and_return(@forum)
+      get 'edit', :id => 1 
+    end
     
     it "should be able to update a forum" do
       Forum.should_receive(:find).with("1").and_return(@forum)

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Forum, "creation" do
-  fixtures :forums
+  fixtures :forums, :categories
   before(:each) do
     @invalid = forums(:invalid)
   end
@@ -18,7 +18,7 @@ describe Forum, "creation" do
 end
 
 describe Forum, "in general" do
-  fixtures :forums, :topics, :posts, :users, :user_levels
+  fixtures :forums, :topics, :posts, :users, :user_levels, :categories
   
   before do
     @everybody = forums(:everybody)
@@ -117,14 +117,4 @@ describe Forum, "in general" do
     @admins_only.topics_creatable_by?(@moderator).should be_false
     @admins_only.topics_creatable_by?(@plebian).should be_false
   end
-  
-  it "should set the category's viewable status when saved or destroyed" do
-    @everybody.category.is_visible_to.should eql(user_levels(:user))
-    @everybody.save
-    @everybody.category.is_visible_to.should eql(user_levels(:administrator))
-    @admins_only.destroy
-    @everybody.reload
-    @everybody.category.is_visible_to.should eql(user_levels(:moderator))
-  end
-    
 end
