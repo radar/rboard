@@ -38,6 +38,7 @@
         <% end %>
         <b><%= t(:Posts) %>:</b> <%= post.user.posts.size %><br />
         <b><%= t(:Date_joined) %>:</b> <%= post.user.created_at.strftime(date_display) %>
+        <b><%= t(:Online) %>:</b> <%= post.user.online? ? "yes" : "no" %>
       </td>
       
       <td valign='top' colspan='2' valign='top'>

@@ -77,4 +77,8 @@ describe User, "with users" do
     @other_user.rank.should eql("Moderator")
   end
   
+  it "should see that the user was recently online" do
+    @plebian.online?.should be_true
+  end
+  
 end

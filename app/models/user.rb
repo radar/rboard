@@ -131,6 +131,10 @@ class User < ActiveRecord::Base
     save(false)
   end
   
+  def online?
+    login_time > Time.now - 15.minutes
+  end
+  
   protected
   def encrypt_password
     if new_record?

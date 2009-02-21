@@ -287,6 +287,7 @@
    :none => "none",
    :of_all_posts => "of all posts",
    :of_all_posts_on_this_forum => "of all posts in this forum",
+   :Online => "Online",
    :only_one_topic_for_merge => "You cannot merge a topic into itself.",
    :other_IPs => { :one => "1 other IP", :zero => "no other IPs", :other => "{{count}} other IPs"},
    :Password => "Password",
