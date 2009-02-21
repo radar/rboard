@@ -28,6 +28,25 @@ Alternatively, you could just comment out all the define_index lines in the mode
   3. run `./configure && make && sudo make install` 
   4. `cd` to rBoard app folder
   5. run `rake ts:config && rake ts:in && rake ts:start`. This should start up the thinking sphinx daemon.
+  
+## Features
+
+rboard has the following awesome things:
+  
+  * Categories (can be ordered)
+  * Forums (can be ordered)
+  * Topics
+    * Ability to lock
+    * Ability to sticky
+  * Posts
+  * Users
+  * Searching (courtesy of ThinkingSphinx)
+  * Signatures
+  * Member Lists
+  * Avatars that fallback to [Gravatars](http://gravatar.com)
+  * IP Tracking
+  
+Puppies, Kittens, Rainbows and Unicorns sold separately. 
 
 ## OAQ (Occasionally Asked Questions)
 
@@ -53,7 +72,7 @@ Alternatively, you could just comment out all the define_index lines in the mode
 
   6. OMG it is broken -- why!?!?
 
-    If you have any problems, you can contact me [through GitHub](http://github.com/inbox/new/Radar) or by [emailing me](mailto:radarlistener@gmail.com)
+    If you have any problems, you can contact me [through GitHub](http://github.com/inbox/new/radar) or by [emailing me](mailto:radarlistener@gmail.com)
 
   7. I love you.
 
