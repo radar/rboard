@@ -35,16 +35,43 @@ rboard has the following awesome things:
   
   * Categories (can be ordered)
   * Forums (can be ordered)
+    * List topics with subject, author, replies, views and last post information
+    * Can be restricted to certain user levels (visible to and topics created by)
+    * Sub forums (infinitely. No, really. Try it.)
+    * RSS Feeds
   * Topics
-    * Ability to lock
-    * Ability to sticky
+    * Locking
+    * Sticky-ifying
+    * Splitting
+    * Merging
+    * Subscriptable
+    * Moveable
+    * Editable
+    * Deletable
+    * Paginated (will_paginate)
+    * RSS Feeds
   * Posts
+    * Reply
+    * Quote
+    * Editable (it tracks these too!)
+    * Deletable
+    * Quick Reply
+    * Code Highlighting (syntax gem)
+    * Paginated (will_paginate)
   * Users
+    * IP Tracking
+    * Signatures
+    * Member Lists
+    * User Levels (Anonymous, User, Moderator & Administrator)
+    * IP Banning
+  * Ranks
+    * Post dependent or custom
+  * Themes
+    * Upload your new theme directory into public/themes and go!
+  * Private Messaging
+  * Tracks read topics on a per-user basis
   * Searching (courtesy of ThinkingSphinx)
-  * Signatures
-  * Member Lists
-  * Avatars that fallback to [Gravatars](http://gravatar.com)
-  * IP Tracking
+
   
 Puppies, Kittens, Rainbows and Unicorns sold separately. 
 
