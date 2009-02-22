@@ -33,14 +33,18 @@ ActionController::Routing::Routes.draw do |map|
     moderator.resources :topics, :member => { :toggle_lock => :put, :toggle_sticky => :put }, :collection => { :moderate => :post, :merge => :put } do |topic|
       topic.resources :moderations
       topic.resources :posts, :member => { :split => [:get, :post] }
+      topic.resources :reports
     end
     
     moderator.resources :posts do |post| 
       post.resources :moderations
       post.resources :edits
+      post.resources :reports
     end
     
     moderator.resources :moderations
+    
+    moderator.resources :reports
   end
   
   map.resources :categories do |category|
@@ -55,6 +59,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :posts, :member => { :destroy => :any } do |post|
     post.resources :edits
+    post.resources :reports
   end
   
   map.resources :subscriptions
@@ -62,11 +67,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
     topic.resources :posts, :member => { :reply => :get }
     topic.resources :subscriptions
+    topic.resources :reports
   end
 
   map.resources :users, :member => { :profile => :any }, :collection => { :signup => [:get, :post], :ip_is_banned => :get }
   
   # pretty pagination links
+  map.connect 'forums/:forum_id/topics/:id/:page#:anchor', :controller => "topics", :action => "show"
   map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
   map.connect 'forums/:id/:page', :controller => "forums", :action => "show"
   map.connect ':controller/:action/:id'

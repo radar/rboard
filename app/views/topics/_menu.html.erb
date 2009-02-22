@@ -1,33 +1,41 @@
-<% if logged_in? %>
-  <% if @forum.topics_creatable_by?(current_user)  %>
-    <%= link_to t(:New_Topic), new_forum_topic_path(@topic.forum) %> |
-	<% end %>
-	
-	<% if !@topic.locked? || is_moderator? %>
-   		<%= link_to t(:New_Reply), new_topic_post_path(@topic) %>
-  <% end %>
-  
-	<% if is_admin? %>
-    |
-  	<% if @topic.locked? %> 
-      <%= link_to t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put %>
-  	<% else %>
-    	<%= link_to t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put %>
+<div class='topic_menu'>
+  <% if logged_in? %>
+    <% if @forum.topics_creatable_by?(current_user)  %>
+      <%= link_to t(:New_Topic), new_forum_topic_path(@topic.forum) %> |
   	<% end %>
-	<% end %>
 	
-	<% if is_admin? || @topic.belongs_to?(current_user) %>
-	  | <%= link_to t(:Edit_topic), edit_forum_topic_path(@forum) %>
-	<% end %>
+  	<% if !@topic.locked? || is_moderator? %>
+      <%= link_to t(:New_Reply), new_topic_post_path(@topic) %>
+    <% end %>
+    
+    | <% if !@topic.reporters.include?(current_user) %>
+      <%= link_to t(:Report), new_topic_report_path(@topic) %>
+    <% else %>
+      <%= t(:Reported) %>
+    <% end %>
+  
+  	<% if is_admin? %>
+      |
+    	<% if @topic.locked? %> 
+        <%= link_to t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put %>
+    	<% else %>
+      	<%= link_to t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put %>
+    	<% end %>
+  	<% end %>
 	
-  |
-	<% if @subscription %>
-    <%= link_to t(:Unsubscribe), topic_subscription_path(@topic, @subscription), :method => :delete %>
+  	<% if is_admin? || @topic.belongs_to?(current_user) %>
+  	  | <%= link_to t(:Edit_topic), edit_forum_topic_path(@forum) %>
+  	<% end %>
+	
+    |
+  	<% if @subscription %>
+      <%= link_to t(:Unsubscribe), topic_subscription_path(@topic, @subscription), :method => :delete %>
+    <% else %>
+      <%= link_to t(:Subscribe), topic_subscriptions_path(@topic), :method => :post %>
+  	<% end %>
   <% else %>
-    <%= link_to t(:Subscribe), topic_subscriptions_path(@topic), :method => :post %>
-	<% end %>
-<% else %>
-  <% if @topic.locked? %>
-    <%= t(:Locked!) %>
+    <% if @topic.locked? %>
+      <%= t(:Locked!) %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

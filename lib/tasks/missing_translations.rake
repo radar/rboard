@@ -1,10 +1,12 @@
 task :missing_translations => :environment do
-  @missing_translation_count = 0
+  @missing_translations = []
   for locale in I18n.load_path
     look_for_candidates(File.basename(locale,".*"))
     look_for_candidates(File.basename(locale,".*"), "#{RAILS_ROOT}/lib")
   end
-  puts "Total missing translations: #{@missing_translation_count}"
+  @missing_translations = @missing_translations.uniq.sort
+  puts "You are missing these translations (#{@missing_translations.size}):"
+  puts @missing_translations
 end
 
 def look_for_candidates(locale, dir="#{RAILS_ROOT}/app")
@@ -22,8 +24,7 @@ def look_for_candidates(locale, dir="#{RAILS_ROOT}/app")
         if translated_to.include?("translation missing:")
           puts "\n\nTranslations missing in #{real_entry}:" unless alerted
           alerted = true
-          @missing_translation_count += 1
-          puts "    #{translation} (locale: #{locale})"
+          @missing_translations << translation.gsub(/^\st\(\:/, '').gsub(/\)$/, '')
         end
       end
     end

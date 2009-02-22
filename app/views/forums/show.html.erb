@@ -65,6 +65,11 @@
               <% else %>
                 <%= theme_image_tag("old.jpg") %>
               <% end %>
+              <% if is_moderator? %>
+                <% if !topic.reports.empty? %>
+                  <%= theme_image_tag("report.jpg", :title => "#{t(:report, :count => topic.reports.count)}") %>
+                <% end %>
+              <% end %>
             </td>
             <td class='topic_subject'>
               <b>

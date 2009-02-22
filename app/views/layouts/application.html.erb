@@ -26,7 +26,7 @@
             <%= link_to t(:Signup), signup_users_path %>
          
         <% else %>
-          Logged in as <%= link_to current_user, current_user %> |
+          <%= t(:Logged_in_as) %> <%= link_to current_user, current_user %> |
           <%= link_to t(:Edit_Profile), [:edit, current_user] %> |
           <%= link_to t(:Member_List), users_path %> | 
           <%= link_to t(:Search), search_path %> | 
@@ -40,15 +40,17 @@
         
       <%= t(:time_now) %> <%= Time.now.strftime(date_time_display) %> </div><br /><br />
       <%= yield %>
+      <br /><br />
       <div align='center'>        
         <% if is_moderator? %>
-          <%= link_to "Moderator Section", moderator_root_path %>
+          <%= link_to t(:Moderator_Section), moderator_root_path %>
         <% end %>
         
         <% if is_admin? %>
-          | <%= link_to "Administration Section", admin_root_path %>
+          | <%= link_to t(:Administration_Section), admin_root_path %>
         <% end %>
       </div>
+      <br /><br /><br />
     </div>
   </body>
 </html>

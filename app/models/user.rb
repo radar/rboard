@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
   has_many :moderations
   has_many :posts
+  has_many :reports
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
   has_many :subscriptions
   has_many :subscribed_topics, :through => :subscriptions

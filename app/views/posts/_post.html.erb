@@ -13,14 +13,20 @@
       <td align='right' valign='top'>
 	      <% if !post.topic.locked || is_admin? %>
           <%= link_to t(:Reply), new_topic_post_path(post.topic) %> |
-          <%= link_to t(:Quote), reply_topic_post_path(post.topic, post) %> 
-            <% if post.belongs_to?(current_user) %>
-              | <%= link_to t(:Edit), edit_topic_post_path(post.topic, post) %> |
-               <%= link_to t(:Delete), topic_post_path(post.topic, post), :method => "delete", :confirm => t(:confirm_post_deletion) %>
+          <%= link_to t(:Quote), reply_topic_post_path(post.topic, post) %> | 
+          <%= link_to t(:Report), new_post_report_path(post) %>
+          
+          <% if post.belongs_to?(current_user) %>
+            | <%= link_to t(:Edit), edit_topic_post_path(post.topic, post) %> |
+             <%= link_to t(:Delete), topic_post_path(post.topic, post), :method => "delete", :confirm => t(:confirm_post_deletion) %>
+          <% end %>
+          <% if is_moderator? %>
+            | <%= link_to t(:Split), split_moderator_topic_post_path(post.topic, post) %>
+            <% if !post.reports.empty? %>
+              | <%= link_to t(:Reports_x, :count => post.reports.count), moderator_post_reports_path(post) %>
             <% end %>
-            <% if is_moderator? %>
-              | <%= link_to t(:Split), split_moderator_topic_post_path(post.topic, post) %>
-            <% end %>
+          <% end %>
+      
         <% else %>
           Locked
         <% end %>
@@ -38,7 +44,7 @@
         <% end %>
         <b><%= t(:Posts) %>:</b> <%= post.user.posts.size %><br />
         <b><%= t(:Date_joined) %>:</b> <%= post.user.created_at.strftime(date_display) %>
-        <b><%= t(:Online) %>:</b> <%= post.user.online? ? "yes" : "no" %>
+        <b><%= t(:Online) %>:</b> <%= post.user.online? ? t(:Yes) : t(:No) %>
       </td>
       
       <td valign='top' colspan='2' valign='top'>

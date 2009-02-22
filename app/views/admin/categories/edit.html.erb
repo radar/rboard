@@ -1,4 +1,4 @@
-<%= link_to t(:admin_section), admin_root_path %> -> <%= link_to(t(:Categories), admin_categories_path) %> -> <%= t(:Editing_a_category) %>: <%= @category.name %>
+<%= link_to t(:Administration_Section), admin_root_path %> -> <%= link_to(t(:Categories), admin_categories_path) %> -> <%= t(:Editing_a_category) %>: <%= @category.name %>
 <%= error_messages_for :category %>
 <% form_for [:admin, @category] do |f| %>
   <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
