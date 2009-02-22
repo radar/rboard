@@ -81,7 +81,12 @@ class TopicsController < ApplicationController
   private
   
   def find_forum
-    @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
+    if params[:forum_id]
+      @forum = Forum.find(params[:forum_id], :include => [:topics, :posts])
+    else
+      @topic = Topic.find(params[:id])
+      redirect_to forum_topic_path(@topic.forum, @topic) and return
+    end
     if @forum.viewable?(current_user)
       @topic = @forum.topics.find(params[:id], :joins => :posts) if params[:id]
     else
