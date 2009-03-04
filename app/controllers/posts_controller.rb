@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
   before_filter :login_required
   before_filter :find_topic
+  before_filter :find_user, :only => [:index]
   before_filter :find_post, :only => [:edit, :update, :destroy]
   before_filter :create_ip, :only => [:create, :update]
   
   def index
-    @posts = current_user.posts.paginate :per_page => per_page, :page => params[:page]
+    @posts = @user.posts.paginate :per_page => per_page, :page => params[:page]
     
   end
   
@@ -93,6 +94,10 @@ class PostsController < ApplicationController
       not_found
     end
     
+    def find_user
+      @user = User.find(params[:user_id])
+    end
+    
     def create_ip
       @ip = Ip.find_or_create_by_ip(request.remote_addr)
       IpUser.create(:ip => @ip, :user => current_user)
@@ -106,7 +111,6 @@ class PostsController < ApplicationController
     end
     
     def go_directly_to_post
-      page = (@topic.posts.count.to_f / per_page).ceil
-      redirect_to forum_topic_path(@post.forum,@topic) + "/#{page}" + "#post_#{@post.id}"
+      redirect_to forum_topic_path(@post.forum,@topic) + "/#{@post.page_for(current_user)}" + "#post_#{@post.id}"
     end
 end

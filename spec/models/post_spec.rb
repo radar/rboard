@@ -68,13 +68,15 @@ describe Post, "general" do
     @post.belongs_to?(@plebian).should be_true
     @post.belongs_to?(@administrator).should be_false
   end
-
+ 
   
   it "should not be able to be flooded" do
     @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
     @sub_topic.save.should be_true
+    TIME_BETWEEN_POSTS = 1.minute
     other_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
     other_post.save.should be_false
+    TIME_BETWEEN_POSTS = 0
   end
   
 end

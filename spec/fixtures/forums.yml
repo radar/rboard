@@ -1,24 +1,18 @@
 admins_only:
   title: Administrators Only!
   description: Top secret admin stuff goes here!
-  is_visible_to_id: 4
-  topics_created_by_id: 4
   position: 1
   category: test
   
 moderators_only:
   title: Moderators Only!
   description: top secret moderator discussion!
-  is_visible_to_id: 3
-  topics_created_by_id: 3
   position: 2
   category: test
 
 everybody:
   title: General Discussion!
   description: Anything and everyone is welcome to discuss whatever!
-  is_visible_to_id: 1
-  topics_created_by_id: 2
   position: 3
   last_post: user
   category: test
@@ -26,8 +20,6 @@ everybody:
 sub_of_everybody:
   title: Unmoderated Discussion
   description: Totally unmoderated!
-  is_visible_to_id: 1
-  topics_created_by_id: 2
   position: 1
   parent: everybody
   category: test
@@ -35,14 +27,11 @@ sub_of_everybody:
 sub_of_sub_of_everybody:
   title: Unmoderated Unmoderated Discussion
   description: Really really unmoderated!
-  is_visible_to_id: 1
-  topics_created_by_id: 2 
   position: 1
   parent: sub_of_everybody
   category: test
 
 invalid:
   id: 5
-  is_visible_to: user
   category: test
 

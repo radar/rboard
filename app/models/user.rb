@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   has_many :moderations
   has_many :permissions, :through => :groups, :source => :permissions
   has_many :posts
+  has_many :reports
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
   has_many :subscriptions
   has_many :subscribed_topics, :through => :subscriptions
@@ -43,6 +44,14 @@ class User < ActiveRecord::Base
   before_create :encrypt_password
   before_create :set_theme
   before_save :set_permalink
+  
+  def self.anonymous
+    find_by_login("anonymous")
+  end
+  
+  def anonymous?
+    login == "anonymous"
+  end
   
   def set_permalink
     self.permalink = to_s.parameterize
@@ -114,6 +123,10 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
+  end
+  
+  def online?
+    login_time > Time.now - 15.minutes
   end
   
   protected

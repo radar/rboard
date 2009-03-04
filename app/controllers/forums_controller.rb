@@ -17,6 +17,10 @@ class ForumsController < ApplicationController
     @posts = Post.count
     @topics = Topic.count
     @ppt = @posts > 0 ? @posts / @topics : 0
+    respond_to do |format|
+      format.html
+      format.xml { render :xml => @forums }
+    end
   end
   
   # Shows a forum.

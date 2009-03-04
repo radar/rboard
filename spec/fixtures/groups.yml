@@ -1,2 +1,15 @@
 anonymous:
+  id: 1
+  name: Anonymous
+  owner: anonymous
+
+registered_users:
+  id: 2
+  name: Registered Users
+  owner: administrator
+  
+administrators:
+  id: 3
+  name: Administrators
+  owner: administrator
   

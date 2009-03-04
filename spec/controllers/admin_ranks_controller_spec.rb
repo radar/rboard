@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::RanksController, "non-admins" do
-  fixtures :users, :user_levels
+  fixtures :users
   
   it "should not be allowed in if not logged in" do
     get 'index'
@@ -18,7 +18,7 @@ describe Admin::RanksController, "non-admins" do
 end
 
 describe Admin::RanksController do
-  fixtures :users, :ranks, :user_levels
+  fixtures :users, :ranks
   
   before do
     login_as(:administrator)

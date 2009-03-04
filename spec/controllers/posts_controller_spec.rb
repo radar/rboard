@@ -16,6 +16,16 @@ describe PostsController, "as plebian" do
     @pleban = users(:plebian)
   end
   
+  it "should be able to get posts for the current user" do
+    User.should_receive(:find).twice.and_return(@user)
+    @user.should_receive(:update_attribute).twice
+    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
+    @user.should_receive(:per_page).and_return(30)
+    @user.should_receive(:posts).and_return(@posts)
+    @posts.should_receive(:paginate).and_return(@posts)
+    get 'index', :user_id => 1
+  end
+  
   it "should be able to start a new post" do
     Topic.should_receive(:find).and_return(@topic)
     @topic.should_receive(:last_10_posts).and_return(@posts)
@@ -57,13 +67,12 @@ describe PostsController, "as plebian" do
     @post.should_receive(:update_attributes).and_return(true)
     @post.should_receive(:topic).and_return(@topic)
     @post.stub!(:text)
-    @topic.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:count).and_return(2)
     @post.should_receive(:forum).and_return(@forum)
     @post.should_receive(:text_changed?).and_return(true)
     @post.should_receive(:edits).and_return(@edits)
     @edits.should_receive(:create).and_return(@edit)
     @post.should_receive(:update_attribute).and_return(@user)
+    @post.should_receive(:page_for).and_return(1)
     put 'update', :id => @first_post.id, :post => { :text => "Hooray!" }
     flash[:notice].should_not be_nil
   end
@@ -99,11 +108,11 @@ describe PostsController, "as plebian" do
     @topic.should_receive(:posts).at_most(3).times.and_return(@posts)
     @posts.should_receive(:find).with(:all, :order => "id DESC", :limit => 10)
     @posts.should_receive(:build).and_return(@post)
-    @posts.should_receive(:count).and_return(1)
     @post.should_receive(:save).and_return(true)
     @post.should_receive(:forum).twice.and_return(@forum)
     @post.should_receive(:topic).and_return(@topic)
     @topic.should_receive(:set_last_post).and_return(true)
+    @post.should_receive(:page_for).and_return(1)
     post 'create', { :post => { :text => "This is a new post" }, :topic_id => 1 }
     flash[:notice].should eql("Post has been created.")
     response.should redirect_to(forum_topic_path(@post.forum, @post.topic) + "/1#post_#{@post.id}")

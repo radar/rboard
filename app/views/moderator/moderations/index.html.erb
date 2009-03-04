@@ -1,4 +1,4 @@
-<h2>Your topic moderation queue</h2>
+<h2><%= t(:Your_topic_moderation_queue) %></h2>
 <% form_tag moderate_moderator_topics_path do %>
   <table cellspacing='0' cellpadding='5' width='100%' class='list-table' rules='groups'>
     <% unless @topic_moderations.empty? %>
@@ -6,10 +6,10 @@
         <tr>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
-          <td>Topic</td>
-          <td>Flagged On</td>
-          <td>Reason</td>
-          <td>Quick Moderation</td>
+          <td><%= t(:Topic) %></td>
+          <td><%= t(:Flagged_On) %></td>
+          <td><%= t(:Reason) %></td>
+          <td><%= t(:Quick_Moderation)%></td>
         </tr>
       </thead>
       <tbody>
@@ -18,14 +18,14 @@
             <td align='center'><%= check_box_tag("moderation_ids[]", moderation.id, true, :id => "topic_#{moderation.topic.id}_moderated") %></td>
             <td>
               <%= link_to theme_image_tag("edit.jpg"), edit_moderator_moderation_path(moderation) %>
-              <%= link_to theme_image_tag("delete.jpg"), moderator_moderation_path(moderation), :method => :delete, :confirm => "Are you sure you want to remove this moderation?" %>
+              <%= link_to theme_image_tag("delete.jpg"), moderator_moderation_path(moderation), :method => :delete, :confirm => t(:confirm_moderation_deletion) %>
             </td>
             <td><%= link_to moderation.moderated_object, [moderation.forum, moderation.topic] %></td>
             <td><%= moderation.created_at.strftime(date_time_display) %></td>
             <td><%= moderation.reason %></td>
-            <td><%= link_to theme_image_tag("locked.jpg", :title => moderation.topic.locked? ? "Unlock this topic" : "Lock this topic"),  toggle_lock_moderator_topic_path(moderation.topic), :method => :put %>
-            <%= link_to theme_image_tag("sticky.jpg", :title => "Sticky this topic"), toggle_sticky_moderator_topic_path(moderation.topic) %>
-            <%= link_to theme_image_tag("delete.jpg", :title => "Delete this topic"), moderator_topic_path(moderation.topic), :method => "delete", :confirm => "Are you sure you want to delete this topic?" %></td>
+            <td><%= link_to theme_image_tag("locked.jpg", :title => moderation.topic.locked? ? t(:Unlock_this_topic) : t(:Lock_this_topic)),  toggle_lock_moderator_topic_path(moderation.topic), :method => :put %>
+            <%= link_to theme_image_tag("sticky.jpg", :title => t(:Sticky_this_topic)), toggle_sticky_moderator_topic_path(moderation.topic) %>
+            <%= link_to theme_image_tag("delete.jpg", :title => t(:Delete_this_topic)), moderator_topic_path(moderation.topic), :method => "delete", :confirm => t(:confirm_topic_deletion) %></td>
           </tr>
       <% end %>
       </tbody>
@@ -35,7 +35,7 @@
         </tr>
       </tfoot>
     <% else %>
-      <thead><tr><td colspan='4'><b>There are no topics in your moderation queue.</b></td></tr></thead>
+      <thead><tr><td colspan='4'><b><%= t(:No_topics_in_moderation_queue) %></b></td></tr></thead>
     <% end %>
   </table>
   <% end %>

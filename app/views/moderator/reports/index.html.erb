@@ -1,0 +1,37 @@
+<h2>
+  <% if @reportable %>
+    <%= t(:Reports_for, :thing => report_text(@reportable)) %>
+  <% else %>  
+    <%= t(:Recently_reported_posts_and_topics) %>
+  <% end %>
+</h2>
+<table cellspacing='0' cellpadding='5' width='100%' class='list-table' rules='groups'>
+  <% unless @reports.empty? %>
+    <thead>
+      <tr>
+        <td>&nbsp;</td>
+        <% unless @reportable %><td><%= t(:Topic_or_Post) %></td><% end %>
+        <td><%= t(:Report) %></td>
+        <td><%= t(:Reported_by) %></td>
+        <td><%= t(:Reported_on) %></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @reportable %>
+        <% for report in @reports %>
+          <tr>
+            <td><%= link_to theme_image_tag("delete.jpg"), moderator_report_path(report), :confirm => t(:confirm_report_deletion) %></td>
+            <td><%= truncate(report.text, 100) %></td>
+            <td><%= report.user %></td>
+            <td><%= report.created_at.strftime(date_time_display) %></td>
+          </tr>
+        <% end %> 
+      <% else %>
+        <tr>
+          <td>
+      <% end %>
+    </tbody>
+  <% else %>
+    <thead><tr><td colspan='4'><b>There are no topics in your moderation queue.</b></td></tr></thead>
+  <% end %>
+</table>

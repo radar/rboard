@@ -10,7 +10,12 @@ class Admin::ForumsController < Admin::ApplicationController
   
   # Initializes a new forum.
   def new
-    @forum = Forum.new
+    @forum = if @category
+      @category.forums.build
+    else
+      Forum.new
+    end
+    
     find_forums
   end
   

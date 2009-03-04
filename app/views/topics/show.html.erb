@@ -6,6 +6,9 @@
 <h2><%= h @topic.subject %></h2>
 <%= pagination = will_paginate(@posts) %>
 <%= render :partial => "menu" %>
+<% if is_admin? && !@topic.reports.empty? %>
+  <div class='warning'><%= t(:Topic_has_been_reported, :count => @topic.reports.count) %> <%= link_to t(:See_reports), moderator_topic_reports_path(@topic) %></div>
+<% end %>
 <br />
 <%= render :partial => @posts, :locals => { :show_topic => false } %>
 <% if current_user.can?(:reply) %>
@@ -22,5 +25,6 @@
     </tbody>
   </table>
 <% end %>
+<br />
 <%= render :partial => "menu" %>
 <%= pagination %>

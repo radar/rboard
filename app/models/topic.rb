@@ -9,12 +9,16 @@ class Topic < ActiveRecord::Base
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
   has_many :posts, :order => "posts.created_at asc", :dependent => :destroy
+  has_many :read_topics, :dependent => :destroy
+  has_many :readers, :through => :read_topics, :source => :user
+  has_many :reports, :as => :reportable, :dependent => :destroy
+  has_many :reporters, :through => :reports, :source => :user
   has_many :subscriptions
   has_many :subscribers, :through => :subscriptions, :class_name => "User"
   has_many :users, :through => :posts
   
-  named_scope :sorted, :order => "posts.created_at DESC", :include => [:last_post, :readers]
-  
+  named_scope :sorted, :order => "posts.created_at DESC, sticky DESC", :include => [:last_post, :readers]
+
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
   validates_length_of :subject, :minimum => 4
@@ -42,6 +46,7 @@ class Topic < ActiveRecord::Base
   end
   
   def set_last_post
+    readers.clear
     update_attribute("last_post_id", posts.last.id) unless moved
     # TODO: May be intensive if a lot of people have all subscribed to the same topic.
     subscriptions.map { |s| s.increment!(:posts_count) }
@@ -122,4 +127,5 @@ class Topic < ActiveRecord::Base
   def belongs_to?(other_user)
     user == other_user
   end
+
 end

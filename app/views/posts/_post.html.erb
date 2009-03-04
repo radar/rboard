@@ -27,7 +27,6 @@
           <% if current_user.can?(:split_topics, @forum) %>
             | <%= link_to t(:Split), split_moderator_topic_post_path(post.topic, post) %>
           <% end %>
-          
         <% else %>
           Locked
         <% end %>
@@ -45,6 +44,7 @@
         <% end %>
         <b><%= t(:Posts) %>:</b> <%= post.user.posts.size %><br />
         <b><%= t(:Date_joined) %>:</b> <%= post.user.created_at.strftime(date_display) %>
+        <b><%= t(:Online) %>:</b> <%= post.user.online? ? t(:Yes) : t(:No) %>
       </td>
       
       <td valign='top' colspan='2' valign='top'>

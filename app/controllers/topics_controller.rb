@@ -11,6 +11,7 @@ class TopicsController < ApplicationController
   
   def show
     if logged_in?
+      @topic.readers << current_user if !@topic.readers.include?(current_user)
       @subscription = current_user.subscriptions.find_by_topic_id(params[:id])
       @subscription.update_attribute("posts_count", 0) if @subscription
     end
@@ -80,9 +81,15 @@ class TopicsController < ApplicationController
   private
   
   def find_forum
-    @forum = Forum.find(params[:forum_id], :include => [:topics, :posts]) if params[:forum_id]
+    topic_options = { :joins => :posts, :include => [:reports, :reports] }
+    if params[:forum_id]
+      @forum = Forum.find(params[:forum_id], :include => [:topics, :posts])
+    else
+      @topic = Topic.find(params[:id], topic_options)
+      redirect_to forum_topic_path(@topic.forum, @topic) and return
+    end
     if @forum.viewable?(current_user)
-      @topic = @forum.topics.find(params[:id], :joins => :posts) if params[:id]
+      @topic = @forum.topics.find(params[:id], topic_options) if params[:id]
     else
       flash[:notice] = t(:not_allowed_to_view_topics)
       redirect_to root_path

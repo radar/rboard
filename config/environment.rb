@@ -5,7 +5,9 @@
 RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
-
+if File.readlines("config/database.yml").empty?
+  raise "Your database.yml file is empty. Please add your database information."
+end
 Rails::Initializer.run do |config|
   
   config.gem 'chronic'

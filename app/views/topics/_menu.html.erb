@@ -13,7 +13,7 @@
       <%= link_to t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put %>
   	<% else %>
     	<%= link_to t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put %>
-  	<% end %>
+    <% end %>
 	<% end %>
 	
 	<% if current_user.can?(:edit_topics, @forum) || current_user.can?(:edit_topics, @forum) %>
@@ -28,8 +28,10 @@
       <%= link_to t(:Subscribe), topic_subscriptions_path(@topic), :method => :post %>
   	<% end %>
   <% end %>
+  
 <% else %>
   <% if @topic.locked? %>
     <%= t(:Locked!) %>
   <% end %>
 <% end %>
+</div>

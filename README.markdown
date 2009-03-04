@@ -28,6 +28,52 @@ Alternatively, you could just comment out all the define_index lines in the mode
   3. run `./configure && make && sudo make install` 
   4. `cd` to rBoard app folder
   5. run `rake ts:config && rake ts:in && rake ts:start`. This should start up the thinking sphinx daemon.
+  
+## Features
+
+rboard has the following awesome things:
+  
+  * Categories (can be ordered)
+  * Forums (can be ordered)
+    * List topics with subject, author, replies, views and last post information
+    * Can be restricted to certain user levels (visible to and topics created by)
+    * Sub forums (infinitely. No, really. Try it.)
+    * RSS Feeds
+  * Topics
+    * Locking
+    * Sticky-ifying
+    * Splitting
+    * Merging
+    * Subscriptable
+    * Moveable
+    * Editable
+    * Deletable
+    * Paginated (will_paginate)
+    * RSS Feeds
+  * Posts
+    * Reply
+    * Quote
+    * Editable (it tracks these too!)
+    * Deletable
+    * Quick Reply
+    * Code Highlighting (syntax gem)
+    * Paginated (will_paginate)
+  * Users
+    * IP Tracking
+    * Signatures
+    * Member Lists
+    * User Levels (Anonymous, User, Moderator & Administrator)
+    * IP Banning
+  * Ranks
+    * Post dependent or custom
+  * Themes
+    * Upload your new theme directory into public/themes and go!
+  * Private Messaging
+  * Tracks read topics on a per-user basis
+  * Searching (courtesy of ThinkingSphinx)
+
+  
+Puppies, Kittens, Rainbows and Unicorns sold separately. 
 
 ## OAQ (Occasionally Asked Questions)
 
@@ -53,7 +99,7 @@ Alternatively, you could just comment out all the define_index lines in the mode
 
   6. OMG it is broken -- why!?!?
 
-    If you have any problems, you can contact me [through GitHub](http://github.com/inbox/new/Radar) or by [emailing me](mailto:radarlistener@gmail.com)
+    If you have any problems, you can contact me [through GitHub](http://github.com/inbox/new/radar) or by [emailing me](mailto:radarlistener@gmail.com)
 
   7. I love you.
 

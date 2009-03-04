@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Category, "in general" do
-  fixtures :categories, :users, :user_levels
+  fixtures :categories, :users
   before do
     @user = users(:plebian)
   end

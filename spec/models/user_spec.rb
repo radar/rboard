@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe User, "firstly..." do
-  fixtures :themes, :user_levels
+  fixtures :themes
 
   #regressional test
   it "should automatically set theme_id when a new user is created" do
@@ -9,20 +9,10 @@ describe User, "firstly..." do
     @user.theme_id.should_not be_nil
   end
   
-  #regression test for 4481b926571fc6fe4f979912c0b8707601293a81
-  it "should make the user an admin if they're the first user" do
-    User.delete_all
-    User.count.should eql(0)
-    @user = User.new(:login => "Admin", :password => "tester", :password_confirmation => "tester", :email => "tester@admin.com")
-    @user.user_level.should eql(user_levels(:anonymous))
-    @user.save!
-    @user.user_level.should eql(user_levels(:administrator))
-  end
-  
 end
 
 describe User, "with users" do
-  fixtures :themes, :user_levels, :users, :ranks
+  fixtures :themes, :users, :ranks
   
   before do
     @user = users(:administrator)
@@ -47,20 +37,6 @@ describe User, "with users" do
     @other_user.remember_token?.should be_true
   end
   
-  it "should be able to determine what kind of user a user is" do
-    @user.admin?.should be_true
-    @user.moderator?.should be_false
-    @user.user?.should be_false
-    
-    @other_user.admin?.should be_false
-    @other_user.moderator?.should be_true
-    @other_user.user?.should be_false
-    
-    @plebian.admin?.should be_false
-    @plebian.moderator?.should be_false
-    @plebian.user?.should be_true
-  end
-  
   it "should be able to tell if the user is banned" do
     @user.banned?.should be_false
     @banned_noob.banned?.should be_true
@@ -75,6 +51,10 @@ describe User, "with users" do
   it "should be able to find a rank for a user" do
     @user.rank.should eql(@god.name)
     @other_user.rank.should eql("Moderator")
+  end
+  
+  it "should see that the user was recently online" do
+    @plebian.online?.should be_true
   end
   
 end

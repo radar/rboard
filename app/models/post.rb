@@ -8,6 +8,8 @@ class Post < ActiveRecord::Base
   
   has_many :edits, :order => "created_at DESC", :dependent => :destroy
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
+  has_many :reports, :as => :reportable, :dependent => :destroy
+  has_many :reporters, :through => :reports, :source => :user
   
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
@@ -27,7 +29,6 @@ class Post < ActiveRecord::Base
   before_create :stop_spam
   after_destroy :find_latest_post
   
-  # belongs_to doesn't work with :through.
   before_create :increment_counter
   before_destroy :decrement_counter
   
@@ -92,4 +93,9 @@ class Post < ActiveRecord::Base
   def forum
     topic.forum
   end
+  
+  def page_for(user)
+    (topic.posts.count.to_f / (user.per_page || PER_PAGE)).ceil
+  end
+  
 end

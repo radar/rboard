@@ -1,4 +1,4 @@
-<%= link_to t(:admin_section), admin_root_path %> -> <%= link_to(t(:Forums), admin_forums_path) %> -> <%= t(:Creating_a_forum) %> 
+<%= link_to t(:Administration_Section), admin_root_path %> -> <%= link_to(t(:Forums), admin_forums_path) %> -> <%= t(:Creating_a_forum) %> 
 <% if @category %><%= t(:for) %> <%= @category.name %><% end %>
 <%= error_messages_for :forum %>
 <% form_for [:admin, @category, @forum] do |f| %>

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Forum, "creation" do
-  fixtures :forums
+  fixtures :forums, :categories
   before(:each) do
     @invalid = forums(:invalid)
   end
@@ -18,7 +18,7 @@ describe Forum, "creation" do
 end
 
 describe Forum, "in general" do
-  fixtures :forums, :topics, :posts, :users, :user_levels
+  fixtures :forums, :topics, :posts, :users, :categories
   
   before do
     @everybody = forums(:everybody)
@@ -75,56 +75,5 @@ describe Forum, "in general" do
     @everybody.sub?.should eql(false)
     @sub_of_everybody.sub?.should eql(true)
   end
-  
-  it "should be able to determine if a topic is visible by a user" do
-    @administrator = users(:administrator)
-    @moderator = users(:moderator)
-    @plebian = users(:plebian)
-    
-    @everybody.viewable?(:false).should be_true
-    @everybody.viewable?(@administrator).should be_true
-    @everybody.viewable?(@moderator).should be_true
-    @everybody.viewable?(@plebian).should be_true
 
-    @moderators_only.viewable?(:false).should be_false
-    @moderators_only.viewable?(@administrator).should be_true
-    @moderators_only.viewable?(@moderator).should be_true
-    @moderators_only.viewable?(@plebian).should be_false
-
-    @admins_only.viewable?(:false).should be_false
-    @admins_only.viewable?(@administrator).should be_true
-    @admins_only.viewable?(@moderator).should be_false
-    @admins_only.viewable?(@plebian).should be_false
-  end
-  
-  it "should be able to determine if a topic is creatable by a user" do
-    @administrator = users(:administrator)
-    @moderator = users(:moderator)
-    @plebian = users(:plebian)
-    
-    @everybody.topics_creatable_by?(:false).should be_false
-    @everybody.topics_creatable_by?(@administrator).should be_true
-    @everybody.topics_creatable_by?(@moderator).should be_true
-    @everybody.topics_creatable_by?(@plebian).should be_true
-    
-    @moderators_only.topics_creatable_by?(:false).should be_false
-    @moderators_only.topics_creatable_by?(@administrator).should be_true
-    @moderators_only.topics_creatable_by?(@moderator).should be_true
-    @moderators_only.topics_creatable_by?(@plebian).should be_false
-    
-    @admins_only.topics_creatable_by?(:false).should be_false
-    @admins_only.topics_creatable_by?(@administrator).should be_true
-    @admins_only.topics_creatable_by?(@moderator).should be_false
-    @admins_only.topics_creatable_by?(@plebian).should be_false
-  end
-  
-  it "should set the category's viewable status when saved or destroyed" do
-    @everybody.category.is_visible_to.should eql(user_levels(:user))
-    @everybody.save
-    @everybody.category.is_visible_to.should eql(user_levels(:administrator))
-    @admins_only.destroy
-    @everybody.reload
-    @everybody.category.is_visible_to.should eql(user_levels(:moderator))
-  end
-    
 end

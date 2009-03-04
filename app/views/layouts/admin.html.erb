@@ -5,7 +5,6 @@
       <li><%= link_to section.titleize, send("admin_#{section}_path"), :class => selected(section) %></li>
     <% end %>
     <li><%= link_to "IP Banning", ban_ip_admin_users_path, :class => selected("ip_banning") %>
-   
   </ul>
   <div id='admin-page'>
     <%= yield %>

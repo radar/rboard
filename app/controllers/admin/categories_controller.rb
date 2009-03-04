@@ -1,17 +1,17 @@
 class Admin::CategoriesController < Admin::ApplicationController
   before_filter :store_location, :only => [:index, :show]
+  before_filter :find_category, :except => [:index, :new, :create]
+  
    def index
      @categories = Category.all(:order => "name asc")
    end
    
    def show
-     @category = Category.find(params[:id])
      @forums = @category.forums
    end
    
    def new
-     @category = Category.new
-     
+     @category = Category.new   
    end
    
    def create
@@ -25,12 +25,7 @@ class Admin::CategoriesController < Admin::ApplicationController
      end
    end
    
-   def edit
-     @category = Category.find(params[:id])
-   end
-   
    def update
-     @category = Category.find(params[:id])
      if @category.update_attributes(params[:category])
        flash[:notice] = t(:category_updated)
        redirect_to admin_categories_path
@@ -38,6 +33,11 @@ class Admin::CategoriesController < Admin::ApplicationController
        flash[:notice] = t(:category_not_updated)
        render :action => "edit"
      end
+   end
+   
+   def destroy
+     @category.destroy
+     flash[:notice] = t(:category_deleted)
    end
    
    # Moves a category one space up using an acts_as_list provided method.
@@ -52,7 +52,7 @@ class Admin::CategoriesController < Admin::ApplicationController
      @category.move_lower
      flash[:notice] = t(:category_moved_lower, :category => @category)
      redirect
-  end
+   end
 
    # Moves a category to the top using an acts_as_list provided method.
    def move_to_top
@@ -68,9 +68,13 @@ class Admin::CategoriesController < Admin::ApplicationController
      redirect
    end
    
-   def destroy
-     @category = Category.find(params[:id])
-     @category.destroy
-     flash[:notice] = t(:category_deleted)
-   end
+   private
+     def find_category
+       @category = Category.find(params[:id], :include => :forums)
+     end
+     
+     def redirect
+       redirect_to admin_categories_path
+     end
+  
 end

@@ -13,6 +13,6 @@ class RemoveUserPermissions < ActiveRecord::Migration
   end
 
   def self.down
-    raise IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end

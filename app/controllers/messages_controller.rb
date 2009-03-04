@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required 
   before_filter :store_location, :only => [:index, :sent]
   
   # Show messages for the currently logged in user.

@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::ChronicController do
-  fixtures :users, :user_levels
+  fixtures :users
   before do
     login_as(:administrator)
   end

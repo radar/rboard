@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe TopicsController do
-  fixtures :users, :forums, :topics, :user_levels, :posts
+  fixtures :users, :forums, :topics, :posts
 
   before do
     @topic = mock_model(Topic)
@@ -12,6 +12,7 @@ describe TopicsController do
     @subscription = mock_model(Subscription)
     @subscriptions = [@subscription]
     @user = mock_model(User)
+    @users = [@user]
     @admin_forum = forums(:admins_only)
     @everybody = forums(:everybody)
     @admin_topic = topics(:admin)
@@ -147,6 +148,7 @@ describe TopicsController do
       @topic.should_receive(:posts).and_return(@posts)
       @user.should_receive(:subscriptions).and_return(@subscriptions)
       @subscriptions.should_receive(:find_by_topic_id).and_return(nil)
+      @topic.should_receive(:readers).and_return(@users)
       @forum.stub!(:title)
       @topic.stub!(:subject)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
@@ -158,6 +160,7 @@ describe TopicsController do
       @topic.should_receive(:increment!).with("views")
       @topic.should_receive(:posts).and_return(@posts)
       @user.should_receive(:subscriptions).and_return(@subscriptions)
+      @topic.should_receive(:readers).and_return(@users)
       @subscriptions.should_receive(:find_by_topic_id).and_return(@subscription)
       @subscription.should_receive(:update_attribute).with("posts_count", 0)
       @forum.stub!(:title)

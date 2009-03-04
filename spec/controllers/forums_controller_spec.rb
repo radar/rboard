@@ -1,17 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ForumsController do
-  fixtures :users, :forums, :user_levels, :categories
+  fixtures :users, :forums, :categories
 
   before do
     @forum = mock_model(Forum)
     @forums = [@forum]
     @topic = mock_model(Topic)
     @topics = [@topic]
+    @category = mock_model(Category)
     @admin_forum = forums(:admins_only)
     @everybody_forum = forums(:everybody)
-    @admin_level = user_levels(:administrator)
-    @user_level = user_levels(:user)
     @moderation = mock_model(Moderation)
     @moderations = [@moderation]
   end
@@ -20,6 +19,13 @@ describe ForumsController do
     login_as(:plebian)
     Forum.should_receive(:without_category).and_return(@forums)
     get 'index'
+  end
+  
+  it "should gather forums for a category" do
+    login_as(:plebian)
+    Category.should_receive(:find).and_return(@category)
+    @category.should_receive(:forums).and_return(@forums)
+    get 'index', :category_id => 1
   end
   
   it "should not show the admin forum to anonymous users" do
