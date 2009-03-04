@@ -1,6 +1,5 @@
 module Permissions
   THINGS = ['forum', 'category']
-  PEOPLE = ['user', 'group']
   
   def self.included(klass)
     
@@ -8,15 +7,11 @@ module Permissions
       # Here we can pass an object to check if the user or any the user's groups
       # has permissions on that particular option.
       def overall_permissions(thing = nil)
-        [permissions, group_permissions].map do |permissions|
-          next if permissions == []
-          permissions.all(:include => [:group_permissions, :user_permissions], :conditions => 
-            THINGS.map do |t|
-              "user_permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}") << ' OR ' <<    
-              "group_permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}")      
-            end.join(" AND ")
-          )
-        end.flatten!.compact
+        permissions.all(:conditions => 
+          THINGS.map do |t| 
+            "permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}")      
+          end.join(" AND ")
+        )
       end
             
       def can?(action, thing = nil)
@@ -25,5 +20,4 @@ module Permissions
       end
     end
   end
-    
 end

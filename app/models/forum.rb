@@ -3,16 +3,15 @@ class Forum < ActiveRecord::Base
   acts_as_tree :order => :position
   
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
- # named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
-#  named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
+ named_scope :viewable_to, lambda { |user| { :include => [:groups, :permissions], 
+                           :conditions => ["groups.id IN (?) AND permissions.can_see_forum = ? ", user.groups, true] } }
+ named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
   
   has_many :moderations
-  has_many :user_permissions
-  has_many :group_permissions
-  has_many :users, :through => :user_permissions
-  has_many :groups, :through => :group_permissions
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
   has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
+  has_many :permissions
+  has_many :groups, :through => :permissions
 
   
   belongs_to :category

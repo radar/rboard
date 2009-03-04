@@ -3,8 +3,7 @@ class Group < ActiveRecord::Base
   
   has_many :group_users
   has_many :users, :through => :group_users
-  has_many :group_permissions
-  has_many :permissions, :through => :group_permissions
+  has_many :permissions
   
   validates_presence_of :name
   

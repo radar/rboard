@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090216084513) do
+ActiveRecord::Schema.define(:version => 20090304110930) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -56,13 +56,6 @@ ActiveRecord::Schema.define(:version => 20090216084513) do
   add_index "forums", ["category_id"], :name => "index_forums_on_category_id"
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"
   add_index "forums", ["topics_count"], :name => "index_forums_on_topics_count"
-
-  create_table "group_permissions", :force => true do |t|
-    t.integer "group_id"
-    t.integer "permission_id"
-    t.integer "forum_id"
-    t.integer "category_id"
-  end
 
   create_table "group_users", :force => true do |t|
     t.integer "user_id"
@@ -113,20 +106,6 @@ ActiveRecord::Schema.define(:version => 20090216084513) do
     t.integer  "forum_id"
   end
 
-  create_table "people", :force => true do |t|
-    t.string   "login",                     :limit => 40
-    t.string   "name",                      :limit => 100, :default => ""
-    t.string   "email",                     :limit => 100
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "remember_token",            :limit => 40
-    t.datetime "remember_token_expires_at"
-  end
-
-  add_index "people", ["login"], :name => "index_people_on_login", :unique => true
-
   create_table "permissions", :force => true do |t|
     t.boolean "can_see_forum",                :default => false
     t.boolean "can_reply_to_topics",          :default => false
@@ -161,6 +140,9 @@ ActiveRecord::Schema.define(:version => 20090216084513) do
     t.boolean "can_access_admin_section",     :default => false
     t.boolean "can_see_category",             :default => false
     t.boolean "can_access_moderator_section", :default => false
+    t.integer "group_id"
+    t.integer "forum_id"
+    t.integer "category_id"
   end
 
   create_table "posts", :force => true do |t|
@@ -183,6 +165,20 @@ ActiveRecord::Schema.define(:version => 20090216084513) do
     t.string  "name"
     t.integer "posts_required"
     t.boolean "custom",         :default => false
+  end
+
+  create_table "read_topics", :force => true do |t|
+    t.integer "user_id"
+    t.integer "topic_id"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "reportable_id"
+    t.string   "reportable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "text"
   end
 
   create_table "subscriptions", :force => true do |t|
@@ -221,13 +217,6 @@ ActiveRecord::Schema.define(:version => 20090216084513) do
   create_table "user_levels", :id => false, :force => true do |t|
     t.string  "name"
     t.integer "position"
-  end
-
-  create_table "user_permissions", :force => true do |t|
-    t.integer "user_id"
-    t.integer "permission_id"
-    t.integer "forum_id"
-    t.integer "category_id"
   end
 
   create_table "users", :force => true do |t|

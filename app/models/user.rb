@@ -17,11 +17,14 @@ class User < ActiveRecord::Base
   
   has_many :banned_ips, :foreign_key => "banned_by"
   has_many :edits
+  has_many :group_users
+  has_many :groups, :through => :group_users
   has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = ?", false], :order => "id DESC"
   has_many :ip_users
   has_many :ips, :through => :ip_users, :order => "ips.updated_at DESC"
   has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
   has_many :moderations
+  has_many :permissions, :through => :groups, :source => :permissions
   has_many :posts
   has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
   has_many :subscriptions
@@ -29,13 +32,6 @@ class User < ActiveRecord::Base
   has_many :topics
   has_many :unread_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = ? AND to_deleted = ?", false, false]
   
-  # Permissions stuff, to be moved into the conglomerate above probably.
-  
-  has_many :user_permissions
-  has_many :permissions, :through => :user_permissions
-  has_many :group_users
-  has_many :groups, :through => :group_users
-  has_many :group_permissions, :through => :groups, :source => :permissions
       
   
   has_attached_file :avatar, :styles => { :thumbnail => "100>" }

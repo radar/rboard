@@ -1,6 +1,5 @@
 class Permission < ActiveRecord::Base
-  has_many :user_permissions
-  has_many :group_permissions
-  has_many :groups, :through => :group_permissions
-  has_many :users, :through => :user_permissions
+  belongs_to :group
+  belongs_to :forum
+  belongs_to :category
 end

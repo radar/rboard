@@ -38,11 +38,11 @@ task :install => ['db:create:all', 'db:schema:load' , :environment] do
   
   # Forums
   c = Category.create!(:name => "Welcome")
-  c.group_permissions += [GroupPermission.find_by_group_id(registered_group.id)]
+  c.permissions += [Permission.find_by_group_id(registered_group.id)]
   c.save
   
   f = c.forums.create!(:title => "Welcome to rBoard!", :description => "This is just an example forum.")
-  f.group_permissions += [GroupPermission.find_by_group_id(registered_group.id)]
+  f.permissions += [Permission.find_by_group_id(registered_group.id)]
   f.save
   
   t = f.topics.build(:subject => "Welcome to rBoard!", :user => u)

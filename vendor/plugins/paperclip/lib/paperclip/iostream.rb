@@ -25,12 +25,12 @@ module IOStream
     while self.read(in_blocks_of, buffer) do
       dstio.write(buffer)
     end
-    dstio.rewind
+    dstio.rewind    
     dstio
   end
 end
 
-class IO
+class IO #:nodoc:
   include IOStream
 end
 

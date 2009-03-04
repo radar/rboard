@@ -5,7 +5,7 @@ class Admin::CategoriesController < Admin::ApplicationController
    end
    
    def show
-     @category = Category.find(params[:id], :include => { :user_permissions => :user })
+     @category = Category.find(params[:id])
      @forums = @category.forums
    end
    
