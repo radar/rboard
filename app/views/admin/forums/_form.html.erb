@@ -9,16 +9,6 @@
     <td><%= f.text_area "description", :cols => 40, :rows => 5 %></td>
   </tr>
   
-  <tr>
-    <td><%= f.label :is_visible_to_id, t(:Is_visible_to) %></td>
-    <td><%= f.select "is_visible_to_id", @user_levels.map { |u| [u.name, u.id] } %></td>
-  </tr>
-  
-  <tr>
-    <td><%= f.label :topics_created_by_id, t(:Topics_created_by) %></td>
-    <td><%= f.select "topics_created_by_id", @user_levels.map { |u| [u.name, u.id] } %></td>
-  </tr>
-  
   <% unless @forums.empty? %>
     <tr>
       <td><%= f.label :parent_id, t(:Child_of) %></td>

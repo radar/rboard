@@ -9,7 +9,7 @@ module Permissions
       def overall_permissions(thing = nil)
         permissions.all(:conditions => 
           THINGS.map do |t| 
-            "permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}")      
+            "permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}") + " OR permissions.#{t}_id IS NULL"     
           end.join(" AND ")
         )
       end

@@ -39,10 +39,18 @@ class User < ActiveRecord::Base
   belongs_to :banned_by, :class_name => "User", :foreign_key => "banned_by"
   belongs_to :style
   belongs_to :theme
-  belongs_to :user_level
   
   before_create :encrypt_password
   before_create :set_theme
+  before_save :set_permalink
+  
+  def set_permalink
+    self.permalink = to_s.parameterize
+  end
+  
+  def set_theme
+    self.theme = Theme.find(:first)
+  end
   
   before_save :set_permalink
   before_save :set_default_group_if_none
@@ -60,7 +68,7 @@ class User < ActiveRecord::Base
   def rank
     rank = Rank.find_by_id(rank_id)
 	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC") if rank.nil?
-	  rank.nil? ? user_level.name : rank.name
+	  rank.nil? ? groups.first.name : rank.name
   end
   
   def banned?
@@ -106,14 +114,6 @@ class User < ActiveRecord::Base
     self.remember_token_expires_at = nil
     self.remember_token            = nil
     save(false)
-  end
-  
-  def self.anonymous
-    find_by_login("anonymous")
-  end
-  
-  def anonymous?
-    login == "anonymous"
   end
   
   protected

@@ -1,0 +1,11 @@
+anonymous:
+  group: anonymous
+  can_see_forum: true
+  
+registered_users:
+  group: registered_users
+  can_see_forum: true
+
+administrator:
+  group: administrators
+  can_see_forum: true

@@ -5,7 +5,6 @@ class Forum < ActiveRecord::Base
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
  named_scope :viewable_to, lambda { |user| { :include => [:groups, :permissions], 
                            :conditions => ["groups.id IN (?) AND permissions.can_see_forum = ? ", user.groups, true] } }
- named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("User").position } } }
   
   has_many :moderations
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
@@ -56,15 +55,4 @@ class Forum < ActiveRecord::Base
     !parent_id.nil?
   end
   
-  # If the user is logged in, then user will not be :false
-  # Check if a forum is visible to a user
-  def viewable?(user=:false)
-    (user != :false && is_visible_to_id <= user.user_level.position) || (user == :false && is_visible_to == UserLevel.find_by_name("User"))
-  end
-  
-  # If the user is logged in, then user will not be :false
-  # Check if a forum can have topics posted into it by a user
-  def topics_creatable_by?(user=:false)
-    (user != :false && topics_created_by_id <= user.user_level.position) || (user == :false && topics_created_by == UserLevel.find_by_name("User"))
-  end
 end

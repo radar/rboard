@@ -1,21 +1,34 @@
-task :install => ['db:create:all', 'db:schema:load' , :environment] do
-  
+task :install => :environment do
+  Rake::Task['db:create:all'].invoke
+  Rake::Task['db:schema:load'].invoke
   # Themes
   Theme.create(:name => "blue", :is_default => true)
   
   # Users
+  
+  # Anonymous
+  puts ActiveRecord::Base.connection.inspect
   anonymous_password = rand(9999) * rand(9999)
-  
   a = User.create!(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com")
-  
-  u = User.create!(:login => "admin", :password => "secret", :password_confirmation => "secret", :email => "admin@rboard.com")
-
-  
-  # Groups 
-  
   anonymous_group = Group.create!(:name => "Anonymous", :owner => a)
   anonymous_group.permissions.create!(:can_see_forum => true,
                         :can_see_category => true)
+  
+  # Administrator
+  
+  u = User.create!(:login => "admin", :password => "secret", :password_confirmation => "secret", :email => "admin@rboard.com")
+  administrator_group = Group.create!(:name => "Administrators", :owner => u) 
+  # Admin can do everything!
+  permissions = {}
+  Permission.column_names.grep(/can/).each do |permission|
+    permissions.merge(permission => true)
+  end
+  administrator_group.permissions.create!(permissions)
+
+  
+  # Other miscellaneous groups
+  
+
   registered_group = Group.create!(:name => "Registered Users", :owner => u) 
   registered_group.permissions.create!(:can_see_forum => true,
                         :can_see_category => true,
@@ -28,22 +41,11 @@ task :install => ['db:create:all', 'db:schema:load' , :environment] do
                         :can_see_category => true,
                         :can_see_category => true              
                         )
-  administrator_group = Group.create!(:name => "Administrators", :owner => u) 
-  # Admin can do everything!
-  permissions = {}
-  Permission.column_names.grep(/can/).each do |permission|
-    permissions.merge(permission => true)
-  end
-  administrator_group.permissions.create!(permissions)
-  
+
   # Forums
   c = Category.create!(:name => "Welcome")
-  c.permissions += [Permission.find_by_group_id(registered_group.id)]
-  c.save
   
   f = c.forums.create!(:title => "Welcome to rBoard!", :description => "This is just an example forum.")
-  f.permissions += [Permission.find_by_group_id(registered_group.id)]
-  f.save
   
   t = f.topics.build(:subject => "Welcome to rBoard!", :user => u)
   t.posts.build(:text => "Welcome to rBoard, feel free to remove this post, topic and forum.", :user => u)

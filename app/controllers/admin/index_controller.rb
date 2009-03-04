@@ -3,4 +3,5 @@ class Admin::IndexController < Admin::ApplicationController
   
   def index
     @sections = ["categories", "forums", "users", "ranks", "themes"]
+  end
 end

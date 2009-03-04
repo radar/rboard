@@ -33,11 +33,6 @@
           <td><%= f.select "rank_id", @ranks.map { |r| [r.name,r.id] }, :include_blank => true %></td>
         </tr>
       <% end %>
-      
-      <tr>
-        <td><%= f.label "user_level_id", t(:user_level) %></td>
-        <td><%= f.select "user_level_id", @userlevels.map { |ul| [ul.name,ul.id] }, :selected => @user.user_level_id %></td>
-      </tr>
   
     </tbody>
     <tfoot>

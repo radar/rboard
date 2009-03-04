@@ -14,7 +14,7 @@ describe User, "firstly..." do
     User.delete_all
     User.count.should eql(0)
     @user = User.new(:login => "Admin", :password => "tester", :password_confirmation => "tester", :email => "tester@admin.com")
-    @user.user_level.should eql(user_levels(:user))
+    @user.user_level.should eql(user_levels(:anonymous))
     @user.save!
     @user.user_level.should eql(user_levels(:administrator))
   end
