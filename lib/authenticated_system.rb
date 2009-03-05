@@ -69,12 +69,12 @@ module AuthenticatedSystem
   end
   
   def logged_in?
-    current_user != :false
+    current_user != User.find_by_login("anonymous")
   end
   
   # Accesses the current user from the session.
   def current_user
-    @current_user ||= (session[:user] && User.find_by_id(session[:user])) || :false
+    @current_user ||= (session[:user] && User.find_by_id(session[:user])) || User.find_by_login("anonymous")
   end
   
   # Store the given user in the session.

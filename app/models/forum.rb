@@ -4,7 +4,6 @@ class Forum < ActiveRecord::Base
   
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
   named_scope :viewable_to, lambda { |user| { :conditions => ["is_visible_to_id <= ?", user.user_level.position] } }
-  named_scope :viewable_to_anonymous, lambda { { :conditions => { :is_visible_to_id => UserLevel.find_by_name("Anonymous").position } } }
   
   has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
