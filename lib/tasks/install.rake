@@ -7,7 +7,6 @@ task :install => :environment do
   # Users
   
   # Anonymous
-  puts ActiveRecord::Base.connection.inspect
   anonymous_password = rand(9999) * rand(9999)
   a = User.create!(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com")
   anonymous_group = Group.create!(:name => "Anonymous", :owner => a)
@@ -21,8 +20,9 @@ task :install => :environment do
   # Admin can do everything!
   permissions = {}
   Permission.column_names.grep(/can/).each do |permission|
-    permissions.merge(permission => true)
+    permissions.merge!(permission => true)
   end
+  puts permissions.inspect
   administrator_group.permissions.create!(permissions)
 
   

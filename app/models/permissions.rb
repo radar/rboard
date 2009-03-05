@@ -7,11 +7,16 @@ module Permissions
       # Here we can pass an object to check if the user or any the user's groups
       # has permissions on that particular option.
       def overall_permissions(thing = nil)
-        permissions.all(:conditions => 
+        conditions = if thing.nil?
           THINGS.map do |t| 
             "permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}") + " OR permissions.#{t}_id IS NULL"     
           end.join(" AND ")
-        )
+        else
+          association = thing.class.to_s.downcasegit
+          "permissions.#{association}_id = #{thing.id} OR permissions.#{association}_id IS NULL"
+        end
+        
+        permissions.all(:conditions => conditions)
       end
             
       def can?(action, thing = nil)
