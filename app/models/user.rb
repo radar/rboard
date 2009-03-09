@@ -1,6 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  include Rboard
+  include Rboard::UserExtension
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
