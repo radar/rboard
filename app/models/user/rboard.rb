@@ -1,6 +1,6 @@
 module User::Rboard
-  def self.included?(klass)
-    class_eval do
+  def self.included(klass)
+    klass.class_eval do
       attr_accessor :password
 
       named_scope :recent, lambda { { :conditions => ["login_time > ?", 15.minutes.ago] } }

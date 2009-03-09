@@ -1,6 +1,6 @@
 module AuthenticatedSystem
-  # Returns true or false if the user is logged in.
-  # Preloads @current_user with the user model if they're logged in.
+  
+  ######### rBoard Specific Stuff #########
   
   #Per Page value for paginated sections of the forums,
   def per_page
@@ -68,11 +68,14 @@ module AuthenticatedSystem
     current_user.update_attribute("login_time",Time.now) if logged_in?
   end
   
+  # Modified for rBoard
+  # Returns true or false, depending on if the user is an anonymous user or not.
   def logged_in?
     current_user != User.find_by_login("anonymous")
   end
   
   # Accesses the current user from the session.
+  # Will also return the anonymous user if the user is not logged in.
   def current_user
     @current_user ||= (session[:user] && User.find_by_id(session[:user])) || User.find_by_login("anonymous")
   end
@@ -82,6 +85,8 @@ module AuthenticatedSystem
     session[:user] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
     @current_user = new_user
   end
+  
+  ######### End rBoard Specific Stuff #########
   
   # Filter method to enforce a login requirement.
   #
@@ -125,6 +130,7 @@ module AuthenticatedSystem
     base.send :helper_method, 
               :current_user,
               :logged_in?,
+              ######### rBoard Specific Stuff #########
               :is_admin?,
               :is_moderator?,
               :ip_banned?,
@@ -134,6 +140,7 @@ module AuthenticatedSystem
               :date_display,
               :date_time_display,
               :per_page
+              ######### End rBoard Specific Stuff #########
   end
   
   # When called with before_filter :login_from_cookie will check for an :auth_token
