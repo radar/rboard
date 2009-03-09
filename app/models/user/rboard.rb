@@ -1,6 +1,5 @@
 module User::Rboard
-  def self.included?(base)
-    
+  def self.included?(klass)
     class_eval do
       attr_accessor :password
 
@@ -42,7 +41,7 @@ module User::Rboard
       before_create :set_theme
       before_create :set_user_level
       before_save :set_permalink
-
+      
       def set_permalink
         self.permalink = to_s.parameterize
       end
@@ -96,5 +95,6 @@ module User::Rboard
         !avatar_file_name.blank?
       end
     end
+  end
   
 end
