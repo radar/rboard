@@ -12,7 +12,7 @@ module Permissions
             "permissions.#{t}_id " + (thing.nil? ? " IS NULL" : "= #{thing.id}") + " OR permissions.#{t}_id IS NULL"     
           end.join(" AND ")
         else
-          association = thing.class.to_s.downcasegit
+          association = thing.class.to_s.downcase
           "permissions.#{association}_id = #{thing.id} OR permissions.#{association}_id IS NULL"
         end
         

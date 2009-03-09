@@ -7,6 +7,7 @@ class Category < ActiveRecord::Base
   has_many :groups, :through => :permissions
   
   named_scope :without_parent, :conditions => { :parent_id => nil }
-  named_scope :visible_to, lambda { |user| { :include => [:users, :groups], :conditions => ["users.id = ? OR groups.id IN (?)", user.id, user.groups.map(&:id)] } } 
+  named_scope :viewable_to, lambda { |user| { :include => [:groups, :permissions], 
+                           :conditions => ["groups.id IN (?) AND permissions.can_see_category = ? ", user.groups, true] } }
 
 end

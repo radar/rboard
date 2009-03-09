@@ -7,10 +7,10 @@ class ForumsController < ApplicationController
   # Also gathers stats for the Compulsory Stat Box.
   def index
      if @category
-      @forums = @category.forums
+      @forums = @category.forums.viewable_to(current_user)
     else
-      @categories = Category.visible_to(current_user)
-      @forums = Forum.without_category
+      @categories = Category.viewable_to(current_user)
+      @forums = Forum.without_category.viewable_to(current_user)
     end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence
     @users = User.count

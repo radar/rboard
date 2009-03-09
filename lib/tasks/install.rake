@@ -1,5 +1,4 @@
 task :install => :environment do
-  Rake::Task['db:create:all'].invoke
   Rake::Task['db:schema:load'].invoke
   # Themes
   Theme.create(:name => "blue", :is_default => true)
@@ -22,8 +21,6 @@ task :install => :environment do
   Permission.column_names.grep(/can/).each do |permission|
     permissions.merge!(permission => true)
   end
-  puts permissions.inspect
-  administrator_group.permissions.create!(permissions)
 
   
   # Other miscellaneous groups
@@ -42,10 +39,18 @@ task :install => :environment do
                         :can_see_category => true              
                         )
 
+  groups = [anonymous_group, administrator_group, registered_group]
+  
   # Forums
   c = Category.create!(:name => "Welcome")
+  c.groups += groups
+  groups.each do |group|
+    p = group.permissions.find_by_category_id(c.id)
+    p.can_see_category 
+  end
   
   f = c.forums.create!(:title => "Welcome to rBoard!", :description => "This is just an example forum.")
+  f.groups += groups
   
   t = f.topics.build(:subject => "Welcome to rBoard!", :user => u)
   t.posts.build(:text => "Welcome to rBoard, feel free to remove this post, topic and forum.", :user => u)

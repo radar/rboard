@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090218081658) do
+ActiveRecord::Schema.define(:version => 20090307075402) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20090218081658) do
     t.integer "group_id"
     t.integer "forum_id"
     t.integer "category_id"
+    t.boolean "default",                      :default => false
   end
 
   create_table "posts", :force => true do |t|
@@ -170,6 +171,15 @@ ActiveRecord::Schema.define(:version => 20090218081658) do
   create_table "read_topics", :force => true do |t|
     t.integer "user_id"
     t.integer "topic_id"
+  end
+
+  create_table "reports", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "reportable_id"
+    t.string   "reportable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "text"
   end
 
   create_table "subscriptions", :force => true do |t|
