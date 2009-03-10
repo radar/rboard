@@ -1,85 +1,5 @@
 module AuthenticatedSystem
-  
-  ######### rBoard Specific Stuff #########
-  
-  #Per Page value for paginated sections of the forums,
-  def per_page
-    logged_in? ? current_user.per_page : PER_PAGE
-  end
-  
-  #how the user has selected they want to display the time
-  def time_display
-    logged_in? ? current_user.time_display : TIME_DISPLAY
-  end
-  
-  #how the user has selected they want to display the date  
-  def date_display
-    logged_in? ? current_user.date_display : DATE_DISPLAY
-  end
-  
-  def date_time_display
-    date_display + " " + time_display
-  end
-  
-  def is_admin?
-    logged_in? && current_user.admin?
-  end
-  
-  def is_moderator?
-    logged_in? && (current_user.admin? || current_user.moderator?)
-  end
-    
-  def non_admin_redirect
-    if !is_admin?
-      flash[:notice] = t(:need_to_be_admin)
-      redirect_back_or_default(root_path)
-    end
-  end
-  
-  def non_moderator_redirect
-    if !is_moderator?
-      flash[:notice] = t(:need_to_be_admin_or_moderator)
-      redirect_back_or_default(root_path)
-    end
-  end
-  
-  def ip_banned?
-    @ips = BannedIp.find(:all, :conditions => ["ban_time > ?",Time.now]).select do |ip|
-      !Regexp.new(ip.ip).match(request.remote_addr).nil? unless ip.nil?
-    end
-    flash[:ip] = @ips.first unless @ips.empty?
-  end
-  
-  def ip_banned_redirect
-    redirect_to :controller => ip_is_banned_users_path unless params[:action] == "ip_is_banned"  if ip_banned?
-  end
-  
-  def user_banned?
-    logged_in? ? current_user.banned? : false
-  end
-  
-  def theme
-    ThemesLoader.new
-    theme = logged_in? && !current_user.theme.nil? ? current_user.theme : Theme.find_by_is_default(true)
-    theme.nil? ? Theme.first : theme
-  end
-  
-  def active_user
-    current_user.update_attribute("login_time",Time.now) if logged_in?
-  end
-  
-  # Modified for rBoard
-  # Returns true or false, depending on if the user is an anonymous user or not.
-  def logged_in?
-    current_user != User.find_by_login("anonymous")
-  end
-  
-  # Accesses the current user from the session.
-  # Will also return the anonymous user if the user is not logged in.
-  def current_user
-    @current_user ||= (session[:user] && User.find_by_id(session[:user])) || User.find_by_login("anonymous")
-  end
-  
+
   # Store the given user in the session.
   def current_user=(new_user)
     session[:user] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
@@ -129,18 +49,7 @@ module AuthenticatedSystem
   def self.included(base)
     base.send :helper_method, 
               :current_user,
-              :logged_in?,
-              ######### rBoard Specific Stuff #########
-              :is_admin?,
-              :is_moderator?,
-              :ip_banned?,
-              :user_banned?,
-              :theme,
-              :time_display,
-              :date_display,
-              :date_time_display,
-              :per_page
-              ######### End rBoard Specific Stuff #########
+              :logged_in?
   end
   
   # When called with before_filter :login_from_cookie will check for an :auth_token
