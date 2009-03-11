@@ -28,3 +28,4 @@ RAILS_RELATIVE_URL_ROOT = "http://localhost:3000"
 # I18n.default_locale = "en"
 require 'array_ext'
 require 'themes_loader'
+Dir.glob("#{RAILS_ROOT}/lib/rboard/*") { |f| require f }
