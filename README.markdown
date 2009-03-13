@@ -8,7 +8,7 @@ If you're looking to integrate it into a site, please read the Integration secti
 
 In order to start using rBoard you should only have to clone the repository, and run `rake install`:
 
-    git clone git://github.com/Radar/rboard.git rBoard
+    git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
 
 Then create a `config/database.yml` file for your database.
@@ -97,7 +97,7 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
   5. When (is it stable)?
 
-    The `master` branch is usually kept in a stable manner whilst I tinker in my own personal branch, usually called `Radar`.
+    The `master` branch is usually kept in a stable manner whilst I tinker in my own personal branch, usually called `radar`.
 
   6. OMG it is broken -- why!?!?
 
