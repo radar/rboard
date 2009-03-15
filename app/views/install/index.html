@@ -1,0 +1,56 @@
+<form action='/install/install' method='post'>
+  <%= flash[:error] %>
+  <h1>Welcome to rBoard!</h1>
+  We're just going to need some information and then we'll send you along your way.
+
+  <h2>Database Information</h2>
+
+  <p>
+    <label for='database_adapter'>Adapter</label>
+    <select name='database[adapter]' id='database_adapter'>
+      <option value='mysql'>MySQL</option>
+      <option value='postgresql'>PostgreSQL</option>
+      <option value='sqlite3'>Sqlite 3</option>
+    </select>
+  </p>
+  
+  <p>
+    <label for='database_username'>Username</label>
+    <input type='text' name='database[username]' id='database_username'>
+  </p>
+  
+  <p>
+    <label for='database_password'>Password</label>
+    <input type='password' name='database[password]' id='database_password'>
+  </p>
+  
+  <p>
+    <label for='database_database'>Database</label>
+    <input type='text' name='database[database]' id='database_database'>
+  </p>
+  
+  <h2>User Information</h2>
+  
+  <p>
+    <label for='user_login'>Login</label>
+    <input type='text' name='user[login]' id='user_login'>
+  </p>
+  
+  <p>
+    <label for='user_password'>Password</label>
+    <input type='password' name='user[password]' id='user_password'> Must be longer than 6 characters.
+  </p>
+  
+  <p>
+    <label for='user_password_confirmation'>Password</label>
+    <input type='password' name='user[password_confirmation]' id='user_password_confirmation'> Must match the password.
+  </p>
+  
+  <p>
+    <label for='user_email'>Email</label>
+    <input type='text' name='user[email]' id='user_email'>
+  </p>
+  
+  <input type='submit' name='commit' value='Install!'>
+    
+</form>
