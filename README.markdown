@@ -10,13 +10,8 @@ In order to start using rBoard you should only have to clone the repository, and
 
     git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
-
-Then create a `config/database.yml` file for your database.
-
-Then simply run:
-
-    rake install # DO NOT FORGET THIS STEP
     
+Start up the site in your deployment of chouce and complete the install and you should be ready to go!
 ## Requirements
 
 This app requires Sphinx which can be obtained from the Sphinx [website](http://sphinxsearch.com). Sphinx works with both MySQL and PostgreSQL. 
