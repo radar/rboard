@@ -30,6 +30,8 @@ Alternatively, you could just comment out or remove the define_index block in th
 
 rboard has the following awesome things:
   
+  * Runs on Rails 2.2 + 2.3
+  * Easy Internationalisation Support
   * Categories (can be ordered)
   * Forums (can be ordered)
     * List topics with subject, author, replies, views and last post information
