@@ -24,15 +24,15 @@ class InstallController < ApplicationController
        Theme.create(:name => "blue", :is_default => true)
        
        # Because position is the primary key, you cannot set it normally
-       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{t(:Anonymous)}', '1')")
-       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{t(:User)}', '2')")
-       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{t(:Moderator)}', '3')")
-       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{t(:Administrator)}', '4')")
+       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{I18n.t(:Anonymous)}', '1')")
+       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{I18n.t(:User)}', '2')")
+       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{I18n.t(:Moderator)}', '3')")
+       UserLevel.connection.execute("INSERT INTO user_levels (name, position) VALUES ('#{I18n.t(:Administrator)}', '4')")
        
        u = User.create!(:login => params[:user][:login], :password => params[:user][:password], :password_confirmation => params[:user][:password], :email => params[:user][:email], :user_level => UserLevel.find_by_name(t(:Administrator)))
        
        anonymous_password = Digest::SHA1.hexdigest(rand(99999999).to_s)
-       u = User.create(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com", :user_level => UserLevel.find_by_name(t(:Administrator)))
+       u = User.create(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com", :user_level => UserLevel.find_by_name(t(:Anonymous)))
        
        f = Forum.create(:title => t(:Welcome_to_rBoard), :description => t(:example_forum_description), :is_visible_to => UserLevel.find_by_name(t(:Administrator)), :topics_created_by => UserLevel.find_by_name(t(:Administrator)))
        t = f.topics.build(:subject => t(:Welcome_to_rBoard), :user => u)

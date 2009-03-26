@@ -23,13 +23,11 @@ module Rboard::UserExtension
       has_many :moderations
       has_many :posts
       has_many :reports
-      has_many :read_topics
       has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
       has_many :subscriptions
       has_many :subscribed_topics, :through => :subscriptions
       has_many :topics
       has_many :unread_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_read = ? AND to_deleted = ?", false, false]
-      has_many :unread_topics, :through => :read_topics, :source => :topic
 
       has_attached_file :avatar, :styles => { :thumbnail => "100>" }
 

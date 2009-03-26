@@ -80,8 +80,9 @@ module Rboard::Auth
   # Use as a before filter to ensure that the user is logged in.
   def login_required
     # Gather data from HTTP-based authentication.
-    username, passwd = get_auth_data
-    self.current_user ||= User.authenticate(username, passwd) || :false if username && passwd
+    username, password = get_auth_data
+    
+    self.current_user ||= User.authenticate(username, password) || User.find_by_login("anonymous") if username && password
     if !logged_in?
       flash[:notice] = t(:you_must_be_logged_in)
       redirect_to login_path
@@ -93,6 +94,7 @@ module Rboard::Auth
               :is_admin?,
               :is_moderator?,
               :ip_banned?,
+              :logged_in,
               :user_banned?,
               :theme,
               :time_display,

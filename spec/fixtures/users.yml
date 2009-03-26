@@ -24,6 +24,15 @@ plebian:
   user_level_id: 2
   login_time: <%= (Time.now - 5.minutes).to_s(:db) %>
   permalink: plebian
+  
+anonymous:
+  login: Anonymous
+  #password is only_human
+  salt: ''
+  crypted_password: ''
+  user_level_id: 1
+  login_time: <%= (Time.now - 5.minutes).to_s(:db) %>
+  permalink: plebian
 
 banned_noob:
   login: Ree Tard

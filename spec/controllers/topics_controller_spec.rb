@@ -9,10 +9,10 @@ describe TopicsController do
     @posts = [@post]
     @forum = mock_model(Forum)
     @forums = [@forum]
-    @subscription = mock_model(Subscription)
-    @subscriptions = [@subscription]
     @user = mock_model(User)
     @users = [@user]
+    @subscription = mock_model(Subscription)
+    @subscriptions = [@subscription]
     @admin_forum = forums(:admins_only)
     @everybody = forums(:everybody)
     @admin_topic = topics(:admin)
@@ -57,7 +57,7 @@ describe TopicsController do
     
     it "should not show a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).with(:false).and_return(false)
+      @forum.should_receive(:viewable?).with(users(:anonymous)).and_return(false)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
       response.should redirect_to(root_path)
       flash[:notice].should eql("You are not allowed to view topics in that forum.")
@@ -67,6 +67,7 @@ describe TopicsController do
   describe TopicsController, "for logged in plebian" do
     before do
       login_as(:plebian)
+      @user = users(:plebian)
     end
     
     it "should redirect to the forums show action if index is requested" do
@@ -117,7 +118,6 @@ describe TopicsController do
       forum_viewable
       topic_does_not_belong
       @topic.should_receive(:posts).and_return(@posts)
-      @user.should_receive(:admin?).and_return(false)
       get 'edit', { :forum_id => @everybody.id, :id => 2 }
       flash[:notice].should eql(t(:not_allowed_to_edit_topic))
       response.should redirect_to(forum_topic_path(@forum, @topic))
@@ -127,7 +127,6 @@ describe TopicsController do
       forum_viewable
       topic_does_not_belong
       @topic.should_not_receive(:update_attributes)
-      @user.should_receive(:admin?).and_return(false)
       put 'update', { :forum_id => @everybody.id, :id => 2, :topic => { :subject => "Subject" } }
       flash[:notice].should eql(t(:not_allowed_to_edit_topic))
       response.should redirect_to(forum_topic_path(@forum, @topic))
@@ -146,8 +145,6 @@ describe TopicsController do
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:increment!).with("views")
       @topic.should_receive(:posts).and_return(@posts)
-      @user.should_receive(:subscriptions).and_return(@subscriptions)
-      @subscriptions.should_receive(:find_by_topic_id).and_return(nil)
       @topic.should_receive(:readers).and_return(@users)
       @forum.stub!(:title)
       @topic.stub!(:subject)
@@ -159,17 +156,13 @@ describe TopicsController do
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:increment!).with("views")
       @topic.should_receive(:posts).and_return(@posts)
-      @user.should_receive(:subscriptions).and_return(@subscriptions)
       @topic.should_receive(:readers).and_return(@users)
-      @subscriptions.should_receive(:find_by_topic_id).and_return(@subscription)
-      @subscription.should_receive(:update_attribute).with("posts_count", 0)
       @forum.stub!(:title)
       @topic.stub!(:subject)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
     end
     
     it "should be able to edit any topic" do
-      @user.should_receive(:admin?).and_return(true)
       @forum.should_receive(:topics).and_return(@topics)      
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:posts).and_return(@posts)
@@ -179,7 +172,6 @@ describe TopicsController do
     end
     
     it "should be able to update any topic" do
-      @user.should_receive(:admin?).and_return(true)      
       @forum.should_receive(:topics).and_return(@topics)
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:update_attributes).and_return(true)
@@ -193,7 +185,6 @@ describe TopicsController do
     end
     
     it "should not be able to update a topic with invalid attributes for a topic" do
-      @user.should_receive(:admin?).and_return(true)      
       @forum.should_receive(:topics).and_return(@topics)
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:belongs_to?).and_return(false)
@@ -204,7 +195,6 @@ describe TopicsController do
     end
     
     it "should not be able to update a topic with invalid attributes for a topic" do
-      @user.should_receive(:admin?).and_return(true)
       @forum.should_receive(:topics).and_return(@topics)
       @topics.should_receive(:find).and_return(@topic)
       @topic.should_receive(:belongs_to?).and_return(false)
@@ -226,29 +216,12 @@ describe TopicsController do
     end
     
     it "should not be able to create a new topic with a blank subject" do
-      @user.should_receive(:topics).and_return(@topics)
-      @user.should_receive(:auto_subscribe?).and_return(true)
-      @topics.should_receive(:build).and_return(@topic)
-      @topic.should_receive(:posts).and_return(@posts)
-      @posts.should_receive(:build).and_return(@post)
-      @topic.should_receive(:subscriptions).and_return(@subscriptions)
-      @subscriptions.should_receive(:build).and_return(@subscription)      
-      @topic.should_receive(:save).and_return(false)
       post 'create', { :topic => { :subject => ""}, :post => { :text => "New text!"}, :forum_id => forums(:admins_only).id }
       flash[:notice].should eql("Topic was not created.")
       response.should render_template("new")
     end
     
     it "should be able to create a topic" do
-      @user.should_receive(:topics).and_return(@topics)
-      @user.should_receive(:auto_subscribe?).and_return(true)
-      @topics.should_receive(:build).and_return(@topic)
-      @topic.should_receive(:posts).and_return(@posts)
-      @posts.should_receive(:build).and_return(@post)
-      @topic.should_receive(:subscriptions).and_return(@subscriptions)
-      @subscriptions.should_receive(:build).and_return(@subscription)
-      @topic.should_receive(:forum).and_return(@forum)
-      @topic.should_receive(:save).and_return(true)
       post 'create', { :topic => { :subject => "Subject"}, :post => { :text => "New text!"}, :forum_id => forums(:admins_only).id }
       flash[:notice].should eql("Topic has been created.")
       
