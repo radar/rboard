@@ -24,7 +24,7 @@ class ReportsController < ApplicationController
         @reportable = Post.find(params[:post_id], :include => { :topic => :posts }) if params[:post_id]
         @reportable = Topic.find(params[:topic_id]) if params[:topic_id]
         if !@reportable.forum.viewable?(current_user)
-          flash[:notice] = t(:post_or_topic_found)
+          flash[:notice] = t(:post_or_topic_not_found)
           redirect_back_or_default(root_path)
         end
       end

@@ -1,30 +1,31 @@
 class Admin::UsersController < Admin::ApplicationController
   before_filter :store_location, :only => [:index]
   before_filter :find_ip
+  before_filter :find_user, :only => [:show, :edit, :update, :destroy]
   
   # Show all the users, in no particular order.
   def index
     @users = if @ip
       @ip.users
     else
-      User.all
+      User.paginate(:page => params[:page], :per_page => 50)
     end
   end
   
   # See details for a particular user.
   def show
-    @user = User.find_by_permalink(params[:id])
   end
   
   # Edit the details for a specific user. 
   def edit
     @user = User.find_by_permalink(params[:id])
     @ranks = Rank.find_all_by_custom(true)
+    @ranks = Rank.custom
+    @userlevels = UserLevel.all
   end
   
   # Updates the details for a specific user.  
   def update
-    @user = User.find_by_permalink(params[:id])
     if @user.update_attributes(params[:user])
       flash[:notice] = t(:user_updated)
       redirect_to admin_users_path
@@ -35,7 +36,6 @@ class Admin::UsersController < Admin::ApplicationController
   end
   
   def destroy
-    @user = User.find_by_permalink(params[:id])
     @user.destroy
     flash[:notice] = t(:user_deleted)
     redirect_to admin_users_path
@@ -96,6 +96,10 @@ class Admin::UsersController < Admin::ApplicationController
   
   
   private
+
+  def find_user
+    @user = User.find_by_permalink(params[:id])
+  end
   
   def find_ip
     @ip = Ip.find(params[:ip_id]) unless params[:ip_id].nil?

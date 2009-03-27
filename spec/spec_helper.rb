@@ -4,6 +4,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
+require 'mocha'
 
 def login_as(name)
   request.session[:user] = users(name).id
@@ -15,13 +16,6 @@ end
 
 def t(*args)
   I18n.t(*args)
-end
-
-def find_user
-  User.should_receive(:find).and_return(@user)
-  @user.stub!(:per_page).and_return(30)
-  @user.stub!(:update_attribute)
-  @user.stub!(:time_zone)
 end
 
 Spec::Runner.configure do |config|

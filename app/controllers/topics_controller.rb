@@ -1,6 +1,6 @@
 class TopicsController < ApplicationController
   before_filter :store_location, :only => [:show, :new, :edit, :reply]
-  before_filter :login_required, :except => [:show]
+  before_filter :login_required, :except => [:show, :index]
   before_filter :find_forum
   before_filter :moderator_login_required, :only => [:lock, :unlock]
   before_filter :create_ip, :only => [:create, :update]
@@ -11,7 +11,8 @@ class TopicsController < ApplicationController
   
   def show
     if logged_in?
-      @topic.readers << current_user if !@topic.readers.include?(current_user)
+      readers = @topic.readers
+      readers << current_user if !readers.include?(current_user)
       @subscription = current_user.subscriptions.find_by_topic_id(params[:id])
       @subscription.update_attribute("posts_count", 0) if @subscription
     end

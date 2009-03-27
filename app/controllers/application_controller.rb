@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging "password"
 
   include AuthenticatedSystem
+  include Rboard::Auth
   
   # Login in the user from a cookie session store.
   before_filter :login_from_cookie

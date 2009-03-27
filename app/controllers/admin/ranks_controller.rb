@@ -4,7 +4,7 @@ class Admin::RanksController < Admin::ApplicationController
   
   # Show all the ranks, in no particular order.
   def index
-    @ranks = Rank.find(:all)
+    @ranks = Rank.all
   end
 
   # Initializes a new rank.

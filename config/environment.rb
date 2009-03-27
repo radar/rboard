@@ -11,7 +11,7 @@ end
 Rails::Initializer.run do |config|
   
   config.gem 'chronic'
-   
+  config.gem 'RedCloth'
   config.frameworks -= [:action_web_service, :action_mailer]
   config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
   config.active_record.default_timezone = :utc
@@ -29,3 +29,4 @@ RAILS_RELATIVE_URL_ROOT = "http://localhost:3000"
 require 'class_ext'
 require 'array_ext'
 require 'themes_loader'
+Dir.glob("#{RAILS_ROOT}/lib/rboard/*") { |f| require f }

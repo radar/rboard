@@ -4,7 +4,9 @@ class Forum < ActiveRecord::Base
   
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
   named_scope :viewable_to, lambda { |user| { :include => [:groups, :permissions], 
-                           :conditions => ["groups.id IN (?) AND permissions.can_see_forum = ? ", user.groups, true] } }  
+                            :conditions => [
+                            "groups.id IN (?) AND permissions.can_see_forum = ? ",
+                            user.groups, true] } }  
   has_many :moderations
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
   has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 

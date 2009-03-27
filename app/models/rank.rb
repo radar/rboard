@@ -1,7 +1,10 @@
 class Rank < ActiveRecord::Base
   has_many :users
+    
+  named_scope :custom, :conditions => { :custom => true }
+  
   validates_presence_of :name
-
+  
   before_destroy :unassign_all_users
 
 	def unassign_all_users

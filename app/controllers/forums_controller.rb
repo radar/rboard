@@ -9,7 +9,7 @@ class ForumsController < ApplicationController
      if @category
       @forums = @category.forums.viewable_to(current_user)
     else
-      @categories = Category.viewable_to(current_user)
+      @categories = Category.without_parent.viewable_to(current_user)
       @forums = Forum.without_category.viewable_to(current_user)
     end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence

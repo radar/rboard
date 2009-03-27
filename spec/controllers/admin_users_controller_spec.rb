@@ -1,136 +1,58 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::UsersController, "as an admin" do
-  fixtures :users, :banned_ips, :ips
-
+  fixtures :users
   before do
-    login_as(:administrator)
     @user = mock_model(User)
     @users = [@user]
-    @banned_ip = mock_model(BannedIp)
-    @banned_ips = [@banned_ips]
-    @rank = mock_model(Rank)
-    @ranks = [@rank]
-    @posts = [mock_model(Post)]
-    @ip = mock_model(Ip)
+    @ranks = [mock_model(Rank)]
+    @user_levels = [mock_model(UserLevel)]
+    login_as(:administrator)
   end
   
-  def user_is_admin
-    @user.should_receive(:update_attribute).and_return(Time.now)
-    @user.should_receive(:time_zone).twice.and_return("Australia/Adelaide")
-    @user.should_receive(:admin?).and_return(true)
-  end
-  
-  it "should redirect standard users away" do
-    login_as(:plebian)
+  it "should be able to find all users" do
+    User.expects(:paginate).returns(@users)
     get 'index'
-    response.should redirect_to(root_path)
-    flash[:notice].should_not be_blank
   end
-  
-  it "should redirect moderators away" do
-    login_as(:moderator)
-    get 'index'
-    response.should redirect_to(root_path)
-    flash[:notice].should_not be_blank
+
+  describe Admin::UsersController, "working on a specific user" do
+    before do
+      User.expects(:find_by_permalink).returns(@user)
+    end
+    
+    it "should be able to show a user" do
+      get 'show', :id => 'administrator'
+      response.should render_template('show')
+    end
+    
+    it "should be able to edit a user" do
+      Rank.expects(:custom).returns(@ranks)
+      UserLevel.expects(:all).returns(@user_levels)
+      get 'edit', :id => 'administrator'
+      response.should render_template('edit')
+    end
+    
+    it "should be able to update a user" do
+      @user.expects(:update_attributes).returns(true)
+      put 'update', { :id => 'administrator', :user => { :signature => "woot"}}
+      flash[:notice].should eql(t(:user_updated))
+      response.should redirect_to(admin_users_path)
+    end
+    
+    it "should not be able to update a user with invalid attributes" do
+      @user.expects(:update_attributes).returns(false)
+      put 'update', { :id => 'administrator', :user => { :login => ''} }
+      flash[:notice].should eql(t(:user_not_updated))
+      response.should render_template("edit")
+    end
+    
+    it "should be able to delete a user" do
+      @user.should_receive(:destroy)
+      delete 'destroy', :id => 'administrator'
+      flash[:notice].should eql(t(:user_deleted))
+      response.should redirect_to admin_users_path
+    end
+      
+    
   end
-  
-  it "should allow admins free reign" do
-    User.should_receive(:all).and_return(@users)
-    get 'index'
-    response.should_not redirect_to(root_path)
-    flash[:notice].should be_blank
-  end
-  
-  it "should show users who have connected from a certain ip" do
-    Ip.should_receive(:find).and_return(@ip)
-    @ip.should_receive(:users).and_return(@users)
-    get 'index', :ip_id => 1
-  end
-  
-  it "should be able to begin banning an ip" do
-    BannedIp.should_receive(:new).and_return(@banned_ip)
-    get 'ban_ip'
-  end
-  
-  
-  it "should be able to ban an ip" do
-    BannedIp.should_receive(:find).twice.and_return(@banned_ips)
-    BannedIp.should_receive(:new).and_return(@banned_ip)
-    @banned_ip.should_receive(:save).and_return(true)
-    post 'ban_ip', :banned_ip => { :ban_time => Time.now + 5.minutes, :ip => "127.0.0.1" }
-    flash[:notice].should_not be_blank
-  end
-  
-  it "should not be able to ban an invalid ip, such as those seen in crappy hollywood movies" do
-    BannedIp.should_receive(:find).twice.and_return(@banned_ips)
-    BannedIp.should_receive(:new).and_return(@banned_ip)
-    @banned_ip.should_receive(:save).and_return(false)
-    post 'ban_ip', :banned_ip => { :ban_time => Time.now + 5.minutes, :ip => "444.232.342.123" }
-    flash[:notice].should_not be_blank
-  end
-  
-  it "should be able to begin to ban a user" do
-    User.should_receive(:find).twice.and_return(@user)
-    user_is_admin
-    get 'ban', :id => users(:administrator).id, :user => { } 
-  end
-  
-  it "should give a message if they try to ban themselves" do
-    User.should_receive(:find).twice.and_return(users(:administrator))
-    get 'ban', :id => users(:administrator).id, :user => { } 
-    flash[:notice].should_not be_nil
-  end
-  
-  it "should be able to ban a user" do
-    User.should_receive(:find).twice.and_return(@user)
-    @user.should_receive(:update_attributes).and_return(true)
-    @user.should_receive(:increment!).with("ban_times").and_return(true)
-    user_is_admin
-    put 'ban', :id => 1, :user => { }
-  end
-  
-  it "should be able to edit a user" do
-    User.should_receive(:find).twice.and_return(@user)
-    user_is_admin
-    get 'edit', :id => 1
-  end
-  
-  it "should be able to update a user" do 
-    User.should_receive(:find).twice.and_return(@user)
-    user_is_admin
-    @user.should_receive(:update_attributes).with({"signature"=>"Woot!"}).and_return(true)
-    put 'update', :id => 1, :user => { :signature => "Woot!"}
-    flash[:notice].should_not be_blank
-  end
-  
-  it "should not be able to update a user with invalid params" do
-    User.should_receive(:find).at_most(3).times.and_return(@user)
-    @user.should_receive(:update_attributes).and_return(false)
-    user_is_admin
-    put 'update', :id => users(:banned_noob), :user => { :time_display => "" }
-    flash[:notice].should_not be_blank
-  end
-  
-  it "should be able to delete a user" do
-    User.should_receive(:find).at_most(3).times.and_return(@user)
-    @user.should_receive(:destroy).and_return(@user)
-    user_is_admin
-    delete 'destroy', :id => users(:banned_noob)
-    flash[:notice].should eql(I18n.t(:user_deleted))
-    response.should redirect_to(admin_users_path)
-  end
-  
-  it "should be able to remove a banned ip" do
-    get 'remove_banned_ip', { :id => banned_ips(:localhost) }
-    flash[:notice].should_not be_blank
-    response.should redirect_to(ban_ip_admin_users_path)
-  end
-  
-  it "should be able to look up a user's details" do
-    User.should_receive(:find_by_permalink).and_return(@user)
-    get 'show', :id => "administrator"
-  end
-  
- 
 end

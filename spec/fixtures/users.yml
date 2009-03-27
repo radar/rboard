@@ -1,3 +1,4 @@
+<<<<<<< HEAD:spec/fixtures/users.yml
 administrator:
   id: 1
   login: administrator
@@ -40,4 +41,49 @@ anonymous:
   salt: 8de4e91a969b7049ab1a53d57afbab578cc78021
   crypted_password: a561a12d86ed27a6c6adf52a327979fcf74c1f3c
   
+=======
+administrator:
+  login: administrator
+  salt: a22702db41bc60286a75d8b0d8bb416a2b9707e4
+  #password is godly
+  crypted_password: b5859b5094f6747b8a7f11918e336bb524ec5f38
+  user_level_id: 4
+  rank_id: 1
+  permalink: administrator
+  remember_token_expires_at: <%= (Time.now + 2.weeks).to_s(:db) %>
+
+moderator:
+  login: moderator
+  #password is wanna_be_just_like_you
+  salt: 510bef3ba3999d017bcb041919f97f624806ec65
+  crypted_password: a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977
+  user_level_id: 3
+  permalink: moderator
+  
+plebian:
+  login: Plebian 
+  #password is only_human
+  salt: 8de4e91a969b7049ab1a53d57afbab578cc78021
+  crypted_password: a561a12d86ed27a6c6adf52a327979fcf74c1f3c
+  user_level_id: 2
+  login_time: <%= (Time.now - 5.minutes).to_s(:db) %>
+  permalink: plebian
+  
+anonymous:
+  login: Anonymous
+  #password is only_human
+  salt: ''
+  crypted_password: ''
+  user_level_id: 1
+  login_time: <%= (Time.now - 5.minutes).to_s(:db) %>
+  permalink: plebian
+
+banned_noob:
+  login: Ree Tard
+  banned_by: 1
+  ban_time: <%= (Time.now + 1.week).to_s(:db) %> 
+  ban_reason: A nusiance.
+  permalink: banned_noob
+
+>>>>>>> 63163a789f800ee3f58dcf72f2c6fd0add56ddd6:spec/fixtures/users.yml
  
