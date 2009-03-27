@@ -15,6 +15,9 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.chronic 'chronic', :controller => 'chronic'
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
+    
+    admin.resources :groups
+    
     admin.resources :ips do |ip|
       ip.resources :topics, :only => [:index]
       ip.resources :posts, :only => [:index]

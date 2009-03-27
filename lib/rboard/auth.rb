@@ -1,4 +1,14 @@
 module Rboard::Auth
+  # Store the given user in the session.
+   def current_user=(new_user)
+     new_user.previous_login = current_user.login_time
+     new_user.login_time = Time.now
+     new_user.ip = request.remote_addr
+     new_user.ips.find_or_create_by_ip(request.remote_addr)
+     new_user.save
+     session[:user] = new_user.id
+     @current_user = new_user
+   end
   #Per Page value for paginated sections of the forums,
   def per_page
     logged_in? ? current_user.per_page : PER_PAGE
@@ -27,15 +37,15 @@ module Rboard::Auth
   end
   
   def non_admin_redirect
-    if !is_admin?
+    if !current_user.can?(:access_admin_section)
       flash[:notice] = t(:need_to_be_admin)
       redirect_back_or_default(root_path)
     end
   end
 
   def non_moderator_redirect
-    if !is_moderator?
-      flash[:notice] = t(:need_to_be_admin_or_moderator)
+    if !current_user.can?(:access_admin_section)
+      flash[:notice] = t(:need_to_be_moderator)
       redirect_back_or_default(root_path)
     end
   end
@@ -94,7 +104,7 @@ module Rboard::Auth
               :is_admin?,
               :is_moderator?,
               :ip_banned?,
-              :logged_in,
+              :logged_in?,
               :user_banned?,
               :theme,
               :time_display,

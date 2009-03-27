@@ -90,7 +90,7 @@
           </tr>
         <% end %>
       </tbody>
-      <% if current_user.can(:moderate_topics) %>
+      <% if current_user.can?(:moderate_topics) %>
         <tfoot>
           <tr>
             <td align='right' colspan='8'>
@@ -105,8 +105,9 @@
     <thead>
       <tr>
         <td align='center'>
-          <% if @forum.topics_creatable_by?(current_user) %>
-            <%= t(:no_topics_for_forum) %> <%= t(:why_not) %> <%= link_to(t(:create_one?), new_forum_topic_path(@forum)) %>
+          <%= t(:no_topics_for_forum) %>
+          <% if current_user.can?(:start_new_topics, @forum) %>
+            <%= t(:Why_not) %> <%= link_to(t(:create_one?), new_forum_topic_path(@forum)) %>
           <% end %>
         </td>
       </tr>

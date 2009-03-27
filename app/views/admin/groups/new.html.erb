@@ -1,0 +1,21 @@
+<%= link_to t(:Administration_Section), admin_root_path %> -> <%= link_to(t(:Groups), admin_groups_path) %> -> <%= t(:Creating_a_group) %> 
+<%= error_messages_for :group %>
+<% form_for [:admin, @group] do |f| %>
+  <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
+    <thead>
+      <tr>
+        <td colspan='2'>
+          <h2><%= t(:Creating_a_group) %></h2>
+        </td>
+      </tr>
+    </thead>
+    <%= render :partial => "form", :locals => { :f => f } %>
+    <tfoot>
+      <tr>
+        <td colspan='2'>
+          <%= submit_tag "Create", :value => t(:Create) %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+<% end %>

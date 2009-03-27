@@ -10,6 +10,7 @@ class TopicsController < ApplicationController
   end
   
   def show
+    logger.debug(Topic.find(params[:id]))
     if logged_in?
       readers = @topic.readers
       readers << current_user if !readers.include?(current_user)
@@ -33,9 +34,9 @@ class TopicsController < ApplicationController
   def create
     @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
-    @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.admin?
-    @topic.subscriptions.build(:user => current_user) if current_user.auto_subscribe?
-    if @topic.save
+    @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
+    @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
+    if @topic.save && @post.save
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
@@ -82,25 +83,23 @@ class TopicsController < ApplicationController
   private
   
   def find_forum
-    topic_options = { :joins => :posts, :include => [:reports, :reports] }
+    topic_options = { :include => [:reports, :posts] }
     if params[:forum_id]
       @forum = Forum.find(params[:forum_id], :include => [:topics, :posts])
+      if current_user.can?(:see_forum, @forum)
+        @topic = @forum.topics.find(params[:id], topic_options) if params[:id]
+      else
+        flash[:notice] = t(:not_allowed_to_view_topics)
+        redirect_to root_path
+      end
     else
       @topic = Topic.find(params[:id], topic_options)
       redirect_to forum_topic_path(@topic.forum, @topic) and return
     end
-    if @forum.viewable?(current_user)
-      @topic = @forum.topics.find(params[:id], topic_options) if params[:id]
-    else
-      flash[:notice] = t(:not_allowed_to_view_topics)
-      redirect_to root_path
-    end
-    rescue ActiveRecord::RecordNotFound
-      not_found
   end
   
   def user_has_permission?
-    @topic.belongs_to?(current_user) || current_user.admin?
+    current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
   end
     
   def create_ip

@@ -2,6 +2,7 @@ class SubscriptionsController < ApplicationController
   before_filter :find_topic, :only => [:create]
   before_filter :login_required
   before_filter :store_location, :only => [:index]
+  before_filter :can_not_subscribe?
   
   def index
     @subscriptions = current_user.subscriptions.all(:joins => :topic, :order => "updated_at DESC")
@@ -21,10 +22,16 @@ class SubscriptionsController < ApplicationController
   end
   
   
-  
   private
   
   def find_topic
     @topic = Topic.find(params[:topic_id])
+  end
+  
+  def can_not_subscribe?
+    if !current_user.can?(:subscribe, @forum)
+      flash[:notice] = t(:Unable_to_subscribe)
+      redirect_back_or_default root_path
+    end
   end
 end

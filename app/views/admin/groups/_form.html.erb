@@ -1,0 +1,18 @@
+<tbody>
+  <tr>
+    <td width='25%'><%= f.label :name, t(:Name) %></td>
+    <td><%= f.text_field "name" %></td>
+  </tr>
+  <tr>
+    <td colspan='2'><h2>Global Permissions</h2></td>
+  </tr>
+  <% fields_for @permission do |permission| %>
+    <% for field in @fields %>
+      <tr>
+        <td><%= permission.label field, t(field + "?") %></td>
+        <td><%= permission.check_box field %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
+  

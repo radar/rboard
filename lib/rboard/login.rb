@@ -6,13 +6,7 @@ module Rboard::Login
     end
     return unless request.post?
     self.current_user = User.authenticate(params[:login], params[:password])
-    if logged_in?
-      current_user.previous_login = current_user.login_time
-      current_user.login_time = Time.now
-      current_user.ip = request.remote_addr
-      ip = Ip.find_or_create_by_ip(request.remote_addr)
-      IpUser.create(:user => current_user, :ip => ip)
-    
+    if logged_in?    
       # #remember_me calls save internally, so don't bother saving it twice
       if params[:remember_me] == "1"
         self.current_user.remember_me

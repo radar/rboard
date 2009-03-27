@@ -3,6 +3,7 @@ class Forum < ActiveRecord::Base
   acts_as_tree :order => :position
   
   named_scope :without_category, :conditions => { :category_id => nil }, :order => "position"
+  named_scope :without_parent, :conditions => { :parent_id => nil }, :order => "position"
   named_scope :viewable_to, lambda { |user| { :include => [:groups, :permissions], 
                             :conditions => [
                             "groups.id IN (?) AND permissions.can_see_forum = ? ",

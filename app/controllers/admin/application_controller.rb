@@ -3,6 +3,7 @@ class Admin::ApplicationController < ApplicationController
   helper "namespaced"
   before_filter :can_access
   before_filter :can_manage
+  before_filter :find_sections
   
   private
     def can_access
@@ -13,8 +14,17 @@ class Admin::ApplicationController < ApplicationController
     end
       
     def can_manage
-      if !current_user.can?("manage_#{params[:controller]}")
-        flash[:notice] = t(:not_allowed_to_manage, :area => params[:controller])
+      unless controller_name == "index"
+        if !current_user.can?("manage_#{controller_name}")
+          flash[:notice] = t(:not_allowed_to_manage, :area => controller_name)
+          redirect_to admin_root_path
+        end
+      end
+    end
+    
+    def find_sections
+      @sections = ["categories", "forums", "users", "groups", "ranks", "themes"].select do |name|
+        current_user.can?("manage_#{name}")
       end
     end
 end

@@ -1,0 +1,23 @@
+<%= link_to t(:Administration_Section), admin_root_path %> -> <%= t(:Groups) %>
+<h2><%= t(:Groups) %></h2>
+<%= link_to t(:New_Group), new_admin_group_path %>
+
+<table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'>
+  <thead>
+    <tr>
+      <td>&nbsp;</td>
+      <td>Name</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for group in @groups %>
+      <tr>
+        <td>
+          <%= link_to theme_image_tag("edit.jpg"), edit_admin_group_path(group) %>
+          <%= link_to theme_image_tag("delete.jpg"), admin_group_path(group), :method => "delete", :confirm => t(:confirm_group_deletion) %>
+        </td>
+        <td><%= group.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

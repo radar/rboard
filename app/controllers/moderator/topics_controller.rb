@@ -1,5 +1,8 @@
 class Moderator::TopicsController < Moderator::ApplicationController
   before_filter :find_topic, :except => [:moderate, :merge]
+  before_filter :can_not_move?, :only => :move
+  before_filter :can_not_merge?, :only => :merge
+  before_filter :can_not_delete?, :only => :destroy
   
   def destroy
     @topic.destroy
@@ -17,22 +20,28 @@ class Moderator::TopicsController < Moderator::ApplicationController
     @moderations_for_topics ||= Moderation.topics.for_user(current_user.id)
     case params[:commit]
       when "Lock"
+        can_not_lock?
         @moderations_for_topics.each { |m| m.lock! }
         flash[:notice] = t(:topics_locked)
       when "Unlock"
+        can_not_lock?
         @moderations_for_topics.each { |m| m.unlock! }
         flash[:notice] = t(:topics_unlocked)
       when "Delete"
+        can_not_delete?
         #TODO: maybe ask for confirmation?
         @moderations_for_topics.each { |m| m.destroy! }
         flash[:notice] = t(:topics_deleted)
       when "Sticky"
+        can_not_sticky?
         @moderations_for_topics.each { |m| m.sticky! }
         flash[:notice] = t(:topics_stickied)
       when "Unsticky"
+        can_not_sticky?
         @moderations_for_topics.each { |m| m.unsticky! }
         flash[:notice] = t(:topics_unstickied)
       when "Move"
+        can_not_move?
         move
         return false
       when "Merge"
@@ -111,5 +120,40 @@ class Moderator::TopicsController < Moderator::ApplicationController
         flash[:notice] = t(:topic_not_found)
         redirect_to moderator_moderations_path
     end
-  
+    
+    def can_not_move?
+      if !current_user.can?(:move_topics)
+        flash[:notice] = t(:You_are_not_allowed_to_move_topics)
+        redirect_back_or_default root_path
+      end
+    end
+    
+    def can_not_lock?
+      if !current_user.can?(:lock_topics)
+        flash[:notice] = t(:You_are_not_allowed_to_lock_or_unlock_topics)
+        redirect_back_or_default root_path
+      end
+    end
+    
+    def can_not_delete?
+      if !current_user.can?(:delete_topics)
+        flash[:notice] = t(:You_are_not_allowed_to_delete_topics)
+        redirect_back_or_default root_path
+      end
+    end
+    
+    def can_not_sticky?
+      if !current_user.can?(:sticky_topics)
+        flash[:notice] = t(:You_are_not_allowed_to_sticky_or_unsticky_topics)
+        redirect_back_or_default root_path
+      end
+    end
+    
+    def can_not_merge?
+      if !current_user.can?(:merge_topics)
+        flash[:notice] = t(:You_are_not_allowed_to_merge_topics)
+        redirect_back_or_default root_path
+      end
+    end
+    
 end

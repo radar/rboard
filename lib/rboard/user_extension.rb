@@ -14,13 +14,18 @@ module Rboard::UserExtension
       validates_uniqueness_of   :login, :email, :case_sensitive => false
       validates_uniqueness_of   :display_name, :allow_nil => true
 
+
+      has_many :group_users
+      
       has_many :banned_ips, :foreign_key => "banned_by"
       has_many :edits
+      has_many :groups, :through => :group_users
       has_many :inbox_messages, :class_name => "Message", :foreign_key => "to_id", :conditions => ["to_deleted = ?", false], :order => "id DESC"
       has_many :ip_users
       has_many :ips, :through => :ip_users, :order => "ips.updated_at DESC"
       has_many :outbox_messages, :class_name => "Message", :foreign_key => "from_id", :conditions => ["from_deleted = ?", false], :order => "id DESC"
       has_many :moderations
+      has_many :permissions, :through => :groups
       has_many :posts
       has_many :reports
       has_many :sent_messages, :class_name => "Message", :foreign_key => "from_id"
@@ -64,7 +69,7 @@ module Rboard::UserExtension
       def rank
         rank = Rank.find_by_id(rank_id)
     	  rank = Rank.find_by_custom(false, :conditions => ["posts_required <= ?", posts.size], :order => "posts_required DESC") if rank.nil?
-    	  rank.nil? ? user_level.name : rank.name
+    	  rank.nil? ? '' : rank.name
       end
 
       #permission checking 
@@ -75,15 +80,7 @@ module Rboard::UserExtension
           UserLevel.find_by_name("User")
         end
       end
-
-      def admin?
-        user_level.to_s == "Administrator"
-      end
-
-      def moderator?
-        user_level.to_s == "Moderator"
-      end
-
+      
       def user?
         user_level.to_s == "User"
       end
@@ -94,6 +91,10 @@ module Rboard::UserExtension
 
       def has_avatar?
         !avatar_file_name.blank?
+      end
+      
+      def online?
+        !!(login_time && login_time > Time.now - 15.minutes)
       end
     end
   end

@@ -7,10 +7,13 @@ class ForumsController < ApplicationController
   # Also gathers stats for the Compulsory Stat Box.
   def index
      if @category
-      @forums = @category.forums.viewable_to(current_user)
+      @forums = @category.forums
     else
-      @categories = Category.without_parent.viewable_to(current_user)
-      @forums = Forum.without_category.viewable_to(current_user)
+      # TODO: I encourage allcomers to find a better way.
+      # FIXME: I have worked too long on this.
+      # HELP: I need fresh eyes.
+      @categories = Category.without_parent.select { |c| current_user.can?(:see_category, f) }
+      @forums = Forum.without_category.without_parent.select { |f| current_user.can?(:see_forum, f) }
     end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence
     @users = User.count
@@ -41,7 +44,13 @@ class ForumsController < ApplicationController
   private
   
     def find_category
-      @category = Category.find(params[:category_id]) unless params[:category_id].blank?
+      unless params[:category_id].blank?
+        @category = Category.find(params[:category_id])
+        if !current_user.can?(:see_category, @category)
+          flash[:notice] = t(:category_permission_denied)
+          redirect_to root_path
+        end
+      end
     end
   
 end

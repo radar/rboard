@@ -15,10 +15,10 @@ class Post < ActiveRecord::Base
   validates_presence_of :text
   
   define_index do
-      indexes text
-      indexes user.login, :as => :user, :sortable => true
-      has user_id, created_at, updated_at
-      set_property :delta => true
+    indexes text
+    indexes user.login, :as => :user, :sortable => true
+    has user_id, created_at, updated_at
+    set_property :delta => true
   end
   
   delegate :subject, :to => :topic
@@ -41,7 +41,7 @@ class Post < ActiveRecord::Base
   end
   
   def stop_spam
-    if (!user.posts.last.nil? && user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS) || user.can?(:ignore_flood_limit)
+    if (!user.posts.last.nil? && user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS) || !user.can?(:ignore_flood_limit)
       errors.add_to_base("You can only post once every #{distance_of_time_in_words(Time.now, Time.now - TIME_BETWEEN_POSTS)}") and return false
     end
   end

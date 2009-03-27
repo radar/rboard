@@ -7,7 +7,7 @@
    		<%= link_to t(:New_Reply), new_topic_post_path(@topic) %>
   <% end %>
   
-	<% if current_user.can?(:lock_topics, @forum) || current_user.can?(:lock_own_topics, @foirum) %>
+	<% if current_user.can?(:lock_topics, @forum) || (current_user.can?(:lock_own_topics, @forum) && @topic.belongs_to?(current_user)) %>
     |
   	<% if @topic.locked? %> 
       <%= link_to t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put %>
@@ -16,7 +16,7 @@
     <% end %>
 	<% end %>
 	
-	<% if current_user.can?(:edit_topics, @forum) || current_user.can?(:edit_topics, @forum) %>
+	<% if current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user)) %>
 	  | <%= link_to t(:Edit_topic), edit_forum_topic_path(@forum) %>
 	<% end %>
 	
