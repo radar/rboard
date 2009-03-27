@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe TopicsController do
-  fixtures :users, :forums, :topics, :posts
+  fixtures :users, :forums, :topics, :posts, :group_users, :groups, :permissions
 
   before do
     @topic = mock_model(Topic)
@@ -24,18 +24,6 @@ describe TopicsController do
     Forum.should_receive(:find).and_return(@forum)
   end
   
-  def forum_not_viewable
-    find_user
-    find_forum
-    @forum.should_receive(:viewable?).and_return(false)
-  end
-  
-  def forum_viewable
-    find_user
-    find_forum
-    @forum.should_receive(:viewable?).and_return(true)
-  end
-  
   def forum_not_viewable_aftermath
     response.should redirect_to(root_path)
     flash[:notice].should eql(I18n.t(:not_allowed_to_view_topics))
@@ -57,7 +45,6 @@ describe TopicsController do
     
     it "should not show a restricted topic" do
       Forum.should_receive(:find).and_return(@forum)
-      @forum.should_receive(:viewable?).with(users(:anonymous)).and_return(false)
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
       response.should redirect_to(root_path)
       flash[:notice].should eql("You are not allowed to view topics in that forum.")
@@ -71,7 +58,7 @@ describe TopicsController do
     end
     
     it "should redirect to the forums show action if index is requested" do
-      forum_viewable
+      find_forum
       get 'index', :forum_id => @everybody.id
       response.should redirect_to(forum_path(@forum))
     end
@@ -82,19 +69,19 @@ describe TopicsController do
     end
     
     it "should not create a topic if a user is not allowed" do
-      forum_not_viewable
+      find_forum
       post 'create', { :topic => { :subject => "Test!" }, :post => { :text => "Testing!" }, :forum_id => @admin_forum.id }
       forum_not_viewable_aftermath
     end
     
     it "should not be able to see a restricted topic" do
-      forum_not_viewable
+      find_forum
       get 'show', { :id => @admin_topic.id, :forum_id => @admin_forum.id }
       forum_not_viewable_aftermath
     end
     
     it "should not be able to see topics that do not exist" do
-      forum_viewable
+      find_forum
       @forum.should_receive(:topics).and_return(@topics)
       @topics.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       get 'show', { :forum_id => @everybody.id, :id => 123456789 }
@@ -103,19 +90,19 @@ describe TopicsController do
     end
     
     it "should not be able to edit a restricted topic" do
-      forum_not_viewable
+      find_forum
       get 'edit', { :forum_id => @admin_forum.id, :id => 1 }
       forum_not_viewable_aftermath
     end
     
     it "should not be able to update a restricted topic" do
-      forum_not_viewable
+      find_forum
       put 'update', { :forum_id => @admin_forum.id, :id => 1 }
       forum_not_viewable_aftermath
     end
     
     it "should not be able to edit a topic that is not theirs" do
-      forum_viewable
+      find_forum
       topic_does_not_belong
       @topic.should_receive(:posts).and_return(@posts)
       get 'edit', { :forum_id => @everybody.id, :id => 2 }
@@ -124,7 +111,7 @@ describe TopicsController do
     end
     
     it "should not be able to update a topic that is not theirs" do
-      forum_viewable
+      find_forum
       topic_does_not_belong
       @topic.should_not_receive(:update_attributes)
       put 'update', { :forum_id => @everybody.id, :id => 2, :topic => { :subject => "Subject" } }

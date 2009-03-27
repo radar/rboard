@@ -18,7 +18,6 @@ class Admin::UsersController < Admin::ApplicationController
   
   # Edit the details for a specific user. 
   def edit
-    @user = User.find_by_permalink(params[:id])
     @ranks = Rank.find_all_by_custom(true)
     @ranks = Rank.custom
     @userlevels = UserLevel.all

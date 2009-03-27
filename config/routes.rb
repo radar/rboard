@@ -11,10 +11,13 @@ ActionController::Routing::Routes.draw do |map|
     
     admin.resources :categories, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put } do |category|
       category.resources :forums
+      category.resources :permissions
     end
     
     admin.chronic 'chronic', :controller => 'chronic'
-    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put }
+    admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put } do |forum|
+      forum.resources :permissions
+    end
     
     admin.resources :groups
     

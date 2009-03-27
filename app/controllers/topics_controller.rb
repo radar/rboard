@@ -10,7 +10,6 @@ class TopicsController < ApplicationController
   end
   
   def show
-    logger.debug(Topic.find(params[:id]))
     if logged_in?
       readers = @topic.readers
       readers << current_user if !readers.include?(current_user)
@@ -85,7 +84,7 @@ class TopicsController < ApplicationController
   def find_forum
     topic_options = { :include => [:reports, :posts] }
     if params[:forum_id]
-      @forum = Forum.find(params[:forum_id], :include => [:topics, :posts])
+      @forum = Forum.find(params[:forum_id], :include => :topics)
       if current_user.can?(:see_forum, @forum)
         @topic = @forum.topics.find(params[:id], topic_options) if params[:id]
       else

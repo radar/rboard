@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Admin::UsersController, "as an admin" do
-  fixtures :users
+  fixtures :users, :group_users, :groups, :permissions
   before do
     @user = mock_model(User)
     @users = [@user]
