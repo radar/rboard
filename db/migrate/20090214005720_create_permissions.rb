@@ -3,7 +3,7 @@ class CreatePermissions < ActiveRecord::Migration
     create_table :permissions do |t|
       t.boolean :can_see_forum, :default => false
       t.boolean :can_reply_to_topics, :default => false
-      t.boolean :can_post_stickies, :default = 1> false
+      t.boolean :can_post_stickies, :default => false
       t.boolean :can_start_new_topics, :default => false
       t.boolean :can_use_signature, :default => false
       t.boolean :can_delete_own_posts, :default => false
