@@ -94,7 +94,7 @@ module Rboard::Auth
               :is_admin?,
               :is_moderator?,
               :ip_banned?,
-              :logged_in,
+              :logged_in?,
               :user_banned?,
               :theme,
               :time_display,
