@@ -95,6 +95,10 @@ module Rboard::UserExtension
       def has_avatar?
         !avatar_file_name.blank?
       end
+      
+      def online?
+        !!(login_time && login_time > Time.now - 15.minutes)
+      end
     end
   end
   
