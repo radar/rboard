@@ -1,12 +1,4 @@
 module AuthenticatedSystem
-
-  # Store the given user in the session.
-  def current_user=(new_user)
-    session[:user] = (new_user.nil? || new_user.is_a?(Symbol)) ? nil : new_user.id
-    @current_user = new_user
-  end
-  
-  
   # We can return to this location by calling #redirect_back_or_default.
   def store_location
     session[:return_to] = request.request_uri
