@@ -1,0 +1,12 @@
+--- 
+development: !map:HashWithIndifferentAccess 
+  adapter: mysql
+  username: root
+  password: ""
+  database: rboard
+
+test:
+  adapter: mysql
+  username: root
+  password:
+  database: rboard_test
