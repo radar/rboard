@@ -8,7 +8,7 @@
     </td>
   </tr>
   
-  <% if is_admin? && !@post.new_record? %>
+  <% if current_user.can?(:edit_posts, @forum) && !@post.new_record? %>
     <tr>
       <td colspan='2'>
         <%= f.label 'edit_reason', t(:edit_reason) %>

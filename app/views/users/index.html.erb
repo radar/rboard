@@ -8,7 +8,7 @@
       <td align='center'><%= t(:Banned) %></td>
       <td align='center'><%= t(:Banned_until) %></td>
       <td align='center'><%= t(:Times_banned) %></td>
-      <% if is_admin? %>
+      <% if current_user.can?(:manage_users) %>
         <td align='center'><%= t(:IP) %></td>
       <% end %>
       
@@ -22,7 +22,7 @@
         <td align='center'><%= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No) %></td>
         <td align='center'><%= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(:long_ordinal) %></td>
         <td align='center'><%= user.ban_times %></td>
-        <% if is_admin? %>
+        <% if current_user.can?(:manage_users) %>
           <td align='center'><%= user.ip %></td>
         <% end %>
       </tr>

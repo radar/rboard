@@ -32,7 +32,15 @@ module Rboard::Permissions
       end
             
       def can?(action, thing = nil)
-        overall_permissions(thing)["can_#{action}"]
+        !!overall_permissions(thing)["can_#{action}"]
+      end
+      
+      def can_moderate_topics?
+        can?(:move_topics)  || 
+        can?(:lock_topics)  ||
+        can?(:merge_topics) ||
+        can?(:split_topics) ||
+        can?(:sticky_topics)
       end
     end
   end

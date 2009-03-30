@@ -30,7 +30,7 @@
 	  <% form_tag moderate_moderator_topics_path do %>
 	    <thead>
     	  <tr>
-    	    <% if is_moderator? %>
+    	    <% if current_user.can_moderate_topics? %>
       	    <td width='50px'><%= t(:Moderation) %></td>
       	  <% end %>
         	<td>&nbsp;</td>
@@ -44,7 +44,7 @@
   	  <tbody>
   	    <% for topic in @topics %>
       	  <tr id='topic_<%= topic.id %>'>
-        	  <% if is_moderator? %>
+        	  <% if current_user.can_moderate_topics? %>
             	<td align='center'>
             	  <% if !topic.moved? %>
             	    <%= link_to_remote check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), :url => moderator_topic_moderations_path(topic) %>
@@ -65,9 +65,9 @@
               <% else %>
                 <%= theme_image_tag("old.jpg") %>
               <% end %>
-              <% if is_moderator? %>
+              <% if current_user.can?(:view_reports, @forum) %>
                 <% if !topic.reports.empty? %>
-                  <%= theme_image_tag("report.jpg", :title => "#{t(:report, :count => topic.reports.count)}") %>
+                  <%= theme_image_tag("report.jpg", :title => t(:report, :count => topic.reports.count)) %>
                 <% end %>
               <% end %>
             </td>

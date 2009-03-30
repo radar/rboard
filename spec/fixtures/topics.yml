@@ -16,9 +16,9 @@ user:
   forum: everybody
   ip: localhost
 
-user_2:
+other_user:
   subject: Fourth topic!
-  user: plebian
+  user: other_user
   forum: everybody
   created_at: <%= (Time.now + 5.minutes).to_s(:db) %>
   ip: localhost

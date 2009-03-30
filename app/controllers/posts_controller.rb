@@ -104,8 +104,8 @@ class PostsController < ApplicationController
     end
     
     def check_ownership
-      unless @post.belongs_to?(current_user) || is_moderator?
-        flash[:notice] = "You do not own that post."
+      unless current_user.can?(:edit_own_posts, @post.forum) || current_user.can?(:edit_posts, @post.forum)
+        flash[:notice] = t(:Cannot_edit_post)
         redirect_back_or_default(forums_path)
       end
     end

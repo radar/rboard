@@ -7,12 +7,12 @@ class ForumsController < ApplicationController
   # Also gathers stats for the Compulsory Stat Box.
   def index
      if @category
-      @forums = @category.forums
+      @forums = @category.forums.without_parent
     else
       # TODO: I encourage allcomers to find a better way.
       # FIXME: I have worked too long on this.
       # HELP: I need fresh eyes.
-      @categories = Category.without_parent.select { |c| current_user.can?(:see_category, f) }
+      @categories = Category.without_parent.select { |c| current_user.can?(:see_category, c) }
       @forums = Forum.without_category.without_parent.select { |f| current_user.can?(:see_forum, f) }
     end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence
@@ -36,7 +36,7 @@ class ForumsController < ApplicationController
     else
       @topics = @forum.topics.sorted.paginate :page => params[:page], :per_page => 30, :order => "sticky DESC"
       @forums = @forum.children
-      @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if is_moderator?
+      @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if current_user.can?(:move_topics, @forum)
       @moderated_topics_count = @forum.moderations.topics.for_user(current_user).count
     end
   end
@@ -45,7 +45,7 @@ class ForumsController < ApplicationController
   
     def find_category
       unless params[:category_id].blank?
-        @category = Category.find(params[:category_id])
+        @category = Category.find(params[:category_id], :include => :forums)
         if !current_user.can?(:see_category, @category)
           flash[:notice] = t(:category_permission_denied)
           redirect_to root_path

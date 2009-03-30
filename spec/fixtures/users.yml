@@ -36,6 +36,13 @@ banned_noob:
 anonymous:
   id: 5
   login: anonymous
+  #password is blank, anonymous should never be sign-in-able.
+  salt: 
+  crypted_password: 
+  
+other_user:
+  id: 6
+  login: other_user
   #password is only_human
   salt: 8de4e91a969b7049ab1a53d57afbab578cc78021
   crypted_password: a561a12d86ed27a6c6adf52a327979fcf74c1f3c

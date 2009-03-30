@@ -39,7 +39,7 @@ class TopicsController < ApplicationController
       flash[:notice] = t(:topic_created)
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
-      flash.now[:notice] = t(:topic_not_created)
+      flash[:notice] = t(:topic_not_created)
       render :action => "new"
     end
   end
@@ -88,7 +88,7 @@ class TopicsController < ApplicationController
       if current_user.can?(:see_forum, @forum)
         @topic = @forum.topics.find(params[:id], topic_options) if params[:id]
       else
-        flash[:notice] = t(:not_allowed_to_view_topics)
+        flash[:notice] = t(:forum_permission_denied)
         redirect_to root_path
       end
     else
@@ -98,6 +98,7 @@ class TopicsController < ApplicationController
   end
   
   def user_has_permission?
+    puts (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
     current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
   end
     

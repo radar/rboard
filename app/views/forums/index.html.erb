@@ -19,7 +19,7 @@
     <% div_for category do %>
       <h2><%= link_to category.name, [category, :forums] %></h2>
       <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
-        <% unless category.forums.empty? %>
+        <% unless category.forums.without_parent.empty? %>
           <thead>
             <tr>
               <td align='left' width='40%'><%= t(:Forum) %></td>
@@ -29,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            <%= render :partial => category.forums %>
+            <%= render :partial => category.forums.without_parent %>
           </tbody>
         <% else %>
           <thead>

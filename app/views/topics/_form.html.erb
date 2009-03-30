@@ -11,7 +11,7 @@
     </tr>
   <% end %>
   
-  <% if is_moderator? %>
+  <% if current_user.can?(:sticky_topics, @forum) %>
     <tr>
       <td><%= f.label 'sticky', t(:Sticky) %></td>
       <td><%= f.check_box "sticky" %></td>

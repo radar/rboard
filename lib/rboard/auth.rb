@@ -1,10 +1,12 @@
 module Rboard::Auth
   # Store the given user in the session.
    def current_user=(new_user)
+     return if new_user.nil?
      new_user.previous_login = current_user.login_time
      new_user.login_time = Time.now
      new_user.ip = request.remote_addr
-     new_user.ips.find_or_create_by_ip(request.remote_addr)
+     ip = Ip.find_or_create_by_ip(request.remote_addr)
+     ip.users << new_user
      new_user.save
      session[:user] = new_user.id
      @current_user = new_user
@@ -26,14 +28,6 @@ module Rboard::Auth
 
   def date_time_display
     date_display + " " + time_display
-  end
-
-  def is_admin?
-    logged_in? && current_user.admin?
-  end
-
-  def is_moderator?
-    logged_in? && (current_user.admin? || current_user.moderator?)
   end
   
   def non_admin_redirect
@@ -101,7 +95,6 @@ module Rboard::Auth
   
   def self.included(base)
     base.send :helper_method,
-              :is_admin?,
               :is_moderator?,
               :ip_banned?,
               :logged_in?,

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090327125513) do
+ActiveRecord::Schema.define(:version => 20090330122903) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(:version => 20090327125513) do
     t.integer "category_id"
     t.boolean "default",                      :default => false
     t.boolean "can_manage_themes",            :default => false
+    t.boolean "can_edit_own_topics",          :default => false
   end
 
   create_table "posts", :force => true do |t|
