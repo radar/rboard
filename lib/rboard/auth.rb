@@ -2,6 +2,7 @@ module Rboard::Auth
   
   # Sets up stuff for newly logged in user.
   def current_user=(new_user)
+    return if new_user.nil?
     new_user.previous_login = current_user.login_time
     new_user.login_time = Time.now
     new_user.ip = request.remote_addr
