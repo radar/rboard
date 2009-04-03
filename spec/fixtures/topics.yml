@@ -1,31 +1,31 @@
 admin:
   subject: First topic!
   forum: admins_only
-  user: administrator
+  user_id: 1
   ip: localhost
 
 moderator:
   subject: Second topic!
-  user: moderator
+  user_id: 2
   forum: moderators_only
   ip: localhost
 
 user:
   subject: Third topic!
-  user: plebian
+  user_id: 3
   forum: everybody
   ip: localhost
 
 other_user:
   subject: Fourth topic!
-  user: other_user
+  user_id: 6
   forum: everybody
   created_at: <%= (Time.now + 5.minutes).to_s(:db) %>
   ip: localhost
 
 user_3:
   subject: Fifth topic!
-  user: plebian
+  user_id: 3
   forum: sub_of_everybody
   last_post: user_3
   ip: localhost

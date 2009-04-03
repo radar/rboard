@@ -58,7 +58,7 @@ class TopicsController < ApplicationController
       redirect_to forum_topic_path(@forum, @topic)
     else
       if @topic.update_attributes(params[:topic])
-        if @topic.posts.first.update_attributes(params[:topic])
+        if @topic.posts.first.update_attributes(params[:post])
           flash[:notice] = t(:topic_updated)
           redirect_back_or_default forum_topic_path(@forum, @topic)
         else
@@ -77,28 +77,36 @@ class TopicsController < ApplicationController
   def not_found
     flash[:notice] = t(:topic_not_found)
     redirect_to forums_path
+    nil # For later on when we need it in find_forum
   end
   
   private
   
   def find_forum
-    topic_options = { :include => [:reports, :posts] }
     if params[:forum_id]
       @forum = Forum.find(params[:forum_id], :include => :topics)
       if current_user.can?(:see_forum, @forum)
-        @topic = @forum.topics.find(params[:id], topic_options) if params[:id]
+        @topic = find_topic(@forum.topics) if params[:id]
       else
         flash[:notice] = t(:forum_permission_denied)
         redirect_to root_path
       end
     else
-      @topic = Topic.find(params[:id], topic_options)
-      redirect_to forum_topic_path(@topic.forum, @topic) and return
+      @topic = find_topic
+      # Replace with rendered_or_redirected or whatever the hell it is
+      redirect_to forum_topic_path(@topic.forum, @topic) unless performed?
     end
   end
   
+  def find_topic(topics=Topic)
+    topic_options = { :include => [:reports, :posts] }
+    return topics.find(params[:id], topic_options)
+  rescue ActiveRecord::RecordNotFound
+    not_found
+  end
+    
+  
   def user_has_permission?
-    puts (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
     current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
   end
     
