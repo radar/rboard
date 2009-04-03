@@ -1,28 +1,5 @@
 module AuthenticatedSystem
-  
-  # Filter method to enforce a login requirement.
-  #
-  # To require logins for all actions, use this in your controllers:
-  #
-  #   before_filter :login_required
-  #
-  # To require logins for specific actions, use this in your controllers:
-  #
-  #   before_filter :login_required, :only => [ :edit, :update ]
-  #
-  # To skip this in a subclassed controller:
-  #
-  #   skip_before_filter :login_required
-  #
-  def login_required
-    username, passwd = get_auth_data
-    self.current_user ||= User.authenticate(username, passwd) || User.anonymous if username && passwd
-    if !logged_in?
-      flash[:notice] = t(:you_must_be_logged_in)
-      redirect_to login_path
-    end
-  end
-  
+
   # We can return to this location by calling #redirect_back_or_default.
   def store_location
     session[:return_to] = request.request_uri

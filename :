@@ -1,0 +1,22 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:radar/rboard.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[remote "adamcooke"]
+	url = git://github.com/adamcooke/rboard.git
+	fetch = +refs/heads/*:refs/remotes/adamcooke/*
+[submodule "vendor/plugins/nested_has_many_through"]
+	url = git://github.com/ianwhite/nested_has_many_through.git
+[submodule "vendor/plugins/rspec"]
+	url = git://github.com/dchelimsky/rspec.git
+[submodule "vendor/plugins/rspec-rails"]
+	url = git://github.com/dchelimsky/rspec-rails.git
+[submodule "vendor/plugins/thinking-sphinx"]
+	url = git://github.com/freelancing-god/thinking-sphinx.git

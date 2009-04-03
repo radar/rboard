@@ -13,9 +13,14 @@ module ApplicationHelper
     text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'>" << $1 << "</div></div>" }
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a href='" << $1 << "'>" << $2 << "</a>" }
-    textilize(text)
+    bbcode_ext(textilize(text))
   # handle with care...
 
+  end
+  
+  # Dummy method so that people can extend bbcode method without having to alias it.
+  def bbcode_ext(text)
+    text
   end
   
   def theme_image_tag(f, html_options={})

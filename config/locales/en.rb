@@ -210,7 +210,7 @@
    :Delete_this_topic => "Delete this topic",
    :Description => "Description",
    :Display_Name => "Display Name",
-   :Do_not_have_a_user => "Don't have a user?",
+   :Do_not_have_a_user_account? => "Don't have a user account?",
    :Edit => "Edit",
    :Edit_History => "Edit History",
    :Edit_Profile => "Edit Profile",

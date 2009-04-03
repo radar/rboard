@@ -1,16 +1,18 @@
 module Rboard::Auth
+  
   # Store the given user in the session.
-   def current_user=(new_user)
-     return if new_user.nil?
-     new_user.previous_login = current_user.login_time
-     new_user.login_time = Time.now
-     new_user.ip = request.remote_addr
-     ip = Ip.find_or_create_by_ip(request.remote_addr)
-     ip.users << new_user
-     new_user.save
-     session[:user] = new_user.id
-     @current_user = new_user
-   end
+  def current_user=(new_user)
+    return if new_user.nil?
+    new_user.previous_login = current_user.login_time
+    new_user.login_time = Time.now
+    new_user.ip = request.remote_addr
+    ip = Ip.find_or_create_by_ip(request.remote_addr)
+    ip.users << new_user
+    new_user.save
+    session[:user] = new_user.id
+    @current_user = new_user
+  end
+   
   #Per Page value for paginated sections of the forums,
   def per_page
     logged_in? ? current_user.per_page : PER_PAGE
