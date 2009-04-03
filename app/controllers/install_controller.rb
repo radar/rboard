@@ -68,4 +68,9 @@ registered_group = Group.create!(:name => "Registered Users", :owner => u)
     flash[:error] = t(:User_not_created)
     render :action => "index"
   end
+  
+  # Override this just in case.
+  def login_from_cookie
+    
+  end
 end
