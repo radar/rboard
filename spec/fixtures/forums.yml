@@ -2,7 +2,7 @@ admins_only:
   title: Administrators Only!
   description: Top secret admin stuff goes here!
   position: 1
-  category: test
+  category: admins_only
   
 moderators_only:
   title: Moderators Only!

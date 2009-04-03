@@ -24,6 +24,11 @@ registered_users_admin_forum:
   can_see_forum: false
   forum: admins_only
   
+registered_users_admin_category:
+  group_id: 2
+  can_see_category: false
+  category: admins_only
+
 registered_users_sub_of_everybody_forum:
   group_id: 2
   can_see_forum: true

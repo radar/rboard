@@ -12,5 +12,7 @@ coverage
 coverage/*
 config/*.sphinx.conf
 config/deploy.rb
+config/newrelic.yml
 .gitignore.swp
 public/avatars
+vendor/plugins/newrelic_rpm
