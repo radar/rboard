@@ -3,7 +3,7 @@ class InstallController < ApplicationController
   skip_before_filter :active_user
   skip_before_filter :set_time_zone
   skip_before_filter :set_default_theme
-
+  
   def install
     # Establish and test the new database connection
     connection = ActiveRecord::Base.establish_connection(params[:database])
@@ -29,6 +29,8 @@ class InstallController < ApplicationController
        Permission.column_names.grep(/can/).each do |permission|
          permissions.merge!(permission => true)
        end
+       
+       administrator_group.permissions.create!(permissions)
        
        anonymous_password = Digest::SHA1.hexdigest(rand(99999999).to_s)
        u = User.create(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com", :user_level => UserLevel.find_by_name(t(:Anonymous)))
@@ -68,7 +70,6 @@ registered_group = Group.create!(:name => "Registered Users", :owner => u)
     flash[:error] = t(:User_not_created)
     render :action => "index"
   end
-  
   # Override this just in case.
   def login_from_cookie
     
