@@ -5,6 +5,7 @@ class InstallController < ApplicationController
   skip_before_filter :set_default_theme
   
   def install
+    redirect_to :
     # Establish and test the new database connection
     connection = ActiveRecord::Base.establish_connection(params[:database])
     # needs to be called so connected? actually returns correct value
