@@ -10,6 +10,8 @@ describe ForumsController do
     @forums = [@forum]
     @test_category = categories(:test)
     @admin_category = categories(:admins_only)
+    @everybody = forums(:everybody)
+    @admins_only = forums(:admins_only)
   end
   
   describe "plebian" do
@@ -22,6 +24,7 @@ describe ForumsController do
       Forum.should_receive(:without_category).and_return(@forums)
       @forums.should_receive(:without_parent).and_return(@forums)
       get 'index'
+      response.should render_template("index")
     end
     
     it "should show a list of forums inside a specific category" do
@@ -29,6 +32,7 @@ describe ForumsController do
       @category.should_receive(:forums).and_return(@forums)
       @forums.should_receive(:without_parent).and_return(@forums)
       get 'index', :category_id => @test_category.id
+      response.should render_template("index")
     end
     
     it "should not be able to see anything inside a restricted category" do
@@ -37,6 +41,49 @@ describe ForumsController do
       response.should redirect_to(root_path)
     end
     
+    it "should be able to see the everybody forum" do
+      get 'show', :id => @everybody.id
+      response.should render_template("show")
+    end
+    
+    it "should not be able to see the admins only forum" do
+      get 'show', :id => @admins_only.id
+      flash[:notice].should eql(t(:forum_permission_denied))
+      response.should redirect_to(forums_path)
+    end
+    
+  end
+  
+  describe "admin" do
+    before do
+      login_as(:administrator)
+    end
+    
+    it "should be able to see the everybody forum" do
+      get 'show', :id => @everybody.id
+      response.should render_template("show")
+    end
+    
+    it "should be able to see the admins only forum" do
+      get 'show', :id => @admins_only.id
+      response.should render_template("show")
+    end
+    
+    it "should be able to see forums for the test category" do
+      Category.should_receive(:find).and_return(@category)
+      @category.should_receive(:forums).and_return(@forums)
+      @forums.should_receive(:without_parent).and_return(@forums)
+      get 'index', :category_id => @test_category.id
+      response.should render_template("index")
+    end
+    
+    it "should be able to see the forums for the admin category" do
+      Category.should_receive(:find).and_return(@category)
+      @category.should_receive(:forums).and_return(@forums)
+      @forums.should_receive(:without_parent).and_return(@forums)
+      get 'index', :category_id => @admin_category.id
+      response.should render_template("index")
+    end
   end
   
 end

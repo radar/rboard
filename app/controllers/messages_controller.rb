@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   before_filter :login_required 
+  before_filter :can_read_messages?
   before_filter :store_location, :only => [:index, :sent]
   
   # Show messages for the currently logged in user.
@@ -63,4 +64,12 @@ class MessagesController < ApplicationController
   def sent
     @messages = current_user.outbox_messages
   end
+  
+  private
+    def can_read_messages?
+      if !current_user.can?(:read_messages)
+        flash[:notice] = t(:you_are_not_allowed_to_read_messages)
+        redirect_to root_path
+      end
+    end
 end
