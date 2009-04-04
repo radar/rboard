@@ -48,6 +48,7 @@ class Admin::CategoriesController < Admin::ApplicationController
    def destroy
      @category.destroy
      flash[:notice] = t(:category_deleted)
+     redirect
    end
    
    # Moves a category one space up using an acts_as_list provided method.
