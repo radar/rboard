@@ -9,6 +9,8 @@
     <%= link_to category.name, admin_category_path(category) %>
   </td>
   
+  <td><%= category.description %></td>
+  
   <td><%= link_to(pluralize(category.forums.count, "forum"), admin_category_path(category)) %></td>
   
   <td>

@@ -18,6 +18,7 @@
   <% for category in @categories %>
     <% div_for category do %>
       <h2><%= link_to category.name, [category, :forums] %></h2>
+        <h3><%= category.description %></h3>
       <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
         <% unless category.forums.without_parent.empty? %>
           <thead>

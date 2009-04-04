@@ -1,6 +1,10 @@
 <tbody>
   <tr>
-    <td><%= f.label "name" %></td>
+    <td><%= f.label "name", t(:Name) %></td>
     <td><%= f.text_field "name" %></td>
   </tr>
+  
+  <tr>
+    <td><%= f.label "description", t(:Description) %></td>
+    <td><%= f.text_field "description" %></td>
 </tbody>
