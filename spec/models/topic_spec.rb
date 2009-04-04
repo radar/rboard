@@ -6,7 +6,7 @@ describe Topic, "in general" do
     @forum = mock_model(Forum)
     @invalid_topic = topics(:invalid)
     @valid_topic = topics(:user_3)
-    @another_valid_topic = topics(:user_2)
+    @another_valid_topic = topics(:other_user)
     @everybody = forums(:everybody)
     @sub_of_everybody = forums(:sub_of_everybody)
     @admins_only = forums(:admins_only)

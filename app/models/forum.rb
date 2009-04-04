@@ -45,10 +45,6 @@ class Forum < ActiveRecord::Base
     children.map { |f| !f.children.empty? ? f.children + [f]: f }.flatten
   end
   
-  def self.find_all_without_parent
-    find_all_by_parent_id(nil)
-  end
-  
   def sub?
     !parent_id.nil?
   end

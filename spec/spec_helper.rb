@@ -4,7 +4,6 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
-require 'mocha'
 
 def login_as(name)
   request.session[:user] = users(name).id
@@ -57,3 +56,8 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
 end
+
+# TODO: It was automatically logging to development... dunno why!
+log =  Logger.new("#{RAILS_ROOT}/log/test.log")
+ActiveRecord::Base.logger = log
+ApplicationController.logger = log

@@ -3,8 +3,8 @@ one:
   from_read: false
   to_deleted: false
   from_deleted: false
-  to: administrator
-  from: plebian
+  to_id: 1
+  from_id: 3
   text: Really!
 
 two:
@@ -12,8 +12,8 @@ two:
   from_read: false
   to_deleted: false
   from_deleted: false
-  to: administrator
-  from: plebian
+  to_id: 1
+  from_id: 3
   text: O rly?
   created_at: <%= (Time.now - 10.minutes).to_s(:db) %>
 
@@ -22,8 +22,8 @@ to_deleted:
   from_read: false
   to_deleted: true
   from_deleted: false
-  to: administrator
-  from: plebian
+  to_id: 1
+  from_id: 3
   text: I am deleted by the to user!
   created_at: <%= (Time.now - 10.minutes).to_s(:db) %>
 

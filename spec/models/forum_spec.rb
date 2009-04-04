@@ -27,7 +27,7 @@ describe Forum, "in general" do
     @admins_only = forums(:admins_only)
     @moderators_only = forums(:moderators_only)
     @user_topic = topics(:user)
-    @user_topic_2 = topics(:user_2)
+    @user_topic_2 = topics(:other_user)
   end
   
   it "should be able to find the last post" do
@@ -49,7 +49,7 @@ describe Forum, "in general" do
   end
   
   it "should be able to find all the root forums" do
-    @root_forums = Forum.find_all_without_parent
+    @root_forums = Forum.without_parent
     @root_forums.size.should eql(4)
   end
   

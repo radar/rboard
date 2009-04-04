@@ -34,6 +34,8 @@ describe Post, "general" do
   end
   
   it "should be able to update a forum with the proper last post" do
+    two_minutes_into_the_future = Time.now + 2.minutes
+    Time.stub!(:now).and_return(two_minutes_into_the_future)
     @new_post = Post.new(:topic => topics(:user), :user => users(:plebian), :text => "Woot")
     @new_post.forum.last_post.should eql(posts(:user))
     @new_post.save
@@ -41,6 +43,8 @@ describe Post, "general" do
   end
 
   it "should update the forum and its ancestors with the latest post" do
+    two_minutes_into_the_future = Time.now + 2.minutes
+    Time.stub!(:now).and_return(two_minutes_into_the_future)
     @sub_topic.forum.sub?.should be_true
     @new_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
     @new_post.forum.last_post.should eql(nil)

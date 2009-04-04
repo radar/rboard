@@ -17,8 +17,6 @@ class Post < ActiveRecord::Base
   
   define_index do
     indexes text
-    indexes user.login, :as => :user, :sortable => true
-    has user_id, created_at, updated_at
     set_property :delta => true
   end
   

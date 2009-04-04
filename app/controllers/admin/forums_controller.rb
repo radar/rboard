@@ -5,7 +5,7 @@ class Admin::ForumsController < Admin::ApplicationController
   
   # Shows all top-level forums.
   def index
-    @forums = Forum.find_all_without_parent
+    @forums = Forum.without_parent
   end
   
   # Initializes a new forum.
@@ -122,4 +122,5 @@ class Admin::ForumsController < Admin::ApplicationController
     flash[:notice] = t(:forum_not_found)
     redirect
   end
+  
 end

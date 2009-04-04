@@ -33,6 +33,10 @@ class Topic < ActiveRecord::Base
   after_create :increment_counters
   before_destroy :decrement_counters
   
+  define_index do
+    indexes subject
+  end
+  
   def log_ip
     IpUser.create(:user => user, :ip => ip)
   end

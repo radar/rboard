@@ -2,8 +2,9 @@ class Admin::ApplicationController < ApplicationController
   layout "admin"
   helper "namespaced"
   before_filter :can_access
-  before_filter :can_manage
+  before_filter :can_not_manage
   before_filter :find_sections
+  before_filter :login_required
   
   private
     def can_access
@@ -13,7 +14,7 @@ class Admin::ApplicationController < ApplicationController
       end
     end
       
-    def can_manage
+    def can_not_manage
       unless controller_name == "index"
         if !current_user.can?("manage_#{controller_name}")
           flash[:notice] = t(:not_allowed_to_manage, :area => controller_name)
