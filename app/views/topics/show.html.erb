@@ -11,8 +11,9 @@
 <% end %>
 <br />
 <%= render :partial => @posts, :locals => { :show_topic => false } %>
+<br />
 <% if current_user.can?(:reply) %>
-  <table class='action-box' width='100%' cellpadding='2' cellspacing='0'>
+  <table class='action-box' width='100%' cellpadding='2' cellspacing='0' id='quick-reply'>
     <thead>
       <tr>
         <td colspan='2'><h3><%= t(:Quick_Reply) %></h3></td>

@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+
   # For distance_of_time_in_words
   include ActionView::Helpers::DateHelper
   belongs_to :user

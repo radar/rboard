@@ -36,9 +36,11 @@
      <% end %>
       </div>
       
-      <div class='time-now'>
-        
-      <%= t(:time_now) %> <%= Time.now.strftime(date_time_display) %> </div><br /><br />
+      <div class='search'>
+        <% form_tag :controller => "search" do %>
+          Search: <%= text_field_tag :search %>
+        <% end %>
+      </div><br /><br />
       <%= yield %>
       <br /><br />
       <div align='center'>        

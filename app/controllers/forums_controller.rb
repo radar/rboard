@@ -47,7 +47,7 @@ class ForumsController < ApplicationController
     
     def find_category
       unless params[:category_id].blank?
-        @category = Category.find(params[:category_id], :include => :forums)
+        @category = Category.find(params[:category_id], :include => [:forums, :permissions])
         if !current_user.can?(:see_category, @category)
           flash[:notice] = t(:category_permission_denied)
           redirect_to root_path
