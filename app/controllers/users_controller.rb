@@ -8,17 +8,15 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by_permalink(params[:id])
-    if !@user.nil?
-      @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
-    else
+    @user = User.find_by_permalink!(params[:id])
+    @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
+    rescue ActiveRecord::RecordNotFound 
       flash[:notice] = t(:user_not_found)
-      redirect_back_or_default(forums_path)
-    end
+      redirect_back_or_default(users_path)
   end
   
   def edit
-    @themes = Theme.find(:all, :order => "name ASC")
+    @themes = Theme.all
   end
   
   def update
@@ -36,7 +34,7 @@ class UsersController < ApplicationController
   def ip_is_banned
     unless ip_banned?
       flash[:notice] = t(:ip_is_banned)
-      redirect_to forums_path
     end
+    redirect_to forums_path
   end
 end

@@ -15,6 +15,7 @@ moderator:
   user_id: 2
   topic: moderator
   ip: localhost  
+  
 user:
   text: user only
   user_id: 3

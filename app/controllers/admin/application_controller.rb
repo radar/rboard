@@ -15,7 +15,7 @@ class Admin::ApplicationController < ApplicationController
     end
       
     def can_not_manage
-      unless controller_name == "index"
+      unless controller_name == "index" || controller_name == "chronic"
         if !current_user.can?("manage_#{controller_name}")
           flash[:notice] = t(:not_allowed_to_manage, :area => controller_name)
           redirect_to admin_root_path

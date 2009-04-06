@@ -1,4 +1,5 @@
 class Theme < ActiveRecord::Base
+  default_scope :order => "name asc"
 	has_many :users
   
   validates_presence_of :name

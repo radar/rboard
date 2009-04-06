@@ -8,6 +8,9 @@ registered_users:
   can_see_forum: true
   can_see_category: true
   can_edit_own_topics: true
+  can_subscribe: true
+  can_edit_own_posts: true
+  can_reply: true
     
 anonymous_admin_forum:
   group_id: 1
@@ -58,8 +61,12 @@ administrator:
   can_read_private_messages: true
   can_manage_groups: true
   can_manage_bans: true
+  can_manage_ips: true
+  can_manage_posts: true
   can_manage_ranks: true
   can_manage_users: true
+  can_manage_themes: true
+  can_manage_topics: true
   can_manage_forums: true
   can_manage_categories: true
   can_reply_to_locked_topics: true

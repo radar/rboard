@@ -1,4 +1,5 @@
 class Group < ActiveRecord::Base
+  default_scope :order => "name ASC"
   belongs_to :owner, :class_name => "User"
   
   has_many :group_users

@@ -1,37 +1,27 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PostsController, "as plebian" do
-  fixtures :users, :posts, :topics, :edits
+  fixtures :users, :forums, :posts, :topics, :edits, :permissions, :groups, :group_users
   before do
     login_as(:plebian)
+    @plebian = users(:plebian)
+    @user_topic = topics(:user)
+    @topic = mock_model(Topic)
     @post = mock_model(Post)
     @posts = [@post]
     @user = mock_model(User)
-    @topic = mock_model(Topic)
-    @real_topic = topics(:user)
-    @forum = mock_model(Forum)
-    @edit = mock_model(Edit)
-    @edits = [@edit]
     @first_post = posts(:user)
-    @pleban = users(:plebian)
+    @everybody = topics(:user)
   end
   
   it "should be able to get posts for the current user" do
-    User.should_receive(:find).twice.and_return(@user)
-    @user.should_receive(:update_attribute).twice
-    @user.should_receive(:time_zone).at_most(4).times.and_return("Australia/Adelaide")
-    @user.should_receive(:per_page).and_return(30)
-    @user.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:paginate).and_return(@posts)
-    get 'index', :user_id => 1
+    get 'index', :user_id => @plebian.id
+    response.should render_template("index")
   end
   
   it "should be able to start a new post" do
-    Topic.should_receive(:find).and_return(@topic)
-    @topic.should_receive(:last_10_posts).and_return(@posts)
-    @topic.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:build).and_return(@post)
-    get 'new', :topic_id => 1
+    get 'new', :topic_id => @user_topic.id
+    response.should render_template("new")
   end
   
   it "should be able to start a new post with a quote from another" do
@@ -42,126 +32,80 @@ describe PostsController, "as plebian" do
     @post.should_receive(:text=).and_return("[quote=\"plebian\"]woot[/quote]")
     @post.should_receive(:user).and_return(@user)
     @post.should_receive(:text).and_return("[quote=\"plebian\"]woot[/quote]")
-    get 'reply', { :id => posts(:user).id, :topic_id => 1 }
+    get 'reply', { :id => posts(:user).id, :topic_id => topics(:user).id }
     response.should render_template("new")
   end
   
   
   it "should be able to edit a post" do
-    Post.should_receive(:find).and_return(@post)
-    @post.should_receive(:belongs_to?).and_return(true)
     get 'edit', :id => @first_post.id
+    response.should render_template("edit")
   end
   
   it "shouldn't be able to edit a post that doesn't belong to them" do
-    Post.should_receive(:find).twice.and_return(@post)
-    @post.should_receive(:belongs_to?).and_return(false)
     get 'edit', { :id => posts(:admin).id }
-    flash[:notice].should_not be_nil
+    flash[:notice].should eql(t(:Cannot_edit_post))
     response.should redirect_to(forums_path)
   end
   
   it "should be able to update a post" do
-    Post.should_receive(:find).and_return(@post)
-    @post.should_receive(:belongs_to?).and_return(true)
-    @post.should_receive(:update_attributes).and_return(true)
-    @post.should_receive(:topic).and_return(@topic)
-    @post.stub!(:text)
-    @post.should_receive(:forum).and_return(@forum)
-    @post.should_receive(:text_changed?).and_return(true)
-    @post.should_receive(:edits).and_return(@edits)
-    @edits.should_receive(:create).and_return(@edit)
-    @post.should_receive(:update_attribute).and_return(@user)
-    @post.should_receive(:page_for).and_return(1)
     put 'update', :id => @first_post.id, :post => { :text => "Hooray!" }
-    flash[:notice].should_not be_nil
+    flash[:notice].should eql(t(:post_updated))
   end
   
   it "shouldn't be able to update a post that doesn't exist" do
     Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
     put 'update', :id => 1234567890, :post => { :text => "" }
+    response.should redirect_to(forums_path)
+    flash[:notice].should eql(t(:post_not_found))
   end
   
   it "should not be able to update a post with invalid data" do
-    Post.should_receive(:find).and_return(@post)
-    @post.should_receive(:belongs_to?).and_return(true)
-    @post.should_receive(:update_attributes).and_return(false)
-    @post.should_receive(:topic).and_return(@topic)
-    @post.stub!(:text)
     put 'update', :id => @first_post.id, :post => { :text => "" }
-    flash[:notice].should eql("This post could not be updated.")
+    response.should render_template("edit")
   end
   
   it "should not be able to edit a post that does not exist" do
-    Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
     get 'edit', :id => 'post'
-    flash[:notice].should eql("The post you were looking for could not be found.")
+    flash[:notice].should eql(t(:post_not_found))
     response.should redirect_to(forums_path)
   end
   
   it "should be able to create a post" do
-    User.should_receive(:find).and_return(@user)
-    @user.stub!(:per_page).and_return(30)
-    @user.stub!(:update_attribute)
-    @user.stub!(:time_zone)
-    Topic.should_receive(:find).with("1", :include => :posts).twice.and_return(@topic)
-    @topic.should_receive(:posts).at_most(3).times.and_return(@posts)
-    @posts.should_receive(:find).with(:all, :order => "id DESC", :limit => 10)
-    @posts.should_receive(:build).and_return(@post)
-    @post.should_receive(:save).and_return(true)
-    @post.should_receive(:forum).twice.and_return(@forum)
-    @post.should_receive(:topic).and_return(@topic)
-    @topic.should_receive(:set_last_post).and_return(true)
-    @post.should_receive(:page_for).and_return(1)
-    post 'create', { :post => { :text => "This is a new post" }, :topic_id => 1 }
-    flash[:notice].should eql("Post has been created.")
-    response.should redirect_to(forum_topic_path(@post.forum, @post.topic) + "/1#post_#{@post.id}")
+    two_minutes_into_the_future = Time.now + 2.minutes
+    Time.stub!(:now).and_return(two_minutes_into_the_future)
+    post 'create', { :post => { :text => "This is a new post" }, :topic_id => topics(:user).id }
+    @post_id = Post.last.id
+    flash[:notice].should eql(t(:post_created))
+    response.should redirect_to(forum_topic_path(forums(:everybody), topics(:user)) + "/1#post_#{@post_id}")
   end
   
   it "should not be able to create an invalid post" do
-    Topic.should_receive(:find).with("1", :include => :posts).twice.and_return(@topic)
-    @topic.should_receive(:posts).twice.and_return(@posts)
-    @posts.should_receive(:find).with(:all, :order => "id DESC", :limit => 10)
-    @posts.should_receive(:build).and_return(@post)
-    @post.should_receive(:save).and_return(false)
-    post 'create', {:post => { :text => "This is a new post" }, :topic_id => 1 }
-    flash[:notice].should eql("This post could not be created.")
+    post 'create', {:post => { :text => "" }, :topic_id => topics(:user).id }
+    flash[:notice].should eql(t(:post_not_created))
     response.should render_template("new")
   end
   
   it "should be able to destroy a post, but not the topic" do
-    Post.should_receive(:find).and_return(@post)
-    @post.should_receive(:destroy).and_return(@post)
-    @post.should_receive(:topic).at_least(3).times.and_return(@topic)
-    @post.should_receive(:forum).twice.and_return(@forum)
-    @topic.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:size).and_return(1)
-    @topic.should_not_receive(:destroy)
-    @post.should_receive(:belongs_to?).and_return(true)
+    @post.stub!(:forum).and_return(forums(:everybody))
+    @post.stub!(:topic).and_return(topics(:user))
     delete 'destroy', :id => @first_post.id
-    response.should redirect_to(forum_topic_path(@post.forum, @post.topic))
-    flash[:notice].should eql("Post was deleted.")
+    response.should redirect_to(forum_path(@post.forum))
+    flash[:notice].should eql(t(:post_was_deleted))
   end
   
   it "should be able to destroy a post, and the topic" do
-    Post.should_receive(:find).and_return(@post)
-    @post.should_receive(:destroy).and_return(@post)
-    @post.should_receive(:topic).twice.and_return(@topic)
-    @post.should_receive(:forum).twice.and_return(@forum)
-    @topic.should_receive(:posts).and_return(@posts)
-    @posts.should_receive(:size).and_return(0)
-    @topic.should_receive(:destroy).and_return(@topic)
-    @post.should_receive(:belongs_to?).and_return(true)
-    delete 'destroy', :id => 1
+    @post.stub!(:forum).and_return(forums(:everybody))
+    delete 'destroy', :id => @first_post.id
     response.should redirect_to(forum_path(@post.forum))
-    flash[:notice].should eql("Post was deleted. This was the only post in the topic, so topic was deleted also.")
+    flash[:notice].should eql(t(:post_was_deleted) + t(:topic_too))
   end
   
   it "should not be able to destroy a post that does not exist" do
     Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
     delete 'destroy', :id => 1234567890
     response.should redirect_to(forums_path)
-    flash[:notice].should eql("The post you were looking for could not be found.")
+    flash[:notice].should eql(t(:post_not_found))
   end
     
 end

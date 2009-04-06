@@ -34,6 +34,7 @@ describe Post, "general" do
   end
   
   it "should be able to update a forum with the proper last post" do
+    # Because we limit users, by default, to one post per minute
     two_minutes_into_the_future = Time.now + 2.minutes
     Time.stub!(:now).and_return(two_minutes_into_the_future)
     @new_post = Post.new(:topic => topics(:user), :user => users(:plebian), :text => "Woot")
@@ -43,6 +44,7 @@ describe Post, "general" do
   end
 
   it "should update the forum and its ancestors with the latest post" do
+    # Because we limit users, by default, to one post per minute
     two_minutes_into_the_future = Time.now + 2.minutes
     Time.stub!(:now).and_return(two_minutes_into_the_future)
     @sub_topic.forum.sub?.should be_true

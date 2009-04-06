@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Admin::CategoriesController do
-  fixtures :categories, :forums, :users
+  fixtures :categories, :forums, :users, :groups, :group_users, :permissions
   
   before do
     @category = mock_model(Category)

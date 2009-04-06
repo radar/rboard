@@ -17,13 +17,13 @@ class PostsController < ApplicationController
 
   def create
     @topic = Topic.find(params[:topic_id], :include => :posts)
-    posts = @topic.posts
-    @posts = posts.find(:all, :order => "id DESC", :limit => 10)
+    
+    # The last 10 posts for this topic
+    @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
     
     @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => @ip))
     
     if @post.save
-      @topic.set_last_post
       flash[:notice] = t(:post_created)
       go_directly_to_post
     else
@@ -70,16 +70,22 @@ class PostsController < ApplicationController
   
   # Not using the find_post method here because we're storing it as quoting_post.
   def reply
-    quoting_post = Post.find(params[:id])
-    @post = @topic.posts.build(:user => current_user)
-    @post.text = "[quote=\"#{quoting_post.user}\"]#{quoting_post.text}[/quote]"
-    render :action => "new"
+    if current_user.can?(:reply)
+      quoting_post = Post.find(params[:id])
+      @post = @topic.posts.build(:user => current_user)
+      @post.text = "[quote=\"#{quoting_post.user}\"]#{quoting_post.text}[/quote]"
+      render :action => "new"
+    else
+      flash[:notice] = t(:can_not_reply)
+      redirect_to forum_topic_path(@topic.forum, @topic)
+    end
+      
   end
   
   private
   
     def not_found
-      flash[:notice] = t(:post_does_not_exist)
+      flash[:notice] = t(:post_not_found)
       redirect_back_or_default(forums_path)
     end
     
@@ -104,7 +110,8 @@ class PostsController < ApplicationController
     end
     
     def check_ownership
-      unless current_user.can?(:edit_own_posts, @post.forum) || current_user.can?(:edit_posts, @post.forum)
+      if (@post.belongs_to?(current_user) && !current_user.can?(:edit_own_posts, @post.forum)) ||
+         (!@post.belongs_to?(current_user) && !current_user.can?(:edit_posts, @post.forum))
         flash[:notice] = t(:Cannot_edit_post)
         redirect_back_or_default(forums_path)
       end
