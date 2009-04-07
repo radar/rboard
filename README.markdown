@@ -4,14 +4,16 @@ rBoard is a kick-ass forum system built in Ruby on Rails. One of it's primary go
 
 If you're looking to integrate it into a site, please read the Integration section below.
 
+It's currently under active development.
+
 ## How to get it up and running
 
-In order to start using rBoard you should only have to clone the repository, and run `rake install`:
+In order to start using rBoard you should only have to clone the repository
 
     git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
     
-Start up the site in your deployment of chouce and complete the install and you should be ready to go!
+Start up the site in your deployment of choice and complete the installation procedure (by accessing the site in your web browser of choice) and you should be ready to go!
 ## Requirements
 
 This app requires Sphinx which can be obtained from the Sphinx [website](http://sphinxsearch.com). Sphinx works with both MySQL and PostgreSQL. 
@@ -90,11 +92,11 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
   4. How?
 
-    To install it, type `rake install` and this should do all the magic for you.
+    To install it, go through the integrated installer inside the application itself. (Found at /install)
 
   5. When (is it stable)?
 
-    The `master` branch is usually kept in a stable manner whilst I tinker in my own personal branch, usually called `radar`.
+    The `master` branch is usually kept in a stable manner. I try to anyway. No guarantees about that.
 
   6. OMG it is broken -- why!?!?
 
