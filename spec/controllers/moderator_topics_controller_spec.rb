@@ -178,7 +178,7 @@ describe Moderator::TopicsController do
       @moderation.should_receive(:moderated_object_id).and_return(1)
       Topic.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(t(:topic_not_found))
+      flash[:notice].should eql(t(:not_found, :thing => "topic"))
       response.should redirect_to(moderator_moderations_path)
     end
       

@@ -51,7 +51,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
     end
     redirect_back_or_default(moderator_moderations_path) 
   rescue ActiveRecord::RecordNotFound => e
-    flash[:notice] = t(:moderation_not_found)
+    flash[:notice] = t(:not_found, :thing => "moderation")
     redirect_back_or_default moderator_moderations_path
   end
   
@@ -79,7 +79,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
       redirect_back_or_default forums_path
     end    
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = t(:topic_not_found)
+    flash[:notice] = t(:tnot_found, "topic")
     redirect_back_or_default moderator_moderations_path
   end
   
@@ -117,7 +117,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
       end
       
       rescue ActiveRecord::RecordNotFound
-        flash[:notice] = t(:topic_not_found)
+        flash[:notice] = t(:not_found, :thing => "topic")
         redirect_to moderator_moderations_path
     end
     

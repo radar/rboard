@@ -57,7 +57,7 @@ describe PostsController, "as plebian" do
     Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
     put 'update', :id => 1234567890, :post => { :text => "" }
     response.should redirect_to(forums_path)
-    flash[:notice].should eql(t(:post_not_found))
+    flash[:notice].should eql(t(:not_found, :thing => "post"))
   end
   
   it "should not be able to update a post with invalid data" do
@@ -67,7 +67,7 @@ describe PostsController, "as plebian" do
   
   it "should not be able to edit a post that does not exist" do
     get 'edit', :id => 'post'
-    flash[:notice].should eql(t(:post_not_found))
+    flash[:notice].should eql(t(:not_found, :thing => "post"))
     response.should redirect_to(forums_path)
   end
   
@@ -105,7 +105,7 @@ describe PostsController, "as plebian" do
     Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
     delete 'destroy', :id => 1234567890
     response.should redirect_to(forums_path)
-    flash[:notice].should eql(t(:post_not_found))
+    flash[:notice].should eql(t(:not_found, :thing => "post"))
   end
     
 end

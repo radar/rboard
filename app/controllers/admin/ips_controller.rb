@@ -16,7 +16,7 @@ class Admin::IpsController < Admin::ApplicationController
     def find_user
       @user = User.find_by_permalink!(params[:user_id])
       rescue ActiveRecord::RecordNotFound
-        flash[:notice] = t(:user_not_found)
+        flash[:notice] = t(:not_found, :thing => "user")
         redirect_to admin_users_path
     end
 end

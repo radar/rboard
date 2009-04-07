@@ -56,7 +56,7 @@ class Admin::GroupsController < Admin::ApplicationController
     end
     
     def not_found
-      flash[:notice] = t(:group_not_found)
+      flash[:notice] = t(:not_found, :thing => "group")
       redirect_to admin_groups_path
     end
 end

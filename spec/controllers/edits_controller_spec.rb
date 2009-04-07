@@ -31,7 +31,7 @@ describe EditsController do
     
     it "should not be able to go to the index action if a post is not specified" do
       get 'index'
-      flash[:notice].should eql(t(:post_not_found))
+      flash[:notice].should eql(t(:not_found, :thing => "post"))
       response.should redirect_to(root_path)
     end
     
@@ -54,7 +54,7 @@ describe EditsController do
     it "should not be able to see an edit that does not exist" do
       get 'show', :post_id => @post.id, :id => 123456789
       response.should redirect_to(root_path)
-      flash[:notice].should eql(t(:edit_not_found))
+      flash[:notice].should eql(t(:not_found, :thing => "edit"))
     end
   
     it "should be able to see an invisible edit" do

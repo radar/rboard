@@ -75,7 +75,7 @@ class TopicsController < ApplicationController
   private
   
   def not_found
-    flash[:notice] = t(:topic_not_found)
+    flash[:notice] = t(:not_found, :thing => "topic")
     redirect_to forums_path
     nil # For later on when we need it in find_forum
   end

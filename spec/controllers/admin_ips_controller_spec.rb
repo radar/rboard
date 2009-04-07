@@ -19,7 +19,7 @@ describe Admin::IpsController do
 
   it "should not be able to find ips for an imaginary user" do
     get 'index', :user_id => 1234567890
-    flash[:notice].should eql(t(:user_not_found))
+    flash[:notice].should eql(t(:not_found, :thing => "user"))
     response.should redirect_to(admin_users_path)
   end  
   

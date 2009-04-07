@@ -31,12 +31,12 @@ class EditsController < ApplicationController
   end
   
   def post_not_found
-    flash[:notice] = t(:post_not_found)
+    flash[:notice] = t(:not_found, :thing => "post")
     redirect_back_or_default root_path
   end
   
   def edit_not_found
-    flash[:notice] = t(:edit_not_found)
+    flash[:notice] = t(:not_found, :thing => "edit")
     redirect_back_or_default root_path
   end
   

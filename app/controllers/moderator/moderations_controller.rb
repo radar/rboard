@@ -64,7 +64,7 @@ class Moderator::ModerationsController < Moderator::ApplicationController
     end
     
     def not_found
-      flash[:notice] = t(:moderation_not_found)
+      flash[:notice] = t(:not_found, :thing => "moderation")
       redirect_to moderator_moderations_path
     end
 end

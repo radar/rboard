@@ -27,7 +27,7 @@ describe Admin::PostsController, "admins" do
   
   it "should not be able to find posts created by an imaginary IP" do
     get 'index', :ip_id => 1234567890
-    flash[:notice].should eql(t(:ip_not_found))
+    flash[:notice].should eql(t(:not_found, :thing => "ip"))
     response.should redirect_to(admin_root_path)
   end
   

@@ -85,7 +85,7 @@ class PostsController < ApplicationController
   private
   
     def not_found
-      flash[:notice] = t(:post_not_found)
+      flash[:notice] = t(:not_found, :thing => "post")
       redirect_back_or_default(forums_path)
     end
     

@@ -65,12 +65,12 @@ describe TopicsController do
       
       it "should be able to see a topic in the free-for-all forum" do
         get 'show', params
-        response.should render_template("show")
+        response.should render_template("show") 
       end
       
       it "should not be able to see a topic that doesn't exist" do
         get 'show', :id => 'missing'
-        flash[:notice].should eql(t(:topic_not_found))
+        flash[:notice].should eql(t(:not_found, :thing => "topic"))
         response.should redirect_to(forums_path)
       end
     

@@ -119,7 +119,7 @@ class Admin::ForumsController < Admin::ApplicationController
   
   # Called when the forum could not be found.
   def not_found
-    flash[:notice] = t(:forum_not_found)
+    flash[:notice] = t(:not_found, :thing => "forum")
     redirect
   end
   

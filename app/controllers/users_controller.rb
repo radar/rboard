@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user = User.find_by_permalink!(params[:id])
     @posts_percentage = Post.count > 0 ? @user.posts.size.to_f / Post.count.to_f * 100 : 0
     rescue ActiveRecord::RecordNotFound 
-      flash[:notice] = t(:user_not_found)
+      flash[:notice] = t(:not_found, :thing => "user")
       redirect_back_or_default(users_path)
   end
   

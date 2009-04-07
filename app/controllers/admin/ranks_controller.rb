@@ -49,7 +49,7 @@ class Admin::RanksController < Admin::ApplicationController
   private
     # Will be called from #find_rank when a rank cannot be found.
     def not_found
-      flash[:notice] = t(:rank_not_found)
+      flash[:notice] = t(:not_found, :thing => "rank")
       redirect_back_or_default(admin_ranks_path)
     end
     
