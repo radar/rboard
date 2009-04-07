@@ -28,7 +28,7 @@ describe Moderator::TopicsController do
     end
     
     def not_allowed
-      flash[:notice].should eql(I18n.t(:not_allowed_to_access_topic))
+      flash[:notice].should eql(t(:not_allowed_to_access_topic))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -70,7 +70,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:lock!).and_return(@moderation)
       put 'moderate', { :commit => "Lock", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_locked))
+      flash[:notice].should eql(t(:topics_locked))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -80,7 +80,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:unlock!).and_return(@moderation)
       put 'moderate', { :commit => "Unlock", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_unlocked))
+      flash[:notice].should eql(t(:topics_unlocked))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -100,7 +100,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:sticky!).and_return(@moderation)
       put 'moderate', { :commit => "Sticky", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_stickied))
+      flash[:notice].should eql(t(:topics_stickied))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -110,7 +110,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:unsticky!).and_return(@moderation)
       put 'moderate', { :commit => "Unsticky", :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_unstickied))
+      flash[:notice].should eql(t(:topics_unstickied))
       response.should redirect_to(moderator_moderations_path)
     end
     
@@ -120,7 +120,7 @@ describe Moderator::TopicsController do
       @moderations.should_receive(:find).and_return(@moderations)
       @moderation.should_receive(:move!).and_return(@moderation)
       put 'moderate', { :commit => "Move", :moderation_ids => [1,2,3], :new_forum_id => 1 }
-      flash[:notice].should eql(I18n.t(:topics_moved))
+      flash[:notice].should eql(t(:topics_moved))
       response.should redirect_to(forum_path(1))
     end
       
@@ -143,7 +143,7 @@ describe Moderator::TopicsController do
       @topic.should_receive(:merge!).and_return(true)
       @forum.should_receive(:viewable?).twice.and_return(true)
       put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_merged))
+      flash[:notice].should eql(t(:topics_merged))
       response.should redirect_to(forums_path)
     end
     
@@ -154,7 +154,7 @@ describe Moderator::TopicsController do
       @moderation.should_receive(:moderated_object_id).and_return(1)
       Topic.should_receive(:find).and_return(@single_topic)
       put 'moderate', { :commit => "Merge", :moderation_ids => [1], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1] }
-      flash[:notice].should eql(I18n.t(:only_one_topic_for_merge))
+      flash[:notice].should eql(t(:only_one_topic_for_merge))
       response.should redirect_to(forums_path)
     end
     
@@ -167,7 +167,7 @@ describe Moderator::TopicsController do
       @topic.should_receive(:forum).and_return(@forum)
       @forum.should_receive(:viewable?).and_return(false)
       put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topics_not_accessible_by_you))
+      flash[:notice].should eql(t(:topics_not_accessible_by_you))
       response.should redirect_to(forums_path)
     end
     
@@ -178,7 +178,7 @@ describe Moderator::TopicsController do
       @moderation.should_receive(:moderated_object_id).and_return(1)
       Topic.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       put 'moderate', { :commit => "Merge", :moderation_ids => [1,2,3], :new_subject => "Puppies", :master_topic_id => 1 }, { :user => users(:moderator).id, :moderation_ids => [1,2,3] }
-      flash[:notice].should eql(I18n.t(:topic_not_found))
+      flash[:notice].should eql(t(:topic_not_found))
       response.should redirect_to(moderator_moderations_path)
     end
       

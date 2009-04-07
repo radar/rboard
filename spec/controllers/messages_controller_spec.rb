@@ -47,7 +47,7 @@ describe MessagesController do
     @message.should_receive(:save).and_return(false)
     post 'create', :message => { }
     response.should render_template("new")
-    flash[:notice].should eql(I18n.t(:message_not_sent))
+    flash[:notice].should eql(t(:message_not_sent))
   end
   
   it "should not be able to create a new message" do
@@ -55,7 +55,7 @@ describe MessagesController do
     @message.should_receive(:save).and_return(true)
     post 'create', :message => { :to_id => users(:moderator).id, :text => "Some text" }
     response.should redirect_to(messages_path)
-    flash[:notice].should eql(I18n.t(:message_sent))
+    flash[:notice].should eql(t(:message_sent))
   end
   
   it "should not be able to delete a message that doesn't belong to that user" do
@@ -95,7 +95,7 @@ describe MessagesController do
     @message.should_receive(:belongs_to?).with(users(:plebian).id).and_return(false)
     get 'show', :id => @first_message
     response.should redirect_to(messages_path)
-    flash[:notice].should eql(I18n.t(:message_does_not_belong_to_you))
+    flash[:notice].should eql(t(:message_does_not_belong_to_you))
   end
   
   it "should say the receipient of the message has read it once viewed" do

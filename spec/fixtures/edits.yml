@@ -1,0 +1,15 @@
+user: 
+  post: user
+  original_content: Some text
+  current_content: Some new text
+  
+admin:
+  post: admin
+  original_content: Some text
+  current_content: Some new text
+
+invisible:
+  post: admin
+  original_content: top secret
+  current_content: super top secret
+  hidden: true

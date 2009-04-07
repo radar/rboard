@@ -13,7 +13,7 @@ describe Admin::ChronicController do
   
   it "should not be able to parse and invalid time" do
     post 'index', { :duration => "Infinity" }
-    response.should have_text(I18n.t(:invalid_format))
+    response.should have_text(t(:invalid_format))
   end
 
 end

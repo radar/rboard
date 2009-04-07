@@ -8,4 +8,8 @@ two:
 
 three:
   group_id: 3 #administrator
-  user_id: 1 #administrator 
+  user_id: 1 #administrator
+
+four:
+  group_id: 4
+  user_id: 2 

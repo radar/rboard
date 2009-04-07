@@ -47,7 +47,7 @@ describe Admin::CategoriesController do
       Category.should_receive(:new).and_return(@category)
       @category.should_receive(:save).and_return(true)
       post 'create', :category => { :name => "Cat E. Gori"}
-      flash[:notice].should eql(I18n.t(:category_created))
+      flash[:notice].should eql(t(:category_created))
       response.should redirect_to(admin_categories_path)
     end
     
@@ -55,7 +55,7 @@ describe Admin::CategoriesController do
       Category.should_receive(:new).and_return(@category)
       @category.should_receive(:save).and_return(false)
       post 'create', :catgory => { :name => "" }
-      flash[:notice].should eql(I18n.t(:category_not_created))
+      flash[:notice].should eql(t(:category_not_created))
       response.should render_template("new")
     end
     
@@ -68,7 +68,7 @@ describe Admin::CategoriesController do
       find_category
       @category.should_receive(:update_attributes).and_return(true)
       put 'update', :id => 1, :category => { :name => "Foo Bar"}
-      flash[:notice].should eql(I18n.t(:category_updated))
+      flash[:notice].should eql(t(:category_updated))
       response.should redirect_to(admin_categories_path)
     end
     
@@ -76,7 +76,7 @@ describe Admin::CategoriesController do
       find_category
       @category.should_receive(:update_attributes).and_return(false)
       put 'update', :id => 1, :category => { :name => "" }
-      flash[:notice].should eql(I18n.t(:category_not_updated))
+      flash[:notice].should eql(t(:category_not_updated))
       response.should render_template("edit")
     end
     
@@ -84,7 +84,7 @@ describe Admin::CategoriesController do
       find_category
       @category.should_receive(:destroy).and_return(@category)
       delete 'destroy', :id => 1
-      flash[:notice].should eql(I18n.t(:category_deleted))
+      flash[:notice].should eql(t(:category_deleted))
     end
     
     it "should be able to move a category upwards" do

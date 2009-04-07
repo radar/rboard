@@ -3,15 +3,6 @@ anonymous:
   can_see_forum: false
   can_see_category: true
   
-registered_users:
-  group_id: 2
-  can_see_forum: true
-  can_see_category: true
-  can_edit_own_topics: true
-  can_subscribe: true
-  can_edit_own_posts: true
-  can_reply: true
-    
 anonymous_admin_forum:
   group_id: 1
   can_see_forum: false
@@ -21,6 +12,15 @@ anonymous_everybody_forum:
   group_id: 1
   can_see_forum: true
   forum: everybody
+
+registered_users:
+  group_id: 2
+  can_see_forum: true
+  can_see_category: true
+  can_edit_own_topics: true
+  can_subscribe: true
+  can_edit_own_posts: true
+  can_reply: true
   
 registered_users_admin_forum:
   group_id: 2
@@ -36,6 +36,17 @@ registered_users_sub_of_everybody_forum:
   group_id: 2
   can_see_forum: true
   forum: sub_of_everybody
+  
+moderator:
+  group_id: 4
+  can_manage_edits: true
+  can_access_moderator_section: true
+  can_see_forum: true
+
+moderator_admin_forum:
+  group_id: 4
+  forum: admins_only
+  can_see_forum: false
 
 administrator:
   group_id: 3
@@ -61,6 +72,7 @@ administrator:
   can_read_private_messages: true
   can_manage_groups: true
   can_manage_bans: true
+  can_manage_edits: true
   can_manage_ips: true
   can_manage_posts: true
   can_manage_ranks: true
@@ -76,3 +88,4 @@ administrator:
   can_access_admin_section: true
   can_see_category: true
   can_access_moderator_section: true
+

@@ -15,13 +15,13 @@ describe SubscriptionsController do
   
   it "should be able to subscribe to a topic" do
     post 'create', :topic_id => @user_topic.id
-    flash[:notice].should eql(I18n.t(:topic_subscription))
+    flash[:notice].should eql(t(:topic_subscription))
   end
   
   it "should be able to unsubscribe from a topic" do
     sub = Subscription.create!(:topic => @user_topic, :user => users(:plebian))
     delete 'destroy', :id => sub.id
-    flash[:notice].should eql(I18n.t(:topic_unsubscription))    
+    flash[:notice].should eql(t(:topic_unsubscription))    
   end
   
 end

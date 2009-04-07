@@ -12,4 +12,8 @@ administrators:
   id: 3
   name: Administrators
   owner: administrator
-  
+
+moderator:
+  id: 4
+  name: Moderators
+  owner: moderator
