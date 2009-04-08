@@ -82,8 +82,8 @@ describe PostsController, "as plebian" do
   
   it "should not be able to create an invalid post" do
     post 'create', {:post => { :text => "" }, :topic_id => topics(:user).id }
-    flash[:notice].should eql(t(:post_not_created))
     response.should render_template("new")
+    flash.now[:notice].should eql(t(:post_not_created))
   end
   
   it "should be able to destroy a post, but not the topic" do

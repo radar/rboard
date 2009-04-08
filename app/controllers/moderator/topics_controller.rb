@@ -110,8 +110,8 @@ class Moderator::TopicsController < Moderator::ApplicationController
       @topic = Topic.find(params[:id])
       
       # If the user is not allowed to see the topic, then they must not be allowed to change it either.
-      if !@topic.forum.viewable?(current_user)
-        flash[:notice] = t(:not_allowed_to_access_topic)
+      if !current_user.can?(:see_forum, @topic.forum)
+        flash[:notice] = t(:forum_object_permission_denied, :object => "topic")
         @topic.moderations.for_user(current_user).each { |m| m.destroy }
         redirect_to moderator_moderations_path
       end

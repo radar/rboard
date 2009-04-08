@@ -245,7 +245,7 @@
    :forum_not_created => "Forum could not be created.",
    :forum_not_updated => "Forum could not be updated.",
    :forum_permission_denied => "You are not allowed to see that forum.",
-   :forum_post_permission_denied => "The post you are trying to access is in a forum you are not allowed to see.",
+   :forum_object_permission_denied => "The {{object}} you are trying to access is in a forum you are not allowed to see.",
    :forum_updated => "Forum has been updated.",
    :Forums => "Forums",
    :From => "From",

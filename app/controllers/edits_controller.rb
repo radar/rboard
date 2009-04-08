@@ -22,7 +22,7 @@ class EditsController < ApplicationController
       post_not_found
     else
       if !current_user.can?(:see_forum, @post.forum)
-        flash[:notice] = t(:forum_post_permission_denied)
+        flash[:notice] = t(:forum_object_permission_denied, :object => "post")
         redirect_back_or_default(root_path)
       end
     end

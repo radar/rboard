@@ -47,7 +47,7 @@ describe EditsController do
     
     it "should not be able to see an edit for a post they do not have access to" do
       get 'show', :post_id => @admin_post.id, :id => @admin_edit.id
-      flash[:notice].should eql(t(:forum_post_permission_denied))
+      flash[:notice].should eql(t(:forum_object_permission_denied, :object => "post"))
       response.should redirect_to(root_path)
     end
     

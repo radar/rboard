@@ -40,6 +40,8 @@ registered_users_sub_of_everybody_forum:
 moderator:
   group_id: 4
   can_manage_edits: true
+  can_manage_topics: true
+  can_delete_topics: true
   can_access_moderator_section: true
   can_see_forum: true
 

@@ -1,3 +1,8 @@
-one:
-  moderated_object_id: 1
-  moderated_object_type: Topic
+first:
+  moderated_object: user
+
+second:
+  moderated_object: other_user
+
+third:
+  moderated_object: user_3
