@@ -58,7 +58,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   def merge
     if params[:moderation_ids]
       @topics = Topic.find(params[:moderation_ids])
-      session[:moderation_ids] = params[:moderated_ids]
+      session[:moderation_ids] = params[:moderation_ids]
     end
     @topics ||= Topic.find(session[:moderated_ids])
     if @topics.size == 1
@@ -68,7 +68,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
     end
     if request.put? && params[:new_subject]
       # Check if user has access to all topics
-      if @topics.any? { |topic| !topic.forum.viewable?(current_user) }
+      if @topics.any? { |topic| !current_user.can?(:see_forum, topic.forum) }
         flash[:notice] = t(:topics_not_accessible_by_you)
         redirect_back_or_default forums_path
         return false
@@ -91,14 +91,14 @@ class Moderator::TopicsController < Moderator::ApplicationController
     end
   end
   
-  def toggle_lock
+  def lock
     @topic.toggle!("locked")
     @topic.moderations.for_user(current_user).delete_all
     flash[:notice] = t(:topic_locked_or_unlocked, :status => @topic.locked? ? "locked" : "unlocked")
     redirect_back_or_default moderator_moderations_path
   end
   
-  def toggle_sticky
+  def sticky
     @topic.toggle!("sticky")
     @topic.moderations.for_user(current_user).delete_all
     flash[:notice] = t(:topic_sticky_or_unsticky, :status => @topic.sticky? ? "stickied" : "unstickied")

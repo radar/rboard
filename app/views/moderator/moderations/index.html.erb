@@ -23,8 +23,8 @@
             <td><%= link_to moderation.moderated_object, [moderation.forum, moderation.topic] %></td>
             <td><%= moderation.created_at.strftime(date_time_display) %></td>
             <td><%= moderation.reason %></td>
-            <td><%= link_to theme_image_tag("locked.jpg", :title => moderation.topic.locked? ? t(:Unlock_this_topic) : t(:Lock_this_topic)),  toggle_lock_moderator_topic_path(moderation.topic), :method => :put %>
-            <%= link_to theme_image_tag("sticky.jpg", :title => t(:Sticky_this_topic)), toggle_sticky_moderator_topic_path(moderation.topic) %>
+            <td><%= link_to theme_image_tag("locked.jpg", :title => moderation.topic.locked? ? t(:Unlock_this_topic) : t(:Lock_this_topic)),  lock_moderator_topic_path(moderation.topic), :method => :put %>
+            <%= link_to theme_image_tag("sticky.jpg", :title => t(:Sticky_this_topic)), sticky_moderator_topic_path(moderation.topic) %>
             <%= link_to theme_image_tag("delete.jpg", :title => t(:Delete_this_topic)), moderator_topic_path(moderation.topic), :method => "delete", :confirm => t(:confirm_topic_deletion) %></td>
           </tr>
       <% end %>

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Moderation, "general" do
   fixtures :moderations, :topics, :forums
   before do
-    @moderation = moderations(:one)
+    @moderation = moderations(:first)
     @moderation.moderated_object = topics(:moderator)
     @admin_forum = forums(:admins_only)
   end

@@ -9,7 +9,6 @@ describe SearchController do
   it "should be able to find posts" do
     Post.should_receive(:search).and_return(@posts)
     @post.should_receive(:forum).and_return(@forum)
-    @forum.should_receive(:viewable?).and_return(true)
     post 'index', :query => "lolz"
   end
 end

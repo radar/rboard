@@ -3,7 +3,6 @@ class Permission < ActiveRecord::Base
   belongs_to :forum
   belongs_to :category
   
-  def self.global
-    find_by_forum_id_and_category_id(nil, nil)
-  end
+  named_scope :global, :conditions => { :forum_id => nil, :category_id => nil}
+
 end

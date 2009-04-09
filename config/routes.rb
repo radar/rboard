@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :moderator do |moderator|
     moderator.root :controller => "index"
-    moderator.resources :topics, :member => { :toggle_lock => :put, :toggle_sticky => :put }, :collection => { :moderate => :post, :merge => :put } do |topic|
+    moderator.resources :topics, :member => { :lock => :put, :sticky => :put }, :collection => { :moderate => :post, :merge => :put } do |topic|
       topic.resources :moderations
       topic.resources :posts, :member => { :split => [:get, :post] }
       topic.resources :reports
