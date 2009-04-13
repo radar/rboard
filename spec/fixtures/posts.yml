@@ -1,37 +1,37 @@
 admin:
   text: Top secret!
   user_id: 1
-  topic: admin
+  topic_id: 1
   ip: localhost
   
 admin2:
   text: Really top secret!
   user_id: 1
-  topic: admin
+  topic_id: 1
   ip: localhost  
   
 moderator:
   text: Moderator only
   user_id: 2
-  topic: moderator
+  topic_id: 2
   ip: localhost  
   
 user:
   text: user only
   user_id: 3
-  topic: user
+  topic_id: 3
   ip: localhost
   
 user_2:
   text: user2 only
   user_id: 3
-  topic: user_2
+  topic_id: 3
   ip: localhost
   
 user_3:
   text: user3 only
   user_id: 3
-  topic: user_3
+  topic_id: 5
   ip: localhost
   
 invalid:

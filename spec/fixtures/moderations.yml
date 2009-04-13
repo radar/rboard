@@ -1,8 +1,14 @@
 first:
-  moderated_object: user
+  moderated_object_type: Topic
+  moderated_object_id: 3
+  user_id: 2
 
 second:
-  moderated_object: other_user
+  moderated_object_type: Topic
+  moderated_object_id: 4
+  user_id: 2
 
 third:
-  moderated_object: user_3
+  moderated_object_type: Topic
+  moderated_object_id: 5
+  user_id: 2

@@ -58,9 +58,6 @@ describe EditsController do
     end
   
     it "should be able to see an invisible edit" do
-      Post.should_receive(:find).and_return(@post)
-      @post.should_receive(:edits).and_return(@edits)
-      @edits.should_receive(:find).and_return(@edit)
       get 'show', :id => @invisible_edit, :post_id => @admin_post
     end 
   end

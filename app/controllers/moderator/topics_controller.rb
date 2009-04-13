@@ -1,8 +1,8 @@
 class Moderator::TopicsController < Moderator::ApplicationController
   before_filter :find_topic, :except => [:moderate, :merge]
-  before_filter :can_not_move?, :only => :move
-  before_filter :can_not_merge?, :only => :merge
-  before_filter :can_not_delete?, :only => :destroy
+  # before_filter :can_not_move?, :only => :move
+  # before_filter :can_not_merge?, :only => :merge
+  # before_filter :can_not_delete?, :only => :destroy
   
   def destroy
     @topic.destroy
@@ -16,32 +16,32 @@ class Moderator::TopicsController < Moderator::ApplicationController
   #
   # The second comes from forums/show which will use all the currently selected moderations as the objects.
   def moderate
-    @moderations_for_topics = Moderation.for_user(current_user).topics.find(params[:moderation_ids]) if params[:moderation_ids]
-    @moderations_for_topics ||= Moderation.topics.for_user(current_user.id)
+    @moderations = Moderation.for_user(current_user).topics.find(params[:moderation_ids]) if params[:moderation_ids]
+    @moderations ||= Moderation.topics.for_user(current_user.id)
     case params[:commit]
       when "Lock"
-        can_not_lock?
-        @moderations_for_topics.each { |m| m.lock! }
+        can_not_lock?(@moderations)
+        @moderations.each { |m| m.lock! }
         flash[:notice] = t(:topics_locked)
       when "Unlock"
-        can_not_lock?
-        @moderations_for_topics.each { |m| m.unlock! }
+        can_not_lock?(@moderations)
+        @moderations.each { |m| m.unlock! }
         flash[:notice] = t(:topics_unlocked)
       when "Delete"
-        can_not_delete?
+        can_not_delete?(@moderations)
         #TODO: maybe ask for confirmation?
-        @moderations_for_topics.each { |m| m.destroy! }
+        @moderations.each { |m| m.destroy! }
         flash[:notice] = t(:topics_deleted)
       when "Sticky"
-        can_not_sticky?
-        @moderations_for_topics.each { |m| m.sticky! }
+        can_not_sticky?(@moderations)
+        @moderations.each { |m| m.sticky! }
         flash[:notice] = t(:topics_stickied)
       when "Unsticky"
-        can_not_sticky?
-        @moderations_for_topics.each { |m| m.unsticky! }
+        can_not_sticky?(@moderations)
+        @moderations.each { |m| m.unsticky! }
         flash[:notice] = t(:topics_unstickied)
       when "Move"
-        can_not_move?
+        can_not_move?(@moderations)
         move
         return false
       when "Merge"
@@ -49,7 +49,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         merge
         return false
     end
-    redirect_back_or_default(moderator_moderations_path) 
+    redirect_back_or_default(moderator_moderations_path) unless performed?
   rescue ActiveRecord::RecordNotFound => e
     flash[:notice] = t(:not_found, :thing => "moderation")
     redirect_back_or_default moderator_moderations_path
@@ -70,17 +70,17 @@ class Moderator::TopicsController < Moderator::ApplicationController
       # Check if user has access to all topics
       if @topics.any? { |topic| !current_user.can?(:see_forum, topic.forum) }
         flash[:notice] = t(:topics_not_accessible_by_you)
-        redirect_back_or_default forums_path
+        redirect_back_or_default(forums_path)
         return false
       end
       @topic = Topic.find(params[:master_topic_id])
       @topic.merge!(session[:moderation_ids], params[:new_subject])
       flash[:notice] = t(:topics_merged)
-      redirect_back_or_default forums_path
+      redirect_back_or_default(forums_path)
     end    
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = t(:tnot_found, "topic")
-    redirect_back_or_default moderator_moderations_path
+    flash[:notice] = t(:not_found, "topic")
+    redirect_back_or_default moderator_moderations_path 
   end
   
   def move
@@ -121,35 +121,35 @@ class Moderator::TopicsController < Moderator::ApplicationController
         redirect_to moderator_moderations_path
     end
     
-    def can_not_move?
-      if !current_user.can?(:move_topics)
+    def can_not_move?(moderations)
+      if moderations.any? { |moderation| !current_user.can?(:move_topics, moderation.topic) }
         flash[:notice] = t(:You_are_not_allowed_to_move_topics)
         redirect_back_or_default root_path
       end
     end
     
-    def can_not_lock?
+    def can_not_lock?(moderations)
       if !current_user.can?(:lock_topics)
         flash[:notice] = t(:You_are_not_allowed_to_lock_or_unlock_topics)
         redirect_back_or_default root_path
       end
     end
     
-    def can_not_delete?
+    def can_not_delete?(moderations)
       if !current_user.can?(:delete_topics)
         flash[:notice] = t(:You_are_not_allowed_to_delete_topics)
         redirect_back_or_default root_path
       end
     end
     
-    def can_not_sticky?
+    def can_not_sticky?(moderations)
       if !current_user.can?(:sticky_topics)
         flash[:notice] = t(:You_are_not_allowed_to_sticky_or_unsticky_topics)
         redirect_back_or_default root_path
       end
     end
     
-    def can_not_merge?
+    def can_not_merge?(moderations)
       if !current_user.can?(:merge_topics)
         flash[:notice] = t(:You_are_not_allowed_to_merge_topics)
         redirect_back_or_default root_path

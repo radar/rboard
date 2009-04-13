@@ -1,13 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Moderator::ModerationsController do
-  fixtures :users, :moderations, :topics, :posts, :forums
-  
-  before do
-    @moderation = mock_model(Moderation)
-    @moderations = [@moderation]
-    @topic = mock_model(Topic)
-    @forum = mock_model(Forum)
-  end
+  fixtures :users, :moderations, :topics, :posts, :forums, :groups, :group_users, :permissions
   
   describe Moderator::ModerationsController, "a user" do
     before do
@@ -27,67 +20,35 @@ describe Moderator::ModerationsController do
     end
     
     it "should be able to see the index page" do
-      Moderation.should_receive(:topics).and_return(@moderations)
-      Moderation.should_receive(:posts).and_return(@moderations)
-      @moderations.should_receive(:for_user).twice.and_return(@moderations)
-      Forum.should_receive(:viewable_to).and_return(@forums)
       get 'index'
+      response.should render_template("index")
     end
     
     it "should be able to create a moderation" do
-      Topic.should_receive(:find).and_return(@topic)
-      @topic.should_receive(:moderations).and_return(@moderations)
-      @moderations.should_receive(:for_user).twice.and_return(@moderations)
-      @moderations.should_receive(:first).and_return(nil)
-      @moderations.should_receive(:create).and_return(@moderation)
-      @topic.should_receive(:forum).and_return(@forum)
-      @forum.should_receive(:moderations).and_return(@moderations)
-      @moderations.should_receive(:topics).and_return(@moderations)
-      @moderations.should_receive(:count).and_return(1)
-      post 'create', :topic_id => 1
+      post 'create', :topic_id => topics(:moderator)
+      response.should render_template("create")
     end
     
     it "should try to create a moderation, but finding it there should destroy it" do
-      Topic.should_receive(:find).and_return(@topic)
-      @topic.should_receive(:moderations).and_return(@moderations)
-      @moderations.should_receive(:for_user).twice.and_return(@moderations)
-      @moderations.should_receive(:first).and_return(@moderation)
-      @moderation.should_receive(:destroy).and_return(@moderation)
-      @moderation.should_receive(:moderated_object).and_return(@topic)
-      @topic.should_receive(:forum).and_return(@forum)
-      @forum.should_receive(:moderations).and_return(@moderations)
-      @moderations.should_receive(:topics).and_return(@moderations)
-      @moderations.should_receive(:count).and_return(0)
-      post 'create', :topic_id => 1
+      post 'create', :topic_id => topics(:user)
+      response.should render_template("destroy")
     end
     
     it "should be able to begin to edit a moderation" do
-      Moderation.should_receive(:find).and_return(@moderation)
-      get 'edit', :id => 1
+      get 'edit', :id => moderations(:first).id
+      response.should render_template("edit")
     end
     
     it "should not be able to edit a moderation that does not exist" do
-      Moderation.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
       get 'edit', :id => 123456789
       response.should redirect_to(moderator_moderations_path)
-      flash[:notice].should_not be_nil
+      flash[:notice].should eql(t(:not_found, :thing => "moderation"))
     end
     
     it "should be able to update a moderation" do
-      Moderation.should_receive(:find).and_return(@moderation)
-      @moderation.should_receive(:update_attributes).and_return(true)
-      put 'update', :moderation => { :reason => "Because." }
-      flash[:notice].should_not be_nil
+      put 'update', { :id => moderations(:first).id, :moderation => { :reason => "Because." } }
+      flash[:notice].should eql(t(:moderation_updated))
       response.should redirect_to(moderator_moderations_path)
     end
-    
-    it "should not be able to update a moderation without a valid reason" do
-      Moderation.should_receive(:find).and_return(@moderation)
-      @moderation.should_receive(:update_attributes).and_return(false)
-      put 'update', :moderation => { :reason => "" }
-      flash[:notice].should_not be_nil
-      response.should render_template("edit")
-    end
-      
   end
 end

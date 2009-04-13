@@ -40,7 +40,6 @@ module Rboard::Auth
   end
 
   def non_moderator_redirect
-    puts current_user.inspect
     if !current_user.can?(:access_moderator_section)
       flash[:notice] = t(:need_to_be_moderator)
       redirect_back_or_default(root_path)

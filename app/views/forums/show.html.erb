@@ -90,7 +90,7 @@
           </tr>
         <% end %>
       </tbody>
-      <% if current_user.can?(:moderate_topics) %>
+      <% if current_user.can_moderate_topics? %>
         <tfoot>
           <tr>
             <td align='right' colspan='8'>

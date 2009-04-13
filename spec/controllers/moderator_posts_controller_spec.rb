@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Moderator::PostsController do
   
-  fixtures :posts, :topics, :users
+  fixtures :posts, :topics, :users, :groups, :group_users, :permissions
   
   before do
     login_as(:moderator)

@@ -17,7 +17,7 @@ class EditsController < ApplicationController
   private
   
   def find_post
-    @post = Post.find(params[:post_id], :include => :edits, :joins => { :topic => :forum }) unless params[:post_id].nil?
+    @post = Post.find(params[:post_id], :include => :edits) unless params[:post_id].nil?
     if @post.nil?
       post_not_found
     else

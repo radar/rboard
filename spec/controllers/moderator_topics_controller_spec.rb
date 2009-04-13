@@ -10,7 +10,7 @@ describe Moderator::TopicsController do
   end
   
   def moderation_ids
-    [@moderator_topic.id, @user_topic.id]
+    [moderations(:first).id, moderations(:second).id]
   end
   
   def not_allowed

@@ -6,7 +6,7 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   def index
     @topic_moderations = Moderation.topics.for_user(current_user)
     @post_moderations = Moderation.posts.for_user(current_user)
-    @all_forums = Forum.viewable_to(current_user)
+    @all_forums = Forum.all.select { |forum| current_user.can?(:see_forum, forum) }
   end
   
   # Checks to see if the moderation already exists and if it does will destroy it
