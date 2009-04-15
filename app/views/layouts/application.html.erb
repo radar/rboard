@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <title>rBoard - <%= params[:controller].capitalize %> - <%= params[:action].capitalize %> </title>
+    <title><%= t(:rBoard) %> - <%= params[:controller].capitalize %> - <%= params[:action].capitalize %> </title>
     <link rel='stylesheet' href='/themes/<%= theme.name %>/style.css'>
     <%= stylesheet_link_tag "ultraviolet/lazy" %>
     <%= stylesheet_link_tag "ultraviolet/general" %>
@@ -29,7 +29,6 @@
           <%= t(:Logged_in_as) %> <%= link_to current_user, current_user %> |
           <%= link_to t(:Edit_Profile), [:edit, current_user] %> |
           <%= link_to t(:Member_List), users_path %> | 
-          <%= link_to t(:Search), search_path %> | 
           <%= link_to t(:x_new_messages, :count => @current_user.unread_messages.size), messages_path %> |
           <%= link_to t(:Subscriptions), subscriptions_path %> |
           <%= link_to t(:Logout), logout_path %>
@@ -38,7 +37,7 @@
       
       <div class='search'>
         <% form_tag :controller => "search" do %>
-          Search: <%= text_field_tag :search %>
+          <%= t(:Search) %>: <%= text_field_tag :search %>
         <% end %>
       </div><br /><br />
       <%= yield %>

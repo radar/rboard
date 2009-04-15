@@ -1,5 +1,5 @@
 <% form_tag do %>
-<%= t(:Search) %>: <%= text_field_tag "query" %>
+<%= t(:Search) %>: <%= text_field_tag "query", params[:query] %>
 <%= submit_tag t(:Search) %>
 <% end %>
 <% if request.post? %>

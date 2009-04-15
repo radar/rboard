@@ -4,7 +4,6 @@
   <%= check_box_tag "leave_redirect" %>
   <%= label_tag "leave_redirect", t(:Leave_redirect?) %>
 <% end %>
-<% if current_user.can?%>
 <%= submit_tag(t(:Lock)) %>
 <%= submit_tag(t(:Unlock)) %>
 <%= submit_tag(t(:Merge)) %>

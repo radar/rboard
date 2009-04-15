@@ -2,6 +2,7 @@ class Rank < ActiveRecord::Base
   has_many :users
     
   named_scope :custom, :conditions => { :custom => true }
+  named_scope :for_user, lambda { |user| { :conditions => ["posts_required >= ?", user.posts.count] } } 
   
   validates_presence_of :name
   
