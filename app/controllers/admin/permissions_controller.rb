@@ -18,23 +18,64 @@ class Admin::PermissionsController < ApplicationController
     end
   end
   
+  def create
+    @permission = @object.permissions.build(params[:permission])
+    if @permission.save
+      flash[:notice] = t(:permission_created)
+      redirect_back_or_default [:admin, @object, :permissions]
+    else
+      flash[:notice] = t(:permission_not_created)
+      render :action => "new"
+    end
+  end
+  
+  def edit
+    @permission = @object.permissions.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    permission_not_found
+  end
+  
+  def update
+    @permission = @object.permissions.find(params[:id])
+    if @permission.update_attributes(params[:permission])
+      flash[:notice] = t(:permission_updated)
+      redirect_back_or_default [:admin, @object, :permissions]
+    else
+      flash[:notice] = t(:permission_not_updated)
+      render :action => "edit"
+    end
+  rescue ActiveRecord::RecordNotFound
+    permission_not_found
+  end
+  
+  def destroy
+    @permission = @object.permissions.find(params[:id])
+    @permission.destroy
+    flash[:notice] = t(:permission_deleted)
+    redirect_back_or_default [:admin, @object, :permissions]
+  end
   private
   
   def find_group
     @object = Group.find(params[:group_id], :include => :permissions)
   rescue ActiveRecord::RecordNotFound
-    group_not_found
+    not_found("group")
   end
   
   def find_forum
     @object = Forum.find(params[:forum_id], :include => :permissions)
   rescue ActiveRecord::RecordNotFound
-    forum_not_found
+    not_found("forum")
   end
   
   def find_category
     @object = Category.find(params[:category_id], :include => :permissions)
   rescue ActiveRecord::RecordNotFound
-    category_not_found
+    not_found("category")
+  end
+  
+  def not_found(object)
+    flash[:notice] = t(:not_found, object)
+    redirect_back_or_default admin_groups_path
   end
 end

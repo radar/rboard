@@ -4,13 +4,16 @@
     <thead>
       <tr>
         <td colspan='10'>
-          <h2><%= t(:New, :thing => "permission") %> <%= t(:for) %> <%= t(:a) %> <%= params[:type] %></h2>
+          <h2><%= t(:Editing_a_permission) %> <%= t(:for) %> <%= @permission.group %>
+            <% if !@permission.forum.nil? %>
+              <%= t(:for) %> Forum: <%= @permission.forum %>
+            <% end %></h2>
         </td>
       </tr>
     </thead>
       <%= render :partial => "form", :locals => { :f => f } %>
     <tfoot>
-      <tr><td colspan='10'><%= submit_tag t(:Create) %></td></tr>
+      <tr><td colspan='10'><%= submit_tag t(:Update) %></td></tr>
     </tfoot>
   </table>
 <% end %>

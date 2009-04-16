@@ -94,6 +94,7 @@
         :even => "should be even"
       }
     },
+   :a => "a", 
    :about => "about",
    :accepts_wildcard => "accepts wildcard",
    :Adapter => "Adapter",
@@ -223,6 +224,7 @@
    :Editing_a_category => "Editing a category",
    :Editing_a_forum => "Editing a forum",
    :Editing_a_group => "Editing a group",
+   :Editing_a_permission => "Editing a permission",
    :Editing_a_rank => "Editing a rank",
    :Editing_a_reply_in => "Editing a reply in",
    :Editing_a_user => "Editing a user",
@@ -354,6 +356,11 @@
    :Password_confirmation => "Password confirmation",
    :password_has_been_changed => "Your password has been changed.",
    :Permissions => "Permissions",
+   :permission_created => "Permission has been created.",
+   :permission_not_created => "Permission has not been created.",
+   :permission_updated => "Permission updated.",
+   :permission_not_updated => "Permission was not updated.",
+   :permission_deleted => "Permission was deleted.",
    :Please_choose_from_tabs => "Please choose an option from the tabs.",
    :Position => "Position",
    :Post => "Post",

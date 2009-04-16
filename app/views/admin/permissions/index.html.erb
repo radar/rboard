@@ -50,8 +50,8 @@
       <tbody>
         <% for permission in @object.permissions.forums %>
           <td>
-            <%= link_to theme_image_tag("edit.jpg"), [:admin, @object, permission] %>
-            <%= link_to theme_image_tag("delete.jpg"), [:admin, @object, permission], :method => "delete"%>
+            <%= link_to theme_image_tag("edit.jpg"), [:edit, :admin, @object, permission] %>
+            <%= link_to theme_image_tag("delete.jpg"), [:admin, @object, permission], :method => "delete", :confirm => t(:confirm_deletion, :thing => "permission")%>
           </td>
           <td><%= permission.forum %></td>
           <td><%= theme_image_tag(permission.can_see_forum?.to_s + ".jpg") %></td>
