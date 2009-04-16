@@ -10,10 +10,10 @@ class ReportsController < ApplicationController
   def create
     @report = @reportable.reports.build(params[:report].merge!(:user => current_user))
     if @report.save
-      flash[:notice] = t(:report_created)
+      flash[:notice] = t(:created, :thing => "report")
       redirect_to_reportable
     else
-      flash[:notice] = t(:report_not_created)
+      flash[:notice] = t(:not_created, :thing => "report")
       render :action => "new"
     end
   end

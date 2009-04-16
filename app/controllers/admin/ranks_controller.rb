@@ -16,10 +16,10 @@ class Admin::RanksController < Admin::ApplicationController
   def create
 	  @rank = Rank.new(params[:rank])
     if @rank.save
-      flash[:notice] = t(:rank_created)
+      flash[:notice] = t(:created, :thing => "rank")
       redirect_to admin_ranks_path
     else
-      flash[:notice] = t(:rank_not_created)
+      flash[:notice] = t(:not_created, :thing => "rank")
       render :action => "new"
     end
   end
@@ -31,10 +31,10 @@ class Admin::RanksController < Admin::ApplicationController
   # Updates a rank.
   def update
 	  if @rank.update_attributes(params[:rank])
-		  flash[:notice] = t(:rank_updated)
+		  flash[:notice] = t(:updated, :thing => "rank")
 		  redirect_to admin_ranks_path
     else
-		  flash[:notice] = t(:rank_not_updated)
+		  flash[:notice] = t(:not_updated, :thing => "rank")
 		  render :action => "edit"
 	  end
   end
@@ -42,7 +42,7 @@ class Admin::RanksController < Admin::ApplicationController
   # Deletes a rank.
   def destroy
 	  @rank.destroy
-	  flash[:notice] = t(:rank_deleted)
+	  flash[:notice] = t(:deleted, :thing => "rank_")
     redirect_to admin_ranks_path
   end
   

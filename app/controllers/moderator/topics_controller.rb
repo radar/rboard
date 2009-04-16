@@ -6,7 +6,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   
   def destroy
     @topic.destroy
-    flash[:notice] = t(:topic_deleted)
+    flash[:notice] = t(:deleted, :thing => "topic_")
     redirect_back_or_default moderator_moderations_path
   end
   
@@ -31,7 +31,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         can_not_delete?(@moderations)
         #TODO: maybe ask for confirmation?
         @moderations.each { |m| m.destroy! }
-        flash[:notice] = t(:topics_deleted)
+        flash[:notice] = t(:deleted, :thing => "topics_")
       when "Sticky"
         can_not_sticky?(@moderations)
         @moderations.each { |m| m.sticky! }

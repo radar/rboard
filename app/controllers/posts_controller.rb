@@ -24,11 +24,11 @@ class PostsController < ApplicationController
     @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => @ip))
     
     if @post.save
-      flash[:notice] = t(:post_created)
+      flash[:notice] = t(:created, :thing => "post")
       go_directly_to_post
     else
       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
-      flash.now[:notice] = t(:post_not_created)
+      flash.now[:notice] = t(:not_created, :thing => "post")
       render :action => "new"
     end
   end
@@ -48,17 +48,17 @@ class PostsController < ApplicationController
                            :ip => @ip)
         @post.update_attribute("edited_by", current_user)
       end
-      flash[:notice] = t(:post_updated)
+      flash[:notice] = t(:updated, :thing => "post")
       go_directly_to_post
     else
-      flash.now[:notice] = t(:post_not_updated)
+      flash.now[:notice] = t(:not_updated, :thing => "post")
       render :action => "edit"
     end
   end
   
   def destroy
     @post.destroy
-    flash[:notice] = t(:post_was_deleted)
+    flash[:notice] = t(:deleted, :thing => "post_was_")
     if @post.topic.posts.size.zero?
       @post.topic.destroy
       flash[:notice] += t(:topic_too)

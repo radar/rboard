@@ -21,10 +21,10 @@ class Admin::CategoriesController < Admin::ApplicationController
    def create
      @category = Category.new(params[:category])
      if @category.save
-       flash[:notice] = t(:category_created)
+       flash[:notice] = t(:created, :thing => "category")
        redirect_to admin_categories_path
      else
-       flash[:notice] = t(:category_not_created)
+       flash[:notice] = t(:not_created, :thing => "category")
        render :action => "new"
      end
    end
@@ -36,10 +36,10 @@ class Admin::CategoriesController < Admin::ApplicationController
    # Updates a category.
    def update
      if @category.update_attributes(params[:category])
-       flash[:notice] = t(:category_updated)
+       flash[:notice] = t(:updated, :thing => "category")
        redirect_to admin_categories_path
      else
-       flash[:notice] = t(:category_not_updated)
+       flash[:notice] = t(:not_updated, :thing => "category")
        render :action => "edit"
      end
    end
@@ -47,7 +47,7 @@ class Admin::CategoriesController < Admin::ApplicationController
    # Destroys a category.
    def destroy
      @category.destroy
-     flash[:notice] = t(:category_deleted)
+     flash[:notice] = t(:deleted, :thing => "category")
      redirect
    end
    

@@ -27,10 +27,10 @@ class Admin::ForumsController < Admin::ApplicationController
       Forum.new(params[:forum])
     end
     if @forum.save
-      flash[:notice] = t(:forum_created)
+      flash[:notice] = t(:created, :thing => "forum")
       redirect
     else
-      flash[:notice] = t(:forum_not_created)
+      flash[:notice] = t(:not_created, :thing => "forum")
       find_forums
       render :action => "new"
     end
@@ -46,10 +46,10 @@ class Admin::ForumsController < Admin::ApplicationController
   # Updates a forum.
   def update
     if @forum.update_attributes(params[:forum])
-      flash[:notice] = t(:forum_updated)
+      flash[:notice] = t(:updated, :thing => "forum")
       redirect
     else
-      flash[:notice] = t(:forum_not_updated)
+      flash[:notice] = t(:not_updated, :thing => "forum")
       find_forums
       render :action => "edit"
     end
@@ -58,7 +58,7 @@ class Admin::ForumsController < Admin::ApplicationController
   # Deletes a forum.
   def destroy
     @forum.destroy
-    flash[:notice] = t(:forum_deleted)
+    flash[:notice] = t(:deleted, :thing => "forum")
     redirect
   end
   

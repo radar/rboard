@@ -30,10 +30,10 @@ class Moderator::ModerationsController < Moderator::ApplicationController
   
   def update
     if @moderation.update_attributes(params[:moderation])
-      flash[:notice] = t(:moderation_updated)
+      flash[:notice] = t(:updated, :thing => "moderation")
       redirect_to moderator_moderations_path
     else
-      flash[:notice] = t(:moderation_not_updated)
+      flash[:notice] = t(:not_updated, :thing => "moderation")
       render :action => "edit"
     end
   end

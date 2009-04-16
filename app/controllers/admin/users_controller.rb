@@ -27,17 +27,17 @@ class Admin::UsersController < Admin::ApplicationController
   # Updates the details for a specific user.  
   def update
     if @user.update_attributes(params[:user])
-      flash[:notice] = t(:user_updated)
+      flash[:notice] = t(:updated, :thing => "user")
       redirect_to admin_users_path
     else
-      flash[:notice] = t(:user_not_updated)
+      flash[:notice] = t(:not_updated, :thing => "user")
       render :action => "edit"
     end
   end
   
   def destroy
     @user.destroy
-    flash[:notice] = t(:user_deleted)
+    flash[:notice] = t(:deleted, :thing => "user_")
     redirect_to admin_users_path
   end
   

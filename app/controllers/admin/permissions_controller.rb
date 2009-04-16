@@ -21,10 +21,10 @@ class Admin::PermissionsController < ApplicationController
   def create
     @permission = @object.permissions.build(params[:permission])
     if @permission.save
-      flash[:notice] = t(:permission_created)
+      flash[:notice] = t(:created, :thing => "permission")
       redirect_back_or_default [:admin, @object, :permissions]
     else
-      flash[:notice] = t(:permission_not_created)
+      flash[:notice] = t(:not_created, :thing => "permission")
       render :action => "new"
     end
   end
@@ -38,10 +38,10 @@ class Admin::PermissionsController < ApplicationController
   def update
     @permission = @object.permissions.find(params[:id])
     if @permission.update_attributes(params[:permission])
-      flash[:notice] = t(:permission_updated)
+      flash[:notice] = t(:updated, :thing => "permission")
       redirect_back_or_default [:admin, @object, :permissions]
     else
-      flash[:notice] = t(:permission_not_updated)
+      flash[:notice] = t(:not_updated, :thing => "permission")
       render :action => "edit"
     end
   rescue ActiveRecord::RecordNotFound
@@ -51,7 +51,7 @@ class Admin::PermissionsController < ApplicationController
   def destroy
     @permission = @object.permissions.find(params[:id])
     @permission.destroy
-    flash[:notice] = t(:permission_deleted)
+    flash[:notice] = t(:deleted, :thing => "permission")
     redirect_back_or_default [:admin, @object, :permissions]
   end
   private

@@ -18,10 +18,10 @@ class Admin::GroupsController < Admin::ApplicationController
   def create
     @group = Group.new(params[:group].merge!(:owner => current_user))
     if @group.save
-      flash[:notice] = t(:group_created)
+      flash[:notice] = t(:created, :thing => "group")
       redirect_to admin_groups_path
     else
-      flash[:notice] = t(:group_not_created)
+      flash[:notice] = t(:not_created, :thing => "group")
       render :action => "new"
     end
   end
@@ -33,7 +33,7 @@ class Admin::GroupsController < Admin::ApplicationController
   def update
     @permission = @group.permissions.global
     if @group.update_attributes(params[:group]) && @permission.update_attributes(params[:permission])
-      flash[:notice] = t(:group_updated)
+      flash[:notice] = t(:updated, :thing => "group")
       redirect_back_or_default admin_groups_path
     else
       flash[:notice] = t(:group_not_updaed)
@@ -43,7 +43,7 @@ class Admin::GroupsController < Admin::ApplicationController
   
   def destroy
     @group.destroy
-    flash[:notice] = t(:group_deleted)
+    flash[:notice] = t(:deleted, :thing => "group")
     redirect_to admin_groups_path
   end
   

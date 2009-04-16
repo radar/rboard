@@ -36,10 +36,10 @@ class TopicsController < ApplicationController
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
     @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
     if @topic.save && @post.save
-      flash[:notice] = t(:topic_created)
+      flash[:notice] = t(:created, :thing => "topic")
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
-      flash[:notice] = t(:topic_not_created)
+      flash[:notice] = t(:not_created, :thing => "topic")
       render :action => "new"
     end
   end
@@ -59,14 +59,14 @@ class TopicsController < ApplicationController
     else
       if @topic.update_attributes(params[:topic])
         if @topic.posts.first.update_attributes(params[:post])
-          flash[:notice] = t(:topic_updated)
+          flash[:notice] = t(:updated, :thing => "topic")
           redirect_back_or_default forum_topic_path(@forum, @topic)
         else
-          flash.now[:notice] = t(:post_not_updated)
+          flash.now[:notice] = t(:not_updated, :thing => "post")
           render :action => "edit"
         end
       else
-        flash.now[:notice] = t(:topic_not_updated)
+        flash.now[:notice] = t(:not_updated, :thing => "topic")
         render :action => "edit"
       end
     end

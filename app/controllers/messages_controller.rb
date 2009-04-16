@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
     if @message.belongs_to?(current_user.id)
       @message.update_attribute("#{@message.from_id == current_user.id ? "from" : "to"}_deleted",true) 
       @message.destroy if @message.from_deleted == @message.to_deleted
-      flash[:notice] = t(:message_deleted)
+      flash[:notice] = t(:deleted, :thing => "message_")
     elsif !current_user.admin?
       flash[:notice] = t(:message_does_not_belong_to_you)
     end
