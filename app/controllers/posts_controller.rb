@@ -58,7 +58,7 @@ class PostsController < ApplicationController
   
   def destroy
     @post.destroy
-    flash[:notice] = t(:deleted, :thing => "post_was_")
+    flash[:notice] = t(:deleted, :thing => "post")
     if @post.topic.posts.size.zero?
       @post.topic.destroy
       flash[:notice] += t(:topic_too)

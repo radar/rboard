@@ -32,8 +32,10 @@ Alternatively, you could just comment out or remove the define_index block in th
 
 rboard has the following awesome things:
   
-  * Runs on Rails 2.2 + 2.3
+  * Runs on Rails 2.3 only (sorry!)
+    * Can run on 2.x but requires a few lines to be removed.
   * Easy Internationalisation Support
+  * Detailed permissions system
   * Categories (can be ordered)
   * Forums (can be ordered)
     * List topics with subject, author, replies, views and last post information
@@ -100,11 +102,11 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
   6. OMG it is broken -- why!?!?
 
-    If you have any problems, you can contact me [through GitHub](http://github.com/inbox/new/radar) or by [emailing me](mailto:radarlistener@gmail.com)
+    If you have any problems, you can log them in [the issue tracker](http://github.com/radar/rboard/issues) or you can contact me, either [through GitHub](http://github.com/inbox/new/radar) or by [emailing me](mailto:radarlistener@gmail.com).
 
   7. I love you.
 
-    You can send money to `radarlistener@gmail.com` and I may love you back.
+    You can send money to `radarlistener@gmail.com` on Paypal or click the donate link and I will love you back.
 
 ## Integration
 
