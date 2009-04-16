@@ -1,6 +1,6 @@
 		<tr>
 			<td align='center'><%= link_to(message.to_read? ?  theme_image_tag("old.jpg") : theme_image_tag("new.jpg"), message_path(message))%></td>
-			<td align='center'><%= link_to(theme_image_tag("delete.jpg"), message_path(message), :method => "delete", :confirm => t(:confirm_message_deletion)) %></td>
+			<td align='center'><%= link_to(theme_image_tag("delete.jpg"), message_path(message), :method => "delete", :confirm => t(:confirm_deletion, :thing => "message")) %></td>
 			<td align='center'><%= message.from.login %></td>
 			<td align='center'><%= time_ago_in_words(message.created_at) %> <%= t(:ago) %></td>
 		</tr>

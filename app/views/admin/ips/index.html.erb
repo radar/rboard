@@ -1,5 +1,5 @@
-<%= link_to t(:Administration_Section), admin_root_path %> -> <%= t(:Users) %> -> <%= @user %> -> IPs
-<h2><%= t(:IPs, :for => @user) %></h2>
+<%= link_to t(:Administration_Section), admin_root_path %> -> <%= link_to t(:Users), admin_users_path %> -> <%= link_to @user, admin_user_path(@user) %> -> <%= t(:IPs) %>
+<h2><%= t(:IPs) %> <%= t(:for) %> <%= @user %></h2>
 <table cellspacing='0' cellpadding='2' class='list-table' width='100%' rules='groups'>
   <thead>
     <tr>

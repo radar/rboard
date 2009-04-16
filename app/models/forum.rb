@@ -1,12 +1,14 @@
 class Forum < ActiveRecord::Base
+  default_scope :order => "title asc"
+  
   acts_as_list :scope => :parent_id
   acts_as_tree :order => :position
   
   named_scope :without_category, :conditions => { :category_id => nil }, :include => :permissions, :order => "position"
   named_scope :without_parent, :conditions => { :parent_id => nil }, :include => :permissions, :order => "position" 
   has_many :moderations
-  has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at DESC"
-  has_many :topics, :order => "topics.created_at DESC", :dependent => :destroy 
+  has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at desc"
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
   has_many :permissions
   has_many :groups, :through => :permissions
 

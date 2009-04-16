@@ -2,9 +2,6 @@
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead><tr><td colspan='2'><h2><%= t(:Editing_your_profile) %></h2></td></tr></thead>
     <tbody>
-      <tr>
-        <td valign='top' colspan='2'><h3><%= t(:New_password) %></h3></td>
-      </tr>
       
       <tr>
         <td valign='top'><%= f.label "display_name", t(:Display_Name) %></td>
@@ -12,13 +9,21 @@
       </tr>
       
       <tr>
-        <td valign='top'><%= f.label "password", t(:New_Password)  %></td>
+        <td valign='top' colspan='2'><h3><%= t(:New, :thing => "password") %></h3></td>
+      </tr>
+      
+      <tr>
+        <td valign='top'><%= f.label "password", t(:New, :thing => "Password" )  %></td>
         <td><%= f.password_field "password", :value => "" %></td>
       </tr>
       
       <tr>
         <td valign='top'><%= f.label "password_confirmation", t(:New_Password_Confirmation) %></td>
         <td><%= f.password_field "password_confirmation", :value => "" %></td>
+      </tr>
+      
+      <tr>
+        <td valign='top' colspan='2'><h3><%= t(:Forum_information) %></h3></td>
       </tr>
       
       <tr>

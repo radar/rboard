@@ -1,6 +1,6 @@
 <%= link_to t(:Administration_Section), admin_root_path %> -> <%= t(:Users) %> 
-<% if @ip %>
-  <%= t(:for) %> <%= @ip %> 
+<% if @object %>
+  <%= t(:for) %> <%= "#{@object.class.to_s}: #{@object}" %> 
 <% end %>
 <h2><%= t(:Users) %></h2>
 <%= will_paginate(@users) %>
@@ -20,7 +20,7 @@
   <tbody>
     <% for user in @users %>
       <tr>
-        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_user_path(user), :method => :delete, :confirm => t(:confirm_user_deletion) %>
+        <td class='icon'><%= link_to theme_image_tag("delete.jpg"), admin_user_path(user), :method => :delete, :confirm => t(:confirm_deletion, :thing => "user") %>
           <%= link_to theme_image_tag("edit.jpg"), edit_admin_user_path(user) %>
           <%= link_to theme_image_tag("ban.jpg"), ban_admin_user_path(user), :confirm => t(:confirm_user_ban) %></td>
         <td><%= link_to user.login, admin_user_path(user) %></td>

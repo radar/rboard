@@ -1,5 +1,5 @@
 <%= link_to t(:Administration_Section), admin_root_path %> -> <%= t(:Forums) %>
 <h2><%= t(:Forums) %></h2>
-<%= link_to t(:New_Forum), new_admin_forum_path %>
+<%= link_to t(:New, :thing => "Forum"), new_admin_forum_path %>
 
 <%= render :partial => "forums" %>

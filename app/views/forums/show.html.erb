@@ -23,7 +23,7 @@
 <h2><%= t(:Viewing_forum) %> <%= @forum.title %></h2>
 <%= will_paginate @topics %>
 <% if current_user.can?(:start_new_topics, @forum) %>
-  <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum)) %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
 	<% unless @topics.empty? %>
@@ -115,6 +115,6 @@
   <% end %>
 </table>
 <% if current_user.can?(:start_new_topics, @forum) %>
-  <%= link_to(t(:New_Topic), new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum)) %>
 <% end %>
 <%= will_paginate @topics %>

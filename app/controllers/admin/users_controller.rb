@@ -2,14 +2,15 @@ class Admin::UsersController < Admin::ApplicationController
   before_filter :store_location, :only => [:index]
   before_filter :find_ip
   before_filter :find_user, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_group
   
-  # Show all the users, in no particular order.
+  # Show all the users, by login in ascending order. 
   def index
-    @users = if @ip
-      @ip.users
+    @users = if @object
+      @object.users
     else
-      User.paginate(:page => params[:page], :per_page => 50)
-    end
+      User
+    end.paginate(:order => "login ASC", :page => params[:page], :per_page => per_page)
   end
   
   # See details for a particular user.
@@ -101,7 +102,12 @@ class Admin::UsersController < Admin::ApplicationController
   end
   
   def find_ip
-    @ip = Ip.find(params[:ip_id]) unless params[:ip_id].nil?
+    @object = Ip.find(params[:ip_id]) unless params[:ip_id].nil?
   end
+  
+  def find_group
+    @object = Group.find(params[:group_id]) unless params[:group_id].nil?
+  end
+    
   
 end

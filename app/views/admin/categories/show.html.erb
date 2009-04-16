@@ -1,4 +1,4 @@
 <h2><%= t(:Forums) %> <%= t(:for) %> <%= @category.name %></h2>
-<%= link_to t(:New_Forum), new_admin_category_forum_path(@category) %>
+<%= link_to t(:New, :thing => "Forum"), new_admin_category_forum_path(@category) %>
 
 <%= render :partial => "admin/forums/forums" %>

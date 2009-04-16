@@ -20,7 +20,7 @@
       <% if @reportable %>
         <% for report in @reports %>
           <tr>
-            <td><%= link_to theme_image_tag("delete.jpg"), moderator_report_path(report), :confirm => t(:confirm_report_deletion) %></td>
+            <td><%= link_to theme_image_tag("delete.jpg"), moderator_report_path(report), :confirm => t(:confirm_deletion, :thing => "report") %></td>
             <td><%= truncate(report.text, 100) %></td>
             <td><%= report.user %></td>
             <td><%= report.created_at.strftime(date_time_display) %></td>

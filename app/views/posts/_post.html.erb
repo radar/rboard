@@ -21,7 +21,7 @@
             | <%= link_to t(:Edit), edit_topic_post_path(post.topic, post) %> |
           <% end %>
           <% if (post.belongs_to?(current_user) && current_user.can?(:delete_own_posts, @forum)) || current_user.can?(:delete_posts, @forum) %>
-            <%= link_to t(:Delete), topic_post_path(post.topic, post), :method => "delete", :confirm => t(:confirm_post_deletion) %>
+            <%= link_to t(:Delete), topic_post_path(post.topic, post), :method => "delete", :confirm => t(:confirm_deletion, :thing => "post") %>
           <% end %>
           
           <% if current_user.can?(:split_topics, @forum) %>

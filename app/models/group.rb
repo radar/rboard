@@ -13,4 +13,8 @@ class Group < ActiveRecord::Base
   def add_owner_to_users
     users << owner
   end
+  
+  def to_s
+    name
+  end
 end

@@ -1,7 +1,7 @@
 <tr>
   <td class='icon'>
     <%= link_to theme_image_tag("edit.jpg"), edit_admin_category_path(category) %>
-    <%= link_to theme_image_tag("delete.jpg"), admin_category_path(category), :method => "delete", :confirm => t(:confirm_category_deletion) %>
+    <%= link_to theme_image_tag("delete.jpg"), admin_category_path(category), :method => "delete", :confirm => t(:confirm_deletion, :thing => "category") %>
   </td>
   
   <td style='text-align:left !important'> 

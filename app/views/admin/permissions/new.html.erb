@@ -1,0 +1,15 @@
+<% form_for [:admin, @object, @permission] do |f| %>
+  <table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
+    <thead>
+      <tr>
+        <td colspan='6'>
+          <h2>New Permission for a <%= params[:type] %></h2>
+        </td>
+      </tr>
+    </thead>
+      <%= render :partial => "form", :locals => { :f => f } %>
+    <tfoot>
+      <tr><td colspan='6'><%= submit_tag "Create", :value => t(:Create) %></td></tr>
+    </tfoot>
+  </table>
+<% end %>

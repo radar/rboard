@@ -12,7 +12,7 @@
           <% for topic in @topics %>
             <%= radio_button_tag "master_topic_id", topic.id, false, :onclick => "$('new_subject').value = '#{topic.subject}'" %> <%= topic.subject %><br />
           <% end %>
-          <%= label_tag "new_subject", t(:New_subject) %><%= text_field_tag "new_subject" %><br />
+          <%= label_tag "new_subject", t(:New, :thing => "subject") %><%= text_field_tag "new_subject" %><br />
           <%= submit_tag t(:Merge) %>
         </td>
       </tr>

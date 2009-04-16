@@ -1,18 +1,26 @@
-<tbody>
-  <tr>
-    <td width='25%'><%= f.label :name, t(:Name) %></td>
-    <td><%= f.text_field "name" %></td>
-  </tr>
-  <tr>
-    <td colspan='2'><h2>Global Permissions</h2></td>
-  </tr>
-  <% fields_for @permission do |permission| %>
-    <% for field in @fields %>
-      <tr>
-        <td><%= permission.label field, t(field + "?") %></td>
-        <td><%= permission.check_box field %></td>
-      </tr>
-    <% end %>
-  <% end %>
-</tbody>
-  
+<table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
+  <thead>
+    <tr>
+      <td colspan='6'>
+       <h2><%= t(:Editing_a_group) %></h2>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td colspan='2'><%= f.label :name, t(:Name) %></td>
+      <td colspan='4'><%= f.text_field "name" %></td>
+    </tr>
+  </tbody>
+</table>
+
+<table cellspacing='0' cellpadding='2' width='100%' class='action-box'>
+  <thead>
+    <tr>
+      <td colspan='10'>
+       <h2><%= t(:Global_Permissions) %></h2>
+      </td>
+    </tr>
+  </thead>
+  <%= render :partial => "admin/permissions/form" %>
+</table>

@@ -46,7 +46,7 @@ img {
 }
 
 .flash {
-  background: #A4D5FF none repeat scroll 0%;
+  background: #ffb200 url(/themes/dark/thead-bg.jpg);
   border: 2px solid #84AFD3;
   font-size: 16pt;
   font-weight: bold;
@@ -98,7 +98,7 @@ img {
 
 
 .forum tfoot {
-  background: #C1E2FE none repeat scroll 0%;
+  background: #ffb200 url(/themes/dark/thead-bg.jpg);
 }
 
 .forum tfoot input {
@@ -140,7 +140,7 @@ img {
 }
 
 .post tfoot, .action-box tfoot {
-  background: #E1F1FF url(/themes/dark/tfoot-bg.jpg) repeat-x scroll 0%;
+  background: #ffb200 url(/themes/dark/tfoot-bg.jpg) repeat-x scroll 0%;
 }
 
 .posts h1 {

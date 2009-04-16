@@ -1,9 +1,13 @@
 class Admin::GroupsController < Admin::ApplicationController
+  helper "admin/permissions"
   before_filter :find_group, :only => [:show, :edit, :update, :destroy]
-  before_filter :find_fields, :only => [:new, :create, :edit, :update]
-  
+  before_filter :store_location, :only => :index
   def index
     @groups = Group.all
+  end
+  
+  def show
+    redirect_to admin_group_users_path(params[:id])
   end
   
   def new
@@ -30,7 +34,7 @@ class Admin::GroupsController < Admin::ApplicationController
     @permission = @group.permissions.global
     if @group.update_attributes(params[:group]) && @permission.update_attributes(params[:permission])
       flash[:notice] = t(:group_updated)
-      redirect_to admin_groups_path
+      redirect_back_or_default admin_groups_path
     else
       flash[:notice] = t(:group_not_updaed)
       render :action => "edit"
@@ -44,10 +48,6 @@ class Admin::GroupsController < Admin::ApplicationController
   end
   
   private
-  
-    def find_fields
-      @fields = Permission.columns.map(&:name).grep(/can/).sort
-    end
   
     def find_group
       @group = Group.find(params[:id])

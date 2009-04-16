@@ -4,7 +4,7 @@ class Admin::CategoriesController < Admin::ApplicationController
   
    # Find all the categories in order by name.
    def index
-     @categories = Category.all(:order => "name asc")
+     @categories = Category.all
    end
    
    # Find all the forums for the category in question.

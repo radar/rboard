@@ -1,6 +1,6 @@
 <%= link_to t(:Administration_Section), admin_root_path %> -> <%= t(:Ranks) %>
 <h2>Ranks</h2>
-<%= link_to t(:New_Rank), new_admin_rank_path %>
+<%= link_to t(:New, :thing => "Rank"), new_admin_rank_path %>
 <table cellspacing='0' cellpadding='5' width='100%' class='list-table' rules='groups'>
   <thead>
     <tr>
@@ -15,7 +15,7 @@
     <% for rank in @ranks %>
       <tr>
         <td class='icon'><%= link_to(theme_image_tag("edit.jpg"), edit_admin_rank_path(rank)) %>
-          <%= link_to(theme_image_tag("delete.jpg"), admin_rank_path(rank), :method => "delete", :confirm => t(:confirm_rank_deletion)) %></td>
+          <%= link_to(theme_image_tag("delete.jpg"), admin_rank_path(rank), :method => "delete", :confirm => t(:confirm_deletion, :thing => "rank")) %></td>
         <td><%= rank.name %></td>
         <td><%= rank.posts_required.nil? ? t(:none) : rank.posts_required %></td>
         <td><%= rank.custom ? t(:yes) : t(:no) %></td></tr>

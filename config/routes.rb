@@ -19,7 +19,15 @@ ActionController::Routing::Routes.draw do |map|
       forum.resources :permissions
     end
     
-    admin.resources :groups
+    admin.resources :groups do |group|
+      group.resources :users
+      # For finding the permissions for a group in regards to a single forum.
+      group.resources :forums do |forum|
+        forum.resources :permissions
+      end
+      
+      group.resources :permissions
+    end
     
     admin.resources :ips do |ip|
       ip.resources :topics, :only => [:index]

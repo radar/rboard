@@ -7,7 +7,7 @@ module Rboard::Auth
     new_user.login_time = Time.now
     new_user.ip = request.remote_addr
     ip = Ip.find_or_create_by_ip(request.remote_addr)
-    ip.users << new_user
+    ip.users << new_user unless ip.users.include?(new_user)
     new_user.save
     session[:user] = new_user.id
     @current_user = new_user
