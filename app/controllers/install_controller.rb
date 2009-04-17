@@ -16,7 +16,7 @@ class InstallController < ApplicationController
       render :action => "index"
     else
       File.open("#{RAILS_ROOT}/config/database.yml", "w+") do |f|
-         f.write YAML::dump({ 'development' => params[:database] })
+         f.write YAML::dump({ 'production' => params[:database]})
        end
        `rake db:schema:load`
        `rake ts:config`
