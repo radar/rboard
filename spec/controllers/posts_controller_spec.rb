@@ -76,14 +76,14 @@ describe PostsController, "as plebian" do
     Time.stub!(:now).and_return(two_minutes_into_the_future)
     post 'create', { :post => { :text => "This is a new post" }, :topic_id => topics(:user).id }
     @post_id = Post.last.id
-    flash[:notice].should eql(t(:post_created))
+    flash[:notice].should eql(t(:created, :thing => "post"))
     response.should redirect_to(forum_topic_path(forums(:everybody), topics(:user)) + "/1#post_#{@post_id}")
   end
   
   it "should not be able to create an invalid post" do
     post 'create', {:post => { :text => "" }, :topic_id => topics(:user).id }
     response.should render_template("new")
-    flash.now[:notice].should eql(t(:post_not_created))
+    flash.now[:notice].should eql(t(:created, :thing => "post"))
   end
   
   it "should be able to destroy a post, but not the topic" do
@@ -91,14 +91,14 @@ describe PostsController, "as plebian" do
     @post.stub!(:topic).and_return(topics(:user))
     delete 'destroy', :id => @first_post.id
     response.should redirect_to(forum_path(@post.forum))
-    flash[:notice].should eql(t(:post_was_deleted))
+    flash[:notice].should eql(t(:deleted, :thing => "post"))
   end
   
   it "should be able to destroy a post, and the topic" do
     @post.stub!(:forum).and_return(forums(:everybody))
     delete 'destroy', :id => @first_post.id
     response.should redirect_to(forum_path(@post.forum))
-    flash[:notice].should eql(t(:post_was_deleted) + t(:topic_too))
+    flash[:notice].should eql(t(:deleted, "post") + t(:topic_too))
   end
   
   it "should not be able to destroy a post that does not exist" do

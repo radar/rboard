@@ -37,7 +37,7 @@ class Admin::UsersController < Admin::ApplicationController
   
   def destroy
     @user.destroy
-    flash[:notice] = t(:deleted, :thing => "user_")
+    flash[:notice] = t(:deleted, :thing => "user")
     redirect_to admin_users_path
   end
   

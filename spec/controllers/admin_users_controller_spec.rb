@@ -35,22 +35,22 @@ describe Admin::UsersController, "as an admin" do
     it "should be able to update a user" do
       @user.expects(:update_attributes).returns(true)
       put 'update', { :id => 'administrator', :user => { :signature => "woot"}}
-      flash[:notice].should eql(t(:user_updated))
+      flash[:notice].should eql(t(:updated, :thing => "user"))
       response.should redirect_to(admin_users_path)
     end
     
     it "should not be able to update a user with invalid attributes" do
       @user.expects(:update_attributes).returns(false)
       put 'update', { :id => 'administrator', :user => { :login => ''} }
-      flash[:notice].should eql(t(:user_not_updated))
+      flash[:notice].should eql(t(:not_updated, :thing => "user"))
       response.should render_template("edit")
     end
     
     it "should be able to delete a user" do
       @user.should_receive(:destroy)
       delete 'destroy', :id => 'administrator'
-      flash[:notice].should eql(t(:user_deleted))
-      response.should redirect_to admin_users_path
+      flash[:notice].should eql(t(:deleted, :thing => "user"))
+      response.should redirect_to(admin_users_path)
     end
       
     

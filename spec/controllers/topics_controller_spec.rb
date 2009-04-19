@@ -132,13 +132,13 @@ describe TopicsController do
     
     it "should be able to create a topic" do
       post 'create', { :forum_id => @admin_forum.id, :topic => { :subject => "Testing"}, :post => { :text => "1, two, free" } }
-      flash[:notice].should eql(t(:topic_created))
+      flash[:notice].should eql(t(:created, :thing => "topic"))
     end
     
     it "should not be able to create a topic with invalid data" do
       post 'create', { :forum_id => @admin_forum.id, :topic => { :subject => ""}, :post => { :text => "1, two, free" } }
       response.should render_template("new")
-      flash[:notice].should eql(t(:topic_not_created))
+      flash[:notice].should eql(t(:not_created, :thing => "topic"))
     end
     
     it "should be able to see a topic in the free-for-all forum" do
