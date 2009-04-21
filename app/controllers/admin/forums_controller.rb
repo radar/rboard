@@ -65,28 +65,28 @@ class Admin::ForumsController < Admin::ApplicationController
   # Moves a forum one space up using an acts_as_list provided method.
   def move_up
     @forum.move_higher
-    flash[:notice] = t(:forum_moved_higher, :forum => @forum)
+    flash[:notice] = t(:moved_higher, :thing => "Forum")
     redirect
   end
   
   # Moves a forum one space down using an acts_as_list provided method.
   def move_down
     @forum.move_lower
-    flash[:notice] = t(:forum_moved_lower, :forum => @forum)
+    flash[:notice] = t(:moved_lower, :thing => "Forum")
     redirect
   end
   
   # Moves a forum to the top using an acts_as_list provided method.
   def move_to_top
     @forum.move_to_top
-    flash[:notice] = t(:forum_moved_to_top, :forum => @forum)
+    flash[:notice] = t(:moved_to_top, :thing => "Forum")
     redirect
   end
   
   # Moves a forum to the bottom using an acts_as_list helper.
   def move_to_bottom
     @forum.move_to_bottom
-    flash[:notice] = t(:forum_moved_to_bottom, :forum => @forum)
+    flash[:notice] = t(:moved_to_bottom, :thing => "Forum")
     redirect
   end
   

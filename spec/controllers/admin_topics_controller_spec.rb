@@ -21,9 +21,8 @@ describe Admin::TopicsController do
     end
   
     it "should be able to find all topics created by a specific IP" do
-      Ip.should_receive(:find).and_return(@ip)
-      @ip.should_receive(:topics).and_return(@topics)
       get 'index', :ip_id => ips(:localhost).id
+      response.should render_template("index")
     end
   
     it "should not be able to find topics created by an imaginary IP" do

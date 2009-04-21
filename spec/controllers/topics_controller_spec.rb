@@ -86,7 +86,7 @@ describe TopicsController do
     
       it "should be able to update a topic that belongs to itself" do
         put 'update', params.merge!(:topic => { :subject => "Testing" })
-        flash.now[:notice].should eql(t(:topic_updated))
+        flash.now[:notice].should eql(t(:updated, :thing => "topic"))
         response.should redirect_to(forum_topic_path(@everybody, @everybody_topic))
       end
     

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090409114530) do
+ActiveRecord::Schema.define(:version => 20090420081525) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -126,7 +126,6 @@ ActiveRecord::Schema.define(:version => 20090409114530) do
     t.boolean "can_split_topics",             :default => false
     t.boolean "can_send_multiple_messages",   :default => false
     t.boolean "can_send_messages_to_groups",  :default => false
-    t.boolean "can_read_messages",            :default => false
     t.boolean "can_read_private_messages",    :default => false
     t.boolean "can_manage_groups",            :default => false
     t.boolean "can_manage_bans",              :default => false

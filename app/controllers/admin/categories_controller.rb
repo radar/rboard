@@ -54,28 +54,28 @@ class Admin::CategoriesController < Admin::ApplicationController
    # Moves a category one space up using an acts_as_list provided method.
     def move_up
       @category.move_higher
-      flash[:notice] = t(:category_moved_higher, :category => @category)
+      flash[:notice] = t(:moved_higher, :thing => "Category")
       redirect
     end
 
    # Moves a category one space down using an acts_as_list provided method.
    def move_down
      @category.move_lower
-     flash[:notice] = t(:category_moved_lower, :category => @category)
+     flash[:notice] = t(:moved_lower, :thing => "Category")
      redirect
    end
 
    # Moves a category to the top using an acts_as_list provided method.
    def move_to_top
      @category.move_to_top
-     flash[:notice] = t(:category_moved_to_top, :category => @category)
+     flash[:notice] = t(:moved_to_top, :thing => "Category")
      redirect
    end
 
    # Moves a category to the bottom using an acts_as_list helper.
    def move_to_bottom
      @category.move_to_bottom
-     flash[:notice] = t(:category_moved_to_bottom, :category => @category)
+     flash[:notice] = t(:moved_to_bottom, :thing => "Category")
      redirect
    end
    

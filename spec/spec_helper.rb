@@ -13,8 +13,8 @@ def logout
   request.session[:user] = nil
 end
 
-def t(*args)
-  I18n.t(*args)
+def t(value, options={})
+  I18n.t(value, options)
 end
 
 Spec::Runner.configure do |config|

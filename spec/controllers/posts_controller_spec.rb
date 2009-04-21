@@ -50,7 +50,7 @@ describe PostsController, "as plebian" do
   
   it "should be able to update a post" do
     put 'update', :id => @first_post.id, :post => { :text => "Hooray!" }
-    flash[:notice].should eql(t(:post_updated))
+    flash[:notice].should eql(t(:updated, :thing => "post"))
   end
   
   it "shouldn't be able to update a post that doesn't exist" do
@@ -81,7 +81,7 @@ describe PostsController, "as plebian" do
   end
   
   it "should not be able to create an invalid post" do
-    post 'create', {:post => { :text => "" }, :topic_id => topics(:user).id }
+    post 'create', {:post => { :text => ""  }, :topic_id => topics(:user).id }
     response.should render_template("new")
     flash.now[:notice].should eql(t(:created, :thing => "post"))
   end
@@ -90,15 +90,22 @@ describe PostsController, "as plebian" do
     @post.stub!(:forum).and_return(forums(:everybody))
     @post.stub!(:topic).and_return(topics(:user))
     delete 'destroy', :id => @first_post.id
-    response.should redirect_to(forum_path(@post.forum))
+    response.should redirect_to(forum_topic_path(@post.forum, @post.topic))
     flash[:notice].should eql(t(:deleted, :thing => "post"))
   end
   
   it "should be able to destroy a post, and the topic" do
     @post.stub!(:forum).and_return(forums(:everybody))
+    @post.stub!(:belongs_to?).and_return(true)
+    Post.should_receive(:find).and_return(@post)
+    @post.should_receive(:topic).twice.and_return(@topic)
+    @topic.should_receive(:posts).and_return(@posts)
+    @post.should_receive(:destroy)
+    @topic.should_receive(:destroy)
+    @posts.should_receive(:size).and_return(0)
     delete 'destroy', :id => @first_post.id
     response.should redirect_to(forum_path(@post.forum))
-    flash[:notice].should eql(t(:deleted, "post") + t(:topic_too))
+    flash[:notice].should eql(t(:deleted, :thing => "post") + t(:topic_too))
   end
   
   it "should not be able to destroy a post that does not exist" do

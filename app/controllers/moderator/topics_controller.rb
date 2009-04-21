@@ -45,7 +45,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         move
         return false
       when "Merge"
-        params[:moderation_ids] = @moderations_for_topics.map(&:moderated_object_id)
+        params[:moderation_ids] = @moderations.map(&:moderated_object_id)
         merge
         return false
     end
