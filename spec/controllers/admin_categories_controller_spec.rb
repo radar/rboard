@@ -28,7 +28,7 @@ describe Admin::CategoriesController do
     end
   
     it "should be able to show a list of categories" do
-      Category.should_receive(:all).with(:order => "name asc").and_return(@categories)
+      Category.should_receive(:all).and_return(@categories)
       get 'index'
     end
     
