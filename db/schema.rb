@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090420081525) do
+ActiveRecord::Schema.define(:version => 20090423111358) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -24,6 +24,11 @@ ActiveRecord::Schema.define(:version => 20090420081525) do
     t.integer "position"
     t.integer "is_visible_to_id"
     t.string  "description"
+  end
+
+  create_table "configurations", :force => true do |t|
+    t.string "key"
+    t.string "value"
   end
 
   create_table "edits", :force => true do |t|
