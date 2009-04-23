@@ -12,21 +12,19 @@ In order to start using rBoard you should only have to clone the repository
 
     git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
+    rake install
     
-Start up the site in your deployment of choice and complete the installation procedure (by accessing the site in your web browser of choice) and you should be ready to go!
 ## Requirements
 
 This app requires Sphinx which can be obtained from the Sphinx [website](http://sphinxsearch.com). Sphinx works with both MySQL and PostgreSQL. 
 
-Alternatively, you could just comment out or remove the define_index block in the post model.
+Alternatively, you could just set `THINKING_SPHINX = false` in _config/environment.rb_
 
 ### Sphinx Installation
 
   1. download Sphinx
   2. extract it
   3. run `./configure && make && sudo make install` 
-  4. `cd` to rBoard app folder
-  5. run `rake ts:config && rake ts:in && rake ts:start`. This should start up the thinking sphinx daemon.
   
 ## Features
 
@@ -115,6 +113,8 @@ rBoard works as a stand-alone solution as well as a drop-in solution for your si
   1. Use the pre-existing user model (integrate your site into rBoard). 
   
   2. Use your own user model (integrate rBoard into your site). In user model you just have to write `include Rboard::UserExtension`. The relevant authentication system code has also been modularized into *lib/rboard/auth.rb* and must be included into the ApplicationController of your site like this: `include Rboard::Auth`. Please be aware that this module will override any `current_user` or `logged_in?` methods you have defined anywhere else. 
+  
+Also you should set `STANDALONE = false` inside _config/environment.rb_.
   
 If you wish to use a different authentication system other than Restful Authentication then remove the user model (*app/models/user.rb*) and replace it with your own whilst not forgetting to `include Rboard::UserExtension`, the AuthenticatedSystem module (*lib/authenticated_system.rb*) and the AuthenticatedTestHelper module (*lib/authenticated_test_helper.rb*)
   
