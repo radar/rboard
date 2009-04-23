@@ -15,9 +15,11 @@ class Post < ActiveRecord::Base
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
-  define_index do
-    indexes text
-    set_property :delta => true
+  unless THINKING_SPHINX
+    define_index do
+      indexes text
+      set_property :delta => true
+    end
   end
   
   delegate :subject, :to => :topic
