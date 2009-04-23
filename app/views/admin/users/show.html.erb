@@ -2,21 +2,12 @@
 <table cellspacing='0' cellpadding='5' width='100%' class='posts'>
   <tr>
     <td rowspan='2' valign='top' width='4%'><b><%= @user %></b><br /> 
-      <% if @user.admin? %>
-        <b><font color='red'><%= t(:Administrator) %></font></b>
-      <% elsif @user.moderator? %>
-        <b><font color='green'><%= t(:Moderator) %></font></b>
-      <% else @user.user? %>
-        <b><font color='Blue'><%= t(:User) %></font></b>
-      <% end %> 
-      <br />
-      
-      <% if @user.has_avatar? %>
-        <%= image_tag @user.avatar(:thumb) %>
-      <% elsif !@user.email.blank? %>
-        <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br />
-      <% end %>
-        
+        <b><%= post.user.rank %></b><br />
+        <% if post.user.has_avatar? %>
+          <%= image_tag post.user.avatar(:thumbnail) %><br />
+        <% elsif !post.user.email.blank? %>
+          <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(post.user.email) + "&default=") %><br />
+      <br />        
     </td>
   </tr>
   <tr>
