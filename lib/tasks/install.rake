@@ -4,11 +4,28 @@ def highline
     HighLine.new
   end
 end
+
+# Ugh. As much as I hate ugly hacks, I have to do this.
+# For what reason? It defaults to test. Always.
+# I have absolutely no clue why.
+# It is late on a Sunday night, all I want to do is relax and go to bed with a clear mind.
+# If you can fix this better than I am, you are a better man (or woman)
+# I have to do this.
+# Forgive me.
+def establish_connection  
+  ActiveRecord::Base.establish_connection(YAML.load_file("#{RAILS_ROOT}/config/database.yml")[ENV['RAILS_ENV']])
+end
+
 task :install => :environment do
   puts "Creating databases..."
+  # Check the comment for this method.
+  establish_connection
   Rake::Task["db:create:all"].invoke if STANDALONE
   puts "Loading schema..."
+  # Check the comment for this method.
+  establish_connection
   Rake::Task["db:schema:load"].invoke
+  
   puts "*" * 50
   puts "Welcome to rBoard's install process."
   puts "*" * 50

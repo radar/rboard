@@ -13,7 +13,7 @@ end
 if File.readlines(database).empty?
   raise "Your database.yml file is empty. Please add your database information."
 end
-Rails::Initializer.run do |config|
+init = Rails::Initializer.run do |config|
   
   config.gem 'chronic'
   config.gem 'RedCloth'
@@ -28,6 +28,7 @@ Rails::Initializer.run do |config|
   config.time_zone = "UTC"
   
 end
+puts init.loaded_plugins.inspect
 # Application specific variables
 # Standard settings for rboard.
 # Display 25 items per page.
