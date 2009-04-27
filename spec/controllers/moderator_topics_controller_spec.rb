@@ -45,7 +45,7 @@ describe Moderator::TopicsController do
     it "should be able to lock topics for moderations selected on the moderations page" do
       put 'moderate', { :commit => "Lock", :moderation_ids => moderation_ids }
       flash[:notice].should eql(t(:topics_locked))
-      response.should redirect_to(moderator_moderations_path)
+      response.should redirect_to(root_path)
     end
   
     it "should be able to unlock topics for moderations selected on the moderations page" do
@@ -80,6 +80,7 @@ describe Moderator::TopicsController do
     
     it "should be able to begin to merge for moderations selected on the moderations page" do
       put 'moderate', { :commit => "Merge", :moderation_ids => moderation_ids }
+      response.should render_template("merge")
     end
   
     it "should be able to begin to merge for moderations selected on the moderations page" do
@@ -102,12 +103,12 @@ describe Moderator::TopicsController do
   
     it "shouldn't be able to merge topics that don't exist" do
       put 'moderate', { :commit => "Merge", :moderation_ids => moderation_ids + [123456789], :new_subject => "Puppies", :master_topic_id => @user_topic.id }, { :user => users(:moderator).id, :moderation_ids => moderation_ids + [123456789] }
-      flash[:notice].should eql(t(:not_found, :thing => "topic"))
+      flash[:notice].should eql(t(:not_found, :thing => "moderation"))
       response.should redirect_to(moderator_moderations_path)
     end
     
     it "should not be able to act on moderations that don't belong to them" do
-      put 'moderate', { :commit => "Lock", :_ids => [2,3,4] }
+      put 'moderate', { :commit => "Lock", :moderation_ids => [2,3,4] }
       response.should redirect_to(moderator_moderations_path)
       flash[:notice].should_not be_nil
     end

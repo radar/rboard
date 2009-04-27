@@ -47,7 +47,7 @@ describe Moderator::ModerationsController do
     
     it "should be able to update a moderation" do
       put 'update', { :id => moderations(:first).id, :moderation => { :reason => "Because." } }
-      flash[:notice].should eql(t(:moderation_updated))
+      flash[:notice].should eql(t(:updated, :thing => "moderation"))
       response.should redirect_to(moderator_moderations_path)
     end
   end

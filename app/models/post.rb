@@ -76,9 +76,8 @@ class Post < ActiveRecord::Base
   # Called after create and destroy of posts.
   def find_latest_post
     # Posts for a forum are ordered in reverse.
-    last = forum.posts.first
-    if !last.nil?
-      last = Post.update_latest_post(last)
+    if last = forum.posts.first
+      Post.update_latest_post(last)
     else
       forum.last_post = nil
       forum.last_post_forum = nil

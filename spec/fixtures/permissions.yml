@@ -72,7 +72,6 @@ administrator:
   can_split_topics: true
   can_send_multiple_messages: true
   can_send_messages_to_groups: true
-  can_read_messages: true
   can_read_private_messages: true
   can_manage_groups: true
   can_manage_bans: true

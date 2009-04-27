@@ -59,6 +59,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
     if params[:moderation_ids]
       @topics = Topic.find(params[:moderation_ids])
       session[:moderation_ids] = params[:moderation_ids]
+      render
     end
     @topics ||= Topic.find(session[:moderated_ids])
     if @topics.size == 1
@@ -122,7 +123,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
     end
     
     def can_not_move?(moderations)
-      if moderations.any? { |moderation| !current_user.can?(:move_topics, moderation.topic) }
+      if moderations.any? { |moderation| !current_user.can?(:move_topics, moderation.topic.forum) }
         flash[:notice] = t(:You_are_not_allowed_to_move_topics)
         redirect_back_or_default root_path
       end
