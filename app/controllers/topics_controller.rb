@@ -36,10 +36,10 @@ class TopicsController < ApplicationController
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
     @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
     if @topic.save && @post.save
-      flash[:notice] = t(:created, :thing => "topic")
+      flash[:notice] = t(:created, :thing => "Topic")
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
-      flash[:notice] = t(:not_created, :thing => "topic")
+      flash[:notice] = t(:not_created, :thing => "Topic")
       render :action => "new"
     end
   end

@@ -3,6 +3,6 @@ if @thing.class == Topic
   if @moderated_topics_count.zero?
     page.replace_html 'moderated_topics_count', ''
   else
-    page.replace_html 'moderated_topics_count', t(:topic, :count => @moderated_topics_count)  + t(:selected_for_moderation)
+    page.replace_html 'moderated_topics_count', t(:topics, :count => @moderated_topics_count)  + t(:selected_for_moderation)
   end
 end
