@@ -31,9 +31,14 @@ class Moderator::PostsController < Moderator::ApplicationController
           "[SPLIT] #{@topic.subject}"
         when "split_with_subject"
           "#{params[:subject]}"
+        else
+          @topic.subject
       end
-      @new_topic = @topic.forum.topics.create(:subject => @subject, :user => @posts.first.user, :last_post => @split_posts.last)
+      @new_topic = @topic.forum.topics.build(:subject => @subject, :user => @posts.first.user)
       @new_topic.posts = @split_posts
+      @new_topic.locked = @topic.locked
+      @new_topic.sticky = @topic.sticky
+      @new_topic.save
       flash[:notice] = t(:topic_has_been_split)
       redirect_to forum_topic_path(@new_topic.forum, @new_topic)
     else
