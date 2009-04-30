@@ -55,7 +55,7 @@ task :install => :environment do
    
    puts "Creating anonymous user now..."
    anonymous_password = Digest::SHA1.hexdigest(rand(99999999).to_s)
-   u = User.create(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com", :user_level => UserLevel.find_by_name(t(:Anonymous)))
+   u = User.create(:login => "anonymous", :password => anonymous_password, :password_confirmation => anonymous_password, :email => "anonymous@rboard.com", :user_level => UserLevel.find_by_name(I18n.t(:Anonymous)))
     anonymous_group = Group.create!(:name => "Anonymous", :owner => u) 
     anonymous_group.permissions.create!(:can_see_forum => true,
                                         :can_see_category => true)
@@ -90,12 +90,12 @@ registered_group = Group.create!(:name => "Registered Users", :owner => administ
                                          
    puts "Creating first forum..."
 
-   f = Forum.create(:title => t(:Welcome_to_rBoard), :description => t(:example_forum_description))
+   f = Forum.create(:title => I18n.t(:Welcome_to_rBoard), :description => I18n.t(:example_forum_description))
    
    puts "Creating first topic..."
-   t = f.topics.build(:subject => t(:Welcome_to_rBoard), :user => u)
+   t = f.topics.build(:subject => I18n.t(:Welcome_to_rBoard), :user => u)
    puts "... and first topic..."
-   t.posts.build(:text => t(:Welcome_to_rBoard_post), :user => u)
+   t.posts.build(:text => I18n.t(:Welcome_to_rBoard_post), :user => u)
    t.save
    puts "Done!"
    
