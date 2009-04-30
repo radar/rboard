@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <title><%= t(:rBoard) %> - <%= params[:controller].capitalize %> - <%= params[:action].capitalize %> </title>
+    <title><%= @title || params[:action].capitalize + " - " + params[:controller].split("/").map(&:capitalize).join(" - ") %> - <%= t(:rBoard) %></title>
     <link rel='stylesheet' href='/themes/<%= theme.name %>/style.css'>
     <%= stylesheet_link_tag "ultraviolet/lazy" %>
     <%= stylesheet_link_tag "ultraviolet/general" %>

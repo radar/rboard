@@ -1,3 +1,4 @@
+<% @title = t(:Viewing_forum, :forum => @forum) %>
 <% content_for :feed do %>
   <link rel="alternate" type="application/rss+xml" title="<%= @forum.title %> Feed" href="<%= forum_url(@forum, :format => :rss) %>" />
 <% end %>
@@ -20,7 +21,7 @@
     </table>
   <% end %>
 <br />
-<h2><%= t(:Viewing_forum) %> <%= @forum.title %></h2>
+<h2><%= t(:Viewing_forum, :forum => @forum) %></h2>
 <%= will_paginate @topics %>
 <% if current_user.can?(:start_new_topics, @forum) %>
   <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum)) %>

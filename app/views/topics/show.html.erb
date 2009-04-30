@@ -1,3 +1,4 @@
+<% @title = t(:Viewing_topic, :forum => @forum, :topic => @topic) %>
 <% content_for :feed do %>
   <link rel="alternate" type="application/rss+xml" title="<%= @topic.subject %> Feed" href="<%= forum_topic_url(@topic.forum, @topic, :format => :rss) %>" />
 <% end %>
