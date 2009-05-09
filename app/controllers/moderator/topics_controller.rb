@@ -1,12 +1,9 @@
 class Moderator::TopicsController < Moderator::ApplicationController
   before_filter :find_topic, :except => [:moderate, :merge]
-  # before_filter :can_not_move?, :only => :move
-  # before_filter :can_not_merge?, :only => :merge
-  # before_filter :can_not_delete?, :only => :destroy
   
   def destroy
     @topic.destroy
-    flash[:notice] = t(:deleted, :thing => "topic_")
+    flash[:notice] = t(:deleted, :thing => "topic")
     redirect_back_or_default moderator_moderations_path
   end
   
@@ -31,7 +28,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         can_not_delete?(@moderations)
         #TODO: maybe ask for confirmation?
         @moderations.each { |m| m.destroy! }
-        flash[:notice] = t(:deleted, :thing => "topics_")
+        flash[:notice] = t(:topics_deleted)
       when "Sticky"
         can_not_sticky?(@moderations)
         @moderations.each { |m| m.sticky! }
@@ -59,36 +56,42 @@ class Moderator::TopicsController < Moderator::ApplicationController
     if params[:moderation_ids]
       @topics = Topic.find(params[:moderation_ids])
       session[:moderation_ids] = params[:moderation_ids]
-      render
     end
-    @topics ||= Topic.find(session[:moderated_ids])
-    if @topics.size == 1
-      flash[:notice] = t(:only_one_topic_for_merge)
-      redirect_back_or_default forums_path
-      return false
-    end
+    
+    @topics ||= Topic.find(session[:moderation_ids])
     if request.put? && params[:new_subject]
+      
       # Check if user has access to all topics
       if @topics.any? { |topic| !current_user.can?(:see_forum, topic.forum) }
         flash[:notice] = t(:topics_not_accessible_by_you)
         redirect_back_or_default(forums_path)
         return false
+      else      
+        @topic = Topic.find(params[:master_topic_id])
+        @topic.merge!(session[:moderation_ids], params[:new_subject])
+        flash[:notice] = t(:topics_merged)
+        redirect_back_or_default(forums_path)
       end
-      @topic = Topic.find(params[:master_topic_id])
-      @topic.merge!(session[:moderation_ids], params[:new_subject])
-      flash[:notice] = t(:topics_merged)
-      redirect_back_or_default(forums_path)
-    end    
+    else
+      if @topics.size == 1
+        flash[:notice] = t(:only_one_topic_for_merge)
+        redirect_back_or_default forums_path
+        return false
+      else
+        render :action => "merge"
+      end
+    end
+    
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = t(:not_found, "topic")
+    flash[:notice] = t(:not_found, :thing => "topics")
     redirect_back_or_default moderator_moderations_path 
   end
   
   def move
     if params[:new_forum_id]
-      @moderations_for_topics.each { |m| m.move!(params[:new_forum_id], params[:leave_redirect] == '1') }
+      @moderations.each { |m| m.move!(params[:new_forum_id], params[:leave_redirect] == '1') }
       flash[:notice] = t(:topics_moved)
-      redirect_back_or_default(forum_path(params[:new_forum_id]))
+      redirect_back_or_default(forum_path(params[:new_forum_id])) unless performed?
     end
   end
   
@@ -125,7 +128,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
     def can_not_move?(moderations)
       if moderations.any? { |moderation| !current_user.can?(:move_topics, moderation.topic.forum) }
         flash[:notice] = t(:You_are_not_allowed_to_move_topics)
-        redirect_back_or_default root_path
+        redirect_back_or_default(root_path)
       end
     end
     

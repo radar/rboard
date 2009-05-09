@@ -46,8 +46,7 @@ module Admin::PermissionsHelper
   end
   
   def global_permissions
-    [:can_read_messages,
-     :can_read_private_messages,
+    [:can_read_private_messages,
      :can_reply,
      :can_send_messages_to_groups,
      :can_use_signature]
