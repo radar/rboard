@@ -21,7 +21,7 @@ describe Post, "general" do
   before do
     @post = posts(:user)
     @post_2 = posts(:user_2)
-    @post_3 = posts(:user_3)
+    @post_3 = posts(:user_3_topics_post)
     @lone_post = posts(:moderator)
     @topic = topics(:user)
     @sub_topic = topics(:user_3)

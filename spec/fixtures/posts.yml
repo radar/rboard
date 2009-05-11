@@ -31,6 +31,12 @@ user_2:
 user_3:
   text: user3 only
   user_id: 3
+  topic_id: 3
+  ip: localhost
+  
+user_3_topics_post:
+  text: user3 only
+  user_id: 3
   topic_id: 5
   ip: localhost
 

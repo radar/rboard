@@ -20,7 +20,7 @@ describe Moderator::TopicsController do
     it "should be able to destroy a topic" do
       delete 'destroy', :id => @moderator_topic.id
       flash[:notice].should eql(t(:deleted, :thing => "topic"))
-      response.should redirect_to moderator_moderations_path
+      response.should redirect_to(moderator_moderations_path)
     end
     
     describe "when ids are passed in as params" do
