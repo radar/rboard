@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090423111358) do
+ActiveRecord::Schema.define(:version => 20090512051022) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -113,50 +113,51 @@ ActiveRecord::Schema.define(:version => 20090423111358) do
   end
 
   create_table "permissions", :force => true do |t|
-    t.boolean "can_see_forum",                :default => false
-    t.boolean "can_reply_to_topics",          :default => false
-    t.boolean "can_post_stickies",            :default => false
-    t.boolean "can_start_new_topics",         :default => false
-    t.boolean "can_use_signature",            :default => false
-    t.boolean "can_delete_own_posts",         :default => false
-    t.boolean "can_edit_own_posts",           :default => false
-    t.boolean "can_subscribe",                :default => false
-    t.boolean "can_lock_own_topics",          :default => false
-    t.boolean "can_ignore_flood_limit",       :default => false
-    t.boolean "can_delete_posts",             :default => false
-    t.boolean "can_edit_posts",               :default => false
-    t.boolean "can_lock_topics",              :default => false
-    t.boolean "can_merge_topics",             :default => false
-    t.boolean "can_move_topics",              :default => false
-    t.boolean "can_split_topics",             :default => false
-    t.boolean "can_send_multiple_messages",   :default => false
-    t.boolean "can_send_messages_to_groups",  :default => false
-    t.boolean "can_read_private_messages",    :default => false
-    t.boolean "can_manage_groups",            :default => false
-    t.boolean "can_manage_bans",              :default => false
-    t.boolean "can_manage_ranks",             :default => false
-    t.boolean "can_manage_users",             :default => false
-    t.boolean "can_manage_forums",            :default => false
-    t.boolean "can_manage_categories",        :default => false
-    t.boolean "can_reply_to_locked_topics",   :default => false
-    t.boolean "can_edit_topics",              :default => false
-    t.boolean "can_reply",                    :default => false
-    t.boolean "can_edit_locked_topics",       :default => false
-    t.boolean "can_access_admin_section",     :default => false
-    t.boolean "can_see_category",             :default => false
-    t.boolean "can_access_moderator_section", :default => false
+    t.boolean "can_see_forum",                    :default => false
+    t.boolean "can_reply_to_topics",              :default => false
+    t.boolean "can_post_stickies",                :default => false
+    t.boolean "can_start_new_topics",             :default => false
+    t.boolean "can_use_signature",                :default => false
+    t.boolean "can_delete_own_posts",             :default => false
+    t.boolean "can_edit_own_posts",               :default => false
+    t.boolean "can_subscribe",                    :default => false
+    t.boolean "can_lock_own_topics",              :default => false
+    t.boolean "can_ignore_flood_limit",           :default => false
+    t.boolean "can_delete_posts",                 :default => false
+    t.boolean "can_edit_posts",                   :default => false
+    t.boolean "can_lock_topics",                  :default => false
+    t.boolean "can_merge_topics",                 :default => false
+    t.boolean "can_move_topics",                  :default => false
+    t.boolean "can_split_topics",                 :default => false
+    t.boolean "can_send_multiple_messages",       :default => false
+    t.boolean "can_send_messages_to_groups",      :default => false
+    t.boolean "can_read_private_messages",        :default => false
+    t.boolean "can_manage_groups",                :default => false
+    t.boolean "can_manage_bans",                  :default => false
+    t.boolean "can_manage_ranks",                 :default => false
+    t.boolean "can_manage_users",                 :default => false
+    t.boolean "can_manage_forums",                :default => false
+    t.boolean "can_manage_categories",            :default => false
+    t.boolean "can_reply_to_locked_topics",       :default => false
+    t.boolean "can_edit_topics",                  :default => false
+    t.boolean "can_reply",                        :default => false
+    t.boolean "can_edit_locked_topics",           :default => false
+    t.boolean "can_access_admin_section",         :default => false
+    t.boolean "can_see_category",                 :default => false
+    t.boolean "can_access_moderator_section",     :default => false
     t.integer "group_id"
     t.integer "forum_id"
     t.integer "category_id"
-    t.boolean "default",                      :default => false
-    t.boolean "can_manage_themes",            :default => false
-    t.boolean "can_edit_own_topics",          :default => false
-    t.boolean "can_manage_ips",               :default => false
-    t.boolean "can_manage_posts",             :default => false
-    t.boolean "can_manage_topics",            :default => false
-    t.boolean "can_manage_edits",             :default => false
-    t.boolean "can_delete_topics",            :default => false
-    t.boolean "can_manage_moderations",       :default => false
+    t.boolean "default",                          :default => false
+    t.boolean "can_manage_themes",                :default => false
+    t.boolean "can_edit_own_topics",              :default => false
+    t.boolean "can_manage_ips",                   :default => false
+    t.boolean "can_manage_posts",                 :default => false
+    t.boolean "can_manage_topics",                :default => false
+    t.boolean "can_manage_edits",                 :default => false
+    t.boolean "can_delete_topics",                :default => false
+    t.boolean "can_manage_moderations",           :default => false
+    t.boolean "can_read_others_private_messages", :default => false
   end
 
   create_table "posts", :force => true do |t|

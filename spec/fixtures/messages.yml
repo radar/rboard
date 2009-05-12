@@ -27,5 +27,15 @@ to_deleted:
   text: I am deleted by the to user!
   created_at: <%= (Time.now - 10.minutes).to_s(:db) %>
 
+disallowed:
+  to_read: false
+  from_read: false
+  to_deleted: true
+  from_deleted: false
+  to_id: 2
+  from_id: 1
+  text: I am secret.
+  created_at: <%= (Time.now - 10.minutes).to_s(:db) %>
+
 invalid:
   id: 3

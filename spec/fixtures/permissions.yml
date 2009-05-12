@@ -21,6 +21,7 @@ registered_users:
   can_subscribe: true
   can_edit_own_posts: true
   can_reply: true
+  can_read_private_messages: true
   
 registered_users_admin_forum:
   group_id: 2
@@ -91,4 +92,5 @@ administrator:
   can_access_admin_section: true
   can_see_category: true
   can_access_moderator_section: true
+  can_read_others_private_messages: true
 

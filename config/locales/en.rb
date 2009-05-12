@@ -471,6 +471,7 @@
    :yes => "yes",
    :Yes => "Yes",
    :you_are_banning_yourself => "You are banning yourself",
+   :you_are_not_allowed_to_read_messages => "You are not allowed to read private messages",
    :You_are_reporting_this_post => "You are reporting this post",
    :you_have_been_logged_out => "You have been logged out.",
    :you_must_be_logged_in => "You must be logged in to do that.",
