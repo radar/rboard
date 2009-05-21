@@ -61,8 +61,4 @@ class User < ActiveRecord::Base
   def set_theme
     self.theme = Theme.find(:first)
   end
-  
-  def set_default_group_if_none
-    #TODO
-  end
 end

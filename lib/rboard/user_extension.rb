@@ -91,7 +91,10 @@ module Rboard::UserExtension
       private
       
       def set_permissions
-        groups << Group.find_by_name("Registered Users")
+        # HACK
+        if !User.count.zero? && login != "anonymous"
+          groups << Group.find_by_name("Registered Users")
+        end
       end
     end
   end
