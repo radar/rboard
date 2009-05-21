@@ -56,19 +56,19 @@
             <% end %>
             <td>
               <% if topic.sticky? %>
-                <%= theme_image_tag("sticky.jpg") %>
+                <%= theme_image_tag("sticky.jpg", :alt => "Sticky") %>
               <% elsif topic.moved? %>
-                <%= theme_image_tag("moved.jpg") %>
+                <%= theme_image_tag("moved.jpg", :alt => "Moved") %>
               <% elsif topic.locked? %>
-                <%= theme_image_tag("locked.jpg") %>
+                <%= theme_image_tag("locked.jpg", :alt => "Locked") %>
               <% elsif logged_in? && !topic.readers.include?(current_user) %>
-                <%= theme_image_tag("new.jpg") %>
+                <%= theme_image_tag("new.jpg", :alt => "New") %>
               <% else %>
-                <%= theme_image_tag("old.jpg") %>
+                <%= theme_image_tag("old.jpg", :alt => "Old") %>
               <% end %>
               <% if current_user.can?(:view_reports, @forum) %>
                 <% if !topic.reports.empty? %>
-                  <%= theme_image_tag("report.jpg", :title => t(:report, :count => topic.reports.count)) %>
+                  <%= theme_image_tag("report.jpg", :title => t(:report, :count => topic.reports.count), :alt => "Reports") %>
                 <% end %>
               <% end %>
             </td>

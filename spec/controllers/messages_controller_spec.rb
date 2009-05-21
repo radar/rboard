@@ -52,7 +52,6 @@ describe MessagesController do
     end
     
     it "should be able to mark a message as deleted" do
-      @message.should_receive(:update_attribute).with("to_deleted", true).and_return(true)
       delete 'destroy', :id => @message.id
       flash[:notice].should eql(t(:deleted, :thing => "message"))
     end
@@ -78,6 +77,7 @@ describe MessagesController do
   describe MessagesController, "as an admin" do
     before do
       @message = messages(:one)
+      @disallowed_message = messages(:disallowed)
       login_as(:administrator)
     end
     

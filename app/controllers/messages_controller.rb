@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_filter :login_required 
   before_filter :can_read_messages?
   before_filter :store_location, :only => [:index, :sent]
-  before_filter :find_message, :only => [:show, :reply, :deleted]
+  before_filter :find_message, :only => [:show, :reply, :destroy]
 
   # Show messages for the currently logged in user.
   def index

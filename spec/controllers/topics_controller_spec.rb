@@ -14,6 +14,11 @@ describe TopicsController do
     { :forum_id => @everybody.id, :id => @everybody_topic.id }
   end
   
+  it "should go to the forum show action" do
+    get 'index', :forum_id => @everybody.id
+    response.should redirect_to(forum_path(@everybody))
+  end
+  
   describe "as a plebian" do
     before do
       login_as(:plebian)

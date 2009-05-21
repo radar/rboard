@@ -40,8 +40,7 @@ module Rboard::Login
     redirect_to('login') and return false unless logged_in?
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
-    logger.debug(session.inspect)
-    session[:user_id] = nil
+    session[:user] = nil
     flash[:notice] = t(:you_have_been_logged_out)
     redirect_to(forums_path)
   end
