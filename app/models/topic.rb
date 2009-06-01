@@ -33,7 +33,7 @@ class Topic < ActiveRecord::Base
   after_create :increment_counters
   before_destroy :decrement_counters
   
-  unless THINKING_SPHINX
+  unless SEARCHING
     define_index do
       indexes subject
     end

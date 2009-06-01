@@ -78,7 +78,7 @@ registered_group = Group.create!(:name => "Registered Users", :owner => administ
    puts "Generating some configuration options..."
    Configuration.create(:key => "default_group_id", :value => registered_group.id)
    
-   if THINKING_SPHINX
+   if SEARCHING
      puts "Configuring thinking sphinx..."
      Rake::Task['ts:config']
      puts "Running the index..."

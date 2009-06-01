@@ -6,7 +6,7 @@
   
   <% fields_for @post do |post| %>
     <tr>
-      <td valign='top'><%= f.label 'text', t(:Text) %></td>
+      <td valign='top'><%= post.label 'text', t(:Text) %></td>
       <td><%= post.text_area "text", :cols => "80" %></td>
     </tr>
   <% end %>

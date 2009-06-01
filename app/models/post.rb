@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
-  unless THINKING_SPHINX
+  unless SEARCHING
     define_index do
       indexes text
       set_property :delta => true

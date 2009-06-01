@@ -13,7 +13,7 @@ end
 if File.readlines(database).empty?
   raise "Your database.yml file is empty. Please add your database information."
 end
-Rails::Initializer.run do |config|
+CONFIG = Rails::Initializer.run do |config|
   
   config.gem 'chronic'
   config.gem 'RedCloth'
@@ -49,7 +49,7 @@ THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
 STANDALONE = true
 
 ## Set this to false if you don't want to use thinking sphinx.
-THINKING_SPHINX = true
+SEARCHING = true
 
 # Change this if your locale is not english
 # I18n.default_locale = "en"

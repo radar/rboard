@@ -1,8 +1,8 @@
 class SubscriptionsController < ApplicationController
   before_filter :find_topic, :only => [:create]
   before_filter :login_required
-  before_filter :store_location, :only => [:index]
   before_filter :can_not_subscribe?
+  before_filter :store_location, :only => [:index]
   
   def index
     @subscriptions = current_user.subscriptions.all(:joins => :topic, :order => "updated_at DESC")
