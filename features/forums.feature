@@ -3,11 +3,14 @@ Feature: Manage forums
   Administrators
   want to ensure people are shown only the right forums
   
-  Scenario: Viewing forums index
+  Background:
+    Given there is the usual setup
+  
+  Scenario: Viewing forums index as an anonymous user
     Given I am on the forums page
     Then I should see "Public Forum"
 
-  Scenario: Viewing the public forum
+  Scenario: Viewing the public forum as an anonymous user
     Given I am on the forums page
     When I follow "Public Forum"
     Then I should see "Viewing forum: Public Forum"

@@ -11,7 +11,7 @@ class Group < ActiveRecord::Base
   before_create :add_owner_to_users
   
   def add_owner_to_users
-    users << owner
+    users << owner unless owner.nil?
   end
   
   def to_s

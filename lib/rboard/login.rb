@@ -1,5 +1,6 @@
 module Rboard::Login
   def login
+            puts User.all.inspectrk 
     if request.get? && logged_in?
       flash[:notice] = t(:already_logged_in)
       redirect_back_or_default(forums_path) and return false
