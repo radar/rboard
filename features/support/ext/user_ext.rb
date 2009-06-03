@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   def self.make_with_group(name, group)
     u = User.new(User.plan(name))
     u.groups << Group.ensure(group)
-    u.save!
+    u.save
     u
   end
 end
