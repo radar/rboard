@@ -1,4 +1,3 @@
-puts "LOADED PERMISSIONS"
 Permission.blueprint do
   can_see_forum true
   group { Group.ensure("Anonymous") }
