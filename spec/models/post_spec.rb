@@ -77,6 +77,7 @@ describe Post, "general" do
  
   
   it "should not be able to be flooded" do
+    TIME_BETWEEN_POSTS = 1.minute
     @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
     @sub_topic.save.should be_true
     other_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
