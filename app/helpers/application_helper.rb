@@ -9,19 +9,35 @@ module ApplicationHelper
     end
     text.gsub!(/</, "&lt;")
     text.gsub!(/>/, "&gt;")
-    text.gsub!(/\[quote=?["']?(.*?)["']?\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'><b>" << $1 << " #{t(:wrote)}</b><br />" << $2 << "</div></div>" }
+    
+    # attributed quote
+    bbquote(text)
+    
+    # non-attributed quote
     text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'>" << $1 << "</div></div>" }
+    
+    # Terminal example
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
+    
+    # URLs
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a href='" << $1 << "'>" << $2 << "</a>" }
-    bbcode_ext(textilize(text))
-  # handle with care...
-
+    # bbcode_ext(textilize(text))
+    
+    # handle with care...
+    text 
   end
   
   # Dummy method so that people can extend bbcode method without having to alias it.
   def bbcode_ext(text)
     text
   end
+  
+  def bbquote(text)
+    text.gsub!(/\[quote=["']?(.*?)["']?\](.*)\[\/quote\]/mis) do
+      "<div class='center'><div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}#{bbquote($2)}</div></div>"
+    end
+  end
+  
   
   def theme_image_tag(f, html_options={})
     if !theme.nil?
