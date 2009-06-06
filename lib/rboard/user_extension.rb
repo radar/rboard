@@ -46,6 +46,8 @@ module Rboard::UserExtension
       before_create :set_permissions
       before_save :set_permalink
       
+      attr_protected :identifier
+      
       attr_accessor :password
       
       def set_permalink
@@ -93,7 +95,7 @@ module Rboard::UserExtension
       def set_permissions
         # HACK
         if !User.count.zero? && login != "anonymous"
-          groups << Group.find_by_name("Registered Users")
+          groups << Group.find_by_identifier("registered_users")
         end
       end
     end

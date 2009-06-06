@@ -7,6 +7,7 @@ administrator:
   rank_id: 1
   permalink: administrator
   remember_token_expires_at: <%= (Time.now + 2.weeks).to_s(:db) %>
+  identifier: administrator
 
 moderator:
   id: 2
@@ -15,6 +16,7 @@ moderator:
   salt: 510bef3ba3999d017bcb041919f97f624806ec65
   crypted_password: a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977
   permalink: moderator
+  identifier: moderator
   
 plebian:
   id: 3
@@ -39,6 +41,7 @@ anonymous:
   #password is blank, anonymous should never be sign-in-able.
   salt: 
   crypted_password: 
+  identifier: anonymous
   
 other_user:
   id: 6

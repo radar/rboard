@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090512051022) do
+ActiveRecord::Schema.define(:version => 20090606004748) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(:version => 20090512051022) do
   create_table "groups", :force => true do |t|
     t.string  "name"
     t.integer "owner_id"
+    t.boolean "uneditable", :default => false
+    t.string  "identifier"
   end
 
   create_table "groups_users", :id => false, :force => true do |t|
@@ -268,6 +270,8 @@ ActiveRecord::Schema.define(:version => 20090512051022) do
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
+    t.boolean  "uneditable",                              :default => false
+    t.string   "identifier"
   end
 
   add_index "users", ["id", "user_level_id"], :name => "index_users_on_id_and_user_level_id"

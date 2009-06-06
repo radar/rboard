@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe User, "firstly..." do
-  fixtures :themes
+  fixtures :themes, :groups
 
   #regressional test
   it "should automatically set theme_id when a new user is created" do
@@ -12,7 +12,7 @@ describe User, "firstly..." do
 end
 
 describe User, "with users" do
-  fixtures :themes, :users, :ranks
+  fixtures :themes, :users, :ranks, :groups
   
   before do
     @administrator = users(:administrator)
