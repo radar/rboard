@@ -31,7 +31,7 @@ describe UsersController do
     it "should be able to update their password" do
       put 'update', { :id => "plebian", :user => { :password => "testing1234", :password_confirmation => "testing1234"} }
       flash[:notice].should eql(t(:password_has_been_changed))
-    end  
+    end 
     
     it "should be banned" do
       login_as(:banned_noob)

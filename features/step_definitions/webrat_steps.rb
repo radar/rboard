@@ -90,6 +90,10 @@ When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   attach_file(field, path)
 end
 
+When /^I dump the page$/ do
+  puts response.body.inspect
+end
+
 Then /^I should see "([^\"]*)"$/ do |text|
   response.should contain(text)
 end

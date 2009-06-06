@@ -14,6 +14,8 @@ module NavigationHelpers
       forums_path
     when /login page/
       login_path
+    when /administrator's group page/
+      admin_groups_path
     
     # Add more mappings here.
     # Here is a more fancy example:

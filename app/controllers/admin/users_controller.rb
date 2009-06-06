@@ -41,6 +41,10 @@ class Admin::UsersController < Admin::ApplicationController
     redirect_to admin_users_path
   end
   
+  def search
+    render :text => User.search(params[:q]).map(&:login).join("\n")
+  end
+  
   
   # Used for banning ips
   # Firstly gathers the time to ban to and parses it using Chronic

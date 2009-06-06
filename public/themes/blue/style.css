@@ -194,7 +194,30 @@ img {
   float: right;
   text-align: right;
 }
+/*autocomplete*/
 
+.ac_results {
+  background: white;
+  padding: 0px;
+  margin: 0px;
+  border-bottom: 3px solid #84AFD3;
+  border-right: 3px solid #84AFD3;
+  border-left: 3px solid #84AFD3;
+}
+
+.ac_results ul {
+  padding: 0px;
+  margin: 0px;
+  list-style-type: none;
+}
+
+.ac_results ul li {
+  padding: 5px;
+}
+
+.ac_results ul li:hover {
+  background: #DBF8FF;
+}
 /* inspired by http://css.maxdesign.com.au/listamatic/horizontal02.htm */
 ul#admin-navlist, ul#moderator-navlist {
   margin: 2px;

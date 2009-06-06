@@ -11,7 +11,7 @@
 <% end %>
 <% fields_for @permission do |permission| %>
   <% # Global only permissions %>
-  <% if !@permission.new_record? && @permission.category_id.nil? && @permission.forum_id.nil? %>
+  <% if params[:type] || @permission.new_record? %>
     <tr>
       <td colspan='10'><h3>Section Access</h3></td>
     </tr>
@@ -29,11 +29,11 @@
         <%= break_row(count-3) %>
       <% end %>
       
-      <!-- Hack to pad the row out to 10 columns -->
       <% 4.times do %>
         <td>&nbsp;</td>
       <% end %>
     </tr>
+  <% end %>
     
     <tr>
       <td colspan='10'><h3>System-wide Permissions</h3></td>
@@ -53,11 +53,11 @@
   </tr>
   <tr>
     <% forum_permissions.each_with_index do |action, count| %>
+      <%= @permission.id %>
       <td width='20px'><%= permission.check_box action %></td>
       <td><%= permission.label action, t("#{action}?") %></td>
       <%= break_row(count) %>
     <% end %>
-    <!-- Hack to pad the row out to 10 columns -->
 
   </tr>
 

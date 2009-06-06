@@ -18,6 +18,7 @@ User.blueprint(:administrator) do
   group = Group.ensure("Administrator")
   login "administrator"
   email "administrator@rboard.com"
+  permalink "administrator"
 end
 
 User.blueprint(:registered_user) do

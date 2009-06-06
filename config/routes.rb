@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     
     admin.resources :groups do |group|
+      group.resources :members
       group.resources :users
       # For finding the permissions for a group in regards to a single forum.
       group.resources :forums do |forum|
@@ -34,9 +35,10 @@ ActionController::Routing::Routes.draw do |map|
       ip.resources :posts, :only => [:index]
       ip.resources :users, :only => [:index]
     end
+    
     admin.resources :ranks
     admin.resources :themes, :member => { :make_default => :put }
-    admin.resources :users, :collection => { :ban_ip => :any }, :member => { :ban => :any, :ban_ip => :any, :remove_banned_ip => :post } do |user|
+    admin.resources :users, :collection => { :ban_ip => :any, :search => :get}, :member => { :ban => :any, :ban_ip => :any, :remove_banned_ip => :post } do |user|
       user.resources :ips
     end
   end

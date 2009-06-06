@@ -71,7 +71,6 @@ ActiveRecord::Schema.define(:version => 20090606004748) do
   create_table "groups", :force => true do |t|
     t.string  "name"
     t.integer "owner_id"
-    t.boolean "uneditable", :default => false
     t.string  "identifier"
   end
 
@@ -270,7 +269,6 @@ ActiveRecord::Schema.define(:version => 20090606004748) do
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
-    t.boolean  "uneditable",                              :default => false
     t.string   "identifier"
   end
 

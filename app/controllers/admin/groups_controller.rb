@@ -17,6 +17,7 @@ class Admin::GroupsController < Admin::ApplicationController
   
   def create
     @group = Group.new(params[:group].merge!(:owner => current_user))
+    @group.permissions.build(params[:permission])
     if @group.save
       flash[:notice] = t(:created, :thing => "group")
       redirect_to admin_groups_path

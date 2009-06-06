@@ -6,8 +6,9 @@
     <link rel='stylesheet' href='/themes/<%= theme.name %>/style.css'>
     <%= stylesheet_link_tag "ultraviolet/lazy" %>
     <%= stylesheet_link_tag "ultraviolet/general" %>
-    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'jquery' %>
     <%= yield :feed %>
+    <%= yield :head %>
   </head>
   <body>
     <div align='center'>
