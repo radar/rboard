@@ -1,7 +1,8 @@
 blue:
   id: 1
   name: blue
+  is_default: true
 
-invalid:
+green:
   id: 2
-  name: invalid
+  name: green

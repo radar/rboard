@@ -412,6 +412,7 @@
    :thanks_for_signing_up => "Thanks for signing up!",
    :Themes => "Themes",
    :Theme => "Theme",
+   :theme_is_now_default => "{{theme}} is now the default theme.",
    :This_post_was_edited_by => "This post was edited by",
    :time_now => "The time is now",
    :Time_sent => "Time sent",

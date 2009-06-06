@@ -5,4 +5,12 @@ class Admin::ThemesController < Admin::ApplicationController
     @themes = Theme.all(:order => "name ASC")
   end
   
+  def make_default
+    Theme.find_by_is_default(true).update_attribute(:is_default, false)
+    theme = Theme.find(params[:id])
+    theme.update_attribute(:is_default, true)
+    flash[:notice] = t(:theme_is_now_default, :theme => theme.name)
+    redirect_back_or_default admin_themes_path
+  end
+  
 end

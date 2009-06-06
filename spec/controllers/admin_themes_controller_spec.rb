@@ -9,10 +9,14 @@ describe Admin::ThemesController do
     @themes = [@theme]
   end
 
-  #Delete this example and add some real ones
   it "should be able show all themes" do
     get 'index'
     response.should render_template("index")
+  end
+  
+  it "should be able to make a theme the default" do
+    put 'make_default', :id => themes(:green).id
+    flash[:notice].should eql(t(:theme_is_now_default, :theme => "green"))
   end
 
 end
