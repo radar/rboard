@@ -37,7 +37,7 @@ class Admin::GroupsController < Admin::ApplicationController
       flash[:notice] = t(:updated, :thing => "group")
       redirect_back_or_default admin_groups_path
     else
-      flash[:notice] = t(:group_not_updaed)
+      flash[:notice] = t(:not_updated, :thing => "group")
       render :action => "edit"
     end
   end
@@ -52,7 +52,7 @@ class Admin::GroupsController < Admin::ApplicationController
   
     def find_group
       @group = Group.find(params[:id])
-    rescue ActiveRecord::NotFound
+    rescue ActiveRecord::RecordNotFound
       not_found
     end
     

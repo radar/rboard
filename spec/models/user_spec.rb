@@ -23,8 +23,6 @@ describe User, "with users" do
   end
   
   it "should authenticate the user" do
-    # @user.owner? => true
-    @user.should be_owner
     @administrator.authenticated?("godly").should be_true
     @administrator.authenticated?("mortal").should be_false
   end

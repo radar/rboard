@@ -1,7 +1,0 @@
-one:
-  group: anonymous
-  user: anonymous
-
-two:
-  group: registered_users
-  user: plebian

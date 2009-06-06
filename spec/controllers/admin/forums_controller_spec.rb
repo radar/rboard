@@ -48,7 +48,7 @@ describe Admin::ForumsController do
     
     it "should be able go to the index action" do
       get 'index'
-      response.should render_template("index2")
+      response.should render_template("index")
     end
     
     it "should be able to begin to create a forum" do
