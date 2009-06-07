@@ -15,6 +15,8 @@ ActionController::Routing::Routes.draw do |map|
     end
     
     admin.chronic 'chronic', :controller => 'chronic'
+    
+    admin.resources :configurations, :collection => { :update_all => :put }
     admin.resources :forums, :member => { :move_up => :put, :move_down => :put, :move_to_top => :put, :move_to_bottom => :put } do |forum|
       forum.resources :permissions
     end

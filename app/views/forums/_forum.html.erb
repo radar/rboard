@@ -3,7 +3,7 @@
     <h1><%= link_to(h(forum.title), forum_path(forum)) %></h1>
     <%= h(forum.description) %>
     <% if !forum.children.empty? %>
-      <br /><%= t(:Subforums) %>: <% forum.children.each do |forum| %> <%= link_to(h(forum.title), forum_path(forum)) %> <% end %>
+      <br /><%= t(:Subforums) %>: <% forum.children(Configuration['subforums_display'].to_i).each do |forum| %> <%= link_to(h(forum.title), forum_path(forum)) %> <% end %>
     <% end %>
   </td>
   <td align='center'><%= forum.topics.size %></td>

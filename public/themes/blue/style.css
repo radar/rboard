@@ -258,3 +258,7 @@ ul#admin-navlist, ul#moderator-navlist {
 .list-table td {
   text-align: center; 
 }
+
+.lalign { 
+  text-align:left !important;
+}

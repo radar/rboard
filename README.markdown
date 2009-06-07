@@ -118,4 +118,8 @@ Also you should set `STANDALONE = false` inside _config/environment.rb_.
   
 If you wish to use a different authentication system other than Restful Authentication then remove the user model (*app/models/user.rb*) and replace it with your own whilst not forgetting to `include Rboard::UserExtension`, the AuthenticatedSystem module (*lib/authenticated_system.rb*) and the AuthenticatedTestHelper module (*lib/authenticated_test_helper.rb*)
   
-
+## Contributors
+  
+  Thomas Sinclair
+  Bodaniel Jeanes
+  Tore Darell

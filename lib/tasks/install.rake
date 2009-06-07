@@ -89,7 +89,7 @@ task :install => :environment do
                                         :can_see_category => true)
                                         
    puts "Generating some configuration options..."
-   Configuration.create(:key => "default_group_id", :value => registered_group.id)
+   Configuration.create(:key => "subforums_display", :title => I18n.t(:subforums_display), :value => 3, :description => I18n.t(:subforums_display_description))
    
    if SEARCHING
      puts "Configuring thinking sphinx..."
