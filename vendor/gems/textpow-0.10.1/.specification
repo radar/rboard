@@ -1,0 +1,90 @@
+--- !ruby/object:Gem::Specification 
+name: textpow
+version: !ruby/object:Gem::Version 
+  version: 0.10.1
+platform: ruby
+authors: 
+- Dizan Vasquez
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2008-02-20 00:00:00 +10:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: oniguruma
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.1.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: plist
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 3.0.0
+    version: 
+description: A library for parsing TextMate[http://macromates.com/] bundles.
+email: dichodaemon@gmail.com
+executables: 
+- plist2yaml
+- plist2syntax
+extensions: []
+
+extra_rdoc_files: 
+- History.txt
+- Manifest.txt
+- README.txt
+files: 
+- bin/plist2yaml
+- bin/plist2syntax
+- lib/textpow.rb
+- lib/textpow
+- lib/textpow/syntax.rb
+- lib/textpow/score_manager.rb
+- lib/textpow/debug_processor.rb
+- mm/manual.mm
+- test/test_textpow.rb
+- History.txt
+- Rakefile
+- Manifest.txt
+- README.txt
+has_rdoc: true
+homepage: http://textpow.rubyforge.org
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --main
+- README.txt
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: textpow
+rubygems_version: 1.3.4
+signing_key: 
+specification_version: 2
+summary: An engine for parsing Textmate bundles
+test_files: 
+- test/test_textpow.rb

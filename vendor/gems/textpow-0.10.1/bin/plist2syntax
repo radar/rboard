@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'plist'
+require 'yaml'
+
+result = Plist::parse_xml( ARGV[0] )
+standard_name = File.basename( ARGV[0] ).downcase.gsub(/\s+/, '_').gsub(/\.(plist|tm[Ll]anguage)/, '').gsub(/\(|\)|:/, '').gsub(/_+/, '_')
+puts standard_name
+
+File.open( "#{standard_name}.yaml", "w" ) {|f| YAML.dump( result, f ) }
