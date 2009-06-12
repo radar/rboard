@@ -52,7 +52,7 @@ module Rboard::UserExtension
       
       define_index do
         indexes login, email, display_name
-      end
+      end if User.table_exists?
       
       def set_permalink
         self.permalink = to_s.parameterize
