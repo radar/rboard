@@ -34,7 +34,7 @@
       
       <% unless @ranks.empty? %>
         <tr>
-          <td><%= f.label "rank_id", t(:Custom_rank) %></td>
+          <td><%= f.label "rank_id", t(:Custom_Rank) %></td>
           <td><%= f.select "rank_id", @ranks.map { |r| [r.name,r.id] }, :include_blank => true %></td>
         </tr>
       <% end %>
