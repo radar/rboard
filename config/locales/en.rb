@@ -238,6 +238,7 @@
    :for => "for",
    :for_a_post => "for a post",
    :for_the_next => "for the next",
+   :forum_not_found_or_inactive => "The forum you were looking for could not be found, or is inactive.",
    :forum_statistics => "Forum Statistics",
    :Forum => "Forum",
    :forum_permission_denied => "You are not allowed to see that forum.",

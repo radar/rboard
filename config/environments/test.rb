@@ -18,9 +18,7 @@ config.action_controller.perform_caching             = false
 config.action_mailer.delivery_method = :test
 
 config.gem "faker"
-config.gem "rspec"
-config.gem "rspec-rails"
 config.gem "cucumber"
-config.gem "machinist"
+config.gem "notahat-machinist", :lib => "machinist"
 
 TIME_BETWEEN_POSTS = 0

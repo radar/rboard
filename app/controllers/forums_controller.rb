@@ -7,8 +7,10 @@ class ForumsController < ApplicationController
   # Limits this selection to forums the current user has access to.
   # Also gathers stats for the Compulsory Stat Box.
   def index
-     if @category
+    if @category
       @forums = @category.forums.without_parent
+      @forums = @forums.regardless_of_active if current_user.can?(:see_inactive_forums)
+      
     else
       # TODO: I encourage allcomers to find a better way.
       # FIXME: I have worked too long on this.
@@ -38,11 +40,14 @@ class ForumsController < ApplicationController
   
   private
     def find_forum
-      @forum = Forum.find(params[:id], :include => [{ :topics => :posts }, :moderations, :permissions])
+      @forums = current_user.can?(:see_inactive_forums) ? Forum.regardless_of_active : Forum
+      @forum = @forums.find(params[:id], :include => [{ :topics => :posts }, :moderations, :permissions])
       if !current_user.can?(:see_forum, @forum)
         flash[:notice] = t(:forum_permission_denied)
         redirect_to forums_path
       end
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = t(:forum_not_found_or_inactive)
     end
     
     def find_category

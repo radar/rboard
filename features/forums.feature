@@ -14,6 +14,7 @@ Feature: Manage forums
     Given I am on the forums page
     When I follow "Public Forum"
     Then I should see "Viewing forum: Public Forum"
+    
   
   Scenario: Registered users should be able to post new topics
     Given I am logged in as "registered_user"
@@ -24,4 +25,11 @@ Feature: Manage forums
     When I fill in "Text" with "This is just a tribute"
     When I press "Create"
     Then I should see "rBoard -> Public Forum -> Tribute"
+
+  Scenario: Logged in as a user who can see inactive forums
+    Given I am logged in as "registered_user"
+    And there is an inactive forum
+    And I can see inactive forums
+    And I am on the forums page
+    Then I should see "Inactive Forum"
     

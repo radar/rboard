@@ -5,7 +5,7 @@ class Admin::ForumsController < Admin::ApplicationController
   
   # Shows all top-level forums.
   def index
-    @forums = Forum.without_parent
+    @forums = Forum.without_parent.regardless_of_active
   end
   
   # Initializes a new forum.
@@ -104,16 +104,16 @@ class Admin::ForumsController < Admin::ApplicationController
   
   # Find a forum. Most of the actions in this controller need a forum object.
   def find_forum
-    @forum = Forum.find(params[:id]) unless params[:id].nil?
+    @forum = Forum.regardless_of_active.find(params[:id]) unless params[:id].nil?
     rescue ActiveRecord::RecordNotFound
       not_found
   end
   
   def find_forums
     @forums, @categories = if @category
-      [@category.forums.find(:all, :order => "title ASC"), []]
+      [@category.forums.regardless_of_active.find(:all, :order => "title ASC"), []]
     else
-      [Forum.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
+      [Forum.regardless_of_active.find(:all, :order => "title ASC"), Category.find(:all, :order => "name asc")]
     end
   end
   

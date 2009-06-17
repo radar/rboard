@@ -4,6 +4,8 @@ Given /^I am logged in as "([^\"]*)"$/ do |user|
   When "I fill in \"password\" with \"password\""
   When "I press \"Login\""
   Then "I should see \"Logged in successfully.\""
+  @user = assigns[:user]
+  puts @user.inspect
 end
 
 Given /^there is the usual setup$/ do
