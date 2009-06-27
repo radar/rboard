@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /the forums page/
       forums_path
+    when /the forum page for "(.*?)"/
+      forum_path(Forum.find_by_title($1))
     when /login page/
       login_path
     when /administrator's group page/

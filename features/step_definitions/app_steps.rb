@@ -4,8 +4,8 @@ Given /^I am logged in as "([^\"]*)"$/ do |user|
   When "I fill in \"password\" with \"password\""
   When "I press \"Login\""
   Then "I should see \"Logged in successfully.\""
-  @user = assigns[:user]
-  puts @user.inspect
+  # To get the latest user
+  @user = User.first(:order => "updated_at DESC")
 end
 
 Given /^there is the usual setup$/ do

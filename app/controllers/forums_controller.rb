@@ -9,7 +9,7 @@ class ForumsController < ApplicationController
   def index
     if @category
       @forums = @category.forums.without_parent
-      @forums = @forums.regardless_of_active if current_user.can?(:see_inactive_forums)
+      @forums = @forums.active if !current_user.can?(:see_inactive_forums)
       
     else
       # TODO: I encourage allcomers to find a better way.
@@ -40,7 +40,7 @@ class ForumsController < ApplicationController
   
   private
     def find_forum
-      @forums = current_user.can?(:see_inactive_forums) ? Forum.regardless_of_active : Forum
+      @forums = current_user.can?(:see_inactive_forums) ? Forum : Forum.active
       @forum = @forums.find(params[:id], :include => [{ :topics => :posts }, :moderations, :permissions])
       if !current_user.can?(:see_forum, @forum)
         flash[:notice] = t(:forum_permission_denied)
@@ -48,6 +48,7 @@ class ForumsController < ApplicationController
       end
     rescue ActiveRecord::RecordNotFound
       flash[:notice] = t(:forum_not_found_or_inactive)
+      redirect_to forums_path
     end
     
     def find_category

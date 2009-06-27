@@ -22,4 +22,9 @@
       <td><%= f.select "category_id", @categories.map { |category| [select_display(category, 'name'), category.id] }, :include_blank => true %></td>
     </tr>
   <% end %>
+  
+  <tr>
+    <td><%= f.label :active, t(:Active) %></td>
+    <td><%= f.check_box :active %></td>
+  </tr>
 </tbody>
