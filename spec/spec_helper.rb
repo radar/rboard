@@ -61,3 +61,4 @@ end
 log =  Logger.new("#{RAILS_ROOT}/log/test.log")
 ActiveRecord::Base.logger = log
 ApplicationController.logger = log
+`rake db:test:prepare`
