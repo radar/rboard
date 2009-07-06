@@ -20,7 +20,7 @@ module ApplicationHelper
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
     
     # URLs
-    text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a href='" << $1 << "'>" << $2 << "</a>" }
+    text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a rel='nofollow' href='" << $1 << "'>" << $2 << "</a>" }
     # bbcode_ext(textilize(text))
     
     # handle with care...
