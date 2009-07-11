@@ -26,7 +26,7 @@ module Rboard::Permissions
             ancestors = thing.ancestors
             ancestors += [thing.category, thing.category.ancestors].compact! || [] if thing.is_a?(Forum)
             for ancestor in ancestors
-              atttributes.merge!(permissions_for(thing), true)
+              atttributes.merge!(permissions_for(thing, true))
             end
           end
           attributes
