@@ -36,7 +36,7 @@ class Topic < ActiveRecord::Base
   unless SEARCHING
     define_index do
       indexes subject
-    end
+    end if Topic.table_exists?
   end
   
   def log_ip
