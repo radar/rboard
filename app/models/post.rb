@@ -19,9 +19,8 @@ class Post < ActiveRecord::Base
     define_index do
       indexes text
       set_property :delta => true
-    end
-  end
-  
+    end if Post.table_exists?
+  end  
   delegate :subject, :to => :topic
   attr_protected :forum_id, :user_id
 
