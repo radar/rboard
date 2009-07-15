@@ -2,9 +2,9 @@
 if ARGV[0] == "db:migrate"
   
   lines = File.readlines("config/environment.rb")
-  lines.delete_if { |l| l == "require 'config/migration_hack'"}
+  lines.delete_if { |l| l == "require 'config/migration_hack'\n"}
   f = File.open("config/environment.rb", "w+")
-  f.write(lines.join("\n"))
+  f.write(lines.join(""))
   f.close
   
   FileUtils.rm(__FILE__)
