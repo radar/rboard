@@ -50,9 +50,11 @@ module Rboard::UserExtension
       
       attr_accessor :password
       
-      define_index do
-        indexes login, email, display_name
-      end if User.table_exists?
+      if SEARCHING
+        define_index do
+          indexes login, email, display_name
+        end if User.table_exists?
+      end
       
       def set_permalink
         self.permalink = to_s.parameterize
