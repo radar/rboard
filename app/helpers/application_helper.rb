@@ -21,7 +21,7 @@ module ApplicationHelper
     
     # URLs
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a rel='nofollow' href='" << $1 << "'>" << $2 << "</a>" }
-    # bbcode_ext(textilize(text))
+    bbcode_ext(textilize(text))
     
     # handle with care...
     text 
