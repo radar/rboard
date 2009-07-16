@@ -6,7 +6,8 @@ class Admin::ThemesController < Admin::ApplicationController
   end
   
   def make_default
-    Theme.find_by_is_default(true).update_attribute(:is_default, false)
+    default_theme = Theme.find_by_is_default(true)
+    default_theme.update_attribute(:is_default, false) if default_theme
     theme = Theme.find(params[:id])
     theme.update_attribute(:is_default, true)
     flash[:notice] = t(:theme_is_now_default, :theme => theme.name)
