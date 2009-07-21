@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  default_scope :order => "name"
+  default_scope :order => "position"
   acts_as_tree
   acts_as_list
   
