@@ -18,6 +18,11 @@ module NavigationHelpers
       
     when /the new topic page for "(.*?)"/
       new_forum_topic_path(Forum.find_by_title($1))
+    
+    when /the reply page for the first topic in "(.*?)"/
+      f = Forum.find_by_title($1)
+      new_topic_post_path(f.topics.first)
+      
     when /the forums page/
       forums_path
     when /the forum page for "(.*?)"/

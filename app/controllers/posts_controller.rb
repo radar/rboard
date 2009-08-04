@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_filter :find_topic
   before_filter :find_user, :only => [:index]
   before_filter :find_post, :only => [:edit, :update, :destroy]
+  before_filter :can_post_here?, :except => [:index]
   before_filter :create_ip, :only => [:create, :update]
   
   def index

@@ -14,7 +14,7 @@ Feature: Topics
     When I press "Create"
     Then I should see "rBoard -> Public Forum -> Tribute"
     
-  Scenario: Registered users should not be able to posts new topics in closed forums
+  Scenario: Registered users should not be able to post new topics in closed forums
     Given I am logged in as "registered_user"
     And there is a closed forum
     And I am on the new topic page for "Closed Forum"
