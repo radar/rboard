@@ -101,7 +101,7 @@ class PostsController < ApplicationController
     end
     
     def can_post_here?
-      if @topic.forum.closed? && !current_user.can?(:post_in_closed_forums)
+      if !@topic.forum.open? && !current_user.can?(:post_in_closed_forums)
         flash[:notice] = t(:This_forum_is_closed)
         redirect_to root_path
       end

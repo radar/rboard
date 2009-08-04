@@ -15,6 +15,9 @@ module NavigationHelpers
       admin_forums_path      
     when /administrator's group page/
       admin_groups_path
+      
+    when /the new topic page for "(.*?)"/
+      new_forum_topic_path(Forum.find_by_title($1))
     when /the forums page/
       forums_path
     when /the forum page for "(.*?)"/

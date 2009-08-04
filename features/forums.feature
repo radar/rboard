@@ -1,4 +1,4 @@
-Feature: Manage forums
+Feature: Forums
   In order to restrict people to the right forums
   Administrators
   want to ensure people are shown only the right forums
@@ -14,17 +14,7 @@ Feature: Manage forums
     Given I am on the forums page
     When I follow "Public Forum"
     Then I should see "Viewing forum: Public Forum"
-    
-  Scenario: Registered users should be able to post new topics
-    Given I am logged in as "registered_user"
-    And I am on the forums page
-    When I follow "Public Forum"
-    When I follow "New Topic"
-    When I fill in "subject" with "Tribute"
-    When I fill in "Text" with "This is just a tribute"
-    When I press "Create"
-    Then I should see "rBoard -> Public Forum -> Tribute"
-    
+
   Scenario: Registered users should not be able to see hidden forums
     Given I am logged in as "registered_user"
     And there is an inactive forum
