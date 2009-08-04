@@ -40,11 +40,23 @@ Feature: Manage forums
     Then I should see "Hidden Forum"
     
   Scenario: Registered users should not be able to post in closed forums
-    Given I am logged in as a "registered_user"
+    Given I am logged in as "registered_user"
     And there is a closed forum
+    And I am on the forums page
     When I follow "Closed Forum"
     Then I should not see "New Topic"
     When I follow "Closed Forum's Topic"
+    When I dump the page
     Then I should not see "New Reply"
+  
+  Scenario: Administrators should be able to create new forums
+    Given I am logged in as "administrator"
+    When I am on the admin forums page
+    And I follow "New Forum"
+    And I fill in "Title" with "Test Forum"
+    And I fill in "Description" with "Testing!"
+    And I press "Create"
+    Then I should see "Forum was created."
+    And I should see "Test Forum"
     
     

@@ -42,6 +42,7 @@ module Admin::PermissionsHelper
      :can_see_forum,
      :can_split_topics,
      :can_start_new_topics,
+     :can_post_in_closed_forums,
      :can_subscribe]
   end
   

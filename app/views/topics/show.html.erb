@@ -6,7 +6,7 @@
 <%= link_to(t(:rBoard), forums_path) %> -> <%= breadcrumb(@topic.forum) %> -> <%= h @topic.subject %>
 <h2><%= h @topic.subject %></h2>
 <%= pagination = will_paginate(@posts) %>
-<%= render :partial => "menu" %>
+<%= menu_for_topic %>
 <% if current_user.can?(:view_reports, @forum) %>
   <div class='warning'><%= t(:Topic_has_been_reported, :count => @topic.reports.count) %> <%= link_to t(:See_reports), moderator_topic_reports_path(@topic) %></div>
 <% end %>
@@ -28,5 +28,5 @@
   </table>
 <% end %>
 <br />
-<%= render :partial => "menu" %>
+<%= menu_for_topic %>
 <%= pagination %>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090615081119) do
+ActiveRecord::Schema.define(:version => 20090804210918) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -60,9 +60,11 @@ ActiveRecord::Schema.define(:version => 20090615081119) do
     t.integer "posts_count",          :default => 0
     t.integer "category_id"
     t.boolean "active",               :default => true
+    t.boolean "open",                 :default => true
   end
 
   add_index "forums", ["category_id"], :name => "index_forums_on_category_id"
+  add_index "forums", ["open"], :name => "index_forums_on_open"
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"
   add_index "forums", ["topics_count"], :name => "index_forums_on_topics_count"
 
@@ -164,6 +166,7 @@ ActiveRecord::Schema.define(:version => 20090615081119) do
     t.boolean "can_read_others_private_messages", :default => false
     t.boolean "can_manage_configurations",        :default => false
     t.boolean "can_see_inactive_forums",          :default => false
+    t.boolean "can_post_in_closed_forums",        :default => false
   end
 
   create_table "posts", :force => true do |t|

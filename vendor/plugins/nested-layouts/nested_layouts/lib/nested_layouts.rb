@@ -6,8 +6,7 @@ module ActionView #:nodoc:
       def inside_layout(layout, &block)
         layout = Dir.entries('app/views/layouts').detect { |a| /#{layout}/.match(a) }
         @template.instance_variable_set('@content_for_layout', capture(&block))
-        concat(@template.render(:file => "#{RAILS_ROOT}/app/views/layouts/#{layout}", :user_full_path => true),
-          block.binding)
+        concat(@template.render(:file => "#{RAILS_ROOT}/app/views/layouts/#{layout}", :user_full_path => true))
       end
 
       # Wrap part of the template into inline layout.

@@ -2,7 +2,7 @@ class TopicsController < ApplicationController
   before_filter :store_location, :only => [:show, :new, :edit, :reply]
   before_filter :login_required, :except => [:show, :index]
   before_filter :find_forum
-  before_filter :moderator_login_required, :only => [:lock, :unlock]
+  before_filter :can_post_here?, :except => [:show, :index]
   before_filter :create_ip, :only => [:create, :update]
   
   def index
@@ -103,6 +103,13 @@ class TopicsController < ApplicationController
     return topics.find(params[:id], topic_options)
   rescue ActiveRecord::RecordNotFound
     not_found
+  end
+  
+  def can_post_here?
+    if @forum.closed? && !current_user.can?(:post_in_closed_forums)
+      flash[:notice] = t(:This_forum_is_closed)
+      redirect_to root_path
+    end
   end
     
   

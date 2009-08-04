@@ -91,7 +91,7 @@ When /^I attach the file at "([^\"]*)" to "([^\"]*)"$/ do |path, field|
 end
 
 When /^I dump the page$/ do
-  puts response.body.inspect
+  save_and_open_page
 end
 
 Then /^I should see "([^\"]*)"$/ do |text|

@@ -27,10 +27,10 @@ class Admin::ForumsController < Admin::ApplicationController
       Forum.new(params[:forum])
     end
     if @forum.save
-      flash[:notice] = t(:created, :thing => "forum")
+      flash[:notice] = t(:created, :thing => "Forum")
       redirect
     else
-      flash[:notice] = t(:not_created, :thing => "forum")
+      flash[:notice] = t(:not_created, :thing => "Forum")
       find_forums
       render :action => "new"
     end

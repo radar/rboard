@@ -15,6 +15,7 @@ Permission.blueprint(:administrator) do
   can_reply_to_topics true
   can_post_stickies true
   can_start_new_topics true
+  can_post_in_closed_forums true
   can_use_signature true
   can_delete_own_posts true
   can_edit_own_posts true

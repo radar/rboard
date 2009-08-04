@@ -10,14 +10,17 @@ module NavigationHelpers
     
     when /the homepage/
       '/'
+      
+    when /the admin forums page/
+      admin_forums_path      
+    when /administrator's group page/
+      admin_groups_path
     when /the forums page/
       forums_path
     when /the forum page for "(.*?)"/
       forum_path(Forum.find_by_title($1))
     when /login page/
       login_path
-    when /administrator's group page/
-      admin_groups_path
     
     # Add more mappings here.
     # Here is a more fancy example:
