@@ -9,6 +9,7 @@
     <td colspan='7'><%= f.select "forum_id", @forums.map { |c| [c.title, c.id] } %></td>
   </tr>
 <% end %>
+
 <% fields_for @permission do |permission| %>
   <% # Global only permissions %>
   <% if params[:type] || @permission.new_record? %>
@@ -35,15 +36,14 @@
     </tr>
   <% end %>
     
-    <tr>
-      <td colspan='10'><h3>System-wide Permissions</h3></td>
-    </tr>
-    
-    <% global_permissions.each_with_index do |action, count| %>
-      <td width='20px'><%= permission.check_box action %></td>
-      <td><%= permission.label action, t("#{action}?") %></td>
-      <%= break_row(count) %>
-    <% end %>
+  <tr>
+    <td colspan='10'><h3>System-wide Permissions</h3></td>
+  </tr>
+  
+  <% global_permissions.each_with_index do |action, count| %>
+    <td width='20px'><%= permission.check_box action %></td>
+    <td><%= permission.label action, t("#{action}?") %></td>
+    <%= break_row(count) %>
   <% end %>
     
   <% # Global or local permissions %>
@@ -53,12 +53,10 @@
   </tr>
   <tr>
     <% forum_permissions.each_with_index do |action, count| %>
-      <%= @permission.id %>
       <td width='20px'><%= permission.check_box action %></td>
       <td><%= permission.label action, t("#{action}?") %></td>
       <%= break_row(count) %>
     <% end %>
-
   </tr>
 
 

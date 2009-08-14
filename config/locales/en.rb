@@ -163,6 +163,7 @@
    :can_manage_users? => "Can manage users?",
    :can_merge_topics? => "Can merge topics?",
    :can_move_topics? => "Can move topics?",
+   :can_post_in_closed_forums? => "Can post in closed forums?",
    :can_post_stickies? => "Can post stickies?",
    :can_read_messages? => "Can read messages?",
    :can_read_private_messages? => "Can read private messages?",
