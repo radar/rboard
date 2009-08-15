@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090804210918) do
+ActiveRecord::Schema.define(:version => 20090815015221) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(:version => 20090804210918) do
     t.datetime "ban_time"
   end
 
+  add_index "banned_ips", ["ban_time"], :name => "index_banned_ips_on_ban_time"
+
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.integer "parent_id"
@@ -25,6 +27,8 @@ ActiveRecord::Schema.define(:version => 20090804210918) do
     t.integer "is_visible_to_id"
     t.string  "description"
   end
+
+  add_index "categories", ["parent_id"], :name => "index_categories_on_parent_id"
 
   create_table "configurations", :force => true do |t|
     t.string "key"
@@ -65,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20090804210918) do
 
   add_index "forums", ["category_id"], :name => "index_forums_on_category_id"
   add_index "forums", ["open"], :name => "index_forums_on_open"
+  add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"
   add_index "forums", ["topics_count"], :name => "index_forums_on_topics_count"
 
@@ -168,6 +173,10 @@ ActiveRecord::Schema.define(:version => 20090804210918) do
     t.boolean "can_see_inactive_forums",          :default => false
     t.boolean "can_post_in_closed_forums",        :default => false
   end
+
+  add_index "permissions", ["category_id"], :name => "index_permissions_on_category_id"
+  add_index "permissions", ["forum_id"], :name => "index_permissions_on_forum_id"
+  add_index "permissions", ["group_id"], :name => "index_permissions_on_group_id"
 
   create_table "posts", :force => true do |t|
     t.text     "text"
@@ -281,5 +290,7 @@ ActiveRecord::Schema.define(:version => 20090804210918) do
   end
 
   add_index "users", ["id", "user_level_id"], :name => "index_users_on_id_and_user_level_id"
+  add_index "users", ["login"], :name => "index_users_on_login"
+  add_index "users", ["login_time"], :name => "index_users_on_login_time"
 
 end

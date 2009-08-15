@@ -1,4 +1,6 @@
 class Topic < ActiveRecord::Base
+  default_scope :order => "sticky desc"
+  
   belongs_to :user
   belongs_to :ip  
   belongs_to :forum

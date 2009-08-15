@@ -4,8 +4,9 @@ class Forum < ActiveRecord::Base
   acts_as_list :scope => :parent_id
   acts_as_tree :order => :position
   
-  named_scope :without_category, :conditions => { :category_id => nil }, :include => :permissions, :order => "position"
-  named_scope :without_parent, :conditions => { :parent_id => nil }, :include => :permissions, :order => "position" 
+  includes = [:children, :permissions, { :last_post => [:topic, :user] }, :last_post_forum]
+  named_scope :without_category, :conditions => { :category_id => nil }, :include => includes, :order => "position"
+  named_scope :without_parent, :conditions => { :parent_id => nil }, :include => includes, :order => "position" 
   named_scope :active, :conditions => { :active => true }
   
   
