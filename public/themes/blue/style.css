@@ -165,6 +165,27 @@ img {
   width: 90%;
 }
 
+.CodeRay {
+  padding: 0px;
+  border-spacing: 0;
+}
+
+.CodeRay .line_numbers {
+  width: 40px;
+  background: #efefef;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #84AFD3;
+  border-right: 0;
+}
+
+.CodeRay .code {
+  background: white;
+  border: 1px solid #84AFD3;
+  border-left: 0;
+  padding: 20px;
+}
+
 .term {
   font-family: Monaco, monospace, "Courier New";
   font-weight: bold;

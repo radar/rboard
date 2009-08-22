@@ -4,8 +4,6 @@
   <head>
     <title><%= @title || params[:action].capitalize + " - " + params[:controller].split("/").map(&:capitalize).join(" - ") %> - <%= t(:rBoard) %></title>
     <link rel='stylesheet' href='/themes/<%= theme.name %>/style.css'>
-    <%= stylesheet_link_tag "ultraviolet/lazy" %>
-    <%= stylesheet_link_tag "ultraviolet/general" %>
     <%= javascript_include_tag 'jquery' %>
     <%= yield :feed %>
     <%= yield :head %>

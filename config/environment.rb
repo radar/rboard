@@ -44,13 +44,13 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'chronic'
   config.gem 'RedCloth'
   config.gem 'highline'
-  config.gem 'textpow'
-  config.gem 'ultraviolet', :lib => "uv"
+  config.gem 'coderay'
   
   # lol actionwebservice
-  config.frameworks -= [:action_web_service]
+  # lol activeresource
+  config.frameworks -= [:action_web_service, :activeresource]
   
-  config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard" }
+  config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard and you should probably change it" }
   
   config.active_record.default_timezone = :utc
   config.time_zone = "UTC"
