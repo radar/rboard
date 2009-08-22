@@ -27,6 +27,12 @@
 </tbody>
 <tfoot>
   <tr>
-    <td colspan='2'><%= submit_tag(t(:Create)) %></td>
+    <td colspan='2'>
+      <% if @post.new_record? %>
+        <%= submit_tag(t(:Create)) %>
+      <% else %>
+        <%= submit_tag(t(:Update))%>
+      <% end %>
+    </td>
   </tr>
 </tfoot>
