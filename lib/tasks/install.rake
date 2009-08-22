@@ -21,10 +21,10 @@ task :install => :environment do
   # Check the comment for this method.
   establish_connection
   Rake::Task["db:create:all"].invoke if STANDALONE
-  puts "Loading schema..."
+  puts "Setting up the database"
   # Check the comment for this method.
   establish_connection
-  Rake::Task["db:schema:load"].invoke
+  Rake::Task["db:migrate"].invoke
   
   puts "*" * 50
   puts "Welcome to rBoard's install process."

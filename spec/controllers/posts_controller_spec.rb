@@ -38,35 +38,35 @@ describe PostsController, "as plebian" do
   
   
   it "should be able to edit a post" do
-    get 'edit', :id => @first_post.id
+    get 'edit', :id => @first_post.id, :topic_id => @everybody.id
     response.should render_template("edit")
   end
   
   it "shouldn't be able to edit a post that doesn't belong to them" do
-    get 'edit', { :id => posts(:admin).id }
+    get 'edit', { :id => posts(:admin).id }, :topic_id => @everybody.id
     flash[:notice].should eql(t(:Cannot_edit_post))
     response.should redirect_to(forums_path)
   end
   
   it "should be able to update a post" do
-    put 'update', :id => @first_post.id, :post => { :text => "Hooray!" }
+    put 'update', :id => @first_post.id, :post => { :text => "Hooray!" }, :topic_id => @everybody.id
     flash[:notice].should eql(t(:updated, :thing => "post"))
   end
   
   it "shouldn't be able to update a post that doesn't exist" do
     Post.should_receive(:find).and_raise(ActiveRecord::RecordNotFound)
-    put 'update', :id => 1234567890, :post => { :text => "" }
+    put 'update', :id => 1234567890, :post => { :text => "" }, :topic_id => @everybody.id
     response.should redirect_to(forums_path)
     flash[:notice].should eql(t(:not_found, :thing => "post"))
   end
   
   it "should not be able to update a post with invalid data" do
-    put 'update', :id => @first_post.id, :post => { :text => "" }
+    put 'update', :id => @first_post.id, :post => { :text => "" }, :topic_id => @everybody.id
     response.should render_template("edit")
   end
   
   it "should not be able to edit a post that does not exist" do
-    get 'edit', :id => 'post'
+    get 'edit', :id => 'post', :topic_id => @everybody.id
     flash[:notice].should eql(t(:not_found, :thing => "post"))
     response.should redirect_to(forums_path)
   end
@@ -88,7 +88,7 @@ describe PostsController, "as plebian" do
   it "should be able to destroy a post, but not the topic" do
     @post.stub!(:forum).and_return(forums(:everybody))
     @post.stub!(:topic).and_return(topics(:user))
-    delete 'destroy', :id => @first_post.id
+    delete 'destroy', :id => @first_post.id, :topic_id => @everybody.id
     response.should redirect_to(forum_topic_path(@post.forum, @post.topic))
     flash[:notice].should eql(t(:deleted, :thing => "post"))
   end
@@ -102,7 +102,7 @@ describe PostsController, "as plebian" do
     @post.should_receive(:destroy)
     @topic.should_receive(:destroy)
     @posts.should_receive(:size).and_return(0)
-    delete 'destroy', :id => @first_post.id
+    delete 'destroy', :id => @first_post.to_param, :topic_id => @everybody.to_param
     response.should redirect_to(forum_path(@post.forum))
     flash[:notice].should eql(t(:deleted, :thing => "post") + t(:topic_too))
   end

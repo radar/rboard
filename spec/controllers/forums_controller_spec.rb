@@ -14,8 +14,16 @@ describe ForumsController do
     @admins_only = forums(:admins_only)
   end
   
+  def find_forums
+    Category.should_receive(:find).and_return(@category)
+    @category.should_receive(:forums).and_return(@forums)
+    @forums.should_receive(:without_parent).and_return(@forums)
+    @forums.should_receive(:active).and_return(@forums)
+  end
+  
   describe "plebian" do
     before do
+      # We do all this should_receive'ing to test what it's like for a specific user
       login_as(:plebian)
     end
     
@@ -28,9 +36,7 @@ describe ForumsController do
     end
     
     it "should show a list of forums inside a specific category" do
-      Category.should_receive(:find).and_return(@category)
-      @category.should_receive(:forums).and_return(@forums)
-      @forums.should_receive(:without_parent).and_return(@forums)
+      find_forums
       get 'index', :category_id => @test_category.id
       response.should render_template("index")
     end
@@ -70,18 +76,14 @@ describe ForumsController do
     end
     
     it "should be able to see forums for the test category" do
-      Category.should_receive(:find).and_return(@category)
-      @category.should_receive(:forums).and_return(@forums)
-      @forums.should_receive(:without_parent).and_return(@forums)
+      find_forums
       get 'index', :category_id => @test_category.id
       response.should render_template("index")
     end
     
     it "should be able to see the forums for the admin category" do
-      Category.should_receive(:find).and_return(@category)
-      @category.should_receive(:forums).and_return(@forums)
-      @forums.should_receive(:without_parent).and_return(@forums)
-      get 'index', :category_id => @admin_category.id
+      find_forums
+    get 'index', :category_id => @admin_category.id
       response.should render_template("index")
     end
   end
