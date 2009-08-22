@@ -64,7 +64,7 @@ describe Admin::ForumsController do
     it "should be able to create a new forum" do
       post 'create', :forum => { :title => "This is a forum", :description => "description" }
       response.should redirect_to(admin_forums_path)
-      flash[:notice].should eql(t(:created, :thing => "forum"))
+      flash[:notice].should eql(t(:created, :thing => "Forum"))
     end
     
     it "should not be able to create a forum with invalid attributes" do
@@ -76,7 +76,7 @@ describe Admin::ForumsController do
     it "should be able to create a forum for a category" do
       post 'create', { :forum => { :title => "This is a forum for a category", :description => "This is a description" }, :category_id => categories(:test).id }
       response.should redirect_to(admin_forums_path)
-      flash[:notice].should eql(t(:created, :thing => "forum"))
+      flash[:notice].should eql(t(:created, :thing => "Forum"))
     end
     
     it "should be able to edit a forum" do

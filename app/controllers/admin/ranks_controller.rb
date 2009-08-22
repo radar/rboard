@@ -16,10 +16,10 @@ class Admin::RanksController < Admin::ApplicationController
   def create
 	  @rank = Rank.new(params[:rank])
     if @rank.save
-      flash[:notice] = t(:created, :thing => "rank")
+      flash[:notice] = t(:created, :thing => "Rank")
       redirect_to admin_ranks_path
     else
-      flash[:notice] = t(:not_created, :thing => "rank")
+      flash[:notice] = t(:not_created, :thing => "Rank")
       render :action => "new"
     end
   end
@@ -31,10 +31,10 @@ class Admin::RanksController < Admin::ApplicationController
   # Updates a rank.
   def update
 	  if @rank.update_attributes(params[:rank])
-		  flash[:notice] = t(:updated, :thing => "rank")
+		  flash[:notice] = t(:updated, :thing => "Rank")
 		  redirect_to admin_ranks_path
     else
-		  flash[:notice] = t(:not_updated, :thing => "rank")
+		  flash[:notice] = t(:not_updated, :thing => "Rank")
 		  render :action => "edit"
 	  end
   end
@@ -42,14 +42,14 @@ class Admin::RanksController < Admin::ApplicationController
   # Deletes a rank.
   def destroy
 	  @rank.destroy
-	  flash[:notice] = t(:deleted, :thing => "rank_")
+	  flash[:notice] = t(:deleted, :thing => "Rank")
     redirect_to admin_ranks_path
   end
   
   private
     # Will be called from #find_rank when a rank cannot be found.
     def not_found
-      flash[:notice] = t(:not_found, :thing => "rank")
+      flash[:notice] = t(:not_found, :thing => "Rank")
       redirect_back_or_default(admin_ranks_path)
     end
     

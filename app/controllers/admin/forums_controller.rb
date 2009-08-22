@@ -30,7 +30,7 @@ class Admin::ForumsController < Admin::ApplicationController
       flash[:notice] = t(:created, :thing => "Forum")
       redirect
     else
-      flash[:notice] = t(:not_created, :thing => "Forum")
+      flash[:notice] = t(:not_created, :thing => "forum")
       find_forums
       render :action => "new"
     end
