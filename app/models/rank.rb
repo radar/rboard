@@ -1,16 +1,11 @@
 class Rank < ActiveRecord::Base
-  has_many :users
+  has_many :users, :dependent => :nullify
     
   named_scope :custom, :conditions => { :custom => true }
-  named_scope :for_user, lambda { |user| { :conditions => ["posts_required >= ?", user.posts.count] } } 
+  
+  def self.for_user(user)
+    first(:conditions => ["posts_required >= ?", user.posts.count], :order => "posts_required DESC" )
+  end
   
   validates_presence_of :name
-  
-  before_destroy :unassign_all_users
-
-	def unassign_all_users
-	  for user in User.find_all_by_rank_id(id)
-	    user.update_attribute("rank_id", nil)
-	  end
-	end
 end

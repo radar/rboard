@@ -76,9 +76,9 @@ module Rboard::UserExtension
 
       #misc. user information
       def rank
-        rank = Rank.find_by_id(rank_id)
+        rank = Rank.find_by_id(rank_id) unless rank_id.nil?
     	  rank ||= Rank.for_user(self)
-    	  rank.nil? ? '' : rank.name
+        rank ? rank.name : nil
       end
       
       def user?
