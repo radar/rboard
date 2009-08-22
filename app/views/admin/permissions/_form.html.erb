@@ -37,7 +37,7 @@
   <% end %>
     
   <tr>
-    <td colspan='10'><h3>System-wide Permissions</h3></td>
+    <td colspan='10'><h3><%= t(:Systemwide_Permissions) %></h3></td>
   </tr>
   
   <% global_permissions.each_with_index do |action, count| %>
@@ -49,7 +49,7 @@
   <% # Global or local permissions %>
   
   <tr>
-    <td colspan='10'><h3>Forum Permissions</h3></td>
+    <td colspan='10'><h3><%= t(:Forum_Permissions) %></h3></td>
   </tr>
   <tr>
     <% forum_permissions.each_with_index do |action, count| %>

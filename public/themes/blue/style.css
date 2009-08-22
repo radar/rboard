@@ -135,6 +135,7 @@ img {
 }
 
 .post, .action-box, .user {
+  background:#e1f1ff;
   border: 1px solid #84AFD3;
   margin: 2px;
 }
@@ -153,7 +154,7 @@ img {
 }
 
 .edit-note {
-  color: #4F93CF;
+  color: #4F93CF; 
   font-size: 9pt;
 }
 
