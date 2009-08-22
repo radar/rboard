@@ -175,7 +175,6 @@ ActiveRecord::Schema.define(:version => 20090815015221) do
   end
 
   add_index "permissions", ["category_id"], :name => "index_permissions_on_category_id"
-  add_index "permissions", ["forum_id"], :name => "index_permissions_on_forum_id"
   add_index "permissions", ["group_id"], :name => "index_permissions_on_group_id"
 
   create_table "posts", :force => true do |t|
