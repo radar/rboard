@@ -19,7 +19,8 @@ class ForumsController < ApplicationController
       @forums = Forum.without_category.without_parent.select { |f| current_user.can?(:see_forum, f) }
     end
     @lusers = User.recent.map { |u| u.to_s }.to_sentence
-    @users = User.count
+    # Remove one for anonymous
+    @users = User.count - 1
     @posts = Post.count
     @topics = Topic.count
     @ppt = @posts > 0 ? @posts / @topics : 0
