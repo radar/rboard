@@ -2,7 +2,7 @@
 module ApplicationHelper
   def bbcode(text)
     # Code snippets
-    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { CodeRay.scan($2.strip, $1.to_sym).div(:line_numbers => :table)}
+    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { CodeRay.scan($2.strip, ($1.blank? ? :plain : $1.to_sym)).div(:line_numbers => :table)}
     text = sanitize(text, :tags => %w(span div table tr td br pre tt), :attributes => %w(id class style))
     # Gist embedding
     text.gsub!(/\[gist\](.*?)\[\/gist\]/) { $1.split(" ").map { |gist| "<script src='http://gist.github.com/#{gist}.js'></script>" } }
