@@ -3,6 +3,10 @@ describe ApplicationHelper, "general" do
   fixtures :forums, :categories
   include ApplicationHelper
   
+  def white_list_sanitizer
+   @white_list_sanitizer ||= HTML::WhiteListSanitizer.new
+  end
+  
   before do
     @everybody = forums(:everybody)
     @sub_of_everybody = forums(:sub_of_everybody)
