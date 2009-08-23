@@ -316,6 +316,7 @@
    :Never => "Never",
    :never => "never",
    :New => "New {{thing}}",
+   :New_Password_Confirmation => "New Password Confirmation",
    :Next_post => "Next post",
    :No => "No",
    :no => "no",

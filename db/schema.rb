@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090815015221) do
+ActiveRecord::Schema.define(:version => 1) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
