@@ -36,7 +36,6 @@ Feature: Forums
     When I follow "Closed Forum"
     Then I should not see "New Topic"
     When I follow "Closed Forum's Topic"
-    When I dump the page
     Then I should not see "New Reply"
   
   Scenario: Administrators should be able to create new forums

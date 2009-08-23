@@ -8,5 +8,7 @@ class Category < ActiveRecord::Base
   has_many :groups, :through => :permissions
   
   named_scope :without_parent, :conditions => { :parent_id => nil }, :include => :permissions
+  
+  validates_presence_of :name
 
 end

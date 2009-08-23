@@ -5,4 +5,5 @@ end
 
 Forum.blueprint(:public_forum) do
   title "Public Forum"
+  category { Category.make(:public) }
 end

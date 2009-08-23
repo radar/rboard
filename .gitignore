@@ -18,3 +18,4 @@ config/newrelic.yml
 .gitignore.swp
 public/avatars
 vendor/plugins/newrelic_rpm
+webrat*.html

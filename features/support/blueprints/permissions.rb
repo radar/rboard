@@ -1,5 +1,6 @@
 Permission.blueprint do
   can_see_forum true
+  can_see_category true
   group { Group.ensure("Anonymous") }
 end
 

@@ -12,7 +12,7 @@ Feature: Topics
     When I fill in "subject" with "Tribute"
     When I fill in "Text" with "This is just a tribute"
     When I press "Create"
-    Then I should see "rBoard -> Public Forum -> Tribute"
+    Then I should see "rBoard -> Public Category -> Public Forum -> Tribute"
     
   Scenario: Registered users should not be able to post new topics in closed forums
     Given I am logged in as "registered_user"
