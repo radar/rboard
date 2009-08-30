@@ -1,11 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+
+class TestView < ActionView::Base
+  include ApplicationHelper
+end
+
 describe ApplicationHelper, "general" do
   fixtures :forums, :categories
   include ApplicationHelper
-  
-  def white_list_sanitizer
-   @white_list_sanitizer ||= HTML::WhiteListSanitizer.new
-  end
   
   before do
     @everybody = forums(:everybody)
@@ -13,11 +14,11 @@ describe ApplicationHelper, "general" do
   end
   
   it "should correctly output breadcrumbs" do
-    breadcrumb(@everybody).should eql("<a href=\"/categories/914358341/forums\">test</a> -> <a href=\"/forums/218098324\">General Discussion!</a>")
-    breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/914358341/forums\">test</a> -> <a href=\"/forums/218098324\">General Discussion!</a> -> <a href=\"/forums/384866746\">Unmoderated Discussion</a>")
+    breadcrumb(@everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">test</a> -> <a href=\"/forums/#{@everybody.id}\">General Discussion!</a>")
+    breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">test</a> -> <a href=\"/forums/#{@everybody.id}\">General Discussion!</a> -> <a href=\"/forums/#{@sub_of_everybody.id}\">Unmoderated Discussion</a>")
   end
   
   it "should correctly encapsulate double quotes" do
-    bbcode('[quote="Kitten"][quote="Dog"]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='center'><div class='quote'><b>Kitten wrote:</b><div class='center'><div class='quote'><b>Dog wrote:</b></div></div>QUOTE OUTSIDE</div></div>")
+    TestView.new.bbcode('[quote="Kitten"][quote="Dog"]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='center'><div class='quote'><b>Kitten wrote:</b><div class='center'><div class='quote'><b>Dog wrote:</b></div></div>QUOTE OUTSIDE</div></div>")
   end
 end  
