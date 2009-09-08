@@ -1,12 +1,13 @@
 # Be sure to restart your web server when you modify this file.
 # Uncomment this to force production mode.
-# ENV['RAILS_ENV'] = 'development'
+ENV['RAILS_ENV'] = 'development'
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
 database = File.join(RAILS_ROOT, "config/database.yml")
 if !File.exist?(database)
-  raise "You must create a database.yml file."
+  puts "You don't have a config/database.yml. Let us create that for you..."
+  FileUtils.cp("#{RAILS_ROOT}/config/database.yml.sample", "#{RAILS_ROOT}/config/database.yml")
 end
 
 if File.readlines(database).empty?

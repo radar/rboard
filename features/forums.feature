@@ -37,15 +37,5 @@ Feature: Forums
     Then I should not see "New Topic"
     When I follow "Closed Forum's Topic"
     Then I should not see "New Reply"
-  
-  Scenario: Administrators should be able to create new forums
-    Given I am logged in as "administrator"
-    When I am on the admin forums page
-    And I follow "New Forum"
-    And I fill in "Title" with "Test Forum"
-    And I fill in "Description" with "Testing!"
-    And I press "Create"
-    Then I should see "Forum was created."
-    And I should see "Test Forum"
     
     
