@@ -56,4 +56,8 @@ describe User, "with users" do
     @plebian.online?.should be_true
   end
   
+  it "should correctly auth using phpbb's method" do
+    @plebian.phpbb_authenticated?("password").should be_true
+  end
+  
 end

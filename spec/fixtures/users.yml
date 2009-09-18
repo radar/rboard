@@ -24,8 +24,10 @@ plebian:
   #password is only_human
   salt: 8de4e91a969b7049ab1a53d57afbab578cc78021
   crypted_password: a561a12d86ed27a6c6adf52a327979fcf74c1f3c
+  phpbb_crypted_password: $H$9y6GYdfw18fI9zHpKFbfR3j026K2en.
   login_time: <%= (Time.now - 5.minutes).to_s(:db) %>
   permalink: plebian
+  old_id: 2
 
 banned_noob:
   id: 4
