@@ -1,23 +1,29 @@
+require 'lib/rboard/basic_setup'
 class PHPBB::Converter
   HOLDING_CELL = "#{RAILS_ROOT}/export"
   def self.convert
     # Remove all records.
-    [User, Forum, Topic, Post].map(&:delete_all)
-
+    [User, Forum, Topic, Post, Category].map(&:delete_all)
+    
+    # Basic rboard scaffold
+    BasicSetup.new
+    
+    puts "Importing PHPBB Users"
     PHPBB::User.all.each do |phpbb_user|
       User.new do |user|
         user.old_id = phpbb_user.user_id
-        user.password = user.password_confirmation =  'password' #TODO: change
         user.login = phpbb_user.username
         
         # HACK
         user.email = phpbb_user.user_email.blank? ? "imported-#{Time.now.to_f}@from.phpbb.local" : phpbb_user.user_email
         
         user.created_at = phpbb_user.user_regdate
-        user.save!
+        # Because password is blank, we fix this up later.
+        user.save(false)
       end
     end
 
+    puts "Importing PHPBB Forums"
     PHPBB::Forum.all.each do |phpbb_forum|
       forum = Forum.new do |forum|
         forum.old_id = phpbb_forum.forum_id
@@ -27,6 +33,7 @@ class PHPBB::Converter
         forum
       end
       
+      puts "Importing PHPBB Topics and Posts for #{forum}"
       phpbb_forum.topics.each do |phpbb_topic|
         Topic.new do |topic|
           topic.forum = Forum.find_by_old_id(phpbb_forum.forum_id)
@@ -46,6 +53,7 @@ class PHPBB::Converter
         end
       end
     end
+    puts "Done!"
   end
 end
         

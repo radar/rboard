@@ -19,6 +19,10 @@ Given /^there is the usual setup$/ do
 
   # Create the user
   User.make_with_group(:registered_user, "Registered Users")
+  
+  # Create the phpbb (eewwww) user
+  User.make_with_group(:phpbb_user, "Registered Users")
 
   Forum.make(:public_forum)
+  
 end

@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
-    u && u.authenticated?(password) ? u : nil
+    u && (u.authenticated?(password) || u.phpbb_authenticated?(password)) ? u : nil
   end
   
   # Encrypts some data with the salt.
@@ -22,6 +22,18 @@ class User < ActiveRecord::Base
   
   def authenticated?(password)
     crypted_password == encrypt(password)
+  end
+  
+  def phpbb_authenticated?(password)
+    Dir.chdir("/Users/ryanbigg/Sites/phpbb") do
+      @output = `php password.php #{old_id} #{password}`.chomp!
+      @output = @output == "bool(true)"
+    end
+    if @output
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--")
+      self.crypted_password = encrypt(password)
+      self.save!
+    end
   end
   
   def remember_token?
