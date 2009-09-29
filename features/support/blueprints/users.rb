@@ -7,11 +7,6 @@ User.blueprint do
   groups { Group.ensure("Registered Users") }
 end
 
-User.blueprint(:phpbb_user) do
-  old_id 2
-  login "phpbb_user"
-end
-
 
 User.blueprint(:anonymous) do
   group = Group.ensure("Anonymous")

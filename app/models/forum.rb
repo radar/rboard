@@ -20,7 +20,7 @@ class Forum < ActiveRecord::Base
   belongs_to :last_post, :class_name => "Post"
   belongs_to :last_post_forum, :class_name => "Forum"
   
-  validates_presence_of :title
+  validates_presence_of :title, :description
     
   def to_s
     title
