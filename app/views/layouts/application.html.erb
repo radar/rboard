@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
     <title><%= @title || params[:action].capitalize + " - " + params[:controller].split("/").map(&:capitalize).join(" - ") %> - <%= t(:rBoard) %></title>
-    <link rel='stylesheet' href='<%= ActionController::Base.relative_url_root %>/themes/<%= theme.name %>/style.css'>
+    <link rel='stylesheet' href='<%=ActionController::Base.relative_url_root%>/themes/<%= theme.name %>/style.css'>
     <%= javascript_include_tag 'jquery' %>
     <%= yield :feed %>
     <%= yield :head %>
@@ -22,7 +22,7 @@
         <%= link_to t(:Home), forums_path %> |
         <% unless logged_in? %>
             <%= link_to t(:Login), login_path %> |
-            <%= link_to t(:Signup), signup_users_path %>
+            <%= link_to t(:Signup), signup_path %>
          
         <% else %>
           <%= t(:Logged_in_as) %> <%= link_to current_user, current_user %> |
