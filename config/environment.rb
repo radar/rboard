@@ -27,8 +27,9 @@ TIME_DISPLAY = "%I:%M:%S%p"
 # Change this if you want to change the default formatting of years.
 DATE_DISPLAY = "%d %B %Y"
 
-# Change this to point at a different themes directory.
-THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
+# Change this to point at a different themes directory. In jruby-rack Rails.public_path is not yet set.
+THEMES_DIRECTORY = Proc.new { File.join(Rails.public_path, "themes") }
+
 
 # Set this to false if you're integrating rboard into another app.
 # This determines if rake db:create:all is ran when running the install script.

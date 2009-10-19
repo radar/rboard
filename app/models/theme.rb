@@ -6,7 +6,7 @@ class Theme < ActiveRecord::Base
   validates_uniqueness_of :name
   
   def to_s
-    File.readlines("#{THEMES_DIRECTORY}/#{name}/style.css").to_s
+    File.readlines("#{THEMES_DIRECTORY.respond_to?("call") ? THEMES_DIRECTORY.call() : THEMES_DIRECTORY}/#{name}/style.css").to_s
   end
   
 end
