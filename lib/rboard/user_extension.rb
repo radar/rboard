@@ -106,6 +106,14 @@ module Rboard::UserExtension
           groups << Group.find_by_identifier("registered_users")
         end
       end
+      
+      def set_permalink
+        self.permalink = to_s.parameterize
+      end
+
+      def set_theme
+        self.theme = Theme.find(:first)
+      end
     end
   end
   

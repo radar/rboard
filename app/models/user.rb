@@ -52,14 +52,4 @@ class User < ActiveRecord::Base
   def password_required?
     crypted_password.blank? || !password.blank?
   end
-  
-  private
-  
-  def set_permalink
-    self.permalink = to_s.parameterize
-  end
-  
-  def set_theme
-    self.theme = Theme.find(:first)
-  end
 end
