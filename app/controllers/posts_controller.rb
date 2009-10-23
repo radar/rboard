@@ -17,17 +17,14 @@ class PostsController < ApplicationController
   end
 
   def create
-    @topic = Topic.find(params[:topic_id], :include => :posts)
-    
-    # The last 10 posts for this topic
-    @posts = @topic.posts.find(:all, :order => "id DESC", :limit => 10)
-    
     @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => @ip))
     
     if @post.save
       flash[:notice] = t(:created, :thing => "post")
       go_directly_to_post
     else
+      # The last 10 posts for this topic
+      @posts = @topic.last_10_posts
       @quoting_post = Post.find(params[:quote]) unless params[:quote].blank?
       flash.now[:notice] = t(:not_created, :thing => "post")
       render :action => "new"
