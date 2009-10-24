@@ -9,6 +9,7 @@
     <%= f.file_field :file %>
     <%= f.submit "Upload" %>
   <% end %>
+  <h3>
   <ul>
     <% @attachments.each do |attachment| %>
       <li><%= attachment.file_file_name %></li>

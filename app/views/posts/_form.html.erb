@@ -1,10 +1,10 @@
-<%= f.hidden_field :currently, :value => @currently %>
 <tbody>
   <tr>
     <td valign='top'>
       <b><%= t(:Post) %>:</b>
     </td>
     <td>
+      <%= hidden_field_tag :currently, @currently %>
       <%= f.text_area 'text', :cols => (cols || 70), :rows => (rows || 20) %>
     </td>
   </tr>

@@ -12,7 +12,7 @@
       </td>
       <td align='right' valign='top'>
         <% if !post.topic.locked? || (post.topic.locked? && current_user.can?(:edit_locked_topics, @forum)) %>
-	        <% if current_user.can?(:reply, @forum) %>
+          <% if current_user.can?(:reply, @forum) %>
             <%= link_to t(:Reply), new_topic_post_path(post.topic) %> |
             <%= link_to t(:Quote), reply_topic_post_path(post.topic, post) %> 
           <% end %>
@@ -48,17 +48,29 @@
       </td>
       
       <td valign='top' colspan='2' valign='top'>
-			  <%= bbcode(post.text) %>
-			  <% if post.user.can?(:use_signature, @forum) && !post.user.signature.blank? %><br />
-			    ____________<br />
-			    <%= bbcode(post.user.signature) %>
-		  	<% end %>
-			
-		  	<% if !post.edits.empty? %>
-			    <br /><br />
-		  	  <span class='edit-note'><%= t(:This_post_was_edited_by) %> <%= post.editor.login %> <%= time_ago_in_words(post.updated_at) %> <%= t(:ago) %></span>
-	  		<% end %>
-		  </td>
+        <%= bbcode(post.text) %>
+        <% if post.user.can?(:use_signature, @forum) && !post.user.signature.blank? %><br />
+          ____________<br />
+          <%= bbcode(post.user.signature) %>
+        <% end %>
+      
+        <% if !post.edits.empty? %>
+          <br /><br />
+          <span class='edit-note'><%= t(:This_post_was_edited_by) %> <%= post.editor.login %> <%= time_ago_in_words(post.updated_at) %> <%= t(:ago) %></span>
+        <% end %>
+        
+        
+        <% unless post.attachments.blank? %>
+          <hr>
+          <h4><%= t(:Attachments, :count => post.attachments.count) %></h4>
+          <ul>
+            <% for attachment in post.attachments %>
+              <li>
+                <%= link_to attachment.file_file_name, attachment.file.url %> <em>(<%= attachment.file_content_type %> / <%= number_to_human_size(attachment.file_file_size, :separator => ".") %>)</em>
+              </li>
+            <% end %>
+        <% end %>
+      </td>
     </tr>
   </tbody>
 </table>

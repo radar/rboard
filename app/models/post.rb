@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :edited_by, :class_name => "User"
   
-  has_many :attachments
+  has_many :attachments, :class_name => "::Attachment" # Need to set :class_name because it will try to use Paperclip::Attachment otherwise
   has_many :edits, :order => "created_at DESC", :dependent => :destroy
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
   has_many :reports, :as => :reportable, :dependent => :destroy

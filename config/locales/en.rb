@@ -115,7 +115,7 @@
    :as_the_reason => "as the reason",
    :At_first_post => "At first post",
    :At_last_post => "At last post",
-   :Attachments => "Attachments",
+   :Attachments => { :zero => "Attachments", :one => "1 attachment", :other => "{{count}} attachments" },
    :Author => "Author",
    :Banned => "Banned",
    :banned_by => "banned by {{user}}",

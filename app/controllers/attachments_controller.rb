@@ -7,10 +7,9 @@ class AttachmentsController < ApplicationController
   
   def create
     @attachment = Attachment.new
-    disabled = false
+    currently = params[:currently]
     if !logged_in?
-      message = t(:you_must_be_logged_in)
-      type = 'error'
+      flash[:error] = t(:you_must_be_logged_in)
     else    
       # We find the forum because we want to see if the current user can post in it.
       forum = Forum.find(params[:forum_id])
@@ -18,7 +17,6 @@ class AttachmentsController < ApplicationController
       if current_user.can?(:use_attachments, @forum)
         if params[:attachment] && params[:attachment][:file]
           # Get the time of the post, this is set in PostsController#new/#create/#edit
-          currently = params[:attachment].delete(:currently)
           # Anything goes. For the time being.
           session[currently] ||= []
           session[currently] << Attachment.create(params[:attachment]).id

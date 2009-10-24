@@ -8,5 +8,10 @@ function attachmentCallback(message, type, disabled) {
     $('#attachment_submit').remove();
     $('#attachment_file').remove();
   };
+}
 
+// From: http://guymal.com/mycode/iframe_size
+function resize(element) {
+  $('#' + element.id).height = "1000";
+  element.height = "1000";
 }
