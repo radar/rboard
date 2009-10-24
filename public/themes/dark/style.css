@@ -90,11 +90,12 @@ img {
   border: 1px solid #17476e;
 }
 
-.forums thead, .forum thead, .info-box thead, .post thead, .action-box thead, .list-table thead {
+.forums thead, .forum thead, .info-box thead, .post thead, .list-table thead, .action-box h2 {
   background: #ffb200 url(thead-bg.jpg) repeat-x scroll 0%;
   font-weight: bold;
   color: black;
 }
+
 
 
 .forum tfoot {

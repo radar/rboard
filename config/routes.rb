@@ -69,6 +69,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :forums, :collection => { :list => :get } do |forum|
+    forum.resources :attachments
     forum.resources :topics, :member => { :lock => :put, :unlock => :put }
   end
   

@@ -1,0 +1,3 @@
+<% if current_user.can?(:use_attachments, @topic.forum) %>
+  <iframe src='<%= new_forum_attachment_path(@topic.forum, :currently => @currently) %>'></iframe>
+<% end %>

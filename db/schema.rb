@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 1) do
+ActiveRecord::Schema.define(:version => 20091023221533) do
+
+  create_table "attachments", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "post_id"
+  end
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -65,9 +75,11 @@ ActiveRecord::Schema.define(:version => 1) do
     t.integer "category_id"
     t.boolean "active",               :default => true
     t.boolean "open",                 :default => true
+    t.integer "old_id"
   end
 
   add_index "forums", ["category_id"], :name => "index_forums_on_category_id"
+  add_index "forums", ["old_id"], :name => "index_forums_on_old_id"
   add_index "forums", ["open"], :name => "index_forums_on_open"
   add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"
@@ -172,6 +184,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.boolean "can_manage_configurations",        :default => false
     t.boolean "can_see_inactive_forums",          :default => false
     t.boolean "can_post_in_closed_forums",        :default => false
+    t.boolean "can_use_attachments",              :default => false
   end
 
   add_index "permissions", ["category_id"], :name => "index_permissions_on_category_id"
@@ -189,16 +202,21 @@ ActiveRecord::Schema.define(:version => 1) do
     t.boolean  "delta"
     t.boolean  "deleted",      :default => false
     t.integer  "ip_id"
+    t.integer  "old_id"
   end
 
   add_index "posts", ["id", "topic_id"], :name => "index_posts_on_id_and_topic_id"
   add_index "posts", ["ip_id"], :name => "index_posts_on_ip_id"
+  add_index "posts", ["old_id"], :name => "index_posts_on_old_id"
 
   create_table "ranks", :force => true do |t|
     t.string  "name"
     t.integer "posts_required"
     t.boolean "custom",         :default => false
+    t.integer "old_id"
   end
+
+  add_index "ranks", ["old_id"], :name => "index_ranks_on_old_id"
 
   create_table "read_topics", :force => true do |t|
     t.integer "user_id"
@@ -242,10 +260,12 @@ ActiveRecord::Schema.define(:version => 1) do
     t.integer  "ip_id"
     t.boolean  "moved",        :default => false
     t.integer  "moved_to_id"
+    t.integer  "old_id"
   end
 
   add_index "topics", ["id", "forum_id"], :name => "index_topics_on_id_and_forum_id"
   add_index "topics", ["ip_id"], :name => "index_topics_on_ip_id"
+  add_index "topics", ["old_id"], :name => "index_topics_on_old_id"
 
   create_table "user_levels", :id => false, :force => true do |t|
     t.string  "name"
@@ -287,10 +307,13 @@ ActiveRecord::Schema.define(:version => 1) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.string   "identifier"
+    t.integer  "old_id"
+    t.string   "phpbb_crypted_password"
   end
 
   add_index "users", ["id", "user_level_id"], :name => "index_users_on_id_and_user_level_id"
   add_index "users", ["login"], :name => "index_users_on_login"
   add_index "users", ["login_time"], :name => "index_users_on_login_time"
+  add_index "users", ["old_id"], :name => "index_users_on_old_id"
 
 end
