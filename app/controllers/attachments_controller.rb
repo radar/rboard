@@ -9,7 +9,7 @@ class AttachmentsController < ApplicationController
     @attachment = Attachment.new
     currently = params[:currently]
     if !logged_in?
-      flash[:error] = t(:you_must_be_logged_in)
+      flash.now[:error] = t(:you_must_be_logged_in)
     else    
       # We find the forum because we want to see if the current user can post in it.
       forum = Forum.find(params[:forum_id])
