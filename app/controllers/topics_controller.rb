@@ -47,7 +47,7 @@ class TopicsController < ApplicationController
     if @topic.save && @post.save
       if params[:attachments] && current_user.can?(:use_attachments, @forum)
         flash[:notice] = t(:Now_you_may_attach_files)
-        redirect_to topic_post_attachments_path(@topic, @post)
+        redirect_to new_topic_post_attachment_path(@topic, @post)
       else
         flash[:notice] = t(:created, :thing => "Topic")
         redirect_to forum_topic_path(@topic.forum, @topic)

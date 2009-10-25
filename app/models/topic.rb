@@ -70,6 +70,11 @@ class Topic < ActiveRecord::Base
     subject
   end
   
+  def finished!
+    self.finished = true
+    save!
+  end
+  
   def move!(new_forum_id, leave_redirect=false)
      # May actually have selected a shadow redirect topic.
     actual_topic = moved_to.nil? ? self : self.moved_to

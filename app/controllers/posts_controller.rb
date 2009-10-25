@@ -134,8 +134,4 @@ class PostsController < ApplicationController
         redirect_back_or_default(forums_path)
       end
     end
-    
-    def go_directly_to_post
-      redirect_to forum_topic_path(@post.forum,@topic) + "/#{@post.page_for(current_user)}" + "#post_#{@post.id}"
-    end
 end

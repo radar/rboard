@@ -83,7 +83,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :subscriptions
   
   map.resources :topics, :member => { :reply => :get, :unlock => :put, :lock => :put } do |topic|
-    topic.resources :posts, :member => { :reply => :get }
+    topic.resources :posts, :member => { :reply => :get } do |post|
+      post.resources :attachments
+    end
     topic.resources :subscriptions
     topic.resources :reports
   end

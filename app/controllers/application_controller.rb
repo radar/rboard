@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
   
   before_filter :set_default_theme
   
+  private
+  
   def set_default_theme
     @default_theme = Theme.find_by_is_default(true)
   end
@@ -34,5 +36,9 @@ class ApplicationController < ActionController::Base
 
   def set_time_zone
     Time.zone = current_user.time_zone if logged_in? && !current_user.time_zone.nil?
+  end
+      
+  def go_directly_to_post
+    redirect_to forum_topic_path(@post.forum,@topic) + "/#{@post.page_for(current_user)}" + "#post_#{@post.id}"
   end
 end

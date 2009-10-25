@@ -88,6 +88,11 @@ class Post < ActiveRecord::Base
     end
   end
   
+  def finished!
+    self.finished = true
+    save!
+  end
+  
   def editor
     edits.last.user
   end

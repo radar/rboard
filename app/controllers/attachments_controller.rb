@@ -1,5 +1,6 @@
 class AttachmentsController < ApplicationController
-  before_filter :find_forum
+  before_filter :find_parents
+  before_filter :login_required
   
   def new
     @attachment = Attachment.new
@@ -8,36 +9,40 @@ class AttachmentsController < ApplicationController
   def create
     @attachment = Attachment.new
     currently = params[:currently]
-    if !logged_in?
-      flash.now[:error] = t(:you_must_be_logged_in)
-    else    
-      # We find the forum because we want to see if the current user can post in it.
-      forum = Forum.find(params[:forum_id])
-      
-      if current_user.can?(:use_attachments, @forum)
-        if params[:attachment] && params[:attachment][:file]
-          # Get the time of the post, this is set in PostsController#new/#create/#edit
-          # Anything goes. For the time being.
-          session[currently] ||= []
-          session[currently] << Attachment.create(params[:attachment]).id
-          flash.now[:success] = t(:Upload_successful)
-        else
-          flash.now[:error] = t(:Please_select_a_file_to_upload)
-        end
+    if current_user.can?(:use_attachments, @forum)
+      if params[:attachment] && !params[:attachment][:file].blank?
+        @post.attachments.create(params[:attachment])
+        flash[:success] = t(:Upload_successful)
       else
-        flash.now[:error] = t(:You_cannot_post_attachments_in_this_forum)
+        if params[:commit] != t(:Post)
+          flash[:error] = t(:Please_select_a_file_to_upload)
+          render :action => "new"
+        end
       end
+    else
+      flash[:error] = t(:You_cannot_post_attachments_in_this_forum)
+      redirect_to forum_path(@forum)
     end
-    
-    # session[currently] may not be set because this action failed.
-    # Previous uploads for this post may have succeeded, so we need to gather regardless.
-    @attachments = Attachment.find(session[currently]) if session[currently]
-    render :action => "new"
+    if params[:commit] == t(:Attach_this_and_more)
+      redirect_to new_topic_post_attachment_path(@topic, @post)
+    elsif [t(:Attach_this_and_post), t(:Post)].include?(params[:commit]) && !performed?
+      @topic.finished!
+      @post.finished!
+      flash[:notice] = t(:created, :thing => t(:Post))
+      go_directly_to_post
+    end
   end
   
   private
-    def find_forum
-      @forum = Forum.find(params[:forum_id])
+    def find_parents
+      @post = Post.find(params[:post_id], :include => [{ :topic => :forum }, :attachments])
+      @topic = @post.topic
+      @forum = @topic.forum
+      
+      if !@post.belongs_to?(current_user) && !current_user.can?(:edit_posts, @forum)
+        flash[:notice] = t(:That_post_does_not_belong_to_you)
+        redirect_to forum_path(@forum)
+      end
       
       # Cheat a little and use this to instantize @attachments.
       @attachments ||= []

@@ -1,17 +1,19 @@
 <div class='action-box'>
-  <h2><%= t(:Attachments) %></h2>
+  <h2><%= t(:Attachments, :count => 0) %></h2>
   <% flash.each do |key, value| %>
     <div class='attachment_message <%= key %>'><%= value %></div>
   <% end %>
-  <% form_for [@forum, @attachment], :html => { :multipart => true } do |f| %>
+  <% form_for [@topic, @post, @attachment], :html => { :multipart => true } do |f| %>
     <%= hidden_field_tag :currently, params[:currently] %>
     <%= f.label :file %>
     <%= f.file_field :file %>
-    <%= f.submit "Upload" %>
+    <%= f.submit t(:Attach_this_and_more) %>
+    <%= f.submit t(:Attach_this_and_post) %>
+    <%= f.submit t(:Post) %>
   <% end %>
-  <h3>
+  <h3><%= t(:Attachments, :count => @post.attachments.size) %></h3>
   <ul>
-    <% @attachments.each do |attachment| %>
+    <% @post.attachments.each do |attachment| %>
       <li><%= attachment.file_file_name %></li>
     <% end %>
   </ul>
