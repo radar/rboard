@@ -79,14 +79,14 @@
                  <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %>
               </b>
             </td>
-            <td align='center'><%= (topic.moved? ? topic.moved_to.posts.count : topic.posts.count) - 1 %></td>
+            <td align='center'><%= (topic.moved? ? topic.moved_to.posts.finished.count : topic.posts.finished.count) - 1 %></td>
             <td align='center'><%= topic.views %></td>
             <td align='center'><%= link_to(h(topic.user), topic.user) %></td>
             <td align='right' width='15%'>
             <% if topic.moved? %>
               -
             <% else %>
-              <%= time_ago_in_words(topic.posts.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user), topic.last_post.user %>
+              <%= time_ago_in_words(topic.posts.finished.last.created_at) %> <%= t(:ago) %> <%= t(:by) %> <%= link_to h(topic.last_post.user), topic.last_post.user %>
             <% end %>  
               </td>
           </tr>

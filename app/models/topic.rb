@@ -71,8 +71,10 @@ class Topic < ActiveRecord::Base
   end
   
   def finished!
-    self.finished = true
-    save!
+    unless finished?
+      self.finished = true
+      save!
+    end
   end
   
   def move!(new_forum_id, leave_redirect=false)

@@ -31,7 +31,6 @@ class Post < ActiveRecord::Base
   after_create :log_ip
   after_create :update_forum
   before_create :stop_spam
-  after_create :find_latest_post
   after_destroy :find_latest_post
   
   before_create :increment_counter
@@ -89,8 +88,11 @@ class Post < ActiveRecord::Base
   end
   
   def finished!
-    self.finished = true
-    save!
+    unless finished?
+      self.finished = true
+      update_latest_post(post)
+      save!
+    end
   end
   
   def editor
