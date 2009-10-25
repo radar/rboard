@@ -8,10 +8,10 @@ Feature: Topics
     Given I am logged in as "registered_user"
     And I am on the forums page
     When I follow "Public Forum"
-    When I follow "New Topic"
-    When I fill in "subject" with "Tribute"
-    When I fill in "Text" with "This is just a tribute"
-    When I press "Create"
+    And I follow "New Topic"
+    And I fill in "Subject" with "Tribute"
+    And I fill in "Text" with "This is just a tribute"
+    And I press "Create"
     Then I should see "rBoard -> Public Category -> Public Forum -> Tribute"
     
   Scenario: Registered users should not be able to post new topics in closed forums
