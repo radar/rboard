@@ -26,6 +26,7 @@ class PostsController < ApplicationController
         flash[:notice] = t(:Now_you_may_attach_files)
         redirect_to new_topic_post_attachment_path(@topic, @post)
       else
+        @post.finished!
         go_directly_to_post
       end
     else
