@@ -6,10 +6,10 @@ Feature: Attachments
   Background:
     Given there is the usual setup
     Given I am logged in as "registered_user"
-  
-  Scenario: Attaching files to a new post
     Given I am on the homepage
     When I follow "Public Forum"
+  
+  Scenario: Attaching files to a new topic
     And I follow "New Topic"
     And I fill in "Subject" with "Look Ma, Attachments!"
     And I fill in "Text" with "Woah! Look at those attachments!"
@@ -27,3 +27,6 @@ Feature: Attachments
     Then I should see "Look Ma, Attachments!"
     And I should see "1 attachment"
     And I should see "fugu.png"
+  
+  Scenario: Attaching files to a new reply
+    Then show me the page

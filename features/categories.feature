@@ -18,7 +18,7 @@ Scenario: Administrators should be able to create new categories
   When I am on the homepage
   When I follow "Administration Section"
   And I follow "Categories"
-  And I follow "edit_category_1"
+  And I follow "Edit"
   And I fill in "Name" with "Private Category"
   And I fill in "Description" with "Testing!"
   And I press "Update"
@@ -30,7 +30,7 @@ Scenario: Categories should be valid when updates
   When I am on the homepage
   When I follow "Administration Section"
   And I follow "Categories"
-  And I follow "edit_category_1"
+  And I follow "Edit"
   And I fill in "Name" with ""
   And I fill in "Description" with "Testing!"
   And I press "Update"

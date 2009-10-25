@@ -9,6 +9,7 @@ Permission.blueprint(:registered_users) do
   can_start_new_topics true
   can_use_attachments true
   can_subscribe true
+  can_see_forum true
   group { Group.ensure("Registered Users") }
 end
 

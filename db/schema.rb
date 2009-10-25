@@ -75,11 +75,9 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.integer "category_id"
     t.boolean "active",               :default => true
     t.boolean "open",                 :default => true
-    t.integer "old_id"
   end
 
   add_index "forums", ["category_id"], :name => "index_forums_on_category_id"
-  add_index "forums", ["old_id"], :name => "index_forums_on_old_id"
   add_index "forums", ["open"], :name => "index_forums_on_open"
   add_index "forums", ["parent_id"], :name => "index_forums_on_parent_id"
   add_index "forums", ["posts_count"], :name => "index_forums_on_posts_count"
@@ -202,22 +200,17 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.boolean  "delta"
     t.boolean  "deleted",      :default => false
     t.integer  "ip_id"
-    t.integer  "old_id"
     t.boolean  "finished",     :default => false
   end
 
   add_index "posts", ["id", "topic_id"], :name => "index_posts_on_id_and_topic_id"
   add_index "posts", ["ip_id"], :name => "index_posts_on_ip_id"
-  add_index "posts", ["old_id"], :name => "index_posts_on_old_id"
 
   create_table "ranks", :force => true do |t|
     t.string  "name"
     t.integer "posts_required"
     t.boolean "custom",         :default => false
-    t.integer "old_id"
   end
-
-  add_index "ranks", ["old_id"], :name => "index_ranks_on_old_id"
 
   create_table "read_topics", :force => true do |t|
     t.integer "user_id"
@@ -261,13 +254,11 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.integer  "ip_id"
     t.boolean  "moved",        :default => false
     t.integer  "moved_to_id"
-    t.integer  "old_id"
     t.boolean  "finished",     :default => false
   end
 
   add_index "topics", ["id", "forum_id"], :name => "index_topics_on_id_and_forum_id"
   add_index "topics", ["ip_id"], :name => "index_topics_on_ip_id"
-  add_index "topics", ["old_id"], :name => "index_topics_on_old_id"
 
   create_table "user_levels", :id => false, :force => true do |t|
     t.string  "name"
@@ -309,13 +300,10 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.string   "identifier"
-    t.integer  "old_id"
-    t.string   "phpbb_crypted_password"
   end
 
   add_index "users", ["id", "user_level_id"], :name => "index_users_on_id_and_user_level_id"
   add_index "users", ["login"], :name => "index_users_on_login"
   add_index "users", ["login_time"], :name => "index_users_on_login_time"
-  add_index "users", ["old_id"], :name => "index_users_on_old_id"
 
 end

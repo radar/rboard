@@ -6,7 +6,8 @@ Feature: Managing groups
   Scenario: Managing users
     Given I am logged in as "administrator"
     Then I should see "administrator"
-    Given I am on the administrator's group page
+    When I follow "Administration Section"
+    And I follow "Groups"
     Then I should see "Administrators"
     When I follow "members_for_registered_users"
     Then I should see "registered_user"

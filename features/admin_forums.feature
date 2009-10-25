@@ -5,7 +5,8 @@ Feature: Forums
   
 Scenario: Administrators should be able to create new forums
   Given I am logged in as "administrator"
-  When I am on the admin forums page
+  When I follow "Administration Section"
+  And I follow "Forums"
   And I follow "New Forum"
   And I fill in "Title" with "Test Forum"
   And I fill in "Description" with "Testing!"

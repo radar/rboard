@@ -12,6 +12,8 @@ module NavigationHelpers
       '/'
     when /the login page/
       login_path
+    when /the forum page for "(.*?)"/
+      forum_path(Forum.find_by_title($1))
     
     # Add more mappings here.
     # Here is a more fancy example:

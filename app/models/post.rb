@@ -90,7 +90,7 @@ class Post < ActiveRecord::Base
   def finished!
     unless finished?
       self.finished = true
-      update_latest_post(post)
+      Post.update_latest_post(self)
       save!
     end
   end
