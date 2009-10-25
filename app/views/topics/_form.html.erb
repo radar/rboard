@@ -10,11 +10,18 @@
       <td><%= post.text_area "text", :cols => "80" %></td>
     </tr>
   <% end %>
-  
-  <% if current_user.can?(:sticky_topics, @forum) %>
+  <%= current_user.can?(:use_attachments, @forum) %>
+  <% if current_user.can?(:use_attachments, @forum) %>
     <tr>
-      <td><%= f.label 'sticky', t(:Sticky) %></td>
+      <td><%= check_box_tag "attachments" %></td>
+      <td><%= label_tag "attachments", t(:I_have_attachments) %></td>
+    </tr>
+  <% end %>
+  
+  <% if current_user.can?(:post_stickies, @forum) %>
+    <tr>
       <td><%= f.check_box "sticky" %></td>
+      <td><%= f.label 'sticky', t(:Sticky) %></td>
     </tr>
   <% end %>
 </tbody>

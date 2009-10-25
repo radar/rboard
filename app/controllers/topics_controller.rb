@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
       @subscription = current_user.subscriptions.find_by_topic_id(params[:id])
       @subscription.update_attribute("posts_count", 0) if @subscription
     end
-    @posts = @topic.posts.paginate :per_page => per_page, :page => params[:page], :include => :user
+    @posts = @topic.posts.finished.paginate :per_page => per_page, :page => params[:page], :include => :user
     @topic.increment!("views")
     @post = Post.new
     respond_to do |format|
@@ -33,11 +33,25 @@ class TopicsController < ApplicationController
   def create
     @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
-    @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
+    
+    # Automatic non-mass-assignables
+    # BUZZWORD BINGO!
+    @topic.sticky = true if params[:topic][:sticky] && current_user.can?(:post_stickies)
+    if !params[:attachments]
+      @topic.finished = true
+      @post.finished = true
+    end
+    
     @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
+    
     if @topic.save && @post.save
-      flash[:notice] = t(:created, :thing => "Topic")
-      redirect_to forum_topic_path(@topic.forum, @topic)
+      if params[:attachments] && current_user.can?(:use_attachments, @forum)
+        flash[:notice] = t(:Now_you_may_attach_files)
+        redirect_to topic_post_attachments_path(@topic, @post)
+      else
+        flash[:notice] = t(:created, :thing => "Topic")
+        redirect_to forum_topic_path(@topic.forum, @topic)
+      end
     else
       flash[:notice] = t(:not_created, :thing => "Topic")
       render :action => "new"

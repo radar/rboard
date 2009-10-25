@@ -8,26 +8,9 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
     
-    when /the homepage/
+    when /the home\s?page/
       '/'
-      
-    when /the admin forums page/
-      admin_forums_path      
-    when /administrator's group page/
-      admin_groups_path
-      
-    when /the new topic page for "(.*?)"/
-      new_forum_topic_path(Forum.find_by_title($1))
-    
-    when /the reply page for the first topic in "(.*?)"/
-      f = Forum.find_by_title($1)
-      new_topic_post_path(f.topics.first)
-      
-    when /the forums page/
-      forums_path
-    when /the forum page for "(.*?)"/
-      forum_path(Forum.find_by_title($1))
-    when /login page/
+    when /the login page/
       login_path
     
     # Add more mappings here.

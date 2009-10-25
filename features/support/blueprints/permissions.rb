@@ -7,6 +7,7 @@ end
 Permission.blueprint(:registered_users) do
   can_reply_to_topics true
   can_start_new_topics true
+  can_use_attachments true
   can_subscribe true
   group { Group.ensure("Registered Users") }
 end
@@ -51,6 +52,7 @@ Permission.blueprint(:administrator) do
   can_see_category true
   can_access_moderator_section true
   can_read_others_private_messages true
+  can_use_attachments true
   group { Group.ensure("Administrators") }
 end
   

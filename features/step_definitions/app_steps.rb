@@ -22,3 +22,7 @@ Given /^there is the usual setup$/ do
 
   Forum.make(:public_forum)
 end
+
+Then /^column (\d+), row (\d+) in "(.*?)" should contain "(.*?)"$/ do |column, row, name, value|
+  element_at("##{name}").to_table[row.to_i][column.to_i].should include(value)
+end

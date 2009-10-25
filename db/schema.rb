@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091023221533) do
+ActiveRecord::Schema.define(:version => 20091025021611) do
 
   create_table "attachments", :force => true do |t|
     t.string   "file_file_name"
@@ -203,6 +203,7 @@ ActiveRecord::Schema.define(:version => 20091023221533) do
     t.boolean  "deleted",      :default => false
     t.integer  "ip_id"
     t.integer  "old_id"
+    t.boolean  "finished",     :default => false
   end
 
   add_index "posts", ["id", "topic_id"], :name => "index_posts_on_id_and_topic_id"
@@ -261,6 +262,7 @@ ActiveRecord::Schema.define(:version => 20091023221533) do
     t.boolean  "moved",        :default => false
     t.integer  "moved_to_id"
     t.integer  "old_id"
+    t.boolean  "finished",     :default => false
   end
 
   add_index "topics", ["id", "forum_id"], :name => "index_topics_on_id_and_forum_id"

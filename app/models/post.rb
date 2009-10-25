@@ -13,6 +13,8 @@ class Post < ActiveRecord::Base
   has_many :reports, :as => :reportable, :dependent => :destroy
   has_many :reporters, :through => :reports, :source => :user
   
+  named_scope :finished, :conditions => { :finished => true }
+  
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
   
@@ -21,9 +23,10 @@ class Post < ActiveRecord::Base
       indexes text
       set_property :delta => true
     end if Post.table_exists?
-  end  
+  end
+  
   delegate :subject, :to => :topic
-  attr_protected :forum_id, :user_id
+  attr_protected :forum_id, :user_id, :finished
 
   after_create :log_ip
   after_create :update_forum

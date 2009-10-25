@@ -20,13 +20,14 @@ class Topic < ActiveRecord::Base
   has_many :users, :through => :posts
   
   named_scope :sorted, :order => "posts.created_at DESC, sticky DESC", :include => [:last_post, :readers]
+  named_scope :finished, :conditions => { :finished => true }
 
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
   validates_length_of :subject, :minimum => 4
   validates_presence_of :subject, :forum_id, :user_id
   
-  attr_protected :sticky, :locked, :moved, :moved_to
+  attr_protected :sticky, :locked, :moved, :moved_to, :finished
   
   # Instead of using a counter_cache on the belongs_to we do this
   # because counter_cache doesn't take into account funky move! methods

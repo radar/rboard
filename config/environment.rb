@@ -1,6 +1,4 @@
 # Be sure to restart your web server when you modify this file.
-# Uncomment this to force production mode.
-ENV['RAILS_ENV'] = 'development'
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')

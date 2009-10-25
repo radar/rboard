@@ -1,3 +1,4 @@
+
 require 'features/support/blueprints'
 Forum.delete_all
 Group.delete_all

@@ -27,7 +27,7 @@
       (!@forum.open? && current_user.can?(:post_in_closed_forums, @forum)) %>
   <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum)) %>
 <% end %>
-<table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
+<table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups' id='topics'>
 	<% unless @topics.empty? %>
 	  <% form_tag moderate_moderator_topics_path do %>
 	    <thead>

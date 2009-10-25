@@ -6,8 +6,8 @@
       <br /><%= t(:Subforums) %>: <% forum.children(Configuration['subforums_display'].to_i).each do |forum| %> <%= link_to(h(forum.title), forum_path(forum)) %> <% end %>
     <% end %>
   </td>
-  <td align='center'><%= forum.topics.count %></td>
-  <td align='center'><%= forum.posts.count %></td>
+  <td align='center'><%= forum.topics.finished.count %></td>
+  <td align='center'><%= forum.posts.finished.count %></td>
   <td align='right'><% if !forum.last_post.nil? %>
       <%= time_ago_in_words(forum.last_post.created_at) %> <%= t(:ago) %>
       <%= t(:by) %> <%= link_to(h(forum.last_post.user), forum.last_post.user)  %>
