@@ -9,19 +9,19 @@ end
 
 
 User.blueprint(:anonymous) do
-  group = Group.ensure("Anonymous")
+  group = Group.find_by_name("Anonymous") || Group.make(:anonymous) 
   login "anonymous"
   email "anony@mous.com"
 end
 
 User.blueprint(:administrator) do
-  group = Group.ensure("Administrator")
+  group = Group.find_by_name("administrator") || Group.make(:administrator) 
   login "administrator"
   email "administrator@rboard.com"
   permalink "administrator"
 end
 
 User.blueprint(:registered_user) do
-  group = Group.ensure("Registered User")
+  group = Group.find_by_name("Registered User") || Group.make(:registered_user) 
   login "registered_user"
 end

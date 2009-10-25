@@ -1,3 +1,0 @@
-<% if current_user.can?(:use_attachments, @topic.forum) %>
-  <iframe id='attachments_frame' src='<%= new_forum_attachment_path(@topic.forum, :currently => params[:currently]) %>' onLoad='resize(this)' scrolling='NO'></iframe>
-<% end %>

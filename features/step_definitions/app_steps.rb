@@ -20,7 +20,7 @@ Given /^there is the usual setup$/ do
   # Create the user
   User.make_with_group(:registered_user, "Registered Users")
 
-  Forum.make(:public_forum)
+  Forum.make(:public)
 end
 
 Then /^column (\d+), row (\d+) in "(.*?)" should contain "(.*?)"$/ do |column, row, name, value|

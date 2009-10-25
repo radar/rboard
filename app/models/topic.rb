@@ -25,7 +25,7 @@ class Topic < ActiveRecord::Base
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
   validates_length_of :subject, :minimum => 4
-  validates_presence_of :subject, :forum_id, :user_id
+  validates_presence_of :subject
   
   attr_protected :sticky, :locked, :moved, :moved_to, :finished
   
@@ -56,7 +56,7 @@ class Topic < ActiveRecord::Base
   
   def set_last_post
     readers.clear
-    update_attribute("last_post_id", posts.last.id) unless moved
+    update_attribute("last_post_id", posts.finished.last.try(:id)) unless moved
     # TODO: May be intensive if a lot of people have all subscribed to the same topic.
     subscriptions.map { |s| s.increment!(:posts_count) }
   end

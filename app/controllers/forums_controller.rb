@@ -21,8 +21,8 @@ class ForumsController < ApplicationController
     @lusers = User.recent.map { |u| u.to_s }.to_sentence
     # Remove one for anonymous
     @users = User.count - 1
-    @posts = Post.count
-    @topics = Topic.count
+    @posts = Post.finished.count
+    @topics = Topic.finished.count
     @ppt = @posts > 0 ? @posts / @topics : 0
     respond_to do |format|
       format.html

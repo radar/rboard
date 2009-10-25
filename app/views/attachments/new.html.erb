@@ -4,7 +4,6 @@
     <div class='attachment_message <%= key %>'><%= value %></div>
   <% end %>
   <% form_for [@topic, @post, @attachment], :html => { :multipart => true } do |f| %>
-    <%= hidden_field_tag :currently, params[:currently] %>
     <%= f.label :file %>
     <%= f.file_field :file %>
     <%= f.submit t(:Attach_this_and_more) %>

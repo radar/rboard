@@ -13,6 +13,14 @@
         <td valign='top'><%= f.label "text", t(:Post) %>:</td>
         <td><%= f.text_area("text", :cols => "80") %></td>
       </tr>
+      
+      <% if current_user.can?(:use_attachments, @forum) %>
+        <tr>
+          <td><%= check_box_tag "attachments" %></td>
+          <td><%= label_tag "attachments", t(:I_have_attachments) %></td>
+        </tr>
+      <% end %>
+
     </tbody>
     <tfoot>
       <tr>
@@ -22,7 +30,6 @@
   </table>
 <% end %>
 
-<%= render :partial => "attachment_form" %>
 <table cellspacing='0' cellpadding='5' width='100%' class='posts'>
   <%= render :collection => @posts %>
 </table>

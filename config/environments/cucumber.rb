@@ -25,3 +25,5 @@ config.gem 'rspec',       :lib => false,        :version => '>=1.2.8' unless Fil
 config.gem 'rspec-rails', :lib => false,        :version => '>=1.2.7.1' unless File.directory?(File.join(Rails.root, 'vendor/plugins/rspec-rails'))
 config.gem 'machinist'
 config.gem 'faker'
+
+TIME_BETWEEN_POSTS = 0

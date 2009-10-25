@@ -3,7 +3,7 @@ Forum.blueprint do
   description { Faker::Company.catch_phrase }
 end
 
-Forum.blueprint(:public_forum) do
+Forum.blueprint(:public) do
   title "Public Forum"
   category { Category.make(:public) }
 end

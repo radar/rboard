@@ -8,7 +8,6 @@ class AttachmentsController < ApplicationController
   
   def create
     @attachment = Attachment.new
-    currently = params[:currently]
     if current_user.can?(:use_attachments, @forum)
       if params[:attachment] && !params[:attachment][:file].blank?
         @post.attachments.create(params[:attachment])

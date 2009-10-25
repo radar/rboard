@@ -10,7 +10,6 @@
       <td><%= post.text_area "text", :cols => "80" %></td>
     </tr>
   <% end %>
-  <%= current_user.can?(:use_attachments, @forum) %>
   <% if current_user.can?(:use_attachments, @forum) %>
     <tr>
       <td><%= check_box_tag "attachments" %></td>

@@ -12,24 +12,22 @@ class PostsController < ApplicationController
   end
   
   def new
-    # We set this so we have a set point in time where we can link attachments to.
-    # The magic is done in AttachmentsController#create.
-    params[:currently] = Time.now.to_f
-    
     # Used to show a summary of the last 10 posts.
     @posts = @topic.last_10_posts
     
     @post ||= @topic.posts.build(:user => current_user)
-    find_attachments
   end
 
   def create
-    find_attachments
     @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => @ip))    
     if @post.save
-      @post.attachments << @attachments
       flash[:notice] = t(:created, :thing => "post")
-      go_directly_to_post
+      if params[:attachments]
+        flash[:notice] = t(:Now_you_may_attach_files)
+        redirect_to new_topic_post_attachment_path(@topic, @post)
+      else
+        go_directly_to_post
+      end
     else
       # The last 10 posts for this topic
       @posts = @topic.last_10_posts
@@ -104,11 +102,6 @@ class PostsController < ApplicationController
       check_ownership
     rescue ActiveRecord::RecordNotFound
       not_found
-    end
-    
-    def find_attachments
-      @attachments ||= []
-      @attachments = ::Attachment.find(session[@currently]) if session[@currently]
     end
     
     def can_post_here?
