@@ -6,7 +6,7 @@ Given /^there is a closed forum$/ do
   f = Forum.create!(:title => "Closed Forum", :description => "This is a closed forum", :open => false)
   t = f.topics.build(:subject => "Closed Forum's Topic", :user => User.first)
   p = t.posts.build(:text => "I live in the Closed Forum. All by myself.", :user => User.first)
+  p.finished = true
   t.finished!
-  p.finished!
   
 end
