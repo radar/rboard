@@ -17,7 +17,6 @@ def establish_connection
 end
 
 task :install => :environment do
-  ENV['RAILS_ENV'] = "production"
   puts "Creating databases..."
   # Check the comment for this method.
   establish_connection
