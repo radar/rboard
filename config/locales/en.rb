@@ -398,6 +398,7 @@
    :Reports_x => { :zero => "Reports", :one => "1 Report", :other => "{{count}} Reports" },
    :results => { :zero => "no results", :one => "one result", :other => "{{count}} results" },
    :Search => "Search",
+   :Search_disabled => "Search is disabled",
    :Search_returned => "Search returned",
    :See_reports => "See reports",
    :selected_for_moderation => " selected for moderation",
