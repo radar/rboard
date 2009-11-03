@@ -1,5 +1,5 @@
 body, textarea, table {
-  font-family: "Trebuchet MS",sans;
+  font-family: "Trebuchet MS", sans-serif;
   font-size: 11pt;
 }
 
@@ -9,11 +9,11 @@ a {
 }
 
 h2, h3 {
-  margin: 0px;
+  margin: 0;
 }
 
 img {
-  border: 0px none;
+  border: 0 none;
 }
 
 .translation_missing {
@@ -24,27 +24,31 @@ img {
 }
 
 .center {
-  text-align: center; 
+  text-align: center;
 }
 
 .content {
   text-align: left;
   width: 90%;
+  margin: 0 auto;
 }
 
 .title-bar {
-  background: transparent url(bg.jpg) repeat scroll 0%;
+  background: transparent url(bg.jpg) repeat scroll 0;
   border: 1px solid #84AFD3;
   font-size: 20pt;
   font-weight: bold;
   height: 42px;
-  padding-right: 0px;
-  padding-top: 0px;
+  padding: 0;
   text-align: right;
 }
 
+.logo {
+    display: block;
+}
+
 .flash {
-  background: #A4D5FF none repeat scroll 0%;
+  background: #A4D5FF none repeat scroll 0;
   border: 2px solid #84AFD3;
   font-size: 16pt;
   font-weight: bold;
@@ -52,8 +56,8 @@ img {
   padding: 5px;
   text-align: center;
   position: fixed;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   width: 100%;
 }
 
@@ -76,8 +80,8 @@ img {
 
 .forums h1 {
   font-size: 16pt;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .category {
@@ -93,7 +97,7 @@ img {
 }
 
 .forums thead, .forum thead, .info-box thead, .post thead, .action-box thead, .list-table thead {
-  background: #E5F3FF url(thead-bg.jpg) repeat-x scroll 0%;
+  background: #E5F3FF url(thead-bg.jpg) repeat-x scroll 0;
   font-weight: bold;
 }
 
@@ -102,11 +106,11 @@ img {
 }
 
 .forum tfoot {
-  background: #C1E2FE none repeat scroll 0%;
+  background: #C1E2FE none repeat scroll 0;
 }
 
 .forum tfoot input {
-  background: #DBEEFD none repeat scroll 0%;
+  background: #DBEEFD none repeat scroll 0;
   border: 1px solid #48769D;
   font-size: 10pt;
   letter-spacing: -1px;
@@ -141,16 +145,16 @@ img {
 }
 
 .post tbody, .action-box tbody, .user tbody {
-  background: #E1F1FF none repeat scroll 0%;
+  background: #E1F1FF none repeat scroll 0;
 }
 
 .post tfoot, .action-box tfoot {
-  background: #E1F1FF url(tfoot-bg.jpg) repeat-x scroll 0%;
+  background: #E1F1FF url(tfoot-bg.jpg) repeat-x scroll 0;
 }
 
 .posts h1 {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .edit-note {
@@ -159,7 +163,7 @@ img {
 }
 
 .quote {
-  background: #A4D5FF none repeat scroll 0%;
+  background: #A4D5FF none repeat scroll 0;
   border: 1px solid #84AFD3;
   padding: 5px;
   text-align: left;
@@ -167,7 +171,7 @@ img {
 }
 
 .CodeRay {
-  padding: 0px;
+  padding: 0;
   border-spacing: 0;
 }
 
@@ -188,20 +192,20 @@ img {
 }
 
 .term {
-  font-family: Monaco, monospace, "Courier New";
+  font-family: Monaco, "Courier New", monospace;
   font-weight: bold;
 }
 
 .ban-box {
-  background: #DE0000 none repeat scroll 0%;
+  background: #DE0000 none repeat scroll 0;
   border: 10px solid red;
   color: white;
   font-size: 48pt;
 }
 
 .ban-box h1 {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 .fieldWithErrors input, .fieldWithErrors textarea  {
@@ -220,16 +224,16 @@ img {
 
 .ac_results {
   background: white;
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   border-bottom: 3px solid #84AFD3;
   border-right: 3px solid #84AFD3;
   border-left: 3px solid #84AFD3;
 }
 
 .ac_results ul {
-  padding: 0px;
-  margin: 0px;
+  padding: 0;
+  margin: 0;
   list-style-type: none;
 }
 
@@ -242,9 +246,8 @@ img {
 }
 /* inspired by http://css.maxdesign.com.au/listamatic/horizontal02.htm */
 ul#admin-navlist, ul#moderator-navlist {
-  margin: 2px;
-  margin-left: 0px;
-  padding: 0px;
+  margin: 2px 2px 2px 0;
+  padding: 0;
   white-space: nowrap;
 }
 
@@ -262,12 +265,12 @@ ul#admin-navlist, ul#moderator-navlist {
   background-color: #b8dcfc;
   text-decoration: none;
   border: 1px solid #336699;
-  border-bottom: 0px;
+  border-bottom: 0;
 }
 
 #admin-navlist a.selected, #moderator-navlist a.selected {
   border: 2px solid #336699;
-  border-bottom: 0px;
+  border-bottom: 0;
   font-weight: bold;
 }
 
