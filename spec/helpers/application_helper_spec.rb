@@ -18,7 +18,7 @@ describe ApplicationHelper, "general" do
     breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">test</a> -> <a href=\"/forums/#{@everybody.id}\">General Discussion!</a> -> <a href=\"/forums/#{@sub_of_everybody.id}\">Unmoderated Discussion</a>")
   end
   
-  it "should correctly encapsulate double quotes" do
-    TestView.new.parse_text('[quote="Kitten"][quote="Dog"]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='center'><div class='quote'><b>Kitten wrote:</b><div class='center'><div class='quote'><b>Dog wrote:</b></div></div>QUOTE OUTSIDE</div></div>")
+  it "should correctly display multiple nested quotes" do
+    TestView.new.parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='quote'><b>Kitten wrote:</b><br /><div class='quote'><b>Dog wrote:</b><br /><div class='quote'><b>Turtle wrote:</b><br />turtle, turtle</div>QUOTE INSIDE</div>QUOTE OUTSIDE</div>")
   end
 end  

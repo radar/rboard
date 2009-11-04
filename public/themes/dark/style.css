@@ -161,6 +161,7 @@ img {
 .quote {
   background: #A4D5FF none repeat scroll 0;
   border: 1px solid #84AFD3;
+  margin: 0 auto;
   padding: 5px;
   text-align: left;
   width: 90%;

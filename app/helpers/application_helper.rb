@@ -11,7 +11,7 @@ module ApplicationHelper
     bbquote(text)
     
     # non-attributed quote
-    text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='center'><div class='quote'>" << $1 << "</div></div>" }
+    text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='quote'>" << $1 << "</div>" }
     
     # Terminal example
     text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
@@ -33,7 +33,7 @@ module ApplicationHelper
   
   def bbquote(text)
     text.gsub!(/\[quote=["']?(.*?)["']?\](.*)\[\/quote\]/mis) do
-      "<div class='center'><div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br />#{bbquote($2)}</div></div>"
+      "<div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br />#{bbquote($2)}</div>"
     end
     text
   end
