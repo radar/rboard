@@ -1,0 +1,8 @@
+blue:
+  id: 1
+  name: blue
+  is_default: true
+
+green:
+  id: 2
+  name: green

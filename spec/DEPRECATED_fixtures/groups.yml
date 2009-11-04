@@ -1,0 +1,23 @@
+anonymous:
+  id: 1
+  name: Anonymous
+  owner: anonymous
+  identifier: anonymous
+
+registered_users:
+  id: 2
+  name: Registered Users
+  owner: administrator
+  identifier: registered_users
+  
+administrators:
+  id: 3
+  name: Administrators
+  owner: administrator
+  identifier: administrators
+
+moderator:
+  id: 4
+  name: Moderators
+  owner: moderator
+  identifier: moderators

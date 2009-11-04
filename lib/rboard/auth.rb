@@ -87,8 +87,9 @@ module Rboard::Auth
   def login_required
     # Gather data from HTTP-based authentication.
     username, password = get_auth_data
+    self.current_user ||= User.authenticate(username, password) if username && password
     
-    self.current_user ||= User.authenticate(username, password) || User.find_by_login("anonymous") if username && password
+    self.current_user ||= User.find_by_login("anonymous")
     if !logged_in?
       flash[:notice] = t(:you_must_be_logged_in)
       redirect_to login_path

@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   end
    
   def edit
+    p current_user
   end
   
   def update

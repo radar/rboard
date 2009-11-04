@@ -5,6 +5,14 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 
+require 'machinist/active_record'
+
+# Load in blueprints
+Dir[File.join(Rails.root, 'spec', 'blueprints') + "/*.rb"].each do |file|
+  require file
+end
+
+
 def login_as(name)
   request.session[:user] = users(name).id
 end
