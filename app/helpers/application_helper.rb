@@ -1,6 +1,6 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def bbcode(text)
+  def parse_text (text)
     # Code snippets
     text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { CodeRay.scan($2.strip, ($1.blank? ? :plain : $1.to_sym)).div(:line_numbers => :table)}
     text = sanitize(text, :tags => %w(span div table tr td br pre tt), :attributes => %w(id class style))
@@ -19,6 +19,9 @@ module ApplicationHelper
     # URLs
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a rel='nofollow' href='" << $1 << "'>" << $2 << "</a>" }
     
+    # handle newlines
+    text.gsub!(/(.*)(\r)+?\n/) { $1 << "<br />\n" }
+
     # handle with care...
     bbcode_ext(text)
   end

@@ -48,10 +48,10 @@
       </td>
       
       <td valign='top' colspan='2' valign='top'>
-			  <%= bbcode(post.text) %>
+			  <%= parse_text(post.text) %>
 			  <% if post.user.can?(:use_signature, @forum) && !post.user.signature.blank? %><br />
 			    ____________<br />
-			    <%= bbcode(post.user.signature) %>
+			    <%= parse_text(post.user.signature) %>
 		  	<% end %>
 			
 		  	<% if !post.edits.empty? %>

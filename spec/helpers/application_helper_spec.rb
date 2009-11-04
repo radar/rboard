@@ -19,6 +19,6 @@ describe ApplicationHelper, "general" do
   end
   
   it "should correctly encapsulate double quotes" do
-    TestView.new.bbcode('[quote="Kitten"][quote="Dog"]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='center'><div class='quote'><b>Kitten wrote:</b><div class='center'><div class='quote'><b>Dog wrote:</b></div></div>QUOTE OUTSIDE</div></div>")
+    TestView.new.parse_text('[quote="Kitten"][quote="Dog"]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='center'><div class='quote'><b>Kitten wrote:</b><div class='center'><div class='quote'><b>Dog wrote:</b></div></div>QUOTE OUTSIDE</div></div>")
   end
 end  

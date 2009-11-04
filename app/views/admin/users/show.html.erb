@@ -25,7 +25,7 @@
       <% end %>
       <% unless @user.signature.blank? %><br />
         ____________<br />
-        <%= bbcode(@user.signature) %>
+        <%= parse_text(@user.signature) %>
       <% end %>
     </td>
   </tr>
