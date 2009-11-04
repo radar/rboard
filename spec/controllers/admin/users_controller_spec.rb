@@ -54,10 +54,11 @@ describe Admin::UsersController, "as an admin" do
       response.should redirect_to(admin_users_path)
     end
     
-    
-    it "should be able to search for users" do
-      post 'search', { :query => "administrator" }
-      response.body.should eql("administrator\nmoderator")
+    if SEARCHING
+      it "should be able to search for users" do
+        post 'search', { :query => "administrator" }
+        response.body.should eql("administrator\nmoderator")
+      end
     end
       
     

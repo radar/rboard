@@ -36,7 +36,7 @@ class Admin::CategoriesController < Admin::ApplicationController
    # Updates a category.
    def update
      if @category.update_attributes(params[:category])
-       flash[:notice] = t(:updated, :thing => "Category")
+       flash[:notice] = t(:updated, :thing => "category")
        redirect_to admin_categories_path
      else
        flash[:notice] = t(:not_updated, :thing => "category")

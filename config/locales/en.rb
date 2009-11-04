@@ -135,6 +135,7 @@
    :ban_time => "ban time",
    :by => "by",
    :Cancel => "Cancel",
+   :Cannot_edit_post => "Cannot edit this post",
    :cannot_take_all_posts_away => "Cannot take all posts away.",
    :can_access_admin_section? => "Can access admin section?",
    :can_access_moderator_section? => "Can access moderator section?",

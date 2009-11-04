@@ -74,7 +74,7 @@ class PostsController < ApplicationController
     if current_user.can?(:reply)
       quoting_post = Post.find(params[:id])
       @post = @topic.posts.build(:user => current_user)
-      @post.text = "[quote=\"#{quoting_post.user}\"]#{quoting_post.text}[/quote]"
+      @post.text = "[quote=\"#{quoting_post.user}\"]#{quoting_post.text}[/quote]\n"
       render :action => "new"
     else
       flash[:notice] = t(:can_not_reply)

@@ -47,7 +47,7 @@ describe Admin::CategoriesController do
       Category.should_receive(:new).and_return(@category)
       @category.should_receive(:save).and_return(true)
       post 'create', :category => { :name => "Cat E. Gori"}
-      flash[:notice].should eql(t(:created, :thing => "category"))
+      flash[:notice].should eql(t(:created, :thing => "Category"))
       response.should redirect_to(admin_categories_path)
     end
     

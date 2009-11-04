@@ -7,7 +7,8 @@ describe Theme, "general" do
   end
   
   it "should load the stylesheet" do
-    @theme.to_s.should eql(File.readlines("#{THEMES_DIRECTORY}/blue/style.css").to_s)
+    directory = THEMES_DIRECTORY.respond_to?("call") ? THEMES_DIRECTORY.call() : THEMES_DIRECTORY
+    @theme.to_s.should eql(File.readlines("#{directory}/blue/style.css").to_s)
   end
   
 end

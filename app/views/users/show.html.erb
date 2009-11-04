@@ -24,7 +24,7 @@
         <% if !@user.ban_time.nil? && @user.ban_time > Time.now %>
           <h2><%= t(:is_currently_banned, :user => @user) %>!</h2>
           <%= t(:banned_by, :user => @user.banned_by.login) %><%= t(:ban_expires_in, :time => time_ago_in_words(@user.ban_time)) %>.<br /><br />
-          <%= t(:reason_stated_was, :reason => @user.ban_reason) %></i><br /><br />
+          <i><%= t(:reason_stated_was, :reason => @user.ban_reason) %></i><br /><br />
         <% end %>
         <% unless @user.signature.blank? %><br />
           ____________<br />
