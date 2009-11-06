@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Forum, "creation" do
   fixtures :forums, :categories
   before(:each) do
-    @invalid = forums(:invalid)
+    @invalid = Forum.new
   end
 
   it "validation checks" do
@@ -21,13 +21,13 @@ describe Forum, "in general" do
   fixtures :forums, :topics, :posts, :users, :categories
   
   before do
-    @everybody = forums(:everybody)
-    @sub_of_everybody = forums(:sub_of_everybody)
-    @sub_of_sub_of_everybody = forums(:sub_of_sub_of_everybody)
-    @admins_only = forums(:admins_only)
-    @moderators_only = forums(:moderators_only)
-    @user_topic = topics(:user)
-    @user_topic_2 = topics(:other_user)
+    @everybody = Forum.make(:public)
+    @sub_of_everybody = Forum.make(:sub_of_public)
+    @sub_of_sub_of_everybody = Forum.make(:sub_of_sub_of_public)
+    @admins_only = Forum.make(:admins_only)
+    @moderators_only = Forum.make(:moderators_only)
+    @user_topic = @everybody.topics.make(:first)
+    @user_topic_2 = @everybody.topics.make(:second)
   end
   
   it "should be able to find the last post" do

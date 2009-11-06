@@ -15,7 +15,7 @@ describe User, "with users" do
   fixtures :themes, :users, :ranks, :groups
   
   before do
-    @administrator = users(:administrator)
+    @administrator = User.make(:administrator)
     @moderator = users(:moderator)
     @plebian = users(:plebian)
     @banned_noob = users(:banned_noob)
