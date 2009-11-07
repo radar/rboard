@@ -2,15 +2,17 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Topic, "in general" do
   fixtures :topics, :forums, :users
   before do
-    @topic = mock_model(Topic)
-    @forum = mock_model(Forum)
-    @invalid_topic = topics(:invalid)
-    @valid_topic = topics(:user_3)
-    @another_valid_topic = topics(:other_user)
-    @everybody = forums(:everybody)
-    @sub_of_everybody = forums(:sub_of_everybody)
-    @admins_only = forums(:admins_only)
-    @administrator = users(:administrator)
+    setup_user_base
+    @invalid_topic = Topic.new.tap(&:save)
+    @everybody = Forum.make(:public)
+    
+    # All this just to create a topic with a post...
+    @valid_topic = valid_topic_for(@everybody)
+    
+    @another_valid_topic = valid_topic_for(@everybody)
+    
+    @sub_of_everybody = Forum.make(:sub_of_public)
+    @administrator = User.find_by_login("administrator")
     # Remove the call to reverse for an interesting failing test
     @posts = @valid_topic.posts.reverse
   end
@@ -46,7 +48,7 @@ describe Topic, "in general" do
   end
   
   it "should be able to show the string version" do
-    @valid_topic.to_s.should eql("Fifth topic!")
+    @valid_topic.to_s.should eql("Default topic")
   end
   
   it "should be able to lock a topic" do
@@ -87,7 +89,7 @@ describe Topic, "in general" do
   end
   
   it "should be able to merge two topics" do
-    Topic.count.should eql(6)
+    Topic.count.should eql(2)
     topic = @everybody.topics.build(:subject => "subject", :user => @administrator)
     post = topic.posts.build(:text => "First post", :user => @administrator)
     topic.save
@@ -98,14 +100,14 @@ describe Topic, "in general" do
     other_topic.save(false)
     topic.posts.size.should eql(2)
     other_topic.posts.size.should eql(1)
-    Topic.count.should eql(8)
+    Topic.count.should eql(4)
     topic.merge!([other_topic.id])
     topic.posts.size.should eql(3)
-    Topic.count.should eql(7)
+    Topic.count.should eql(3)
   end
   
   it "should belong to a user" do
-    @valid_topic.belongs_to?(users(:plebian)).should be_true
+    @valid_topic.belongs_to?(@administrator).should be_true
   end
   
 end

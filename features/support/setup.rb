@@ -1,5 +1,5 @@
 require 'features/support/blueprints'
-require 'spec/macros/user_base'
+require 'spec/macros/helpers'
 Forum.delete_all
 Group.delete_all
 Permission.delete_all
