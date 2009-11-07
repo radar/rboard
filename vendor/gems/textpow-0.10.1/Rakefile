@@ -5,16 +5,16 @@ rubyforge_name = "textpow"
 
 begin
    require 'hoe'
-   
+
    class Hoe 
       # Dirty hack to eliminate Hoe from gem dependencies
       def extra_deps 
          @extra_deps.delete_if{ |x| x.first == 'hoe' }
       end
    end
-   
+
    version = /^== *(\d+\.\d+\.\d+)/.match( File.read( 'History.txt' ) )[1]
-   
+
    h = Hoe.new('textpow', version) do |p|
       p.rubyforge_name = rubyforge_name
       p.author = ['Dizan Vasquez']
@@ -29,12 +29,12 @@ begin
       p.extra_deps << ['oniguruma', '>= 1.1.0']
       p.extra_deps << ['plist', '>= 3.0.0']
    end
-   
+
    desc 'Create MaMa documentation'
    task :mama => :clean do
       system "mm -c -t refresh -o manual mm/manual.mm"
    end
-   
+
    desc 'Publish MaMa documentation to RubyForge'
       task :mama_publish => [:clean, :mama] do
       config = YAML.load(File.read(File.expand_path("~/.rubyforge/user-config.yml")))

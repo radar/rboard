@@ -11,13 +11,13 @@
    <% form_tag do %>
         <p><label for="login"><%= t(:Login) %></label><br/>
         <%= text_field_tag 'login' %></p>
-      
+
         <p><label for="password"><%= t(:Password) %></label><br/>
         <%= password_field_tag 'password' %></p>
-      
+
         <p><label for="remember_me"><%= t(:Remember_me) %>:</label>
         <%= check_box_tag 'remember_me' %></p>
-      
+
         <p><%= submit_tag t(:Login) %></p>
       <% end %>
     </td>

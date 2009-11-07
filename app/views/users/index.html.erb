@@ -11,7 +11,7 @@
       <% if current_user.can?(:manage_users) %>
         <td align='center'><%= t(:IP) %></td>
       <% end %>
-      
+
   </tr></thead>
   <tbody>
     <% for user in @users %>

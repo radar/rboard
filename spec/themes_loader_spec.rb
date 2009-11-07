@@ -7,5 +7,5 @@ describe ThemesLoader do
     ThemesLoader.new
     Theme.count.should eql(1)
   end
-  
+
 end

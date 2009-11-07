@@ -10,7 +10,7 @@
 class HighLine
   module SystemExtensions
     module_function
-    
+
     #
     # This section builds character reading and terminal size functions
     # to suit the proper platform we're running on.  Be warned:  Here be
@@ -19,7 +19,7 @@ class HighLine
     begin
       # Cygwin will look like Windows, but we want to treat it like a Posix OS:
       raise LoadError, "Cygwin is a Posix OS." if RUBY_PLATFORM =~ /\bcygwin\b/i
-      
+
       require "Win32API"             # See if we're on Windows.
 
       CHARACTER_MODE = "Win32API"    # For Debugging purposes only.
@@ -47,7 +47,7 @@ class HighLine
         format        = 'SSSSSssssSS'
         buf           = ([0] * format.size).pack(format)
         stdout_handle = m_GetStdHandle.call(0xFFFFFFF5)
-        
+
         m_GetConsoleScreenBufferInfo.call(stdout_handle, buf)
         bufx, bufy, curx, cury, wattr,
         left, top, right, bottom, maxx, maxy = buf.unpack(format)
@@ -95,7 +95,7 @@ class HighLine
             restore_mode
           end
         end
-        
+
         #
         # Switched the input mode to raw and disables echo.
         # 
@@ -105,7 +105,7 @@ class HighLine
           @state = `stty -g`
           system "stty raw -echo cbreak isig"
         end
-        
+
         #
         # Restores a previously saved input mode.
         # 
@@ -115,7 +115,7 @@ class HighLine
           system "stty #{@state}"
         end
       end
-      
+
       # A Unix savvy method to fetch the console columns, and rows.
       def terminal_size
         if /solaris/ =~ RUBY_PLATFORM and

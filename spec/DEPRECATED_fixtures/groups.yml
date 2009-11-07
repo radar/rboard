@@ -9,7 +9,7 @@ registered_users:
   name: Registered Users
   owner: administrator
   identifier: registered_users
-  
+
 administrators:
   id: 3
   name: Administrators

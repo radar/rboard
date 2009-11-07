@@ -62,14 +62,14 @@ Here's some models from the specs:
     has_many :posts_of_similar_authors, :through => :similar_authors, :source => :posts, :uniq => true
     has_many :commenters, :through => :posts, :uniq => true
   end
-  
+
   class Post < ActiveRecord::Base
     belongs_to :author
     belongs_to :category
     has_many :comments
     has_many :commenters, :through => :comments, :source => :user, :uniq => true
   end
-  
+
 The first two has_manys of Author are plain vanilla, the last four are what this plugin enables
 
   # has_many through a has_many :through

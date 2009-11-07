@@ -16,14 +16,14 @@
             <%= link_to t(:Reply), new_topic_post_path(post.topic) %> |
             <%= link_to t(:Quote), reply_topic_post_path(post.topic, post) %> 
           <% end %>
-          
+
           <% if (post.belongs_to?(current_user) && current_user.can?(:edit_own_posts, @forum)) || current_user.can?(:edit_posts, @forum) %>
             | <%= link_to t(:Edit), edit_topic_post_path(post.topic, post) %> |
           <% end %>
           <% if (post.belongs_to?(current_user) && current_user.can?(:delete_own_posts, @forum)) || current_user.can?(:delete_posts, @forum) %>
             <%= link_to t(:Delete), topic_post_path(post.topic, post), :method => "delete", :confirm => t(:confirm_deletion, :thing => "post") %>
           <% end %>
-          
+
           <% if current_user.can?(:split_topics, @forum) %>
             | <%= link_to t(:Split), split_moderator_topic_post_path(post.topic, post) %>
           <% end %>
@@ -46,7 +46,7 @@
         <b><%= t(:Date_joined) %>:</b> <%= post.user.created_at.strftime(date_display) %><br />
         <b><%= t(:Online) %>:</b> <%= post.user.online? ? t(:Yes) : t(:No) %>
       </td>
-      
+
       <td valign='top' colspan='2' valign='top'>
         <%= bbcode(post.text) %>
         <% if post.user.can?(:use_signature, @forum) && !post.user.signature.blank? %><br />

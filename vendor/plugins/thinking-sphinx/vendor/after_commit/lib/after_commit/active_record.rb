@@ -21,17 +21,17 @@ module AfterCommit
               callbacks << block if block_given?
               write_inheritable_array(:after_commit, callbacks)
             end
-            
+
             def after_commit_on_create(*callbacks, &block)
               callbacks << block if block_given?
               write_inheritable_array(:after_commit_on_create, callbacks)
             end
-            
+
             def after_commit_on_update(*callbacks, &block)
               callbacks << block if block_given?
               write_inheritable_array(:after_commit_on_update, callbacks)
             end
-            
+
             def after_commit_on_destroy(*callbacks, &block)
               callbacks << block if block_given?
               write_inheritable_array(:after_commit_on_destroy, callbacks)
@@ -49,20 +49,20 @@ module AfterCommit
         def add_committed_record
           AfterCommit.committed_records << self
         end
-        
+
         def add_committed_record_on_create
           AfterCommit.committed_records_on_create << self
         end
-        
+
         def add_committed_record_on_update
           AfterCommit.committed_records_on_update << self
         end
-        
+
         def add_committed_record_on_destroy
           AfterCommit.committed_records << self
           AfterCommit.committed_records_on_destroy << self
         end
-        
+
         def after_commit
           # Deliberately blank.
         end
@@ -73,28 +73,28 @@ module AfterCommit
         def after_commit_callback
           call_after_commit_callback :after_commit
         end
-        
+
         def after_commit_on_create_callback
           call_after_commit_callback :after_commit_on_create
         end
-        
+
         def after_commit_on_update_callback
           call_after_commit_callback :after_commit_on_update
         end
-        
+
         def after_commit_on_destroy_callback
           call_after_commit_callback :after_commit_on_destroy
         end
-        
+
         private
-        
+
         def call_after_commit_callback(call)
           if can_call_after_commit call
             callback call
             clear_after_commit_call call
           end
         end
-        
+
         def can_call_after_commit(call)
           @calls ||= {}
           @calls[call] ||= false
@@ -104,7 +104,7 @@ module AfterCommit
             @calls[call] = true
           end
         end
-        
+
         def clear_after_commit_call(call)
           @calls[call] = false
         end

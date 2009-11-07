@@ -17,13 +17,13 @@
       <div class='flash' id='flash' <%= "style='display:none'" if flash[:notice].blank? %>>
         <%= flash[:notice] %>
       </div>
-        
+
       <div class='menu-bar'>
         <%= link_to t(:Home), forums_path %> |
         <% unless logged_in? %>
             <%= link_to t(:Login), login_path %> |
             <%= link_to t(:Signup), signup_path %>
-         
+
         <% else %>
           <%= t(:Logged_in_as) %> <%= link_to current_user, current_user %> |
           <%= link_to t(:Edit_Profile), [:edit, current_user] %> |
@@ -35,7 +35,7 @@
           <%= link_to t(:Logout), logout_path %>
      <% end %>
       </div>
-      
+
       <div class='search'>
         <% form_tag :controller => "search" do %>
           <%= t(:Search) %>: <%= text_field_tag :search %>
@@ -47,7 +47,7 @@
         <% if current_user.can?(:access_moderator_section) %>
           <%= link_to "Moderator Section", moderator_root_path %>
         <% end %>
-        
+
         <% if current_user.can?(:access_admin_section) %>
           | <%= link_to "Administration Section", admin_root_path %>
         <% end %>

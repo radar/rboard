@@ -3,14 +3,14 @@
     <td width='100px'><%= f.label 'subject', t(:Subject) %></td>
     <td><%= f.text_field 'subject' %></td>
   </tr>
-  
+
   <% fields_for @post do |post| %>
     <tr>
       <td valign='top'><%= post.label 'text', t(:Text) %></td>
       <td><%= post.text_area "text", :cols => "80" %></td>
     </tr>
   <% end %>
-  
+
   <% if current_user.can?(:sticky_topics, @forum) %>
     <tr>
       <td><%= f.label 'sticky', t(:Sticky) %></td>

@@ -4,21 +4,21 @@ describe ThinkingSphinx::HashExcept do
   before(:each) do
     @hash = { :number => 20, :letter => 'b', :shape => 'rectangle' }
   end
-  
+
   describe "except method" do
     it "returns a hash without the specified keys" do
       new_hash = @hash.except(:number)
       new_hash.should_not have_key(:number)
     end
   end
-  
+
   describe "except! method" do
     it "modifies hash removing specified keys" do
       @hash.except!(:number)
       @hash.should_not have_key(:number)
     end
   end
-  
+
   describe "extends Hash" do
     it 'with except' do
       Hash.instance_methods.include?('except').should be_true
@@ -42,7 +42,7 @@ describe ThinkingSphinx::ArrayExtractOptions do
       array.extract_options!.should == {:c => 'd'}
     end
   end
-  
+
   describe "extends Array" do
     it 'with extract_options!' do
       Array.instance_methods.include?('extract_options!').should be_true
@@ -58,7 +58,7 @@ describe ThinkingSphinx::AbstractQuotedTableName do
       adapter.quote_table_name('messages')
     end
   end
-  
+
   describe "extends ActiveRecord::ConnectionAdapters::AbstractAdapter" do
     it 'with quote_table_name' do
       ActiveRecord::ConnectionAdapters::AbstractAdapter.instance_methods.include?('quote_table_name').should be_true
@@ -73,7 +73,7 @@ describe ThinkingSphinx::MysqlQuotedTableName do
       adapter.quote_table_name('thinking_sphinx.messages').should == "`thinking_sphinx`.`messages`"
     end
   end
-  
+
   describe "extends ActiveRecord::ConnectionAdapters::MysqlAdapter" do
     it 'with quote_table_name' do
       adapter = defined?(JRUBY_VERSION) ? :JdbcAdapter : :MysqlAdapter
@@ -88,7 +88,7 @@ describe ThinkingSphinx::ActiveRecordQuotedName do
       Person.quoted_table_name.should == '`people`'
     end
   end
-  
+
   describe "extends ActiveRecord::Base" do
     it 'with quoted_table_name' do
       ActiveRecord::Base.respond_to?("quoted_table_name").should be_true
@@ -102,7 +102,7 @@ describe ThinkingSphinx::ActiveRecordStoreFullSTIClass do
       Person.store_full_sti_class.should be_false
     end
   end
-  
+
   describe "extends ActiveRecord::Base" do
     it 'with store_full_sti_class' do
       ActiveRecord::Base.respond_to?(:store_full_sti_class).should be_true
@@ -113,7 +113,7 @@ end
 class TestModel
   @@squares = 89
   @@circles = 43
-  
+
   def number_of_polygons
     @@polygons
   end
@@ -146,7 +146,7 @@ describe ThinkingSphinx::ClassAttributeMethods do
       test_model = TestModel.new
       test_model.respond_to?(:herbivores=).should be_true
     end
-    
+
     it 'does not override an existing definition' do
       TestModel.cattr_writer :polygons
       test_model = TestModel.new

@@ -17,7 +17,7 @@ moderator:
   crypted_password: a5e93e6f4d9c87e787f5b6f40f9997e9d1f0f977
   permalink: moderator
   identifier: moderator
-  
+
 plebian:
   id: 3
   login: Plebian 
@@ -42,7 +42,7 @@ anonymous:
   salt: 
   crypted_password: 
   identifier: anonymous
-  
+
 other_user:
   id: 6
   login: other_user

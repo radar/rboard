@@ -10,7 +10,7 @@ module Chronic
       end
       tokens
     end
-    
+
     def self.scan_for_commas(token)
       scanner = {/^,$/ => :comma}
       scanner.keys.each do |scanner_item|
@@ -18,7 +18,7 @@ module Chronic
       end
       return nil
     end
-    
+
     def self.scan_for_slash_or_dash(token)
       scanner = {/^-$/ => :dash,
                  /^\/$/ => :slash}
@@ -27,7 +27,7 @@ module Chronic
       end
       return nil
     end
-    
+
     def self.scan_for_at(token)
       scanner = {/^(at|@)$/ => :at}
       scanner.keys.each do |scanner_item|
@@ -35,7 +35,7 @@ module Chronic
       end
       return nil
     end
-    
+
     def self.scan_for_in(token)
       scanner = {/^in$/ => :in}
       scanner.keys.each do |scanner_item|
@@ -43,30 +43,30 @@ module Chronic
       end
       return nil
     end
-    
+
     def to_s
       'separator'
     end
   end
-  
+
   class SeparatorComma < Separator #:nodoc:
     def to_s
       super << '-comma'
     end
   end
-  
+
   class SeparatorSlashOrDash < Separator #:nodoc:
     def to_s
       super << '-slashordash-' << @type.to_s
     end
   end
-  
+
   class SeparatorAt < Separator #:nodoc:
     def to_s
       super << '-at'
     end
   end
-  
+
   class SeparatorIn < Separator #:nodoc:
     def to_s
       super << '-in'

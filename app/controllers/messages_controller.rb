@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
   def index
     @messages = current_user.inbox_messages
   end
-  
+
   # Show a particular message for the currently logged in user
   def show
     if @message.belongs_to?(current_user)
@@ -16,7 +16,7 @@ class MessagesController < ApplicationController
       @message.update_attribute("from_read",true) if @message.from == current_user
     end
   end
-  
+
   def new
     @message = current_user.outbox_messages.new
     @users = User.all(:order => "login ASC") - [current_user]
@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
       redirect_back_or_default(messages_path)
     end
   end
-  
+
   def create
     @message = current_user.outbox_messages.new(params[:message])
     if @message.save
@@ -36,7 +36,7 @@ class MessagesController < ApplicationController
       render :action => "new"
     end
   end
- 
+
   def destroy
     # Because people with can_read_other_private_messages == true can delete messages too.
     from_or_to = if @message.from == current_user
@@ -49,15 +49,15 @@ class MessagesController < ApplicationController
     flash[:notice] = t(:deleted, :thing => "message")
     redirect_back_or_default(messages_path)	
   end
-  
+
   def reply
     @users = User.find(:all, :order => "login ASC")
   end
-  
+
   def sent
     @messages = current_user.outbox_messages
   end
-  
+
   private
     def can_read_messages?
       if !current_user.can?(:read_private_messages)
@@ -65,7 +65,7 @@ class MessagesController < ApplicationController
         redirect_to root_path
       end
     end
-    
+
     def find_message
       @message = Message.find(params[:id])
       if !@message.belongs_to?(current_user) && !current_user.can?(:read_others_private_messages)

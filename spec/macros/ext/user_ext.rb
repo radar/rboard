@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
     # Wouldn't have to do the gsub if Rails correctly underscored strings like "Registered User"
     User.find_by_login(login.to_s) || User.make(login.to_s.gsub(" ", "").underscore.to_sym)
   end
-  
+
   # Shame that I have to do this...
   def self.make_with_group(name, group)
     u = User.new(User.plan(name))

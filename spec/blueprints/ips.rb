@@ -1,5 +1,5 @@
 Ip.blueprint do
-  
+
 end
 
 Ip.blueprint(:localhost) do

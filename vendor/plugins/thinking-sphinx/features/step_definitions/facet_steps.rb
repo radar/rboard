@@ -22,7 +22,7 @@ end
 When /^I drill down where (\w+) is (\w+) and (\w+) is (\w+)$/ do |facet_one, value_one, facet_two, value_two|
   value_one = value_one.to_i unless value_one[/^\d+$/].nil?
   value_two = value_two.to_i unless value_two[/^\d+$/].nil?
-  
+
   @results = results.for(
     facet_one.downcase.to_sym => value_one,
     facet_two.downcase.to_sym => value_two

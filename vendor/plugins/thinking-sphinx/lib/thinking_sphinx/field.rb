@@ -9,7 +9,7 @@ module ThinkingSphinx
   # 
   class Field < ThinkingSphinx::Property
     attr_accessor :sortable, :infixes, :prefixes
-    
+
     # To create a new field, you'll need to pass in either a single Column
     # or an array of them, and some (optional) options. The columns are
     # references to the data that will make up the field.
@@ -54,12 +54,12 @@ module ThinkingSphinx
     # 
     def initialize(columns, options = {})
       super
-      
+
       @sortable = options[:sortable] || false
       @infixes  = options[:infixes]  || false
       @prefixes = options[:prefixes] || false
     end
-    
+
     # Get the part of the SELECT clause related to this field. Don't forget
     # to set your model and associations first though.
     #
@@ -70,10 +70,10 @@ module ThinkingSphinx
       clause = @columns.collect { |column|
         column_with_prefix(column)
       }.join(', ')
-      
+
       clause = adapter.concatenate(clause)       if concat_ws?
       clause = adapter.group_concatenate(clause) if is_many?
-      
+
       "#{adapter.cast_to_string clause } AS #{quote_column(unique_name)}"
     end
   end

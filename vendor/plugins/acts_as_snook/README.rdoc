@@ -20,11 +20,11 @@ ActsAsSnook can also be configured to maintain a counter cache of ham comments [
 That's it if you want to use the default attributes I mentioned above. If you need to customize them, just specify them as arguments to acts_as_snook:
 
   acts_as_snook :author_field => :user, :body_field => :comment # Etc, etc
-  
+
 You may also add your own keywords to the list of spam keywords that ActsAsSnook uses to detect spam by adding them to the arguments:
 
   acts_as_snook :spam_words => %{hatespeech ignorantlanguage blathering}
-  
+
 ActsAsSnook also provides some helper methods for determining the spam status of a comment.
 
 <tt>comment.ham?</tt>:: Returns true for comments not marked as spam. "Ham" comments are safe for displaying on your site as is. This is the method you should most likely be using to check an individual comment.

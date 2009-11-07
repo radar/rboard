@@ -8,7 +8,7 @@ starter:
   name: Starter
   custom: false
   posts_required: 0
-  
+
 runner:
   id: 3
   name: Runner

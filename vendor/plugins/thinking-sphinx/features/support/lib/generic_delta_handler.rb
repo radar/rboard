@@ -1,5 +1,5 @@
 class GenericDeltaHandler < ThinkingSphinx::Deltas::DefaultDelta
-  
+
   def index(model, instance = nil)
     #do nothing but set a bit for every record 
     #this is just a demonstration of extensibility

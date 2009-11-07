@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   has_many :taggings, :as => :taggable
   has_many :tags, :through => :taggings
   belongs_to :category
-  
+
   define_index do
     indexes subject
     indexes content

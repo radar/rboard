@@ -7,7 +7,7 @@
       <%= f.text_area 'text', :cols => (cols || 70), :rows => (rows || 20) %>
     </td>
   </tr>
-  
+
   <% if current_user.can?(:edit_posts, @forum) && !@post.new_record? %>
     <tr>
       <td colspan='2'>
@@ -15,7 +15,7 @@
         <%= f.text_field 'edit_reason' %>
       </td>
     </tr>
-    
+
     <tr>
       <td colspan='2'>
         <%= check_box_tag 'silent_edit' %>
@@ -23,7 +23,7 @@
       </td>
     </tr>
   <% end %>
-  
+
 </tbody>
 <tfoot>
   <tr>

@@ -30,33 +30,33 @@ require "abbrev"
 class HighLine
   # The version of the installed library.
   VERSION = "1.5.0".freeze
-  
+
   # An internal HighLine error.  User code does not need to trap this.
   class QuestionError < StandardError
     # do nothing, just creating a unique error type
   end
-  
+
   # The setting used to disable color output.
   @@use_color = true
-  
+
   # Pass +false+ to _setting_ to turn off HighLine's color escapes.
   def self.use_color=( setting )
     @@use_color = setting
   end
-  
+
   # Returns true if HighLine is currently using color escapes.
   def self.use_color?
     @@use_color
   end
-  
+
   # The setting used to disable EOF tracking.
   @@track_eof = true
-  
+
   # Pass +false+ to _setting_ to turn off HighLine's EOF tracking.
   def self.track_eof=( setting )
     @@track_eof = setting
   end
-  
+
   # Returns true if HighLine is currently tracking EOF for input.
   def self.track_eof?
     @@track_eof
@@ -148,10 +148,10 @@ class HighLine
                   wrap_at = nil, page_at = nil )
     @input   = input
     @output  = output
-    
+
     self.wrap_at = wrap_at
     self.page_at = page_at
-    
+
     @question = nil
     @answer   = nil
     @menu     = nil
@@ -161,14 +161,14 @@ class HighLine
     @answers  = nil
     @key      = nil
   end
-  
+
   include HighLine::SystemExtensions
-  
+
   # The current column setting for wrapping output.
   attr_reader :wrap_at
   # The current row setting for paging output.
   attr_reader :page_at
-  
+
   #
   # A shortcut to HighLine.ask() a question that only accepts "yes" or "no"
   # answers ("y" and "n" are allowed) and returns +true+ or +false+
@@ -184,11 +184,11 @@ class HighLine
       q.responses[:not_valid]    = 'Please enter "yes" or "no".'
       q.responses[:ask_on_error] = :question
       q.character                = character
-      
+
       yield q if block_given?
     end
   end
-  
+
   #
   # This method is the primary interface for user input.  Just provide a
   # _question_ to ask the user, the _answer_type_ you want returned, and
@@ -205,9 +205,9 @@ class HighLine
   #
   def ask( question, answer_type = String, &details ) # :yields: question
     @question ||= Question.new(question, answer_type, &details)
-    
+
     return gather if @question.gather
-  
+
     # readline() needs to handle it's own output, but readline only supports 
     # full line reading.  Therefore if @question.echo is anything but true, 
     # the prompt will not be issued. And we have to account for that now.
@@ -218,9 +218,9 @@ class HighLine
         explain_error(:not_valid)
         raise QuestionError
       end
-      
+
       @answer = @question.convert(@answer)
-      
+
       if @question.in_range?(@answer)
         if @question.confirm
           # need to add a layer of scope to ask a question inside a
@@ -239,7 +239,7 @@ class HighLine
             raise QuestionError
           end
         end
-        
+
         @answer
       else
         explain_error(:not_in_range)
@@ -280,7 +280,7 @@ class HighLine
   def choose( *items, &details )
     @menu = @question = Menu.new(&details)
     @menu.choices(*items) unless items.empty?
-    
+
     # Set _answer_type_ so we can double as the Question for ask().
     @menu.answer_type = if @menu.shell
       lambda do |command|    # shell-style selection
@@ -299,11 +299,11 @@ class HighLine
     else
       @menu.options          # normal menu selection, by index or name
     end
-    
+
     # Provide hooks for ERb layouts.
     @header   = @menu.header
     @prompt   = @menu.prompt
-    
+
     if @menu.shell
       selected = ask("Ignored", @menu.answer_type)
       @menu.select(self, *selected)
@@ -326,7 +326,7 @@ class HighLine
   #
   def color( string, *colors )
     return string unless self.class.use_color?
-    
+
     colors.map! do |c|
       if self.class.using_color_scheme? and self.class.color_scheme.include? c
         self.class.color_scheme[c]
@@ -338,7 +338,7 @@ class HighLine
     end
     "#{colors.flatten.join}#{string}#{CLEAR}"
   end
-  
+
   # 
   # This method is a utility for quickly and easily laying out lists.  It can
   # be accessed within ERb replacements of any text that will be sent to the
@@ -371,11 +371,11 @@ class HighLine
     items = items.to_ary.map do |item|
       ERB.new(item, nil, "%").result(binding)
     end
-    
+
     case mode
     when :inline
       option = " or " if option.nil?
-      
+
       case items.size
       when 0
         ""
@@ -401,7 +401,7 @@ class HighLine
         "%-#{pad}s" % item
       end
       row_count = (items.size / option.to_f).ceil
-      
+
       if mode == :columns_across
         rows = Array.new(row_count) { Array.new }
         items.each_with_index do |item, index|
@@ -414,7 +414,7 @@ class HighLine
         items.each_with_index do |item, index|
           columns[index / row_count] << item
         end
-      
+
         list = ""
         columns.first.size.times do |index|
           list << columns.map { |column| column[index] }.
@@ -426,7 +426,7 @@ class HighLine
       items.map { |i| "#{i}\n" }.join
     end
   end
-  
+
   #
   # The basic output method for HighLine objects.  If the provided _statement_
   # ends with a space or tab character, a newline will not be appended (output
@@ -440,13 +440,13 @@ class HighLine
   def say( statement )
     statement = statement.to_str
     return unless statement.length > 0
-    
+
     template  = ERB.new(statement, nil, "%")
     statement = template.result(binding)
-    
+
     statement = wrap(statement) unless @wrap_at.nil?
     statement = page_print(statement) unless @page_at.nil?
-    
+
     if statement[-1, 1] == " " or statement[-1, 1] == "\t"
       @output.print(statement)
       @output.flush  
@@ -454,7 +454,7 @@ class HighLine
       @output.puts(statement)
     end
   end
-  
+
   #
   # Set to an integer value to cause HighLine to wrap output lines at the
   # indicated character limit.  When +nil+, the default, no wrapping occurs.  If
@@ -464,7 +464,7 @@ class HighLine
   def wrap_at=( setting )
     @wrap_at = setting == :auto ? output_cols : setting
   end
-  
+
   #
   # Set to an integer value to cause HighLine to page output lines over the
   # indicated line limit.  When +nil+, the default, no paging occurs.  If
@@ -474,7 +474,7 @@ class HighLine
   def page_at=( setting )
     @page_at = setting == :auto ? output_rows : setting
   end
-  
+
   # 
   # Returns the number of columns for the console, or a default it they cannot
   # be determined.
@@ -485,7 +485,7 @@ class HighLine
   rescue
     return 80
   end
-  
+
   # 
   # Returns the number of rows for the console, or a default if they cannot be
   # determined.
@@ -496,9 +496,9 @@ class HighLine
   rescue
     return 24
   end
-  
+
   private
-  
+
   #
   # A helper method for sending the output stream and error and repeat
   # of the question.
@@ -511,7 +511,7 @@ class HighLine
       say(@question.responses[:ask_on_error])
     end
   end
-  
+
   #
   # Collects an Array/Hash full of answers as described in 
   # HighLine::Question.gather().
@@ -522,9 +522,9 @@ class HighLine
     @gather           = @question.gather
     @answers          = [ ]
     original_question = @question
-    
+
     @question.gather = false
-    
+
     case @gather
     when Integer
       @answers << ask(@question)
@@ -545,7 +545,7 @@ class HighLine
         @question =  original_question
         @answers  << ask(@question)
       end
-      
+
       @answers.pop
     when Hash
       @answers = { }
@@ -555,7 +555,7 @@ class HighLine
         @answers[key] = ask(@question)
       end
     end
-    
+
     @answers
   end
 
@@ -578,12 +578,12 @@ class HighLine
       say(@question)
       question = @output.string
       @output  = old_output
-      
+
       # prep auto-completion
       Readline.completion_proc = lambda do |string|
         @question.selection.grep(/\A#{Regexp.escape(string)}/)
       end
-      
+
       # work-around ugly readline() warnings
       old_verbose = $VERBOSE
       $VERBOSE    = nil
@@ -600,7 +600,7 @@ class HighLine
       @question.change_case(@question.remove_whitespace(@input.gets))
     end
   end
-  
+
   #
   # Return a line or character of input, as requested for this question.
   # Character input will be returned as a single character String,
@@ -612,13 +612,13 @@ class HighLine
   #
   def get_response(  )
     return @question.first_answer if @question.first_answer?
-    
+
     if @question.character.nil?
       if @question.echo == true and @question.limit.nil?
         get_line
       else
         raw_no_echo_mode if stty = CHARACTER_MODE == "stty"
-        
+
         line = ""
         backspace_limit = 0
         begin
@@ -660,7 +660,7 @@ class HighLine
         else
           say("\n")
         end
-        
+
         @question.change_case(@question.remove_whitespace(line))
       end
     elsif @question.character == :getc
@@ -683,7 +683,7 @@ class HighLine
       @question.change_case(response)
     end
   end
-  
+
   # 
   # Page print a series of at most _page_at_ lines for _output_.  After each
   # page is printed, HighLine will pause until the user presses enter/return
@@ -702,7 +702,7 @@ class HighLine
     end
     return lines.join
   end
- 
+
   # 
   # Ask user if they wish to continue paging output. Allows them to type "q" to
   # cancel the paging process.
@@ -713,7 +713,7 @@ class HighLine
     ) { |q| q.character = true }
     command !~ /\A[qQ]\Z/  # Only continue paging if Q was not hit.
   end
-    
+
   #
   # Wrap a sequence of _lines_ at _wrap_at_ characters per line.  Existing
   # newlines will not be affected by this process, but additional newlines
@@ -737,7 +737,7 @@ class HighLine
     end
     return wrapped.join
   end
-  
+
   # 
   # Returns the length of the passed +string_with_escapes+, minus and color
   # sequence escapes.

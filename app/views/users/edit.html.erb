@@ -2,45 +2,45 @@
   <table cellspacing='0' cellpadding='2' class='action-box' width='100%'>
     <thead><tr><td colspan='2'><h2><%= t(:Editing_your_profile) %></h2></td></tr></thead>
     <tbody>
-      
+
       <tr>
         <td valign='top'><%= f.label "display_name", t(:Display_Name) %></td>
         <td><%= f.text_field :display_name %></td>
       </tr>
-      
+
       <tr>
         <td valign='top' colspan='2'><h3><%= t(:New, :thing => "password") %></h3></td>
       </tr>
-      
+
       <tr>
         <td valign='top'><%= f.label "password", t(:New, :thing => "Password" )  %></td>
         <td><%= f.password_field "password", :value => "" %></td>
       </tr>
-      
+
       <tr>
         <td valign='top'><%= f.label "password_confirmation", t(:New_Password_Confirmation) %></td>
         <td><%= f.password_field "password_confirmation", :value => "" %></td>
       </tr>
-      
+
       <tr>
         <td valign='top' colspan='2'><h3><%= t(:Forum_information) %></h3></td>
       </tr>
-      
+
       <tr>
         <td valign='top'><%= f.label "signature", t(:Signature) %></td>
         <td><%= f.text_area "signature", :cols => 80, :rows => 5 %></td>
       </tr>
-      
+
       <tr>
         <td valign='top'><%= f.label "email", t(:Email) %></td>
         <td><%= f.text_field "email"  %></td>
       </tr>
-      
+
       <tr>
         <td valign='top'><%= f.label "time_zone", t(:Time_Zone) %></td>
         <td><%= f.time_zone_select "time_zone" %></td>
       </tr>
-      
+
       <tr>
         <td valign='top'><%= f.label "date_display", t(:Date_and_Time_Display) %></b></td>
         <td>
@@ -49,24 +49,24 @@
           <%= link_to "read this for more information", "http://noobkit.com/show/ruby/ruby/ruby-core/time/strftime.html" %>
         </td>
       </tr>
-      
+
       <tr>
         <td valign='top'><b><%= t(:Example_time_display) %></b></td>
         <td><%= Time.now.strftime(date_display + " " + time_display) %></td>
       </tr>
-      
+
       <% if @themes.size > 1 %>
         <tr>
           <td valign='top'><%= f.label 'theme_id', t(:Theme) %></td>
           <td><%= f.select "theme_id", @themes.map { |t| [t.name, t.id] } %></td>
         </tr>
       <% end %>
-      
+
       <tr>
         <td valign='top'><%= f.label 'per_page', t(:Items_per_page) %></td>
         <td><%= f.text_field "per_page", :size => 3 %></td>
       </tr>
-      
+
       <% if current_user.email %>
         <tr>
           <td valign='top'>
@@ -94,8 +94,8 @@
           <td>
             <%= f.file_field :avatar %>
           </td>
-      
-            
+
+
     </tbody>
     <tfoot>
       <tr>

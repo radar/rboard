@@ -3,7 +3,7 @@ module NestedHasManyThrough
     def self.included(base)
       base.send :alias_method_chain, :check_validity!, :nested_has_many_through
     end
-  
+
     def check_validity_with_nested_has_many_through!
       check_validity_without_nested_has_many_through!
     rescue ActiveRecord::HasManyThroughSourceAssociationMacroError => e
@@ -11,7 +11,7 @@ module NestedHasManyThrough
       raise e unless source_reflection.options[:through]
     end
   end
-  
+
   module Association
     def self.included(base)
       base.class_eval do
@@ -48,13 +48,13 @@ module NestedHasManyThrough
         construct_has_many_or_belongs_to_attributes(reflection, association_class, table_ids)
       end
     end
-    
+
     def construct_has_many_through_attributes(reflection, table_ids)
       # Construct the join components of the source association, so that we have a path from
       # the eventual target table of the association up to the table named in :through, and
       # all tables involved are allocated table IDs.
       source_attrs = construct_nested_join_attributes(reflection.source_reflection, reflection.klass, table_ids)
-      
+
       # Determine the alias of the :through table; this will be the last table assigned
       # when constructing the source join components above.
       through_table_alias = through_table_name = reflection.through_reflection.table_name
@@ -68,7 +68,7 @@ module NestedHasManyThrough
       # so that's what we return for the conditions/keys of the overall association.
       conditions = through_attrs[:conditions]
       conditions += " AND #{interpolate_sql(reflection.klass.send(:sanitize_sql, reflection.options[:conditions]))}" if reflection.options[:conditions]
-      
+
       {
         :joins => "%s INNER JOIN %s ON ( %s = %s.%s %s) %s %s" % [
           source_attrs[:joins],
@@ -84,8 +84,8 @@ module NestedHasManyThrough
         :conditions => conditions
       }
     end
-    
-    
+
+
     # reflection is not has_many :through; it's a standard has_many / belongs_to instead
     # TODO: see if we can defer to rails code here a bit more
     def construct_has_many_or_belongs_to_attributes(reflection, association_class, table_ids)
@@ -103,13 +103,13 @@ module NestedHasManyThrough
       else
         table_ids[local_table_name] = 1
       end
-      
+
       conditions = ''
       # Add filter for single-table inheritance, if applicable.
       conditions += " AND #{remote_table_alias}.#{association_class.inheritance_column} = #{association_class.quote_value(association_class.name.demodulize)}" unless association_class.descends_from_active_record?
       # Add custom conditions
       conditions += " AND (#{interpolate_sql(association_class.send(:sanitize_sql, reflection.options[:conditions]))})" if reflection.options[:conditions]
-      
+
       if reflection.macro == :belongs_to
         if reflection.options[:polymorphic]
           conditions += " AND #{local_table_alias}.#{reflection.options[:foreign_type]} = #{reflection.active_record.quote_value(association_class.base_class.name.to_s)}"

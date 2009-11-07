@@ -1,5 +1,5 @@
 Configuration.blueprint do
-  
+
 end
 
 Configuration.blueprint(:subforums_display) do

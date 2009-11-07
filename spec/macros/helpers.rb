@@ -22,6 +22,6 @@ def valid_topic_for(forum)
   topic = forum.topics.make_unsaved
   post = topic.posts.build(Post.plan)
   post.user = User.ensure(:administrator)
-  
+
   topic.tap(&:save!)
 end

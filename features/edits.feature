@@ -2,10 +2,10 @@ Feature: Edits
   In order to edit a post
   As a user
   I want that to be done
-  
+
   Background:
     Given there is the usual setup
-  
+
   Scenario: Editing a post
     Given I am logged in as "administrator" with the password "godly"
     And I am on the homepage

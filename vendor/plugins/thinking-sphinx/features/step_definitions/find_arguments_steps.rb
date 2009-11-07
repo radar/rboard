@@ -31,6 +31,6 @@ end
 Then /^I should get an error accessing the subject$/ do
   error_class = NoMethodError
   error_class = ActiveRecord::MissingAttributeError if ActiveRecord.constants.include?("MissingAttributeError")
-  
+
   lambda { results.first.subject }.should raise_error(error_class)
 end

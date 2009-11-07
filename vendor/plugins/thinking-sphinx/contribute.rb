@@ -8,7 +8,7 @@ module ContributeHelper; end
 
 class Contribute
   include ContributeHelper
-  
+
   def dependencies
     [
       Dependencies::Sphinx,
@@ -20,14 +20,14 @@ class Contribute
 
   def show
     show_welcome_screen
-    
+
     (
       check_for_dependencies   &&
       create_database_yaml     &&
       check_mysql_is_working   &&
       create_test_database
     ) || exit(1)
-    
+
     show_done_screen
   end
 
@@ -93,15 +93,15 @@ EO_CREATE_DATABASE_FAILED
   def create_database_yaml
     colour_puts "<banner>creating database yaml</banner>"
     puts
-    
-    
+
+
     config = {
           'username' => 'root',
           'password' => nil,
           'host'     => 'localhost'
         }
-    
-    
+
+
     colour_print " * <b>#{db_yml}</b>... "
     unless File.exist?(db_yml)
       open(db_yml,'w') {|f| f << config.to_yaml}
@@ -110,41 +110,41 @@ EO_CREATE_DATABASE_FAILED
       config = YAML.load_file(db_yml)
       colour_puts "<green>already exists</green>"
     end
-    
+
     colour_puts REVIEW_YAML
-    
+
     config.each do |(k,v)|
       colour_puts " * <b>#{k}</b>: #{v}"
     end
-    
+
     puts
-    
+
     wait!
     true
   end
-  
+
   def check_mysql_is_working
     require 'activerecord'
     colour_puts "<banner>check mysql is working</banner>"
     puts
-    
+
     connect_to_db
-    
+
     print " * connecting to mysql... "
-    
+
     begin
       ActiveRecord::Base.connection.select_value('select sysdate() from dual')
-      
+
       colour_puts "<green>successful</green>"
       puts
-      
+
       return true
     rescue defined?(JRUBY_VERSION) ? Java::JavaSql::SQLException : Mysql::Error
       colour_puts "<red>failed</red>"
-      
+
       puts MYSQL_FAILED
     end
-    
+
     false
   end
 
@@ -152,9 +152,9 @@ EO_CREATE_DATABASE_FAILED
   def create_test_database
     colour_puts "<banner>create test database</banner>"
     puts
-    
+
     connect_to_db
-    
+
     colour_print " * <b>creating thinking_sphinx database</b>... "
     begin
       ActiveRecord::Base.connection.create_database('thinking_sphinx')
@@ -168,25 +168,25 @@ EO_CREATE_DATABASE_FAILED
         colour_puts "<red>failed</red>"
       end
     end
-    
+
     colour_puts CREATE_DATABASE_FAILED
-    
+
     false
   end
-  
+
   # project
   def ts_root
     File.expand_path(File.dirname(__FILE__))
   end
-  
+
   def specs
     ts_root / 'spec'
   end
-  
+
   def db_yml
     specs / 'fixtures' / 'database.yml'
   end
-  
+
   def mysql_adapter
     defined?(JRUBY_VERSION) ? 'jdbcmysql' : 'mysql'
   end
@@ -217,47 +217,47 @@ module ContributeHelper
     def self.name(name=nil)
       if name then @name = name else @name end
     end
-    
+
     attr_reader :location
-    
+
     def initialize
       @found = false
       @location = nil
     end
-    
+
     def name; self.class.name end
-    
+
     def check; false end
     def check!
       @found = check 
     end
-    
+
     def found?
       @found
     end
   end
-  
+
   class Gem < Dependency
     def gem_name; self.class.name end
     def name; "#{super} gem" end
-    
+
     def check
       ::Gem.available? self.gem_name
     end
   end
-  
-  
+
+
   def check_for_dependencies
     colour_puts "<banner>Checking for required software</banner>"
     puts
-    
+
     all_found = true
-    
+
     dependencies.each do |klass|
       dep = klass.new
       print " * #{dep.name}... "
       dep.check!
-      
+
       if dep.found?
         if dep.location
           colour_puts "<green>found at #{dep.location}</green>"
@@ -269,14 +269,14 @@ module ContributeHelper
         colour_puts "<red>not found</red>"
       end
     end
-    
+
     puts
-    
+
     all_found
   end
-  
-  
-  
+
+
+
   DEFAULT_TERMINAL_COLORS = "\e[0m\e[37m\e[40m"
   def subs_colour(data)
   	data = data.gsub(%r{<b>(.*?)</b>}m, "\e[1m\\1#{DEFAULT_TERMINAL_COLORS}")
@@ -284,10 +284,10 @@ module ContributeHelper
   	data.gsub!(%r{<green>(.*?)</green>}m, "\e[1m\e[32m\\1#{DEFAULT_TERMINAL_COLORS}")
   	data.gsub!(%r{<yellow>(.*?)</yellow>}m, "\e[1m\e[33m\\1#{DEFAULT_TERMINAL_COLORS}")
   	data.gsub!(%r{<banner>(.*?)</banner>}m, "\e[33m\e[44m\e[1m\\1#{DEFAULT_TERMINAL_COLORS}")
-  	
+
   	return data
   end
-  
+
   def colour_puts(text)
     puts subs_colour(text)
   end
@@ -296,7 +296,7 @@ module ContributeHelper
     print subs_colour(text)
   end
 
-  
+
   def wait!
     colour_puts "<b>Hit Enter to continue, or Ctrl-C to quit.</b>"
     STDIN.readline
@@ -309,18 +309,18 @@ module Dependencies
   class Mysql < ContributeHelper::Gem
     name(defined?(JRUBY_VERSION) ? 'jdbc-mysql' : 'mysql')
   end
-  
+
   class AR < ContributeHelper::Gem
     name 'activerecord'
   end
-  
+
   class Ginger < ContributeHelper::Gem
     name 'ginger'
   end
-  
+
   class Sphinx < ContributeHelper::Dependency
     name 'sphinx'
-    
+
     def check
       output = `which searchd`
       @location = output.chomp if $? == 0

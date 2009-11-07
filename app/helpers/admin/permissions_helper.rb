@@ -3,7 +3,7 @@ module Admin::PermissionsHelper
     [:admin,
      :moderator]
   end
-  
+
   def managements
     [:bans,
      :categories,
@@ -17,11 +17,11 @@ module Admin::PermissionsHelper
      :themes,
      :topics]
   end
-  
+
   def break_row(count)
     "</tr><tr>" if (count + 1) % 5 == 0
   end
-  
+
   def forum_permissions
     [:can_delete_own_posts,
      :can_delete_posts,
@@ -45,13 +45,13 @@ module Admin::PermissionsHelper
      :can_post_in_closed_forums,
      :can_subscribe]
   end
-  
+
   def global_permissions
     [:can_read_private_messages,
      :can_reply,
      :can_send_messages_to_groups,
      :can_use_signature]
   end
-    
+
 end
 

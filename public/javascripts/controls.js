@@ -80,7 +80,7 @@ Autocompleter.Base = Class.create({
       this.options.tokens.push('\n');
 
     this.observer = null;
-    
+
     this.element.setAttribute('autocomplete','off');
 
     Element.hide(this.update);
@@ -102,7 +102,7 @@ Autocompleter.Base = Class.create({
     }
     if(this.iefix) setTimeout(this.fixIEOverlapping.bind(this), 50);
   },
-  
+
   fixIEOverlapping: function() {
     Position.clone(this.update, this.iefix, {setTop:(!this.update.style.height)});
     this.iefix.style.zIndex = 1;
@@ -177,21 +177,21 @@ Autocompleter.Base = Class.create({
     }
     Event.stop(event);
   },
-  
+
   onClick: function(event) {
     var element = Event.findElement(event, 'LI');
     this.index = element.autocompleteIndex;
     this.selectEntry();
     this.hide();
   },
-  
+
   onBlur: function(event) {
     // needed to make click events working
     setTimeout(this.hide.bind(this), 250);
     this.hasFocus = false;
     this.active = false;     
   }, 
-  
+
   render: function() {
     if(this.entryCount > 0) {
       for (var i = 0; i < this.entryCount; i++)
@@ -207,27 +207,27 @@ Autocompleter.Base = Class.create({
       this.hide();
     }
   },
-  
+
   markPrevious: function() {
     if(this.index > 0) this.index--
       else this.index = this.entryCount-1;
     this.getEntry(this.index).scrollIntoView(true);
   },
-  
+
   markNext: function() {
     if(this.index < this.entryCount-1) this.index++
       else this.index = 0;
     this.getEntry(this.index).scrollIntoView(false);
   },
-  
+
   getEntry: function(index) {
     return this.update.firstChild.childNodes[index];
   },
-  
+
   getCurrentEntry: function() {
     return this.getEntry(this.index);
   },
-  
+
   selectEntry: function() {
     this.active = false;
     this.updateElement(this.getCurrentEntry());
@@ -244,7 +244,7 @@ Autocompleter.Base = Class.create({
       if(nodes.length>0) value = Element.collectTextNodes(nodes[0], this.options.select);
     } else
       value = Element.collectTextNodesIgnoreClass(selectedElement, 'informal');
-    
+
     var bounds = this.getTokenBounds();
     if (bounds[0] != -1) {
       var newValue = this.element.value.substr(0, bounds[0]);
@@ -257,7 +257,7 @@ Autocompleter.Base = Class.create({
     }
     this.oldElementValue = this.element.value;
     this.element.focus();
-    
+
     if (this.options.afterUpdateElement)
       this.options.afterUpdateElement(this.element, selectedElement);
   },
@@ -282,7 +282,7 @@ Autocompleter.Base = Class.create({
 
       this.stopIndicator();
       this.index = 0;
-      
+
       if(this.entryCount==1 && this.options.autoSelect) {
         this.selectEntry();
         this.hide();
@@ -351,7 +351,7 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 
   getUpdatedChoices: function() {
     this.startIndicator();
-    
+
     var entry = encodeURIComponent(this.options.paramName) + '=' + 
       encodeURIComponent(this.getToken());
 
@@ -360,7 +360,7 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 
     if(this.options.defaultParams) 
       this.options.parameters += '&' + this.options.defaultParams;
-    
+
     new Ajax.Request(this.url, this.options);
   },
 

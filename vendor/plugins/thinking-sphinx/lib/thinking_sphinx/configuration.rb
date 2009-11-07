@@ -45,44 +45,44 @@ module ThinkingSphinx
   # 
   class Configuration
     include Singleton
-    
+
     SourceOptions = %w( mysql_connect_flags sql_range_step sql_query_pre
       sql_query_post sql_ranged_throttle sql_query_post_index )
-    
+
     IndexOptions  = %w( charset_table charset_type docinfo enable_star
       exceptions html_index_attrs html_remove_elements html_strip ignore_chars
       min_infix_len min_prefix_len min_word_len mlock morphology ngram_chars
       ngram_len phrase_boundary phrase_boundary_step preopen stopwords
       wordforms )
-        
+
     attr_accessor :config_file, :searchd_log_file, :query_log_file,
       :pid_file, :searchd_file_path, :address, :port, :allow_star,
       :database_yml_file, :app_root, :bin_path, :model_directories,
       :delayed_job_priority
-    
+
     attr_accessor :source_options, :index_options
-    
+
     attr_reader :environment, :configuration
-    
+
     # Load in the configuration settings - this will look for config/sphinx.yml
     # and parse it according to the current environment.
     # 
     def initialize(app_root = Dir.pwd)
       self.reset
     end
-    
+
     def reset
       self.app_root          = RAILS_ROOT if defined?(RAILS_ROOT)
       self.app_root          = Merb.root  if defined?(Merb)
       self.app_root        ||= app_root
-      
+
       @configuration = Riddle::Configuration.new
       @configuration.searchd.address    = "127.0.0.1"
       @configuration.searchd.port       = 3312
       @configuration.searchd.pid_file   = "#{self.app_root}/log/searchd.#{environment}.pid"
       @configuration.searchd.log        = "#{self.app_root}/log/searchd.log"
       @configuration.searchd.query_log  = "#{self.app_root}/log/searchd.query.log"
-      
+
       self.database_yml_file    = "#{self.app_root}/config/database.yml"
       self.config_file          = "#{self.app_root}/config/#{environment}.sphinx.conf"
       self.searchd_file_path    = "#{self.app_root}/db/sphinx/#{environment}"
@@ -91,32 +91,32 @@ module ThinkingSphinx
       self.model_directories    = ["#{app_root}/app/models/"] +
         Dir.glob("#{app_root}/vendor/plugins/*/app/models/")
       self.delayed_job_priority = 0
-      
+
       self.source_options  = {}
       self.index_options   = {
         :charset_type => "utf-8",
         :morphology   => "stem_en"
       }
-            
+
       parse_config
-      
+
       self
     end
-    
+
     def self.environment
       @@environment ||= (
         defined?(Merb) ? Merb.environment : ENV['RAILS_ENV']
       ) || "development"
     end
-    
+
     def environment
       self.class.environment
     end
-    
+
     def controller
       @controller ||= Riddle::Controller.new(@configuration, self.config_file)
     end
-    
+
     # Generate the config file for Sphinx by using all the settings defined and
     # looping through all the models with indexes to build the relevant
     # indexer and searchd configuration, and sources and indexes details.
@@ -124,18 +124,18 @@ module ThinkingSphinx
     def build(file_path=nil)
       load_models
       file_path ||= "#{self.config_file}"
-      
+
       @configuration.indexes.clear
-      
+
       ThinkingSphinx.indexed_models.each_with_index do |model, model_index|
         @configuration.indexes.concat model.constantize.to_riddle(model_index)
       end
-      
+
       open(file_path, "w") do |file|
         file.write @configuration.render
       end
     end
-    
+
     # Make sure all models are loaded - without reloading any that
     # ActiveRecord::Base is already aware of (otherwise we start to hit some
     # messy dependencies issues).
@@ -144,12 +144,12 @@ module ThinkingSphinx
       self.model_directories.each do |base|
         Dir["#{base}**/*.rb"].each do |file|
           model_name = file.gsub(/^#{base}([\w_\/\\]+)\.rb/, '\1')
-        
+
           next if model_name.nil?
           next if ::ActiveRecord::Base.send(:subclasses).detect { |model|
             model.name == model_name
           }
-        
+
           begin
             model_name.camelize.constantize
           rescue LoadError
@@ -160,75 +160,75 @@ module ThinkingSphinx
         end
       end
     end
-    
+
     def address
       @configuration.searchd.address
     end
-    
+
     def address=(address)
       @configuration.searchd.address = address
     end
-    
+
     def port
       @configuration.searchd.port
     end
-    
+
     def port=(port)
       @configuration.searchd.port = port
     end
-    
+
     def pid_file
       @configuration.searchd.pid_file
     end
-    
+
     def pid_file=(pid_file)
       @configuration.searchd.pid_file = pid_file
     end
-    
+
     def searchd_log_file
       @configuration.searchd.log
     end
-    
+
     def searchd_log_file=(file)
       @configuration.searchd.log = file
     end
-    
+
     def query_log_file
       @configuration.searchd.query_log
     end
-    
+
     def query_log_file=(file)
       @configuration.searchd.query_log = file
     end
-    
+
     private
-    
+
     # Parse the config/sphinx.yml file - if it exists - then use the attribute
     # accessors to set the appropriate values. Nothing too clever.
     # 
     def parse_config
       path = "#{app_root}/config/sphinx.yml"
       return unless File.exists?(path)
-      
+
       conf = YAML::load(ERB.new(IO.read(path)).result)[environment]
-      
+
       conf.each do |key,value|
         self.send("#{key}=", value) if self.methods.include?("#{key}=")
-        
+
         set_sphinx_setting self.source_options, key, value, SourceOptions
         set_sphinx_setting self.index_options,  key, value, IndexOptions
         set_sphinx_setting @configuration.searchd, key, value
         set_sphinx_setting @configuration.indexer, key, value
       end unless conf.nil?
-      
+
       self.bin_path += '/' unless self.bin_path.blank?
-      
+
       if self.allow_star
         self.index_options[:enable_star]    = true
         self.index_options[:min_prefix_len] = 1
       end
     end
-    
+
     def set_sphinx_setting(object, key, value, allowed = {})
       if object.is_a?(Hash)
         object[key.to_sym] = value if allowed.include?(key.to_s)

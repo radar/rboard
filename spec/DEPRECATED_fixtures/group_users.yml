@@ -1,7 +1,7 @@
 one:
   group_id: 1 #anonymous
   user_id: 5 #anonymous
-  
+
 two:
   group_id: 2 #registered user
   user_id: 3 #plebian

@@ -27,7 +27,7 @@ module AfterCommit
           AfterCommit.committed_records_on_destroy = []
         end
         alias_method_chain :rollback_db_transaction, :callback
-        
+
         protected        
           def trigger_after_commit_callbacks
             # Trigger the after_commit callback for each of the committed
@@ -45,7 +45,7 @@ module AfterCommit
             # triggered the callbacks for each one. 
             AfterCommit.committed_records = []
           end
-        
+
           def trigger_after_commit_on_create_callbacks
             # Trigger the after_commit_on_create callback for each of the committed
             # records.
@@ -62,7 +62,7 @@ module AfterCommit
             # triggered the callbacks for each one. 
             AfterCommit.committed_records_on_create = []
           end
-        
+
           def trigger_after_commit_on_update_callbacks
             # Trigger the after_commit_on_update callback for each of the committed
             # records.
@@ -79,7 +79,7 @@ module AfterCommit
             # triggered the callbacks for each one. 
             AfterCommit.committed_records_on_update = []
           end
-        
+
           def trigger_after_commit_on_destroy_callbacks
             # Trigger the after_commit_on_destroy callback for each of the committed
             # records.

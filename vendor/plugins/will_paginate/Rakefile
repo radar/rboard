@@ -19,10 +19,10 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
     exclude('lib/will_paginate/named_scope*').
     exclude('lib/will_paginate/array.rb').
     exclude('lib/will_paginate/version.rb')
-  
+
   rdoc.main = "README.rdoc" # page to start on
   rdoc.title = "will_paginate documentation"
-  
+
   rdoc.rdoc_dir = 'doc' # rdoc output folder
   rdoc.options << '--inline-source' << '--charset=UTF-8'
   rdoc.options << '--webcvs=http://github.com/mislav/will_paginate/tree/master/'
@@ -35,7 +35,7 @@ task :manifest do
   list = Dir['**/*'].sort
   spec_file = Dir['*.gemspec'].first
   list -= [spec_file] if spec_file
-  
+
   File.read('.gitignore').each_line do |glob|
     glob = glob.chomp.sub(/^\//, '')
     list -= Dir[glob]
@@ -50,7 +50,7 @@ task :manifest do
       bunch = $2 ? list.grep(/^test\//) : list
       '%s%%w(%s)' % [assignment, bunch.join(' ')]
     end
-      
+
     File.open(spec_file,   'w') {|f| f << spec }
   end
   File.open('.manifest', 'w') {|f| f << list.join("\n") }

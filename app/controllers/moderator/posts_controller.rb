@@ -1,6 +1,6 @@
 class Moderator::PostsController < Moderator::ApplicationController
   before_filter :find_topic
-  
+
   # Magic for this method is in lib/array_ext.rb
   def split
     @post = @posts.find(params[:id])
@@ -20,7 +20,7 @@ class Moderator::PostsController < Moderator::ApplicationController
         redirect_to split_moderator_topic_post_path(@topic, params[:id])
         return false
       end
-      
+
       if @split_posts.size == @posts.size
         flash[:notice] = t(:cannot_take_all_posts_away)
         redirect_to split_moderator_topic_post_path(@topic, params[:id])
@@ -46,9 +46,9 @@ class Moderator::PostsController < Moderator::ApplicationController
       @next_post = @posts.next(@post)
     end
   end
-  
+
   private
-  
+
   def find_topic
     @topic = Topic.find(params[:topic_id], :joins => :posts)
     @posts = @topic.posts

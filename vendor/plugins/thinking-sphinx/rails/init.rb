@@ -9,6 +9,6 @@ ActionController::Dispatcher.to_prepare :thinking_sphinx do
   elsif Rails::VERSION::STRING.to_f > 2.1
     I18n.backend.load_translations(*I18n.load_path)
   end
-  
+
   ThinkingSphinx::Configuration.instance.load_models
 end

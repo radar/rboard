@@ -1,3 +1,3 @@
 Moderation.blueprint do
-  
+
 end

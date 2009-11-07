@@ -22,32 +22,32 @@
         <td><%= permission.label "can_access_#{section}_section", t("can_access_#{section}_section?") %></td>
         <%= break_row(count) %>
       <% end %>
-      
+
       <% managements.each_with_index do |management, count| %>
         <td width='20px'><%= permission.check_box "can_manage_#{management}" %></td>
         <td><%= permission.label "can_manage_#{management}", t("can_manage_#{management}?") %></td>
         <% # Magic number "3" is because of 5 columns - the 2 sections = 3 %>
         <%= break_row(count-3) %>
       <% end %>
-      
+
       <% 4.times do %>
         <td>&nbsp;</td>
       <% end %>
     </tr>
   <% end %>
-    
+
   <tr>
     <td colspan='10'><h3><%= t(:Systemwide_Permissions) %></h3></td>
   </tr>
-  
+
   <% global_permissions.each_with_index do |action, count| %>
     <td width='20px'><%= permission.check_box action %></td>
     <td><%= permission.label action, t("#{action}?") %></td>
     <%= break_row(count) %>
   <% end %>
-    
+
   <% # Global or local permissions %>
-  
+
   <tr>
     <td colspan='10'><h3><%= t(:Forum_Permissions) %></h3></td>
   </tr>

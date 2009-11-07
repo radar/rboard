@@ -53,4 +53,4 @@ Permission.blueprint(:administrator) do
   can_read_others_private_messages true
   group { Group.ensure("Administrators") }
 end
-  
+

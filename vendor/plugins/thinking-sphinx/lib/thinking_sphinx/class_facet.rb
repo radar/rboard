@@ -3,11 +3,11 @@ module ThinkingSphinx
     def name
       :class
     end
-    
+
     def attribute_name
       "class_crc"
     end
-    
+
     def value(object, attribute_value)
       object.class.name
     end

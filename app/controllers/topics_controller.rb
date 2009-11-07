@@ -4,11 +4,11 @@ class TopicsController < ApplicationController
   before_filter :find_forum
   before_filter :can_post_here?, :except => [:show, :index]
   before_filter :create_ip, :only => [:create, :update]
-  
+
   def index
     redirect_to forum_path(@forum)
   end
-  
+
   def show
     if logged_in?
       readers = @topic.readers
@@ -24,12 +24,12 @@ class TopicsController < ApplicationController
       format.rss
     end
   end
-  
+
   def new
     @topic = @forum.topics.new
     @post = @topic.posts.build
   end
-  
+
   def create
     @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
@@ -43,7 +43,7 @@ class TopicsController < ApplicationController
       render :action => "new"
     end
   end
-  
+
   def edit
     @post = @topic.posts.first
     if !user_has_permission?
@@ -51,7 +51,7 @@ class TopicsController < ApplicationController
       redirect_to forum_topic_path(@forum, @topic)
     end
   end
-  
+
   def update
     if !user_has_permission?
       flash[:notice] = t(:not_allowed_to_edit_topic)
@@ -71,17 +71,17 @@ class TopicsController < ApplicationController
       end
     end
   end
-  
+
   private
-  
+
   def not_found
     flash[:notice] = t(:not_found, :thing => "topic")
     redirect_to forums_path
     nil # For later on when we need it in find_forum
   end
-  
+
   private
-  
+
   def find_forum
     if params[:forum_id]
       @forum = Forum.find(params[:forum_id], :include => :topics)
@@ -97,29 +97,29 @@ class TopicsController < ApplicationController
       redirect_to forum_topic_path(@topic.forum, @topic) unless performed?
     end
   end
-  
+
   def find_topic(topics=Topic)
     topic_options = { :include => [:reports, :posts] }
     return topics.find(params[:id], topic_options)
   rescue ActiveRecord::RecordNotFound
     not_found
   end
-  
+
   def can_post_here?
     if !@forum.open? && !current_user.can?(:post_in_closed_forums)
       flash[:notice] = t(:This_forum_is_closed)
       redirect_to root_path
     end
   end
-    
-  
+
+
   def user_has_permission?
     current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
   end
-    
+
   def create_ip
     @ip = Ip.find_or_create_by_ip(request.remote_addr)
     IpUser.create(:ip => @ip, :user => current_user)
   end
-  
+
 end

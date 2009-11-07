@@ -13,7 +13,7 @@ In order to start using rBoard you should only have to clone the repository
     git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
     rake install
-    
+
 ## Requirements
 
 This app requires Sphinx which can be obtained from the Sphinx [website](http://sphinxsearch.com). Sphinx works with both MySQL and PostgreSQL. 
@@ -25,11 +25,11 @@ Alternatively, you could just set `THINKING_SPHINX = false` in _config/environme
   1. download Sphinx
   2. extract it
   3. run `./configure && make && sudo make install` 
-  
+
 ## Features
 
 rboard has the following awesome things:
-  
+
   * Runs on Rails 2.3 only (sorry!)
     * Can run on 2.x but requires a few lines to be removed.
   * Easy Internationalisation Support
@@ -73,7 +73,7 @@ rboard has the following awesome things:
   * Tracks read topics on a per-user basis
   * Searching (courtesy of ThinkingSphinx)
 
-  
+
 Puppies, Kittens, Rainbows and Unicorns sold separately. 
 
 ## OAQ (Occasionally Asked Questions)
@@ -111,15 +111,15 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 rBoard works as a stand-alone solution as well as a drop-in solution for your site's forum needs. All the user model specific code has been moved to a module to ensure that this process is made easier. You have two options:
 
   1. Use the pre-existing user model (integrate your site into rBoard). 
-  
+
   2. Use your own user model (integrate rBoard into your site). In user model you just have to write `include Rboard::UserExtension`. The relevant authentication system code has also been modularized into *lib/rboard/auth.rb* and must be included into the ApplicationController of your site like this: `include Rboard::Auth`. Please be aware that this module will override any `current_user` or `logged_in?` methods you have defined anywhere else. 
-  
+
 Also you should set `STANDALONE = false` inside _config/environment.rb_.
-  
+
 If you wish to use a different authentication system other than Restful Authentication then remove the user model (*app/models/user.rb*) and replace it with your own whilst not forgetting to `include Rboard::UserExtension`, the AuthenticatedSystem module (*lib/authenticated_system.rb*) and the AuthenticatedTestHelper module (*lib/authenticated_test_helper.rb*)
-  
+
 ## Contributors
-  
+
   Thomas Sinclair
   Bodaniel Jeanes
   Tore Darell

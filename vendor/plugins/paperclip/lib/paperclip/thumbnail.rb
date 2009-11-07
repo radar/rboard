@@ -29,7 +29,7 @@ module Paperclip
     def crop?
       @crop
     end
-    
+
     # Returns true if the image is meant to make use of additional convert options.
     def convert_options?
       not @convert_options.blank?

@@ -15,7 +15,7 @@
         <% elsif !@user.email.blank? %>
           <%= image_tag("http://www.gravatar.com/avatar.php?gravatar_id=" + Digest::MD5.hexdigest(@user.email) + "&default=") %><br />
         <% end %>
-    
+
       </td>
       <td valign='top'>
         <b><%= t(:Date_joined) %>:</b> <%= @user.created_at.strftime date_display %> <br />

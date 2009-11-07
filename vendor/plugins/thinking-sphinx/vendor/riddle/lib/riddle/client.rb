@@ -5,7 +5,7 @@ require 'riddle/client/response'
 module Riddle
   class VersionError < StandardError;  end
   class ResponseError < StandardError; end
-  
+
   # This class was heavily based on the existing Client API by Dmytro Shteflyuk
   # and Alexy Kovyrin. Their code worked fine, I just wanted something a bit
   # more Ruby-ish (ie. lowercase and underscored method names). I also have
@@ -35,21 +35,21 @@ module Riddle
       :update   => 2, # SEARCHD_COMMAND_UPDATE
       :keywords => 3  # SEARCHD_COMMAND_KEYWORDS
     }
-    
+
     Versions = {
       :search   => 0x113, # VER_COMMAND_SEARCH
       :excerpt  => 0x100, # VER_COMMAND_EXCERPT
       :update   => 0x101, # VER_COMMAND_UPDATE
       :keywords => 0x100  # VER_COMMAND_KEYWORDS
     }
-    
+
     Statuses = {
       :ok      => 0, # SEARCHD_OK
       :error   => 1, # SEARCHD_ERROR
       :retry   => 2, # SEARCHD_RETRY
       :warning => 3  # SEARCHD_WARNING
     }
-    
+
     MatchModes = {
       :all        => 0, # SPH_MATCH_ALL
       :any        => 1, # SPH_MATCH_ANY
@@ -59,14 +59,14 @@ module Riddle
       :fullscan   => 5, # SPH_MATCH_FULLSCAN
       :extended2  => 6  # SPH_MATCH_EXTENDED2
     }
-    
+
     RankModes = {
       :proximity_bm25 => 0, # SPH_RANK_PROXIMITY_BM25
       :bm25           => 1, # SPH_RANK_BM25
       :none           => 2, # SPH_RANK_NONE
       :wordcount      => 3  # SPH_RANK_WORDCOUNT
     }
-    
+
     SortModes = {
       :relevance     => 0, # SPH_SORT_RELEVANCE
       :attr_desc     => 1, # SPH_SORT_ATTR_DESC
@@ -75,7 +75,7 @@ module Riddle
       :extended      => 4, # SPH_SORT_EXTENDED
       :expr          => 5  # SPH_SORT_EXPR
     }
-    
+
     AttributeTypes = {
       :integer    => 1, # SPH_ATTR_INTEGER
       :timestamp  => 2, # SPH_ATTR_TIMESTAMP
@@ -84,7 +84,7 @@ module Riddle
       :float      => 5, # SPH_ATTR_FLOAT
       :multi      => 0x40000000 # SPH_ATTR_MULTI
     }
-    
+
     GroupFunctions = {
       :day      => 0, # SPH_GROUPBY_DAY
       :week     => 1, # SPH_GROUPBY_WEEK
@@ -93,32 +93,32 @@ module Riddle
       :attr     => 4, # SPH_GROUPBY_ATTR
       :attrpair => 5  # SPH_GROUPBY_ATTRPAIR
     }
-    
+
     FilterTypes = {
       :values       => 0, # SPH_FILTER_VALUES
       :range        => 1, # SPH_FILTER_RANGE
       :float_range  => 2  # SPH_FILTER_FLOATRANGE
     }
-    
+
     attr_accessor :server, :port, :offset, :limit, :max_matches,
       :match_mode, :sort_mode, :sort_by, :weights, :id_range, :filters,
       :group_by, :group_function, :group_clause, :group_distinct, :cut_off,
       :retry_count, :retry_delay, :anchor, :index_weights, :rank_mode,
       :max_query_time, :field_weights, :timeout
     attr_reader :queue
-    
+
     # Can instantiate with a specific server and port - otherwise it assumes
     # defaults of localhost and 3312 respectively. All other settings can be
     # accessed and changed via the attribute accessors.
     def initialize(server=nil, port=nil)
       @server = server || "localhost"
       @port   = port   || 3312
-      
+
       reset
-      
+
       @queue = []
     end
-    
+
     # Reset attributes and settings to defaults.
     def reset
       # defaults
@@ -147,7 +147,7 @@ module Riddle
       @field_weights  = {}
       @timeout        = 0
     end
-    
+
     # Set the geo-anchor point - with the names of the attributes that contain
     # the latitude and longitude (in radians), and the reference position.
     # Note that for geocoding to work properly, you must also set
@@ -167,18 +167,18 @@ module Riddle
         :longitude            => long
       }
     end
-    
+
     # Append a query to the queue. This uses the same parameters as the query
     # method.
     def append_query(search, index = '*', comments = '')
       @queue << query_message(search, index, comments)
     end
-    
+
     # Run all the queries currently in the queue. This will return an array of
     # results hashes.
     def run
       response = Response.new request(:search, @queue)
-      
+
       results = @queue.collect do
         result = {
           :matches         => [],
@@ -196,7 +196,7 @@ module Riddle
           result[:error] = response.next
           next result
         end
-        
+
         result[:fields] = response.next_array
 
         attributes = response.next_int
@@ -236,11 +236,11 @@ module Riddle
 
         result
       end
-      
+
       @queue.clear
       results
     end
-    
+
     # Query the Sphinx daemon - defaulting to all indexes, but you can specify
     # a specific one if you wish. The search parameter should be a string
     # following Sphinx's expectations.
@@ -286,7 +286,7 @@ module Riddle
       @queue << query_message(search, index, comments)
       self.run.first
     end
-    
+
     # Build excerpts from search terms (the +words+) and the text of documents. Excerpts are bodies of text that have the +words+ highlighted.
     # They may also be abbreviated to fit within a word limit.
     #
@@ -341,12 +341,12 @@ module Riddle
       options[:around]          ||= 5
       options[:exact_phrase]    ||= false
       options[:single_passage]  ||= false
-      
+
       response = Response.new request(:excerpt, excerpts_message(options))
-      
+
       options[:docs].collect { response.next }
     end
-    
+
     # Update attributes - first parameter is the relevant index, second is an
     # array of attributes to be updated, and the third is a hash, where the
     # keys are the document ids, and the values are arrays with the attribute
@@ -361,10 +361,10 @@ module Riddle
         :update,
         update_message(index, attributes, values_by_doc)
       )
-      
+
       response.next_int
     end
-    
+
     # Generates a keyword list for a given query. Each keyword is represented
     # by a hash, with keys :tokenised and :normalised. If return_hits is set to
     # true it will also report on the number of hits and documents for each
@@ -374,23 +374,23 @@ module Riddle
         :keywords,
         keywords_message(query, index, return_hits)
       )
-      
+
       (0...response.next_int).collect do
         hash = {}
         hash[:tokenised]  = response.next
         hash[:normalised] = response.next
-        
+
         if return_hits
           hash[:docs] = response.next_int
           hash[:hits] = response.next_int
         end
-        
+
         hash
       end
     end
-    
+
     private
-    
+
     # Connects to the Sphinx daemon, and yields a socket to use. The socket is
     # closed at the end of the block.
     def connect(&block)
@@ -405,30 +405,30 @@ module Riddle
             "Connection to #{@server} on #{@port} timed out after #{@timeout} seconds"
         end
       end
-      
+
       begin
         yield socket
       ensure
         socket.close
       end
     end
-    
+
     def initialise_connection
       socket = TCPSocket.new @server, @port
-      
+
       # Checking version
       version = socket.recv(4).unpack('N*').first
       if version < 1
         socket.close
         raise VersionError, "Can only connect to searchd version 1.0 or better, not version #{version}"
       end
-      
+
       # Send version
       socket.send [1].pack('N'), 0
-      
+
       socket
     end
-    
+
     # Send a collection of messages, for a command type (eg, search, excerpts,
     # update), to the Sphinx daemon.
     def request(command, messages)
@@ -437,7 +437,7 @@ module Riddle
       version  = 0
       length   = 0
       message  = Array(messages).join("")
-          
+
       connect do |socket|
         case command
         when :search
@@ -452,20 +452,20 @@ module Riddle
             Commands[command], Versions[command], message.length
           ].pack("nnN") + message, 0
         end
-        
+
         header = socket.recv(8)
         status, version, length = header.unpack('n2N')
-        
+
         while response.length < (length || 0)
           part = socket.recv(length - response.length)
           response << part if part
         end
       end
-      
+
       if response.empty? || response.length != length
         raise ResponseError, "No response from searchd (status: #{status}, version: #{version})"
       end
-      
+
       case status
       when Statuses[:ok]
         if version < Versions[command]
@@ -484,34 +484,34 @@ module Riddle
         raise ResponseError, "Unknown searchd error (status: #{status})"
       end
     end
-    
+
     # Generation of the message to send to Sphinx for a search.
     def query_message(search, index, comments = '')
       message = Message.new
-      
+
       # Mode, Limits, Sort Mode
       message.append_ints @offset, @limit, MatchModes[@match_mode],
         RankModes[@rank_mode], SortModes[@sort_mode]
       message.append_string @sort_by
-      
+
       # Query
       message.append_string search
-      
+
       # Weights
       message.append_int @weights.length
       message.append_ints *@weights
-      
+
       # Index
       message.append_string index
-      
+
       # ID Range
       message.append_int 1
       message.append_64bit_ints @id_range.first, @id_range.last
-      
+
       # Filters
       message.append_int @filters.length
       @filters.each { |filter| message.append filter.query_message }
-      
+
       # Grouping
       message.append_int GroupFunctions[@group_function]
       message.append_string @group_by
@@ -519,7 +519,7 @@ module Riddle
       message.append_string @group_clause
       message.append_ints @cut_off, @retry_count, @retry_delay
       message.append_string @group_distinct
-      
+
       # Anchor Point
       if @anchor.empty?
         message.append_int 0
@@ -529,85 +529,85 @@ module Riddle
         message.append_string @anchor[:longitude_attribute]
         message.append_floats @anchor[:latitude], @anchor[:longitude]
       end
-      
+
       # Per Index Weights
       message.append_int @index_weights.length
       @index_weights.each do |key,val|
         message.append_string key.to_s
         message.append_int val
       end
-      
+
       # Max Query Time
       message.append_int @max_query_time
-      
+
       # Per Field Weights
       message.append_int @field_weights.length
       @field_weights.each do |key,val|
         message.append_string key.to_s
         message.append_int val
       end
-      
+
       message.append_string comments
-      
+
       message.to_s
     end
-    
+
     # Generation of the message to send to Sphinx for an excerpts request.
     def excerpts_message(options)
       message = Message.new
-      
+
       flags = 1
       flags |= 2  if options[:exact_phrase]
       flags |= 4  if options[:single_passage]
       flags |= 8  if options[:use_boundaries]
       flags |= 16 if options[:weight_order]
-      
+
       message.append [0, flags].pack('N2') # 0 = mode
       message.append_string options[:index]
       message.append_string options[:words]
-      
+
       # options
       message.append_string options[:before_match]
       message.append_string options[:after_match]
       message.append_string options[:chunk_separator]
       message.append_ints options[:limit], options[:around]
-      
+
       message.append_array options[:docs]
-      
+
       message.to_s
     end
-    
+
     # Generation of the message to send to Sphinx to update attributes of a
     # document.
     def update_message(index, attributes, values_by_doc)
       message = Message.new
-      
+
       message.append_string index
       message.append_array attributes
-      
+
       message.append_int values_by_doc.length
       values_by_doc.each do |key,values|
         message.append_64bit_int key # document ID
         message.append_ints *values # array of new values (integers)
       end
-      
+
       message.to_s
     end
-    
+
     # Generates the simple message to send to the daemon for a keywords request.
     def keywords_message(query, index, return_hits)
       message = Message.new
-      
+
       message.append_string query
       message.append_string index
       message.append_int return_hits ? 1 : 0
-      
+
       message.to_s
     end
-    
+
     def attribute_from_type(type, response)
       type -= AttributeTypes[:multi] if is_multi = type > AttributeTypes[:multi]
-      
+
       case type
       when AttributeTypes[:float]
         is_multi ? response.next_float_array : response.next_float

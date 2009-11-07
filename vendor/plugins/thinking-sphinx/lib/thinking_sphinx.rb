@@ -37,15 +37,15 @@ module ThinkingSphinx
     Major = 1
     Minor = 1
     Tiny  = 12
-    
+
     String = [Major, Minor, Tiny].join('.')
   end
-  
+
   # A ConnectionError will get thrown when a connection to Sphinx can't be
   # made.
   class ConnectionError < StandardError
   end
-  
+
   # A StaleIdsException is thrown by Collection.instances_from_matches if there
   # are records in Sphinx but not in the database, so the search can be retried.
   class StaleIdsException < StandardError
@@ -54,25 +54,25 @@ module ThinkingSphinx
       self.ids = ids
     end
   end
-  
+
   # The collection of indexed models. Keep in mind that Rails lazily loads
   # its classes, so this may not actually be populated with _all_ the models
   # that have Sphinx indexes.
   def self.indexed_models
     @@indexed_models ||= []
   end
-  
+
   def self.unique_id_expression(offset = nil)
     "* #{ThinkingSphinx.indexed_models.size} + #{offset || 0}"
   end
-  
+
   # Check if index definition is disabled.
   # 
   def self.define_indexes?
     @@define_indexes =  true unless defined?(@@define_indexes)
     @@define_indexes == true
   end
-  
+
   # Enable/disable indexes - you may want to do this while migrating data.
   # 
   #   ThinkingSphinx.define_indexes = false
@@ -80,7 +80,7 @@ module ThinkingSphinx
   def self.define_indexes=(value)
     @@define_indexes = value
   end
-  
+
   @@deltas_enabled = nil
 
   # Check if delta indexing is enabled.
@@ -89,7 +89,7 @@ module ThinkingSphinx
     @@deltas_enabled  = (ThinkingSphinx::Configuration.environment != 'test') if @@deltas_enabled.nil?
     @@deltas_enabled
   end
-  
+
   # Enable/disable all delta indexing.
   #
   #   ThinkingSphinx.deltas_enabled = false
@@ -97,9 +97,9 @@ module ThinkingSphinx
   def self.deltas_enabled=(value)
     @@deltas_enabled = value
   end
-  
+
   @@updates_enabled = nil
-  
+
   # Check if updates are enabled. True by default, unless within the test
   # environment.
   # 
@@ -107,7 +107,7 @@ module ThinkingSphinx
     @@updates_enabled  = (ThinkingSphinx::Configuration.environment != 'test') if @@updates_enabled.nil?
     @@updates_enabled
   end
-  
+
   # Enable/disable updates to Sphinx
   # 
   #   ThinkingSphinx.updates_enabled = false
@@ -115,17 +115,17 @@ module ThinkingSphinx
   def self.updates_enabled=(value)
     @@updates_enabled = value
   end
-  
+
   @@suppress_delta_output = false
-  
+
   def self.suppress_delta_output?
     @@suppress_delta_output
   end
-  
+
   def self.suppress_delta_output=(value)
     @@suppress_delta_output = value
   end
-  
+
   # Checks to see if MySQL will allow simplistic GROUP BY statements. If not,
   # or if not using MySQL, this will return false.
   # 
@@ -136,27 +136,27 @@ module ThinkingSphinx
       ).all? { |key,value| value.nil? || value[/ONLY_FULL_GROUP_BY/].nil? }
     )
   end
-  
+
   def self.sphinx_running?
     !!sphinx_pid && pid_active?(sphinx_pid)
   end
-  
+
   def self.sphinx_pid
     pid_file    = ThinkingSphinx::Configuration.instance.pid_file
     cat_command = 'cat'
     return nil unless File.exists?(pid_file)
-    
+
     if microsoft?
       pid_file.gsub!('/', '\\')
       cat_command = 'type'
     end
-    
+
     `#{cat_command} #{pid_file}`[/\d+/]
   end
-  
+
   def self.pid_active?(pid)
     return true if microsoft?
-    
+
     begin
       # In JRuby this returns -1 if the process doesn't exist
       Process.getpgid(pid.to_i) != -1
@@ -164,15 +164,15 @@ module ThinkingSphinx
       false
     end
   end
-  
+
   def self.microsoft?
     RUBY_PLATFORM =~ /mswin/
   end
-  
+
   def self.jruby?
     defined?(JRUBY_VERSION)
   end
-  
+
   def self.mysql?
     ::ActiveRecord::Base.connection.class.name.demodulize == "MysqlAdapter" || (
       jruby? && ::ActiveRecord::Base.connection.config[:adapter] == "jdbcmysql"

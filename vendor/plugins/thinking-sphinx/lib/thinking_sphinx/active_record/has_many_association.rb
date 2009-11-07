@@ -4,7 +4,7 @@ module ThinkingSphinx
       def search(*args)
         foreign_key = @reflection.primary_key_name
         stack = [@reflection.options[:through]].compact
-        
+
         attribute   = nil
         (@reflection.klass.sphinx_indexes || []).each do |index|
           attribute = index.attributes.detect { |attrib|
@@ -14,13 +14,13 @@ module ThinkingSphinx
           }
           break if attribute
         end
-        
+
         raise "Missing Attribute for Foreign Key #{foreign_key}" unless attribute
-        
+
         options = args.extract_options!
         options[:with] ||= {}
         options[:with][attribute.unique_name] = @owner.id
-        
+
         args << options
         @reflection.klass.search(*args)
       end

@@ -1,8 +1,8 @@
 Feature: Managing groups
-  
+
   Background:
     Given there is the usual setup
-  
+
   Scenario: Managing users
     Given I am logged in as "administrator" with the password "godly"
     Then I should see "administrator"
@@ -12,4 +12,4 @@ Feature: Managing groups
     Then I should see "Administrators"
     When I follow "members_for_registered_users"
     Then I should see "registered_user"
-    
+

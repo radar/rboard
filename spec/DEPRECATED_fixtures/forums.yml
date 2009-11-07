@@ -3,7 +3,7 @@ admins_only:
   description: Top secret admin stuff goes here!
   position: 1
   category: admins_only
-  
+
 moderators_only:
   title: Moderators Only!
   description: top secret moderator discussion!
@@ -23,7 +23,7 @@ sub_of_everybody:
   position: 1
   parent: everybody
   category: test
-  
+
 sub_of_sub_of_everybody:
   title: Unmoderated Unmoderated Discussion
   description: Really really unmoderated!

@@ -11,7 +11,7 @@ module ThinkingSphinx
       :all_attributes => false,
       :class_facet    => true
     }
-    
+
     class << self
       # Searches for results that match the parameters provided. Will only
       # return the ids for the matching objects. See #search for syntax
@@ -23,10 +23,10 @@ module ThinkingSphinx
       #
       def search_for_ids(*args)
         results, client = search_results(*args.clone)
-        
+
         options = args.extract_options!
         page    = options[:page] ? options[:page].to_i : 1
-        
+
         ThinkingSphinx::Collection.ids_from_results(results, page, client.limit, options)
       end
 
@@ -351,21 +351,21 @@ module ThinkingSphinx
       def search(*args)
         query = args.clone  # an array
         options = query.extract_options!
-        
+
         retry_search_on_stale_index(query, options) do
           results, client = search_results(*(query + [options]))
-        
+
           ::ActiveRecord::Base.logger.error(
             "Sphinx Error: #{results[:error]}"
           ) if results[:error]
-        
+
           klass   = options[:class]
           page    = options[:page] ? options[:page].to_i : 1
-        
+
           ThinkingSphinx::Collection.create_from_results(results, page, client.limit, options)
         end
       end
-      
+
       def retry_search_on_stale_index(query, options, &block)
         stale_ids = []
         stale_retries_left = case options[:retry_stale]
@@ -393,7 +393,7 @@ module ThinkingSphinx
           ::ActiveRecord::Base.logger.debug("Sphinx Stale Ids (%s %s left): %s" % [
               tries, (tries==1 ? 'try' : 'tries'), stale_ids.join(', ')
           ])
-          
+
           retry
         end
       end
@@ -417,21 +417,21 @@ module ThinkingSphinx
       def search_for_id(*args)
         options = args.extract_options!
         client  = client_from_options options
-        
+
         query, filters    = search_conditions(
           options[:class], options[:conditions] || {}
         )
         client.filters   += filters
         client.match_mode = :extended unless query.empty?
         client.id_range   = args.first..args.first
-        
+
         begin
           return client.query(query, args[1])[:matches].length > 0
         rescue Errno::ECONNREFUSED => err
           raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
         end
       end
-      
+
       # Model.facets *args
       # ThinkingSphinx::Search.facets *args
       # ThinkingSphinx::Search.facets *args, :all_attributes  => true
@@ -439,16 +439,16 @@ module ThinkingSphinx
       # 
       def facets(*args)
         options = args.extract_options!
-        
+
         if options[:class]
           facets_for_model options[:class], args, options
         else
           facets_for_all_models args, options
         end
       end
-      
+
       private
-      
+
       # This method handles the common search functionality, and returns both
       # the result hash and the client. Not super elegant, but it'll do for
       # the moment.
@@ -457,9 +457,9 @@ module ThinkingSphinx
         options = args.extract_options!
         query   = args.join(' ')
         client  = client_from_options options
-        
+
         query = star_query(query, options[:star]) if options[:star]
-        
+
         extra_query, filters = search_conditions(
           options[:class], options[:conditions] || {}
         )
@@ -467,9 +467,9 @@ module ThinkingSphinx
         client.match_mode = :extended unless extra_query.empty?
         query             = [query, extra_query].join(' ')
         query.strip!  # Because "" and " " are not equivalent
-                
+
         set_sort_options! client, options
-        
+
         client.limit  = options[:per_page].to_i if options[:per_page]
         page          = options[:page] ? options[:page].to_i : 1
         page          = 1 if page <= 0
@@ -482,10 +482,10 @@ module ThinkingSphinx
         rescue Errno::ECONNREFUSED => err
           raise ThinkingSphinx::ConnectionError, "Connection to Sphinx Daemon (searchd) failed."
         end
-        
+
         return results, client
       end
-      
+
       # Set all the appropriate settings for the client, using the provided
       # options hash.
       # 
@@ -502,7 +502,7 @@ module ThinkingSphinx
         if per_server_max_matches = config.configuration.searchd.max_matches
           options[:max_matches] ||= per_server_max_matches
         end
-        
+
         # Turn :index_weights => { "foo" => 2, User => 1 }
         # into :index_weights => { "foo" => 2, "user_core" => 1, "user_delta" => 1 }
         if iw = options[:index_weights]
@@ -517,7 +517,7 @@ module ThinkingSphinx
             hash
           end
         end
-        
+
         [
           :max_matches, :match_mode, :sort_mode, :sort_by, :id_range,
           :group_by, :group_function, :group_clause, :group_distinct, :cut_off,
@@ -529,45 +529,45 @@ module ThinkingSphinx
             options[key] || index_options[key] || client.send(key)
           )
         end
-        
+
         options[:classes] = [klass] if klass
-        
+
         client.anchor = anchor_conditions(klass, options) || {} if client.anchor.empty?
-        
+
         client.filters << Riddle::Client::Filter.new(
           "sphinx_deleted", [0]
         )
-        
+
         # class filters
         client.filters << Riddle::Client::Filter.new(
           "class_crc", options[:classes].collect { |k| k.to_crc32s }.flatten
         ) if options[:classes]
-        
+
         # normal attribute filters
         client.filters += options[:with].collect { |attr,val|
           Riddle::Client::Filter.new attr.to_s, filter_value(val)
         } if options[:with]
-        
+
         # exclusive attribute filters
         client.filters += options[:without].collect { |attr,val|
           Riddle::Client::Filter.new attr.to_s, filter_value(val), true
         } if options[:without]
-        
+
         # every-match attribute filters
         client.filters += options[:with_all].collect { |attr,vals|
           Array(vals).collect { |val|
             Riddle::Client::Filter.new attr.to_s, filter_value(val)
           }
         }.flatten if options[:with_all]
-        
+
         # exclusive attribute filter on primary key
         client.filters += Array(options[:without_ids]).collect { |id|
           Riddle::Client::Filter.new 'sphinx_internal_id', filter_value(id), true
         } if options[:without_ids]
-        
+
         client
       end
-      
+
       def star_query(query, custom_token = nil)
         token = custom_token.is_a?(Regexp) ? custom_token : /\w+/u
 
@@ -583,7 +583,7 @@ module ThinkingSphinx
           end
         end
       end
-      
+
       def filter_value(value)
         case value
         when Range
@@ -594,7 +594,7 @@ module ThinkingSphinx
           Array(value)
         end
       end
-      
+
       # Returns the integer timestamp for a Time object.
       # 
       # If using Rails 2.1+, need to handle timezones to translate them back to
@@ -607,7 +607,7 @@ module ThinkingSphinx
       def timestamp(value)
         value.respond_to?(:in_time_zone) ? value.utc.to_i : value.to_i
       end
-      
+
       # Translate field and attribute conditions to the relevant search string
       # and filters.
       # 
@@ -615,10 +615,10 @@ module ThinkingSphinx
         attributes = klass ? klass.sphinx_indexes.collect { |index|
           index.attributes.collect { |attrib| attrib.unique_name }
         }.flatten : []
-        
+
         search_string = []
         filters       = []
-        
+
         conditions.each do |key,val|
           if attributes.include?(key.to_sym)
             filters << Riddle::Client::Filter.new(
@@ -628,10 +628,10 @@ module ThinkingSphinx
             search_string << "@#{key} #{val}"
           end
         end
-        
+
         return search_string.join(' '), filters
       end
-      
+
       # Return the appropriate latitude and longitude values, depending on
       # whether the relevant attributes have been defined, and also whether
       # there's actually any values.
@@ -640,33 +640,33 @@ module ThinkingSphinx
         attributes = klass ? klass.sphinx_indexes.collect { |index|
           index.attributes.collect { |attrib| attrib.unique_name }
         }.flatten : []
-        
+
         lat_attr = klass ? klass.sphinx_indexes.collect { |index|
           index.options[:latitude_attr]
         }.compact.first : nil
-        
+
         lon_attr = klass ? klass.sphinx_indexes.collect { |index|
           index.options[:longitude_attr]
         }.compact.first : nil
-        
+
         lat_attr = options[:latitude_attr] if options[:latitude_attr]
         lat_attr ||= :lat       if attributes.include?(:lat)
         lat_attr ||= :latitude  if attributes.include?(:latitude)
-        
+
         lon_attr = options[:longitude_attr] if options[:longitude_attr]
         lon_attr ||= :lng       if attributes.include?(:lng)
         lon_attr ||= :lon       if attributes.include?(:lon)
         lon_attr ||= :long      if attributes.include?(:long)
         lon_attr ||= :longitude if attributes.include?(:longitude)
-        
+
         lat = options[:lat]
         lon = options[:lon]
-        
+
         if options[:geo]
           lat = options[:geo].first
           lon = options[:geo].last
         end
-        
+
         lat && lon ? {
           :latitude_attribute   => lat_attr.to_s,
           :latitude             => lat,
@@ -674,7 +674,7 @@ module ThinkingSphinx
           :longitude            => lon
         } : nil
       end
-      
+
       # Set the sort options using the :order key as well as the appropriate
       # Riddle settings.
       # 
@@ -700,11 +700,11 @@ module ThinkingSphinx
         else
           # do nothing
         end
-        
+
         client.sort_mode = :attr_asc  if client.sort_mode == :asc
         client.sort_mode = :attr_desc if client.sort_mode == :desc
       end
-      
+
       # Search through a collection of fields and translate any appearances
       # of them in a string to their attribute equivalent for sorting.
       # 
@@ -714,69 +714,69 @@ module ThinkingSphinx
             match.gsub field.to_s, field.to_s.concat("_sort")
           }
         }
-        
+
         string
       end
-      
+
       def facets_for_model(klass, args, options)
         hash    = ThinkingSphinx::FacetCollection.new args + [options]
         options = options.clone.merge! facet_query_options
-        
+
         klass.sphinx_facets.inject(hash) do |hash, facet|
           unless facet.name == :class && !options[:class_facet]
             options[:group_by]    = facet.attribute_name
             hash.add_from_results facet, search(*(args + [options]))
           end
-          
+
           hash
         end
       end
-      
+
       def facets_for_all_models(args, options)
         options = GlobalFacetOptions.merge(options)
         hash    = ThinkingSphinx::FacetCollection.new args + [options]
         options = options.merge! facet_query_options
-        
+
         facet_names(options).inject(hash) do |hash, name|
           options[:group_by] = name
           hash.add_from_results name, search(*(args + [options]))
           hash
         end
       end
-      
+
       def facet_query_options
         config = ThinkingSphinx::Configuration.instance
         max    = config.configuration.searchd.max_matches || 1000
-        
+
         {
           :group_function => :attr,
           :limit          => max,
           :max_matches    => max
         }
       end
-      
+
       def facet_classes(options)
         options[:classes] || ThinkingSphinx.indexed_models.collect { |model|
           model.constantize
         }
       end
-      
+
       def facet_names(options)
         classes = facet_classes(options)
         names   = options[:all_attributes] ?
           facet_names_for_all_classes(classes) :
           facet_names_common_to_all_classes(classes)
-        
+
         names.delete "class_crc" unless options[:class_facet]
         names
       end
-      
+
       def facet_names_for_all_classes(classes)
         classes.collect { |klass|
           klass.sphinx_facets.collect { |facet| facet.attribute_name }
         }.flatten.uniq
       end
-      
+
       def facet_names_common_to_all_classes(classes)
         facet_names_for_all_classes(classes).select { |name|
           classes.all? { |klass|

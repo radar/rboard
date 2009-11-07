@@ -6,7 +6,7 @@
 #  Copyright 2005 Gray Productions. All rights reserved.
 #
 #  This is Free Software.  See LICENSE and COPYING for details.
- 
+
 require "optparse"
 require "date"
 require "pathname"
@@ -35,7 +35,7 @@ class HighLine
       # initialize instance data
       @question    = question
       @answer_type = answer_type
-      
+
       @character    = nil
       @limit        = nil
       @echo         = true
@@ -54,14 +54,14 @@ class HighLine
       @glob         = "*"
       @responses    = Hash.new
       @overwrite    = false
-      
+
       # allow block to override settings
       yield self if block_given?
 
       # finalize responses based on settings
       build_responses
     end
-    
+
     # The ERb template of the question to be asked.
     attr_accessor :question
     # The type that will be used to convert this answer.
@@ -201,7 +201,7 @@ class HighLine
     # the screen.
     #
     attr_accessor :overwrite
-   
+
     #
     # Returns the provided _answer_string_ or the default answer for this
     # Question if a default was set and the answer is empty.
@@ -213,7 +213,7 @@ class HighLine
         answer_string
       end
     end
-    
+
     #
     # Called late in the initialization process to build intelligent
     # responses based on the details of this Question object.
@@ -243,7 +243,7 @@ class HighLine
       ### Menu.update_responses().  Check there too when ###
       ### making changes!                                ###
     end
-    
+
     #
     # Returns the provided _answer_string_ after changing character case by
     # the rules of this Question.  Valid settings for whitespace are:
@@ -351,12 +351,12 @@ class HighLine
     ensure
       @first_answer = nil
     end
-    
+
     # Returns true if _first_answer_ is set.
     def first_answer?( )
       not @first_answer.nil?
     end
-    
+
     #
     # Returns +true+ if the _answer_object_ is greater than the _above_
     # attribute, less than the _below_ attribute and included?()ed in the
@@ -368,7 +368,7 @@ class HighLine
       (@below.nil? or answer_object < @below) and
       (@in.nil? or @in.include?(answer_object))
     end
-    
+
     #
     # Returns the provided _answer_string_ after processing whitespace by
     # the rules of this Question.  Valid settings for whitespace are:
@@ -421,7 +421,7 @@ class HighLine
         [ ]
       end      
     end
-    
+
     # Stringifies the question to be asked.
     def to_str(  )
       @question
@@ -439,9 +439,9 @@ class HighLine
       (@validate.is_a?(Regexp) and answer_string =~ @validate) or
       (@validate.is_a?(Proc)   and @validate[answer_string])
     end
-    
+
     private
-    
+
     #
     # Adds the default choice to the end of question between <tt>|...|</tt>.
     # Trailing whitespace is preserved so the function of HighLine.say() is

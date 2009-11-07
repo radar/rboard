@@ -3,7 +3,7 @@ module Paperclip
   # when the model saves, deletes when the model is destroyed, and processes
   # the file upon assignment.
   class Attachment
-    
+
     def self.default_options
       @default_options ||= {
         :url           => "/system/:attachment/:id/:style/:basename.:extension",
@@ -93,7 +93,7 @@ module Paperclip
       @dirty = true
 
       post_process if valid?
- 
+
       # Reset the file size if the original file was reprocessed.
       instance_write(:file_size, @queued_for_write[:original].size.to_i)
     ensure
@@ -175,7 +175,7 @@ module Paperclip
     def content_type
       instance_read(:content_type)
     end
-    
+
     # Returns the last modified time of the file as originally assigned, and 
     # lives in the <attachment>_updated_at attribute of the model.
     def updated_at
@@ -232,7 +232,7 @@ module Paperclip
         true
       end
     end
-    
+
     # Returns true if a file has been assigned.
     def file?
       !original_filename.blank?

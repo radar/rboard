@@ -18,7 +18,7 @@ To get the spec suite running, you will need to install the not-a-mock gem if yo
   cd not-a-mock
   rake gem
   gem install pkg/not_a_mock-1.1.0.gem
-  
+
 Then install the ginger gem. The steps are the same, except that you might need to sudo the gem install:
 
   git clone git://github.com/freelancing-god/ginger.git

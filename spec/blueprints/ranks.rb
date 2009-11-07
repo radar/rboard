@@ -1,5 +1,5 @@
 Rank.blueprint do
-  
+
 end
 
 Rank.blueprint(:runner) do

@@ -2,7 +2,7 @@ user:
   post: user
   original_content: Some text
   current_content: Some new text
-  
+
 admin:
   post: admin
   original_content: Some text

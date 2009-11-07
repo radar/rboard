@@ -4,7 +4,7 @@ describe Post, "validations" do
   before(:each) do
     @post = Post.new
   end
-  
+
   it "should validate the length of text" do
     @post.text = "Shr"
     @post.save.should be_false
@@ -13,10 +13,10 @@ describe Post, "validations" do
     @post.save.should be_false
     @post.errors_on(:text).should_not be_empty
   end
-  
+
 end
 describe Post, "general" do
-  
+
   before do
     setup_user_base
     @public = Forum.make(:public)
@@ -28,11 +28,11 @@ describe Post, "general" do
     @registered_user = User.find_by_login("registered_user")
     @administrator = User.find_by_login("administrator")
   end
-  
+
   it "should be able to find its forum" do
     @post.forum.should eql(@public)
   end
-  
+
   it "should be able to update a forum with the proper last post" do
     # Because we limit users, by default, to one post per minute
     two_minutes_into_the_future = Time.now + 2.minutes
@@ -59,23 +59,23 @@ describe Post, "general" do
       ancestor.last_post.forum.should eql(@new_post.forum)
     end
   end
-  
+
   it "should be able to find the latest post" do
     @post.destroy
     @post.find_latest_post
   end
-  
+
   it "should be able to destroy a lone post and set the last post to nil" do
     @sub_post.destroy
     @sub_post.find_latest_post
   end
-  
+
   it "should belong to a user" do
     @post.belongs_to?(@administrator).should be_true
     @post.belongs_to?(@registered_user).should be_false
   end
- 
-  
+
+
   it "should not be able to be flooded" do
     TIME_BETWEEN_POSTS = 1.minute
     @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
@@ -83,6 +83,6 @@ describe Post, "general" do
     other_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
     other_post.save.should be_false
   end
-  
+
 end
 

@@ -10,7 +10,7 @@ module ThinkingSphinx
   # 
   class Attribute < ThinkingSphinx::Property
     attr_accessor :source
-    
+
     # To create a new attribute, you'll need to pass in either a single Column
     # or an array of them, and some (optional) options.
     #
@@ -69,15 +69,15 @@ module ThinkingSphinx
     #  
     def initialize(columns, options = {})
       super
-      
+
       @type     = options[:type]
       @source   = options[:source]
       @crc      = options[:crc]
-      
+
       @type   ||= :multi    unless @source.nil?
       @type     = :integer  if @type == :string && @crc
     end
-    
+
     # Get the part of the SELECT clause related to this attribute. Don't forget
     # to set your model and associations first though.
     #
@@ -86,22 +86,22 @@ module ThinkingSphinx
     # 
     def to_select_sql
       return nil unless include_as_association?
-      
+
       clause = @columns.collect { |column|
         column_with_prefix(column)
       }.join(', ')
-      
+
       separator = all_ints? ? ',' : ' '
-      
+
       clause = adapter.concatenate(clause, separator)       if concat_ws?
       clause = adapter.group_concatenate(clause, separator) if is_many?
       clause = adapter.cast_to_datetime(clause)             if type == :datetime
       clause = adapter.convert_nulls(clause)                if type == :string
       clause = adapter.crc(clause)                          if @crc
-      
+
       "#{clause} AS #{quote_column(unique_name)}"
     end
-    
+
     def type_to_config
       {
         :multi    => :sql_attr_multi,
@@ -112,11 +112,11 @@ module ThinkingSphinx
         :integer  => :sql_attr_uint
       }[type]
     end
-    
+
     def include_as_association?
       ! (type == :multi && (source == :query || source == :ranged_query))
     end
-    
+
     # Returns the configuration value that should be used for
     # the attribute.
     # Special case is the multi-valued attribute that needs some
@@ -131,7 +131,7 @@ module ThinkingSphinx
         unique_name
       end
     end
-        
+
     # Returns the type of the column. If that's not already set, it returns
     # :multi if there's the possibility of more than one value, :string if
     # there's more than one association, otherwise it figures out what the
@@ -147,7 +147,7 @@ module ThinkingSphinx
         else
           translated_type_from_database
         end
-        
+
         if base_type == :string && @crc
           :integer
         else
@@ -156,20 +156,20 @@ module ThinkingSphinx
         end
       end
     end
-    
+
     def updatable?
       [:integer, :datetime, :boolean].include?(type) && !is_string?
     end
-    
+
     def live_value(instance)
       object = instance
       column = @columns.first
       column.__stack.each { |method| object = object.send(method) }
       object.send(column.__name)
     end
-    
+
     private
-    
+
     def source_value(offset)
       if is_string?
         "#{source.to_s.dasherize}; #{columns.first.__name}"
@@ -179,11 +179,11 @@ module ThinkingSphinx
         "query; #{query offset}"
       end
     end
-    
+
     def query(offset)
       assoc = association_for_mva
       raise "Could not determine SQL for MVA" if assoc.nil?
-      
+
       <<-SQL
 SELECT #{foreign_key_for_mva assoc}
   #{ThinkingSphinx.unique_id_expression(offset)} AS #{quote_column('id')},
@@ -191,38 +191,38 @@ SELECT #{foreign_key_for_mva assoc}
 FROM #{quote_table_name assoc.table}
       SQL
     end
-    
+
     def query_clause
       foreign_key = foreign_key_for_mva association_for_mva
       "WHERE #{foreign_key} >= $start AND #{foreign_key} <= $end"
     end
-    
+
     def range_query
       assoc       = association_for_mva
       foreign_key = foreign_key_for_mva assoc
       "SELECT MIN(#{foreign_key}), MAX(#{foreign_key}) FROM #{quote_table_name assoc.table}"
     end
-    
+
     def primary_key_for_mva(assoc)
       quote_with_table(
         assoc.table, assoc.primary_key_from_reflection || columns.first.__name
       )
     end
-    
+
     def foreign_key_for_mva(assoc)
       quote_with_table assoc.table, assoc.reflection.primary_key_name
     end
-    
+
     def association_for_mva
       @association_for_mva ||= associations[columns.first].detect { |assoc|
         assoc.has_column?(columns.first.__name)
       }
     end
-    
+
     def is_many_ints?
       concat_ws? && all_ints?
     end
-        
+
     def all_ints?
       @columns.all? { |col|
         klasses = @associations[col].empty? ? [@model] :
@@ -233,16 +233,16 @@ FROM #{quote_table_name assoc.table}
         }
       }
     end
-    
+
     def type_from_database
       klass = @associations.values.flatten.first ? 
         @associations.values.flatten.first.reflection.klass : @model
-      
+
       klass.columns.detect { |col|
         @columns.collect { |c| c.__name.to_s }.include? col.name
       }.type
     end
-    
+
     def translated_type_from_database
       case type_from_db = type_from_database
       when :datetime, :string, :float, :boolean, :integer

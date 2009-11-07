@@ -41,10 +41,10 @@
   %p
     %em Warning:
     page links below don't lead anywhere (so don't click on them).
-    
+
   %h2 Unstyled pagination <span style="font-weight:normal">(<i>ewww!</i>)</span>
   %div= pagination
-  
+
   %h2 Digg.com
   .digg_pagination= pagination
 
@@ -52,17 +52,17 @@
   .digg_pagination= pagination_no_page_links
   %p Code that renders this:
   %pre= '<code>%s</code>' % %[<%= will_paginate @posts, :page_links => false %>].gsub('<', '&lt;').gsub('>', '&gt;')
-  
+
   %h2 Digg-style, extra content
   .digg_pagination
     .page_info Displaying entries <b>1&nbsp;-&nbsp;6</b> of <b>180</b> in total
     = pagination
   %p Code that renders this:
   %pre= '<code>%s</code>' % %[<div class="digg_pagination">\n  <div clas="page_info">\n    <%= page_entries_info @posts %>\n  </div>\n  <%= will_paginate @posts, :container => false %>\n</div>].gsub('<', '&lt;').gsub('>', '&gt;')
-  
+
   %h2 Apple.com store
   .apple_pagination= pagination
-  
+
   %h2 Flickr.com
   .flickr_pagination
     = pagination

@@ -53,11 +53,11 @@ end
 
 Then "searching for ids should match the record ids of the normal search results" do
   normal_results = results
-  
+
   # reset search, switch method
   @results = nil
   @method  = :search_for_ids
-  
+
   results.should == normal_results.collect(&:id)
 end
 

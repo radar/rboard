@@ -4,58 +4,58 @@ module ThinkingSphinx
       create_array_accum_function
       create_crc32_function
     end
-    
+
     def sphinx_identifier
       "pgsql"
     end
-    
+
     def concatenate(clause, separator = ' ')
       clause.split(', ').collect { |field|
         "COALESCE(CAST(#{field} as varchar), '')"
       }.join(" || '#{separator}' || ")
     end
-    
+
     def group_concatenate(clause, separator = ' ')
       "array_to_string(array_accum(#{clause}), '#{separator}')"
     end
-    
+
     def cast_to_string(clause)
       clause
     end
-    
+
     def cast_to_datetime(clause)
       "cast(extract(epoch from #{clause}) as int)"
     end
-    
+
     def cast_to_unsigned(clause)
       clause
     end
-    
+
     def convert_nulls(clause, default = '')
       default = "'#{default}'" if default.is_a?(String)
-      
+
       "COALESCE(#{clause}, #{default})"
     end
-    
+
     def boolean(value)
       value ? 'TRUE' : 'FALSE'
     end
-    
+
     def crc(clause, blank_to_null = false)
       clause = "NULLIF(#{clause},'')" if blank_to_null
       "crc32(#{clause})"
     end
-    
+
     def utf8_query_pre
       nil
     end
-    
+
     def time_difference(diff)
       "current_timestamp - interval '#{diff} seconds'"
     end
-    
+
     private
-    
+
     def execute(command, output_error = false)
       connection.execute "begin"
       connection.execute "savepoint ts"
@@ -68,7 +68,7 @@ module ThinkingSphinx
       connection.execute "release savepoint ts"
       connection.execute "commit"
     end
-    
+
     def create_array_accum_function
       if connection.raw_connection.respond_to?(:server_version) && connection.raw_connection.server_version > 80200
         execute <<-SQL
@@ -91,7 +91,7 @@ module ThinkingSphinx
         SQL
       end
     end
-    
+
     def create_crc32_function
       execute "CREATE LANGUAGE 'plpgsql';"
       function = <<-SQL

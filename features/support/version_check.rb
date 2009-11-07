@@ -12,7 +12,7 @@ version than #{Cucumber::VERSION}, just upgrade your gem. If you're running a ne
 version than #{Cucumber::VERSION} you should:
 
   1) Read http://wiki.github.com/aslakhellesoy/cucumber/upgrading
-  
+
   2) Regenerate your cucumber environment with the following command:
 
      ruby script/generate cucumber

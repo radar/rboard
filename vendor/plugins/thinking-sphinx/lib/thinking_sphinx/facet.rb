@@ -1,10 +1,10 @@
 module ThinkingSphinx
   class Facet
     attr_reader :reference
-    
+
     def initialize(reference)
       @reference = reference
-      
+
       if reference.columns.length != 1
         raise "Can't translate Facets on multiple-column field or attribute"
       end
@@ -18,7 +18,7 @@ module ThinkingSphinx
         facet.to_s.gsub(/(_facet|_crc)$/,'').to_sym
       end
     end
-    
+
     def name
       reference.unique_name
     end
@@ -26,7 +26,7 @@ module ThinkingSphinx
     def self.attribute_name_for(name)
       name.to_s == 'class' ? 'class_crc' : "#{name}_facet"
     end
-    
+
     def attribute_name
       # @attribute_name ||= case @reference
       # when Attribute
@@ -35,10 +35,10 @@ module ThinkingSphinx
       @attribute_name ||= @reference.unique_name.to_s + "_facet"
       # end
     end
-    
+
     def value(object, attribute_value)
       return translate(object, attribute_value) if @reference.is_a?(Field)
-      
+
       case @reference.type
       when :string
         translate(object, attribute_value)
@@ -50,20 +50,20 @@ module ThinkingSphinx
         attribute_value
       end
     end
-    
+
     def to_s
       name
     end
-    
+
     private
-    
+
     def translate(object, attribute_value)
       column.__stack.each { |method|
         object = object.send(method)
       }
       object.send(column.__name)
     end
-    
+
     def column
       @reference.columns.first
     end

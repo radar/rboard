@@ -14,7 +14,7 @@ module ThinkingSphinx
         @name  = stack.pop
         @stack = stack
       end
-      
+
       def self.coerce(columns)
         case columns
         when Symbol, String
@@ -27,21 +27,21 @@ module ThinkingSphinx
           nil
         end
       end
-      
+
       # Can't use normal method name, as that could be an association or
       # column name.
       # 
       def __name
         @name
       end
-      
+
       # Can't use normal method name, as that could be an association or
       # column name.
       # 
       def __stack
         @stack
       end
-      
+
       # Returns true if the stack is empty *and* if the name is a string -
       # which is an indication that of raw SQL, as opposed to a value from a
       # table's column.
@@ -49,7 +49,7 @@ module ThinkingSphinx
       def is_string?
         @name.is_a?(String) && @stack.empty?
       end
-      
+
       # This handles any 'invalid' method calls and sets them as the name,
       # and pushing the previous name into the stack. The object returns
       # itself.
@@ -94,7 +94,7 @@ module ThinkingSphinx
       def method_missing(method, *args)
         @stack << @name
         @name   = method
-        
+
         if (args.empty?)
           self
         elsif (args.length == 1)

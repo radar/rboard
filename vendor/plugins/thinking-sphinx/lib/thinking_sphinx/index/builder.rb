@@ -23,10 +23,10 @@ module ThinkingSphinx
             caller.grep(/irb.completion/).empty? ? method_missing(method) : super
           }
         }
-        
+
         attr_accessor :fields, :attributes, :properties, :conditions,
           :groupings
-        
+
         # Set up all the collections. Consider this the equivalent of an
         # instance's initialize method.
         # 
@@ -37,7 +37,7 @@ module ThinkingSphinx
           @conditions = []
           @groupings  = []
         end
-        
+
         # This is how you add fields - the strings Sphinx looks at - to your
         # index. Technically, to use this method, you need to pass in some
         # columns and options - but there's some neat method_missing stuff
@@ -89,14 +89,14 @@ module ThinkingSphinx
           args.each do |columns|
             field = Field.new(FauxColumn.coerce(columns), options)
             fields << field
-            
+
             add_sort_attribute field, options   if field.sortable
             add_facet_attribute field, options  if field.faceted
           end
         end
         alias_method :field,    :indexes
         alias_method :includes, :indexes
-                
+
         # This is the method to add attributes to your index (hence why it is
         # aliased as 'attribute'). The syntax is the same as #indexes, so use
         # that as starting point, but keep in mind the following points.
@@ -138,24 +138,24 @@ module ThinkingSphinx
           args.each do |columns|
             attribute = Attribute.new(FauxColumn.coerce(columns), options)
             attributes << attribute
-            
+
             add_facet_attribute attribute, options if attribute.faceted
           end
         end
         alias_method :attribute, :has
-        
+
         def facet(*args)
           options = args.extract_options!
           options[:facet] = true
-          
+
           args.each do |columns|
             attribute = Attribute.new(FauxColumn.coerce(columns), options)
             attributes << attribute
-            
+
             add_facet_attribute attribute, options
           end
         end
-        
+
         # Use this method to add some manual SQL conditions for your index
         # request. You can pass in as many strings as you like, they'll get
         # joined together with ANDs later on.
@@ -166,7 +166,7 @@ module ThinkingSphinx
         def where(*args)
           @conditions += args
         end
-        
+
         # Use this method to add some manual SQL strings to the GROUP BY
         # clause. You can pass in as many strings as you'd like, they'll get
         # joined together with commas later on.
@@ -176,7 +176,7 @@ module ThinkingSphinx
         def group_by(*args)
           @groupings += args
         end
-        
+
         # This is what to use to set properties on the index. Chief amongst
         # those is the delta property - to allow automatic updates to your
         # indexes as new models are added and edited - but also you can
@@ -210,7 +210,7 @@ module ThinkingSphinx
         # 
         # You can also extend ThinkingSphinx::Deltas::DefaultDelta to implement 
         # your own handling for delta indexing.
-        
+
         def set_property(*args)
           options = args.extract_options!
           if options.empty?
@@ -220,14 +220,14 @@ module ThinkingSphinx
           end
         end
         alias_method :set_properties, :set_property
-        
+
         # Handles the generation of new columns for the field and attribute
         # definitions.
         # 
         def method_missing(method, *args)
           FauxColumn.new(method, *args)
         end
-        
+
         # A method to allow adding fields from associations which have names
         # that clash with method names in the Builder class (ie: properties,
         # fields, attributes).
@@ -237,17 +237,17 @@ module ThinkingSphinx
         def assoc(assoc, *args)
           FauxColumn.new(assoc, *args)
         end
-        
+
         private
-        
+
         def add_sort_attribute(field, options)
           add_internal_attribute field, options, "_sort"
         end
-        
+
         def add_facet_attribute(resource, options)
           add_internal_attribute resource, options, "_facet", true
         end
-        
+
         def add_internal_attribute(resource, options, suffix, crc = false)
           @attributes << Attribute.new(
             resource.columns.collect { |col| col.clone },

@@ -34,7 +34,7 @@ user_3:
   forum: sub_of_everybody
   last_post: user_3
   ip: localhost
-  
+
 invalid:
   id: 6
 
