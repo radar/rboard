@@ -4,7 +4,7 @@ class Message < ActiveRecord::Base
   
   validates_presence_of :text
   
-  def belongs_to?(user_id)
-	   to_id == user_id || from_id == user_id
+  def belongs_to?(user)
+	   to == user || from == user
   end
 end

@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
   
   # Show a particular message for the currently logged in user
   def show
-    if @message.belongs_to?(current_user.id)
+    if @message.belongs_to?(current_user)
       @message.update_attribute("to_read",true)  if @message.to == current_user
       @message.update_attribute("from_read",true) if @message.from == current_user
     end
@@ -68,7 +68,7 @@ class MessagesController < ApplicationController
     
     def find_message
       @message = Message.find(params[:id])
-      if !@message.belongs_to?(current_user.id) && !current_user.can?(:read_others_private_messages)
+      if !@message.belongs_to?(current_user) && !current_user.can?(:read_others_private_messages)
         flash[:notice] = t(:message_does_not_belong_to_you)
         redirect_back_or_default(messages_path)
       end
