@@ -90,7 +90,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => { :profile => :any }, :collection => { :signup => [:get, :post], :ip_is_banned => :get }
   
   # pretty pagination links
-  map.connect 'forums/:forum_id/topics/:id/:page#:anchor', :controller => "topics", :action => "show"
   map.connect 'forums/:forum_id/topics/:id/:page', :controller => "topics", :action => "show"
   map.connect 'forums/:id/:page', :controller => "forums", :action => "show"
   map.connect ':controller/:action/:id'
