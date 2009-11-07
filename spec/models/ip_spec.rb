@@ -3,11 +3,7 @@ describe Ip, "general" do
   fixtures :ips
   
   before do
-    @ip = ips(:localhost)
-  end
-  
-  it "should update the updated_at timestamp on find" do
-    @ip.updated_at.should_not be_nil
+    @ip = Ip.make(:ip => "127.0.0.1")
   end
   
   it "should convert the Ip object to a string" do
