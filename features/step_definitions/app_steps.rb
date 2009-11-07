@@ -49,6 +49,7 @@ Given /^there is the usual setup$/ do
 
   # Categories
   category = Category.make(:public)
+  admins_only_category = Category.make(:name => "Admin Walled Garden")
 
   # Categorized forum
   forum = category.forums.make(:public)
@@ -71,7 +72,12 @@ Given /^there is the usual setup$/ do
 
   # Admin forum
 
-  admin_forum = Forum.make(:title => "Admins Only")
+  admin_forum = admins_only_category.forums.make(:title => "Admins Only")
+  
+  # Various permissions
   Permission.make(:anonymous, :forum => admin_forum, :can_see_forum => false)
   Permission.make(:registered_users, :forum => admin_forum, :can_see_forum => false)
+
+  Permission.make(:anonymous, :category => admins_only_category, :can_see_category => false)
+  Permission.make(:registered_users, :category => admins_only_category, :can_see_category => false)
 end
