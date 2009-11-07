@@ -1,10 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Moderation, "general" do
-  fixtures :moderations, :topics, :forums
   before do
-    @moderation = moderations(:first)
-    @moderation.moderated_object = topics(:moderator)
-    @admin_forum = forums(:admins_only)
+    setup_user_base
+    @public = Forum.make(:public)
+    @sub_of_public = Forum.make(:sub_of_public)
+    @moderation = Moderation.make
+    @moderation.moderated_object = valid_topic_for(@public)
   end
   
   it "should lock the associated moderated item" do
@@ -39,10 +40,10 @@ describe Moderation, "general" do
   end
   
   it "should move the associated moderated item" do
-    @moderation.moderated_object.forum.should_not eql(@admin_forum)
-    @moderation.move!(@admin_forum.id)
+    @moderation.moderated_object.forum.should_not eql(@sub_of_public)
+    @moderation.move!(@public.id)
     @moderation.moderated_object.reload
-    @moderation.moderated_object.forum.should eql(@admin_forum)
+    @moderation.moderated_object.forum.should eql(@public)
   end
   
 end
