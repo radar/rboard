@@ -22,9 +22,12 @@ Feature: Forums
     When I follow "Public Forum"
     Then I should see "Viewing forum: Public Forum"
 
-  Scenario: Anonymous people should not be able to see forums they do not have access to
+  Scenario: Only admins should see the admins only forum
     Given I am on the homepage
     Then I should not see "Admins Only"
+    Given I am logged in as "registered_user"
+    Then I should not see "Admins Only"
+    When I follow "Logout"
     Given I am logged in as "administrator" with the password "godly"
     Then I should see "Admins Only"
 

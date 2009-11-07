@@ -21,7 +21,7 @@ Given /^I am logged in as "([^\"]*)" with the password "([^\"]*)"$/ do |user, pa
 end
 
 Given /^there is the usual setup$/ do
-
+  User.delete_all
   # We *would* use the install code for this, but this sets up just a bit more than that.
 
   # Configuration
@@ -31,12 +31,21 @@ Given /^there is the usual setup$/ do
   # Also sets up admin user
   Permission.make(:registered_users)
   Permission.make(:anonymous)
-
+  Permission.make(:administrator)
+  
   # The anonymous user
   User.make_with_group(:anonymous, "Anonymous")
 
   # Create the user
   User.make_with_group(:registered_user, "Registered Users")
+  
+  # The admin user
+  admin = User.make_with_group(:administrator, "Administrators")
+  # Remove them from the Registered Users group because of permissions
+  # When registered users group doesn't have access to forum, that means all users in it don't.
+  # Even if their permissions in another group state they do.
+  admin.groups -= [Group.find_by_name("Registered Users")]
+  admin.save!
 
   # Categories
   category = Category.make(:public)
@@ -63,5 +72,6 @@ Given /^there is the usual setup$/ do
   # Admin forum
 
   admin_forum = Forum.make(:title => "Admins Only")
+  Permission.make(:anonymous, :forum => admin_forum, :can_see_forum => false)
   Permission.make(:registered_users, :forum => admin_forum, :can_see_forum => false)
 end
