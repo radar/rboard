@@ -32,19 +32,20 @@ class PostsController < ApplicationController
   end
    
   def edit
-    p current_user
   end
   
   def update
     @topic = @post.topic
+    # Because *_changed? is reset AFTER update_attributes.
+    # Grr.
+    text_changed = @post.text != params[:post][:text]
     if @post.update_attributes(params[:post])
-      if @post.text_changed?
+      if text_changed
         @post.edits.create(:original_content => @post.text,
                            :current_content => params[:post][:text],
-                           :user => current_user, 
-                           :ip => request.remote_addr,
+                           :user => current_user,
                            :hidden => params[:silent_edit] == "1",
-                           :ip => @ip)
+                           :ip => create_ip)
         @post.update_attribute("edited_by", current_user)
       end
       flash[:notice] = t(:updated, :thing => "post")

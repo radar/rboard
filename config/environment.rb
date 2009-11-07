@@ -63,3 +63,14 @@ require 'class_ext'
 require 'array_ext'
 require 'themes_loader'
 Dir.glob("#{RAILS_ROOT}/lib/rboard/*") { |f| require f }
+
+# Print the location of puts/p calls so you can find them later
+def puts str
+  super caller.first if caller.first.index("shoulda.rb") == -1
+  super str
+end
+
+def p obj
+  puts caller.first
+  super obj
+end

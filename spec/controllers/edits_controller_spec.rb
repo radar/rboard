@@ -35,11 +35,6 @@ describe EditsController do
       response.should redirect_to(root_path)
     end
     
-    it "should be able to go to the index action" do
-      get 'index', :post_id => @post.id
-      response.should render_template("index")
-    end
-    
     it "should be able to see a single edit" do
       get 'show', :post_id => @post.id, :id => @edit.id
       response.should render_template("show")

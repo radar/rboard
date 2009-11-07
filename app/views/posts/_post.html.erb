@@ -48,17 +48,16 @@
       </td>
       
       <td valign='top' colspan='2' valign='top'>
-			  <%= bbcode(post.text) %>
-			  <% if post.user.can?(:use_signature, @forum) && !post.user.signature.blank? %><br />
-			    ____________<br />
-			    <%= bbcode(post.user.signature) %>
-		  	<% end %>
-			
-		  	<% if !post.edits.empty? %>
-			    <br /><br />
-		  	  <span class='edit-note'><%= t(:This_post_was_edited_by) %> <%= post.editor.login %> <%= time_ago_in_words(post.updated_at) %> <%= t(:ago) %></span>
-	  		<% end %>
-		  </td>
+        <%= bbcode(post.text) %>
+        <% if post.user.can?(:use_signature, @forum) && !post.user.signature.blank? %><br />
+          ____________<br />
+          <%= bbcode(post.user.signature) %>
+        <% end %>
+        <% if !(current_user.can?(:manage_edits) ? post.edits : post.edits.visible).empty? %>
+          <br /><br />
+          <span class='edit-note'><%= t(:This_post_was_edited_by) %> <%= post.editor.login %> <%= time_ago_in_words(post.updated_at) %> <%= t(:ago) %></span>
+        <% end %>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -34,5 +34,7 @@ Given /^there is the usual setup$/ do
   
   category = Category.make(:public)
   
-  category.forums.make(:public)
+  forum = category.forums.make(:public)
+  
+  valid_topic_for(forum)
 end
