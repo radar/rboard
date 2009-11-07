@@ -1,5 +1,0 @@
-subforums_display:
-  key: subforums_display
-  value: "1"
-  description: Limit the number of subforums displayed on the forums listing.
-  title: Number of Subforums to Display
