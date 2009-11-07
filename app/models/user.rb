@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   end
   
   def remember_token?
-    remember_token_expires_at && Time.now.utc < remember_token_expires_at 
+    remember_token_expires_at && Time.now.utc < remember_token_expires_at
   end
   
   # These create and unset the fields required for remembering users between browser closes

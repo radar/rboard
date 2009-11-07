@@ -38,6 +38,7 @@ module Rboard::UserExtension
       has_attached_file :avatar, :styles => { :thumbnail => "100>" }
 
       belongs_to :banned_by, :class_name => "User", :foreign_key => "banned_by"
+      belongs_to :rank
       belongs_to :style
       belongs_to :theme
       belongs_to :user_level
@@ -62,7 +63,7 @@ module Rboard::UserExtension
       end
 
       def set_theme
-        self.theme = Theme.find(:first)
+        self.theme = Theme.default
       end
 
       def to_s
@@ -74,12 +75,14 @@ module Rboard::UserExtension
         to_s.parameterize
       end
 
+      alias_method :old_rank, :rank
+      
       #misc. user information
       def rank
-        rank = Rank.find_by_id(rank_id) unless rank_id.nil?
-    	  rank ||= Rank.for_user(self)
+        rank = old_rank || Rank.for_user(self)
         rank ? rank.name : nil
       end
+      
       
       def user?
         user_level.to_s == "User"

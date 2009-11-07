@@ -1,12 +1,14 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe User, "firstly..." do
-  fixtures :themes, :groups
+  
+  before do
+    Theme.make
+  end
 
   #regressional test
   it "should automatically set theme_id when a new user is created" do
-    @administrator = User.new(:login => "Tester1", :password => "testing", :password_confirmation => "testing", :email => "tester@awesome.com")
-    @administrator.save.should_not be_false
-    @administrator.theme_id.should_not be_nil
+    @user = User.make
+    @user.theme.name.should eql("Default Theme")
   end
   
 end
@@ -15,11 +17,14 @@ describe User, "with users" do
   fixtures :themes, :users, :ranks, :groups
   
   before do
-    @administrator = User.make(:administrator)
-    @moderator = users(:moderator)
-    @plebian = users(:plebian)
-    @banned_noob = users(:banned_noob)
-    @god = ranks(:god)
+    setup_user_base
+    @administrator = User.find_by_login("administrator")
+    @registered_user = User.find_by_login("registered_user")
+
+    @banned_noob = User.ensure("Banned Noob")
+    @moderator = User.ensure("moderator")
+    
+    @god = Rank.make(:god)
   end
   
   it "should authenticate the user" do
@@ -43,9 +48,9 @@ describe User, "with users" do
   end
   
   it "should be able to authenticate a user" do
-    User.authenticate("Plebian", "only_human").should_not be_nil
-    User.authenticate("Plebian", "wrong password").should be_nil
-    User.authenticate("non-existant", "right password").should be_nil
+    User.authenticate("registered_user", "password").should_not be_nil
+    User.authenticate("registered_user", "wrong password").should be_nil
+    User.authenticate("non-existant", "password").should be_nil
   end
   
   it "should be able to find a rank for a user" do
@@ -53,7 +58,7 @@ describe User, "with users" do
   end
   
   it "should see that the user was recently online" do
-    @plebian.online?.should be_true
+    @registered_user.online?.should be_true
   end
   
 end

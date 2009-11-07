@@ -5,8 +5,13 @@ class Theme < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
   
+  def self.default
+    find_by_is_default(true)
+  end
+
   def to_s
     File.readlines("#{THEMES_DIRECTORY}/#{name}/style.css").to_s
   end
-  
+
+
 end

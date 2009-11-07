@@ -5,11 +5,16 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 
+require 'faker'
 require 'machinist/active_record'
 
 # Load in blueprints
 Dir[File.join(Rails.root, 'spec', 'blueprints') + "/*.rb"].each do |file|
   require file
+end
+
+Dir[File.dirname(__FILE__) + '/macros/**/*'].each do |file|
+  require file if File.file?(file)
 end
 
 
