@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Post, "validations" do
   fixtures :posts
   before(:each) do
-    @post = posts(:invalid)
+    @post = Post.new
   end
   
   it "should validate the length of text" do
@@ -16,29 +16,29 @@ describe Post, "validations" do
   
 end
 describe Post, "general" do
-  fixtures :posts, :topics, :forums, :users
   
   before do
-    @post = posts(:user)
-    @post_2 = posts(:user_2)
-    @post_3 = posts(:user_3_topics_post)
-    @lone_post = posts(:moderator)
-    @topic = topics(:user)
-    @sub_topic = topics(:user_3)
-    @plebian = users(:plebian)
-    @administrator = users(:administrator)
+    setup_user_base
+    @public = Forum.make(:public)
+    @sub_of_public = Forum.make(:sub_of_public)
+    @topic = valid_topic_for(@public)
+    @sub_topic = valid_topic_for(@sub_of_public)
+    @post = @topic.posts.first
+    @sub_post = @sub_topic.posts.first
+    @registered_user = User.find_by_login("registered_user")
+    @administrator = User.find_by_login("administrator")
   end
   
   it "should be able to find its forum" do
-    @post.forum.should eql(forums(:everybody))
+    @post.forum.should eql(@public)
   end
   
   it "should be able to update a forum with the proper last post" do
     # Because we limit users, by default, to one post per minute
     two_minutes_into_the_future = Time.now + 2.minutes
     Time.stub!(:now).and_return(two_minutes_into_the_future)
-    @new_post = Post.new(:topic => topics(:user), :user => users(:plebian), :text => "Woot")
-    @new_post.forum.last_post.should eql(posts(:user))
+    @new_post = @topic.posts.build(:user => @registered_user, :text => "Woot")
+    @new_post.forum.last_post.should eql(@sub_post)
     @new_post.save
     @new_post.forum.last_post.should eql(@new_post)
   end
@@ -48,8 +48,8 @@ describe Post, "general" do
     two_minutes_into_the_future = Time.now + 2.minutes
     Time.stub!(:now).and_return(two_minutes_into_the_future)
     @sub_topic.forum.sub?.should be_true
-    @new_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
-    @new_post.forum.last_post.should eql(nil)
+    @new_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
+    @new_post.forum.last_post.should eql(@sub_post)
     @sub_topic.save.should be_true
     @sub_topic.posts.should_not be_empty
     @new_post.forum.sub?.should be_true
@@ -66,21 +66,21 @@ describe Post, "general" do
   end
   
   it "should be able to destroy a lone post and set the last post to nil" do
-    @lone_post.destroy
-    @lone_post.find_latest_post
+    @sub_post.destroy
+    @sub_post.find_latest_post
   end
   
   it "should belong to a user" do
-    @post.belongs_to?(@plebian).should be_true
-    @post.belongs_to?(@administrator).should be_false
+    @post.belongs_to?(@administrator).should be_true
+    @post.belongs_to?(@registered_user).should be_false
   end
  
   
   it "should not be able to be flooded" do
     TIME_BETWEEN_POSTS = 1.minute
-    @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
+    @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
     @sub_topic.save.should be_true
-    other_post = @sub_topic.posts.build(:user => users(:plebian), :text => "Woot")
+    other_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
     other_post.save.should be_false
   end
   

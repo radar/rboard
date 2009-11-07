@@ -3,7 +3,7 @@ describe Theme, "general" do
   fixtures :themes
   
   before do
-    @theme = themes(:blue)
+    @theme = Theme.make(:name => "Blue")
   end
   
   it "should load the stylesheet" do
