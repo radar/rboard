@@ -9,11 +9,25 @@ Feature: Forums
   Scenario: Viewing forums index as an anonymous user
     Given I am on the homepage
     Then I should see "Public Forum"
+    And I should see "Another Forum"
+    
+  Scenario: Viewing forums under a specific category
+    Given I am on the homepage
+    When I follow "Public Category"
+    Then I should see "Public Forum"
+    And I should not see "Another Forum"
 
   Scenario: Viewing the public forum as an anonymous user
     Given I am on the homepage
     When I follow "Public Forum"
     Then I should see "Viewing forum: Public Forum"
+    
+  Scenario: Anonymous people should not be able to see forums they do not have access to
+    Given I am on the homepage
+    Then I should not see "Admins Only"
+    Given I am logged in as "administrator" with the password "godly"
+    Then I should see "Admins Only"
+    
 
   Scenario: Registered users should not be able to see hidden forums
     Given I am logged in as "registered_user"

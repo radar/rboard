@@ -6,6 +6,3 @@ Permission.delete_all
 User.delete_all
 
 setup_user_base
-
-
-Forum.make(:public_forum)

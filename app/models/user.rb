@@ -1,7 +1,7 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  include Rboard::Permissions
   include Rboard::UserExtension
+  include Rboard::Permissions
 
   
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

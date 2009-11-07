@@ -18,6 +18,7 @@ module Rboard::Permissions
         association = "#{thing.class.to_s.downcase}_id"
         conditions = "permissions.#{association} = '#{thing.id}'"
         permission = permissions.first(:conditions => conditions)
+        p permissions.map(&:forum)
         if permission.nil?
          {}
         else

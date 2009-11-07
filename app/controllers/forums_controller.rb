@@ -33,6 +33,7 @@ class ForumsController < ApplicationController
   # Shows a forum.
   # Checks first if the current user can see it.
   def show
+    p current_user.permissions
     @topics = @forum.topics.sorted.paginate :page => params[:page], :per_page => per_page, :include => :posts
     @forums = @forum.children
     @all_forums = Forum.all(:select => "id, title", :order => "title ASC") - [@forum] if current_user.can?(:move_topics, @forum)

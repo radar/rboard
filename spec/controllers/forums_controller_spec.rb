@@ -14,13 +14,6 @@ describe ForumsController do
     @admins_only = forums(:admins_only)
   end
   
-  def find_forums
-    Category.should_receive(:find).and_return(@category)
-    @category.should_receive(:forums).and_return(@forums)
-    @forums.should_receive(:without_parent).and_return(@forums)
-    @forums.should_receive(:active).and_return(@forums)
-  end
-  
   describe "plebian" do
     before do
       # We do all this should_receive'ing to test what it's like for a specific user
@@ -35,21 +28,10 @@ describe ForumsController do
       response.should render_template("index")
     end
     
-    it "should show a list of forums inside a specific category" do
-      find_forums
-      get 'index', :category_id => @test_category.id
-      response.should render_template("index")
-    end
-    
     it "should not be able to see anything inside a restricted category" do
       get 'index', :category_id => @admin_category.id
       flash[:notice].should eql(t(:category_permission_denied))
       response.should redirect_to(root_path)
-    end
-    
-    it "should be able to see the everybody forum" do
-      get 'show', :id => @everybody.id
-      response.should render_template("show")
     end
     
     it "should not be able to see the admins only forum" do
