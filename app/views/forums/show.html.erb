@@ -3,7 +3,7 @@
   <link rel="alternate" type="application/rss+xml" title="<%= @forum.title %> Feed" href="<%= forum_url(@forum, :format => :rss) %>" />
 <% end %>
 
-<%= link_to(t(:rBoard), forums_path) %> -> <%= breadcrumb(@forum) %>
+<span class="breadcrumbs"><%= link_to(t(:rBoard), forums_path) %> &raquo; <%= breadcrumb(@forum) %></span>
   <% unless @forums.empty? %>
     <h2><%= t(:Subforums) %> <%= @forum.title %></h2>
     <table cellspacing='0' cellpadding='2' class='forums' width='100%' rules='groups'>
@@ -25,7 +25,7 @@
 <%= will_paginate @topics %>
 <% if (@forum.open? && current_user.can?(:start_new_topics, @forum)) ||
       (!@forum.open? && current_user.can?(:post_in_closed_forums, @forum)) %>
-  <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum), :class => "new_topic_button") %>
 <% end %>
 <table cellspacing='0' cellpading='0' width='100%' class='forum' rules='groups'>
 	<% unless @topics.empty? %>
@@ -76,7 +76,7 @@
             <td class='topic_subject'>
               <b>
                 <%= link_to(h(topic.subject), topic.moved? ? forum_topic_path(topic.moved_to.forum, topic.moved_to) : forum_topic_path(topic.forum, topic)) %>
-                 <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => nil, :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %>
+                 <%= will_paginate(topic.posts.paginate(:per_page => per_page, :page => 1), :prev_label => "", :next_label => "", :params => { :controller => "topics", :action => "show", :id => topic.id, :forum_id => @forum.id }) %>
               </b>
             </td>
             <td align='center'><%= (topic.moved? ? topic.moved_to.posts.count : topic.posts.count) - 1 %></td>
@@ -118,6 +118,6 @@
 </table>
 <% if (@forum.open? && current_user.can?(:start_new_topics, @forum)) ||
       (!@forum.open? && current_user.can?(:post_in_closed_forums, @forum)) %>
-  <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum)) %>
+  <%= link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum), :class => "new_topic_button") %>
 <% end %>
 <%= will_paginate @topics %>

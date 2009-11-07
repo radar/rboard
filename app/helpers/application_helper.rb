@@ -52,10 +52,10 @@ module ApplicationHelper
    def breadcrumb(forum, breadcrumb='')
     breadcrumb = ''
     if forum.parent.nil?
-      breadcrumb += link_to(forum.category.name, category_forums_path(forum.category)) + ' ->' if forum.category
+      breadcrumb += link_to(forum.category.name, category_forums_path(forum.category)) + ' &raquo;' if forum.category
       breadcrumb += ' ' + link_to(forum.title, forum_path(forum))
     else
-      breadcrumb += " #{breadcrumb(forum.parent)} -> " + link_to(forum.title, forum_path(forum))
+      breadcrumb += " #{breadcrumb(forum.parent)} &raquo; " + link_to(forum.title, forum_path(forum))
     end
     breadcrumb.strip
   end
@@ -64,7 +64,7 @@ module ApplicationHelper
     links = []
     if logged_in? 
       if current_user.can?(:start_new_topics, @forum) 
-        links << link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum))
+        links << link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum), :class => "new_topic_button")
       end 
     
       if (@topic.locked? && current_user.can?(:reply_to_locked_topics)) || (!@topic.locked? && current_user.can?(:reply_to_topics)) &&
@@ -92,7 +92,7 @@ module ApplicationHelper
      	  end 
       end 
     
-    links.join(" | ")
+    '<div class="topic_menu">' + links.join(" | ") + '</div>'
     else 
       if @topic.locked? 
         t(:Locked!) 

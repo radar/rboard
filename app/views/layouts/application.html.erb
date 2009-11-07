@@ -9,40 +9,38 @@
     <%= yield :head %>
   </head>
   <body>
-    <div class='content'>
-      <div class='title-bar'>
-        <%= link_to theme_image_tag("logo.jpg", :alt => "logo"), forums_path, :class => "logo" %>
-      </div>
-      <div class='flash' id='flash' <%= "style='display:none'" if flash[:notice].blank? %>>
-        <%= flash[:notice] %>
-      </div>
-        
-      <div class='menu-bar'>
-        <%= link_to t(:Home), forums_path %> |
-        <% unless logged_in? %>
-            <%= link_to t(:Login), login_path %> |
-            <%= link_to t(:Signup), signup_path %>
-         
-        <% else %>
-          <%= t(:Logged_in_as) %> <%= link_to current_user, current_user %> |
-          <%= link_to t(:Edit_Profile), [:edit, current_user] %> |
-          <%= link_to t(:Member_List), users_path %> | 
-          <%= link_to t(:x_new_messages, :count => @current_user.unread_messages.size), messages_path %> |
-          <% if current_user.can?(:subscribe) %>
-            <%= link_to t(:Subscriptions), subscriptions_path %> |
-          <% end %>
-          <%= link_to t(:Logout), logout_path %>
-     <% end %>
-      </div>
-      
-      <div class='search'>
+    <div class='title-bar'>
+      <%= link_to "<h1>rBoard</h1>", forums_path %>
+    </div>
+    <div class='menu-bar'>
+      <%= link_to t(:Home), forums_path %> |
+      <% unless logged_in? %>
+          <%= link_to t(:Login), login_path %> |
+          <%= link_to t(:Signup), signup_path %>
+
+      <% else %>
+        <%= t(:Logged_in_as) %> <%= link_to current_user, current_user %> |
+        <%= link_to t(:Edit_Profile), [:edit, current_user] %> |
+        <%= link_to t(:Member_List), users_path %> |
+        <%= link_to t(:x_new_messages, :count => @current_user.unread_messages.size), messages_path %> |
+        <% if current_user.can?(:subscribe) %>
+          <%= link_to t(:Subscriptions), subscriptions_path %> |
+        <% end %>
+        <%= link_to t(:Logout), logout_path %>
+      <% end %>
+      <span class='search'>
         <% form_tag :controller => "search" do %>
           <%= t(:Search) %>: <%= text_field_tag :search %>
         <% end %>
-      </div><br /><br />
+      </span>
+      <span class="clear"></span>
+    </div>
+    <div class='content'>
+      <div class='flash' id='flash' <%= "style='display:none'" if flash[:notice].blank? %>>
+        <%= flash[:notice] %>
+      </div>
       <%= yield %>
-      <br /><br />
-      <div align='center'>        
+      <div class='center'>
         <% if current_user.can?(:access_moderator_section) %>
           <%= link_to "Moderator Section", moderator_root_path %>
         <% end %>
@@ -51,7 +49,6 @@
           | <%= link_to "Administration Section", admin_root_path %>
         <% end %>
       </div>
-      <br /><br /><br />
     </div>
   </body>
 </html>

@@ -3,16 +3,14 @@
   <link rel="alternate" type="application/rss+xml" title="<%= @topic.subject %> Feed" href="<%= forum_topic_url(@topic.forum, @topic, :format => :rss) %>" />
 <% end %>
 
-<%= link_to(t(:rBoard), forums_path) %> -> <%= breadcrumb(@topic.forum) %> -> <%= h @topic.subject %>
-<h2><%= h @topic.subject %></h2>
+<span class="breadcrumbs"><%= link_to(t(:rBoard), forums_path) %> &raquo; <%= breadcrumb(@topic.forum) %> &raquo; <%= link_to(@topic.subject, forum_topic_path(@topic)) %></span>
+<h2><%= link_to(@topic.subject, forum_topic_path(@topic)) %></h2>
 <%= pagination = will_paginate(@posts) %>
 <%= menu_for_topic %>
 <% if current_user.can?(:view_reports, @forum) %>
-  <div class='warning'><%= t(:Topic_has_been_reported, :count => @topic.reports.count) %> <%= link_to t(:See_reports), moderator_topic_reports_path(@topic) %></div>
+  <div class="warning"><%= t(:Topic_has_been_reported, :count => @topic.reports.count) %> <%= link_to t(:See_reports), moderator_topic_reports_path(@topic) %></div>
 <% end %>
-<br />
 <%= render :partial => @posts, :locals => { :show_topic => false } %>
-<br />
 <% if current_user.can?(:reply) %>
   <table class='action-box' width='100%' cellpadding='2' cellspacing='0' id='quick-reply'>
     <thead>
@@ -27,6 +25,5 @@
     </tbody>
   </table>
 <% end %>
-<br />
 <%= menu_for_topic %>
 <%= pagination %>
