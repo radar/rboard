@@ -21,7 +21,7 @@ class Admin::CategoriesController < Admin::ApplicationController
    def create
      @category = Category.new(params[:category])
      if @category.save
-       flash[:notice] = t(:created, :thing => "category")
+       flash[:notice] = t(:created, :thing => "Category")
        redirect_to admin_categories_path
      else
        flash[:notice] = t(:not_created, :thing => "category")

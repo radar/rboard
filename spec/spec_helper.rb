@@ -13,8 +13,8 @@ Dir[File.join(Rails.root, 'spec', 'blueprints') + "/*.rb"].each do |file|
   require file
 end
 
-Dir[File.dirname(__FILE__) + '/macros/**/*'].each do |file|
-  require file if File.file?(file)
+Dir[File.dirname(__FILE__) + '/macros/**/*.rb'].each do |file|
+  require file
 end
 
 

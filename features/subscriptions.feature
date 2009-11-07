@@ -8,7 +8,7 @@ Feature: Managing Subscriptions
     
   Scenario: User who has posted to a topic should be subscribed to it
     Given I am logged in as "registered_user"
-    And I am on the forums page
+    And I am on the homepage
     When I follow "Public Forum"
     When I follow "New Topic"
     When I fill in "subject" with "Tribute"

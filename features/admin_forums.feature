@@ -4,8 +4,10 @@ Feature: Forums
   want to ensure people are shown only the right forums
   
 Scenario: Administrators should be able to create new forums
-  Given I am logged in as "administrator"
-  When I am on the admin forums page
+  Given I am logged in as "administrator" with the password "godly"
+  And I am on the homepage
+  When I follow "Administration Section"
+  And I follow "Forums"
   And I follow "New Forum"
   And I fill in "Title" with "Test Forum"
   And I fill in "Description" with "Testing!"
