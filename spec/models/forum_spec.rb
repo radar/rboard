@@ -21,17 +21,21 @@ describe Forum, "in general" do
   fixtures :forums, :topics, :posts, :users, :categories
   
   before do
+    setup_user_base
     @everybody = Forum.make(:public)
     @sub_of_everybody = Forum.make(:sub_of_public)
     @sub_of_sub_of_everybody = Forum.make(:sub_of_sub_of_public)
     @admins_only = Forum.make(:admins_only)
     @moderators_only = Forum.make(:moderators_only)
-    @user_topic = @everybody.topics.make(:first)
-    @user_topic_2 = @everybody.topics.make(:second)
+    @user_topic = valid_topic_for(@everybody)
+    @user_topic_2 = valid_topic_for(@everybody)
   end
   
   it "should be able to find the last post" do
+    # We have to reload the object here because of how valid_topic_for works
+    @everybody.reload
     @everybody.last_post.should_not be_nil
+    
     @sub_of_everybody.last_post.should be_nil
   end
   
@@ -50,7 +54,7 @@ describe Forum, "in general" do
   
   it "should be able to find all the root forums" do
     @root_forums = Forum.without_parent
-    @root_forums.size.should eql(4)
+    @root_forums.size.should eql(3)
   end
   
   it "should be able to find the root of any forum, the highest ancestor" do
@@ -60,11 +64,11 @@ describe Forum, "in general" do
   end
   
   it "should be able to show the string version of the forum" do
-    @everybody.to_s.should eql("General Discussion!")
+    @everybody.to_s.should eql("Public Forum")
   end
   
   it "should be able to get all the topics in order" do
-    @everybody.topics.should eql([@user_topic_2, @user_topic])
+    @everybody.topics.should eql([@user_topic, @user_topic_2])
   end
   
   it "should be able to find the ancestors for any given forum" do

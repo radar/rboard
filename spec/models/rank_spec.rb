@@ -20,7 +20,7 @@ describe Rank, "general" do
   end
   
   it "should be able to find a rank for a specific user" do
-    Rank.for_user(@user).should eql(Rank.make(:runner))
+    Rank.for_user(@user).should eql(Rank.find_by_name("Runner"))
   end
   
   
