@@ -30,9 +30,10 @@ def setup_forums
   Forum.make(:sub_of_public)
   Forum.make(:sub_of_sub_of_public)
 
-  # Topic for forum
+  # A couple of topics for forum
 
-  valid_topic_for(forum)
+  3.times { valid_topic_for(forum) }
+  
 
   # Decategorized forum
 

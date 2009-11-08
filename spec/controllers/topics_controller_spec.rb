@@ -1,13 +1,14 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe TopicsController do
-  fixtures :users, :forums, :topics, :posts, :group_users, :groups, :permissions
 
   before do
-    @admin_forum = forums(:admins_only)
-    @admin_topic = topics(:admin)
-    @everybody = forums(:everybody)
-    @everybody_topic = topics(:user)
-    @other_user_topic = topics(:other_user)
+    setup_user_base
+    setup_forums
+    @admin_forum = Forum.find_by_title("Admins Only")
+    @admin_topic = @admin_forum.topics.first
+    @everybody = Forum.find_by_title("Public Forum")
+    @everybody_topic = @everybody.topics.first
+    @other_user_topic = @everybody.topics.last
   end
 
   def params
