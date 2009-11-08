@@ -4,20 +4,16 @@ describe ForumsController do
   fixtures :users, :forums, :categories, :groups, :group_users, :permissions 
 
   before do
-    @category = mock_model(Category)
-    @categories = [@category]
-    @forum = mock_model(Forum)
-    @forums = [@forum]
-    @test_category = categories(:test)
-    @admin_category = categories(:admins_only)
-    @everybody = forums(:everybody)
-    @admins_only = forums(:admins_only)
+    setup_user_base
+    setup_forums
+    @admin_category = Category.find_by_name("Admin Walled Garden")
+    @admins_only = Forum.find_by_title("Admins Only")
   end
 
   describe "plebian" do
     before do
       # We do all this should_receive'ing to test what it's like for a specific user
-      login_as(:plebian)
+      login_as(:registered_user)
     end
 
     it "should not be able to see anything inside a restricted category" do
