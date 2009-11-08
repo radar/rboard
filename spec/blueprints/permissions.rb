@@ -4,10 +4,18 @@ Permission.blueprint do
   group { Group.ensure("Anonymous") }
 end
 
+Permission.blueprint(:moderator) do
+  can_reply_to_topics true
+  can_start_new_topics true
+  can_subscribe true
+  group { Group.ensure("Moderators") }
+end
+
 Permission.blueprint(:registered_users) do
   can_reply_to_topics true
   can_start_new_topics true
   can_subscribe true
+  can_edit_posts true
   group { Group.ensure("Registered Users") }
 end
 

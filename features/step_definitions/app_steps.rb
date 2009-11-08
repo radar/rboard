@@ -46,38 +46,6 @@ Given /^there is the usual setup$/ do
   # Even if their permissions in another group state they do.
   admin.groups -= [Group.find_by_name("Registered Users")]
   admin.save!
-
-  # Categories
-  category = Category.make(:public)
-  admins_only_category = Category.make(:name => "Admin Walled Garden")
-
-  # Categorized forum
-  forum = category.forums.make(:public)
-
-  # Subforums
-  Forum.make(:sub_of_public)
-  Forum.make(:sub_of_sub_of_public)
-
-  # Topic for forum
-
-  valid_topic_for(forum)
-
-  # Decategorized forum
-
-  decategorized_forum = Forum.make(:title => "Another Forum")
-
-  # Topic for decategorized forum
-
-  valid_topic_for(decategorized_forum)
-
-  # Admin forum
-
-  admin_forum = admins_only_category.forums.make(:title => "Admins Only")
   
-  # Various permissions
-  Permission.make(:anonymous, :forum => admin_forum, :can_see_forum => false)
-  Permission.make(:registered_users, :forum => admin_forum, :can_see_forum => false)
-
-  Permission.make(:anonymous, :category => admins_only_category, :can_see_category => false)
-  Permission.make(:registered_users, :category => admins_only_category, :can_see_category => false)
+  setup_forums
 end

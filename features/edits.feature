@@ -34,3 +34,4 @@ Feature: Edits
     When I follow "Public Forum"
     And I follow "Default topic"
     Then I should not see "This post was edited by administrator less than a minute ago"
+    

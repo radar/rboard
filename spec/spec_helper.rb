@@ -19,7 +19,10 @@ end
 
 
 def login_as(name)
-  request.session[:user] = users(name).id
+  # If the user has been created already they probably have a group.
+  # If not, assume the group is whatever their name is.
+  # It makes the most sense in this universe.
+  request.session[:user] = (User.find_by_login(name.to_s) || User.make_with_group(name, name.to_s.titleize.pluralize)).id
 end
 
 def logout
