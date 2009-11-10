@@ -1,0 +1,34 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{link_to(t(:users), admin_users_path)} &raquo; #{t(:Editing_a_user)}: #{@user.login}
+- form_for [:admin, @user] do |f|
+  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "2"}
+          %h2
+            = t(:Editing_a_user)
+            \: #{@user.to_s}
+    %tbody
+      %tr
+        %td= f.label "login", t(:Login)
+        %td= f.text_field "login"
+      %tr
+        %td= f.label "display_name", t(:Display_Name)
+        %td= f.text_field "display_name"
+      %tr
+        %td= f.label "password", t(:Password)
+        %td= f.password_field "password", :value => ""
+      %tr
+        %td= f.label "signature", t(:Signature)
+        %td= f.text_area "signature", :cols => 80, :rows => 5
+      %tr
+        %td= f.label "email", t(:Email)
+        %td= f.text_field "email"
+      - unless @ranks.empty?
+        %tr
+          %td= f.label "rank_id", t(:Custom_Rank)
+          %td= f.select "rank_id", @ranks.map { |r| [r.name,r.id] }, :include_blank => true
+    %tfoot
+      %tr
+        %td{:colspan => "2"}= submit_tag(t(:Update))

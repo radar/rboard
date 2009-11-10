@@ -1,0 +1,42 @@
+- if params[:type] == "category"
+  %tr
+    %td= f.label "category_id", t(:Category)
+    %td{:colspan => "7"}= f.select "category_id", @categories.map { |c| [c.name, c.id] }
+- elsif params[:type] == "forum"
+  %tr
+    %td= f.label "forum_id", t(:Forum)
+    %td{:colspan => "7"}= f.select "forum_id", @forums.map { |c| [c.title, c.id] }
+- fields_for @permission do |permission|
+- ## Global only permissions
+  - if params[:type] || @permission.new_record?
+    %tr
+      %td{:colspan => "10"}
+        %h3 Section Access
+    %tr
+      - sections.each_with_index do |section, count|
+        %td{:width => "20px"}= permission.check_box "can_access_#{section}_section"
+        %td= permission.label "can_access_#{section}_section", t("can_access_#{section}_section?")
+        = break_row(count)
+      - managements.each_with_index do |management, count|
+        %td{:width => "20px"}= permission.check_box "can_manage_#{management}"
+        %td= permission.label "can_manage_#{management}", t("can_manage_#{management}?")
+      - ## Magic number "3" is because of 5 columns - the 2 sections = 3
+        = break_row(count-3)
+      - 4.times do
+        %td &nbsp;
+  %tr
+    %td{:colspan => "10"}
+      %h3= t(:Systemwide_Permissions)
+  - global_permissions.each_with_index do |action, count|
+    %td{:width => "20px"}= permission.check_box action
+    %td= permission.label action, t("#{action}?")
+    = break_row(count)
+- ## Global or local permissions
+  %tr
+    %td{:colspan => "10"}
+      %h3= t(:Forum_Permissions)
+  %tr
+    - forum_permissions.each_with_index do |action, count|
+      %td{:width => "20px"}= permission.check_box action
+      %td= permission.label action, t("#{action}?")
+      = break_row(count)

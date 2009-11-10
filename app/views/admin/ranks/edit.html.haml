@@ -1,0 +1,13 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{link_to t(:Ranks), admin_ranks_path} &raquo; #{t(:Editing_a_rank)}: #{@rank.name}
+- form_for [:admin, @rank] do |f|
+  %table.action-box{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "2"}
+          %h2= t(:Editing_a_rank)
+    = render :partial => "form", :locals => { :f => f }
+    %tfoot
+      %tr
+        %td{:colspan => "2"}= submit_tag t(:Update)

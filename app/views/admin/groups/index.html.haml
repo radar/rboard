@@ -1,0 +1,22 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{t(:Groups)}
+%h2= t(:Groups)
+= link_to t(:New, :thing => "Group"), new_admin_group_path
+%table.list-table{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %thead
+    %tr
+      %td &nbsp;
+      %td Name
+      %td Owner
+      %td Members
+  %tbody
+    - for group in @groups
+      %tr
+        %td
+          = link_to theme_image_tag("permissions.jpg", :alt => t(:Permissions), :title => t(:Permissions)), admin_group_permissions_path(group)
+          = link_to theme_image_tag("edit.jpg", :alt => t(:Edit), :title => t(:Edit)), edit_admin_group_path(group)
+          = link_to theme_image_tag("delete.jpg", :alt => t(:Edit), :title => t(:Edit)), admin_group_path(group), :method => "delete", :confirm => t(:confirm_deletion, :thing => "group")
+        %td= group.name
+        %td= link_to group.owner, admin_user_path(group.owner) unless group.owner.nil?
+        %td= link_to pluralize(group.users.count, "member"), admin_group_users_path(group), :id => "members_for_#{group.identifier}"

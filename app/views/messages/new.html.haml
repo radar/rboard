@@ -1,0 +1,20 @@
+%h2= t(:Sending_a_message)
+- form_for :message, @message, :url => messages_path do |f|
+  %table.action-box{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+    %tbody
+      %tr
+        %td
+          %b To:
+        %td= f.select "to_id", @users.map { |u| [u.login,u.id] }
+      %tr
+        %td#to{:colspan => "2"}
+      %tr
+        %td{:valign => "top"}
+          %b
+            = t(:To)
+            \:
+        %td= f.text_area "text", :cols => 80
+    %tfoot
+      %tr
+        %td{:colspan => "2"}
+          = submit_tag t(:Create)

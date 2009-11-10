@@ -1,0 +1,21 @@
+- form_for @user, :url => ban_admin_user_path(@user), :method => "put" do |f|
+  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "2"}
+          %h2
+            = t(:banning)
+            = @user.to_s
+    %tbody
+      %tr
+        %td= f.label "ban_reason", t(:ban_reason)
+        %td= f.text_field "ban_reason"
+      %tr
+        %td= f.label "ban_time", t(:ban_time)
+        %td
+          = f.text_field "ban_time"
+          = observe_field("user_ban_time", :url => admin_chronic_path, :with => "duration", :frequency => 0.5, :update => "date")
+          #date
+    %tfoot
+      %tr
+        %td{:colspan => "2"}= submit_tag(t(:ban!))

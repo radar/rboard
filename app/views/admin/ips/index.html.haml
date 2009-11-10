@@ -1,0 +1,19 @@
+.breadcrumbs
+  ""#{link_to t(:Administration_Section), admin_root_path} &raquo; #{link_to t(:Users), admin_users_path} &raquo; #{link_to @user, admin_user_path(@user)} &raquo; #{t(:IPs)}
+%h2
+  = t(:IPs)
+  = t(:for)
+  = @user
+%table.list-table{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %thead
+    %tr
+      %td= t(:IP)
+      %td= t(:Topics)
+      %td= t(:Posts)
+  %tbody
+    - for ip in @ips
+      %tr
+        %td= link_to ip.ip, admin_ip_path(ip)
+        %td= link_to t(:topics, :count => ip.topics.count), admin_ip_topics_path(ip)
+        %td= link_to t(:posts, :count => ip.posts.count), admin_ip_posts_path(ip)
+  %tfoot

@@ -1,0 +1,24 @@
+%table.forums{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %thead
+    %tr
+      %td
+        %b= t(:Login)
+  %tbody
+    %tr
+      %td{:align => "left"}
+        = link_to t(:Do_not_have_a_user_account?), signup_path
+        - form_tag do
+          %p
+            %label{:for => "login"}= t(:Login)
+            %br
+            = text_field_tag 'login'
+          %p
+            %label{:for => "password"}= t(:Password)
+            %br
+            = password_field_tag 'password'
+          %p
+            %label{:for => "remember_me"}
+              = t(:Remember_me)
+              \:
+            = check_box_tag 'remember_me'
+          %p= submit_tag t(:Login)

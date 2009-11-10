@@ -1,0 +1,22 @@
+.ban-box{:align => "center"}
+  %h1 YOU ARE BANNED
+  - if logged_in? && current_user.banned?
+    = t(:Banned_by)
+    = current_user.banned_by.login
+    = t(:banned_you)
+    = t(:reason_stated, :reason => current_user.ban_reason)
+    = time_ago_in_words(current_user.ban_time)
+    until #{t(:Ban_expiry)}.
+    %br
+    %br
+  - elsif flash[:ip]
+    = t(:ban_expires_in, :time => time_ago_in_words(flash[:ip].ban_time))
+    = t(:set_by)
+    = flash[:ip].user
+    - unless flash[:ip].reason.blank?
+      = t(:stating)
+      = flash[:ip].reason
+      = t(:as_the_reason)
+    - else
+      = t(:without_stating_a_reason)
+  %br

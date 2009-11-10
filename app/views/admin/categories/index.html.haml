@@ -1,0 +1,22 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{t(:Categories)}
+%h2= t(:Categories)
+= link_to t(:New, :thing => "Category"), new_admin_category_path
+%table.list-table{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  - unless @categories.empty?
+    %thead
+      %tr
+        %td &nbsp;
+        %td= t(:Name)
+        %td= t(:Description)
+        %td= t(:Forums)
+        %td= t(:Position)
+    %tbody
+      = render :partial => @categories, :locals => { :depth => 0, :extender => false }
+  - else
+    %thead
+      %tr
+        %td{:align => "center", :colspan => "3"}
+          = t(:no_categories)
+          = link_to t(:user_should_create), new_admin_category_path

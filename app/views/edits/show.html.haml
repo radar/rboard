@@ -1,0 +1,14 @@
+.breadcrumbs
+  = link_to t(:Moderator_Section), moderator_root_path
+  \&raquo; #{t(:Viewing_a_revision)}
+%h2 Edit History
+= link_to "Back", [@post, :edits]
+%table.forums{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+  %thead
+    %tr
+      %td Original Content
+      %td New Content
+  %tbody
+    %tr
+      %td= @edit.original_content
+      %td= @edit.current_content

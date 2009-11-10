@@ -1,0 +1,28 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{t(:IPs)} &raquo; #{link_to @ip, admin_ip_path(@ip)} &raquo; #{t(:Posts)}
+%h2
+  = t(:Posts)
+  = t(:for)
+  = link_to @ip, admin_ip_path(@ip)
+%table.list-table{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %thead
+    %tr
+      %td= t(:User)
+      %td= t(:Text)
+      %td= t(:Created_at)
+      %td= t(:Topic)
+      %td= t(:Forum)
+  %tbody
+    - unless @posts.empty?
+      - for post in @posts
+        %tr
+          %td= link_to post.user, admin_user_path(post.user)
+          %td= link_to truncate(post.text, 80), forum_topic_path(post.topic.forum, post.topic) + "#post_#{post.id}"
+          %td= post.created_at.strftime(date_time_display)
+          %td= link_to post.topic, forum_topic_path(post.topic.forum, post.topic)
+          %td= link_to post.topic.forum, forum_path(post.topic.forum)
+    - else
+      %tr
+        %td{:colspan => "4"}= t(:no_posts, :by => @ip)
+  %tfoot

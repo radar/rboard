@@ -1,0 +1,23 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{t(:Configuration_Settings)}
+%h2= t(:Configuration_Settings)
+= link_to t(:New, :thing => "Group"), new_admin_group_path
+- form_for :configurations, :url => update_all_admin_configurations_path, :html => { :method => :put } do
+  %table.list-table{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+    %thead
+      %tr
+        %td Title
+        %td Value
+        %td Submit
+    %tbody
+      - for configuration in @configurations
+        %tr
+          %td.lalign
+            %strong= configuration.title
+            %br
+              = configuration.description
+          - fields_for "configurations[]", configuration do |c|
+            %td
+              = c.text_field :value
+          %td= submit_tag "Update"

@@ -1,0 +1,6 @@
+%h2
+  = t(:Forums)
+  = t(:for)
+  = @category.name
+= link_to t(:New, :thing => "Forum"), new_admin_category_forum_path(@category)
+= render :partial => "admin/forums/forums"

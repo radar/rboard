@@ -1,0 +1,79 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{link_to @object, [:admin, @object]} &raquo; #{t(:Permissions)}
+%h2
+  = t(:Permissions)
+  for #{@object}
+- if @object.is_a?(Group)
+  %h3= t(:Global_Permissions)
+  = link_to "Edit Global Permissions", edit_admin_group_path(@object)
+  %table.list-table{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
+    %thead
+      %tr
+        %td= t(:can_see_forum?)
+        %td= t(:can_see_category?)
+        %td= t(:can_reply_to_topics?)
+        %td= t(:can_start_new_topics?)
+    %tbody
+      %tr
+        %td= theme_image_tag(@object.permissions.global.can_see_forum?.to_s + ".jpg")
+        %td= theme_image_tag(@object.permissions.global.can_see_category?.to_s + ".jpg")
+        %td= theme_image_tag(@object.permissions.global.can_reply_to_topics?.to_s + ".jpg")
+        %td= theme_image_tag(@object.permissions.global.can_start_new_topics?.to_s + ".jpg")
+  %br
+  - if @forum_count.zero?
+    %h3= t(:No_forums_to_assign_specific_permissions_to)
+  %h3= t(:Forum_specific_permissions)
+  = link_to t(:New, :thing => t(:Forum_specific_permissions)), new_admin_group_permission_path(@object, :type => "forum")
+  %table.list-table{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
+    - if @object.permissions.forums.empty?
+      %thead
+        %tr
+          %td
+            %b= t(:No_forum_specific_permissions)
+    - else
+      %thead
+        %tr
+          %td &nbsp;
+          %td= t(:Title)
+          %td= t(:can_see_forum?)
+          %td= t(:can_see_category?)
+          %td= t(:can_reply_to_topics?)
+          %td= t(:can_start_new_topics?)
+      %tbody
+        - for permission in @object.permissions.forums
+          %td
+            = link_to theme_image_tag("edit.jpg"), [:edit, :admin, @object, permission]
+            = link_to theme_image_tag("delete.jpg"), [:admin, @object, permission], :method => "delete", :confirm => t(:confirm_deletion, :thing => "permission")
+          %td= permission.forum
+          %td= theme_image_tag(permission.can_see_forum?.to_s + ".jpg")
+          %td= theme_image_tag(permission.can_see_category?.to_s + ".jpg")
+          %td= theme_image_tag(permission.can_reply_to_topics?.to_s + ".jpg")
+          %td= theme_image_tag(permission.can_start_new_topics?.to_s + ".jpg")
+  %br
+  - if @category_count.zero?
+    %h3= t(:No_categories_to_assign_specific_permissions_to)
+  - else
+    %h3= t(:Category_specific_permissions)
+    = link_to t(:New, :thing => t(:Category_specific_permissions)), new_admin_group_permission_path(@object, :type => "category")
+    %table.list-table{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
+      - if @object.permissions.categories.empty?
+        %thead
+          %tr
+            %td
+              %b= t(:No_category_specific_permissions)
+      - else
+        %thead
+          %tr
+            %td= t(:Title)
+            %td= t(:can_see_forum?)
+            %td= t(:can_see_category?)
+            %td= t(:can_reply_to_topics?)
+            %td= t(:can_start_new_topics?)
+        %tbody
+          - for permission in @object.permissions.forums
+            %td= permission.forum
+            %td= theme_image_tag(permission.can_see_forum?.to_s + ".jpg")
+            %td= theme_image_tag(permission.can_see_category?.to_s + ".jpg")
+            %td= theme_image_tag(permission.can_reply_to_topics?.to_s + ".jpg")
+            %td= theme_image_tag(permission.can_start_new_topics?.to_s + ".jpg")

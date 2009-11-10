@@ -1,0 +1,21 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{link_to(t(:Forums), admin_forums_path)} &raquo; #{t(:Creating_a_forum)}
+- if @category
+  = t(:for)
+  = @category.name
+= error_messages_for :forum
+- form_for [:admin, @category, @forum] do |f|
+  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "2"}
+          %h2
+            = t(:Creating_a_forum)
+            - if @category
+              = t(:for)
+              = @category.name
+    = render :partial => "form", :locals => { :f => f }
+    %tfoot
+      %tr
+        %td{:colspan => "2"}= submit_tag "Create", :value => t(:Create)

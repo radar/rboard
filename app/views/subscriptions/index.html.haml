@@ -1,0 +1,21 @@
+%h2 Subscriptions
+%table.forums{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %thead
+    %tr
+      %td{:width => "40px"} &nbsp;
+      %td{:align => "left"}= t(:Topic)
+      %td{:align => "center"}= t(:Last_updated)
+      %td{:align => "center"}= t(:Posts_since_last_visit)
+  %tbody
+    - unless @subscriptions.empty?
+      - for subscription in @subscriptions
+        %tr
+          %td
+            = link_to theme_image_tag("delete.jpg"), subscription, :method => :delete
+            %td= link_to subscription.topic, [subscription.topic.forum, subscription.topic]
+            %td{:align => "center"}= subscription.updated_at.strftime(date_time_display)
+            %td{:align => "center"}= subscription.posts_count
+    - else
+      %tr
+        %td{:align => "center", :colspan => "4"}
+          %b You have not subscribed to any topics.

@@ -1,0 +1,17 @@
+- form_for [:admin, @object, @permission] do |f|
+  = error_messages_for :permission
+  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "10"}
+          %h2
+            = t(:Editing_a_permission)
+            = t(:for)
+            = @permission.group
+            - if !@permission.forum.nil?
+              = t(:for)
+              Forum: #{@permission.forum}
+    = render :partial => "form", :locals => { :f => f }
+    %tfoot
+      %tr
+        %td{:colspan => "10"}= submit_tag t(:Update)
