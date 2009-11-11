@@ -17,5 +17,6 @@ config/deploy.rb
 config/newrelic.yml
 .gitignore.swp
 public/avatars
+public/system
 vendor/plugins/newrelic_rpm
 webrat*.html
