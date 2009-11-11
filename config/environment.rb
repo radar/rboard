@@ -64,4 +64,11 @@ require 'array_ext'
 require 'themes_loader'
 Dir.glob("#{RAILS_ROOT}/lib/rboard/*") { |f| require f }
 
-Sass::Plugin.options[:template_location] = [[RAILS_ROOT + "/public/themes/blue", RAILS_ROOT + "/public/themes/blue"], [RAILS_ROOT + "/public/themes/dark", RAILS_ROOT + "/public/themes/dark"]] #TODO: enumerate actual public/themes directory contents
+require 'find'
+themes = []
+Find.find(RAILS_ROOT + "/public/themes") do |path|
+  themes << [path, path] if File.directory?(path)
+  Find.prune
+end
+
+Sass::Plugin.options[:template_location] = themes
