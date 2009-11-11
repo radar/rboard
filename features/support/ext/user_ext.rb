@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   end
   
   # Shame that I have to do this...
-  def self.make_with_group(name, group)
-    u = User.new(User.plan(name))
+  def self.make_with_group(name, group, attrs={})
+    u = User.new(User.plan(name).merge(attrs))
     u.groups << Group.ensure(group)
     u.save
     u
