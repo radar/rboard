@@ -458,7 +458,7 @@
    :topic_locked_or_unlocked => "Topic has been {{status}}.",
    :topic_subscription => "You have subscribed to this topic.",
    :topic_too => " This was the only post in the topic, so topic was deleted also.",
-   :topic_unsubscription => "You have unscribed from this topic.",
+   :topic_unsubscription => "You have unsubscribed from this topic.",
    :Unable_to_subscribe => "You are unable to subscribe to topics.",
    :Unlock => "Unlock",
    :Unlock_this_topic => "Unlock this topic",
