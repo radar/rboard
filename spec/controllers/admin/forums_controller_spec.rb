@@ -14,8 +14,8 @@ describe Admin::ForumsController do
       flash[:notice].should eql(t(:need_to_be_admin))
       response.should redirect_to(root_path)
     end
-    
-    
+  end
+
   describe Admin::ForumsController, "admins" do
 
     before do
