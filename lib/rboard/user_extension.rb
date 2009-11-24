@@ -47,6 +47,7 @@ module Rboard::UserExtension
       before_create :set_theme
       before_create :set_permissions
       before_save :set_permalink
+      before_save :logins_should_not_contain_commas
 
       attr_protected :identifier
 
@@ -116,6 +117,10 @@ module Rboard::UserExtension
 
       def set_theme
         self.theme = Theme.find(:first)
+      end
+      
+      def logins_should_not_contain_commas
+        errors.add(:login, t(:cannot_contain_commas)) and return false if /,/.match(login)
       end
     end
   end

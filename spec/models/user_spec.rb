@@ -62,3 +62,17 @@ describe User, "with users" do
   end
 
 end
+
+describe User, "valid login names" do
+  before do
+    @user = User.make_unsaved
+  end
+  
+  it "should not be able to contain commas" do
+    @user.login = "radar,"
+    @user.save.should be_false
+    @user.login = "radar"
+    @user.save.should be_true
+  end
+    
+end
