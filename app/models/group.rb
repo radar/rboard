@@ -20,6 +20,6 @@ class Group < ActiveRecord::Base
   end
   
   def set_identifier
-    self.identifier = name.parameterize
+    self.identifier = name.downcase.gsub(' ', '_')
   end
 end
