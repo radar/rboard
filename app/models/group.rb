@@ -9,6 +9,7 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
 
   before_create :add_owner_to_users
+  before_create :set_identifier
 
   def add_owner_to_users
     users << owner unless owner.nil?
@@ -16,5 +17,9 @@ class Group < ActiveRecord::Base
 
   def to_s
     name
+  end
+  
+  def set_identifier
+    self.identifier = name.parameterize
   end
 end
