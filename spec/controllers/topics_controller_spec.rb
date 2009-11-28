@@ -126,32 +126,6 @@ describe TopicsController do
       login_as(:administrator)
     end
 
-    it "should be able to see a topic in the admin forum" do
-      get 'show', { :forum_id => @admin_forum.id, :id => @admin_topic.id }
-      response.should render_template("show")
-    end
-
-    it "should be able to begin to create a topic" do
-      get 'new', :forum_id => @admin_forum.id
-      response.should render_template("new")
-    end
-
-    it "should be able to create a topic" do
-      post 'create', { :forum_id => @admin_forum.id, :topic => { :subject => "Testing"}, :post => { :text => "1, two, free" } }
-      flash[:notice].should eql(t(:created, :thing => "Topic"))
-    end
-
-    it "should not be able to create a topic with invalid data" do
-      post 'create', { :forum_id => @admin_forum.id, :topic => { :subject => ""}, :post => { :text => "1, two, free" } }
-      response.should render_template("new")
-      flash[:notice].should eql(t(:not_created, :thing => "Topic"))
-    end
-
-    it "should be able to see a topic in the free-for-all forum" do
-      get 'show', params
-      response.should render_template("show")
-    end
-
     it "should be able to edit a topic" do
       get 'edit', params
       response.should render_template("edit")

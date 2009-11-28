@@ -16,6 +16,7 @@ Feature: Groups Administration
     And I check "Can see forum?"
     And I press "Create"
     And I follow "members_for_viewers"
+    Then show me the page
     
     
     

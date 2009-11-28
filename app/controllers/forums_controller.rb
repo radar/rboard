@@ -10,7 +10,6 @@ class ForumsController < ApplicationController
     if @category
       @forums = @category.forums.without_parent
       @forums = @forums.active if !current_user.can?(:see_inactive_forums)
-
     else
       # TODO: I encourage allcomers to find a better way.
       # FIXME: I have worked too long on this.

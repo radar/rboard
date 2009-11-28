@@ -8,13 +8,10 @@
 <% if @object.is_a?(Group) %>
   <% content_for :head do %>
     <%= javascript_include_tag 'jquery.autocomplete' %>
+    <%= javascript_include_tag 'rboard.assign_user' %>
   <% end %>
-  <%= link_to_function t(:Add_new_user), "$('#assign_user').show()" %>
-  <span id='assign_user' style='display:none;'>
-    <% form_tag admin_group_members_path do %>
-      <%= text_field_tag :user %> <%= submit_tag t(:Add_to_group) %>
-      <script>$("#user").autocomplete("/admin/users/search");</script>
-    <% end %>
+  <a href='<%= assign_group_users_path(@group) %>' id='assign_user_button'><%= t(:Add_new_user_to_group) %></a> |
+  <%= link_to t(:Assign assign_group_users_path(@group)%>
   </span>
 <% end %>
 
