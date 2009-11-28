@@ -1,0 +1,7 @@
+- inside_layout "application" do
+  %ul#admin-navlist
+    %li= link_to "Index", admin_root_path,  :class => selected("index")
+    - for section in @sections
+      %li= link_to section.titleize, send("admin_#{section}_path"), :class => selected(section)
+    %li= link_to "IP Banning", ban_ip_admin_users_path, :class => selected("ip_banning")
+  #admin-page= yield

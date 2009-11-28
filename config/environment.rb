@@ -1,6 +1,4 @@
 # Be sure to restart your web server when you modify this file.
-# Uncomment this to force production mode.
-# ENV['RAILS_ENV'] = 'development'
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 require File.join(File.dirname(__FILE__), 'boot')
@@ -28,8 +26,9 @@ TIME_DISPLAY = "%I:%M:%S%p"
 # Change this if you want to change the default formatting of years.
 DATE_DISPLAY = "%d %B %Y"
 
-# Change this to point at a different themes directory.
-THEMES_DIRECTORY = File.join(RAILS_ROOT, "public", "themes")
+# Change this to point at a different themes directory. In jruby-rack Rails.public_path is not yet set.
+THEMES_DIRECTORY = Proc.new { File.join(Rails.public_path, "themes") }
+
 
 # Set this to false if you're integrating rboard into another app.
 # This determines if rake db:create:all is ran when running the install script.
@@ -64,13 +63,11 @@ require 'array_ext'
 require 'themes_loader'
 Dir.glob("#{RAILS_ROOT}/lib/rboard/*") { |f| require f }
 
-# Print the location of puts/p calls so you can find them later
-def puts str
-  super caller.first if caller.first.index("shoulda.rb") == -1
-  super str
+require 'find'
+themes = []
+Find.find(RAILS_ROOT + "/public/themes") do |path|
+  themes << [path, path] if File.directory?(path)
+  Find.prune
 end
 
-def p obj
-  puts caller.first
-  super obj
-end
+Sass::Plugin.options[:template_location] = themes

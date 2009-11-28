@@ -1,0 +1,18 @@
+- form_for [:moderation, :move, :topics] do |f|
+  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "2"}
+          %h2= t(:Moving_topics)
+    %tbody
+      %tr
+        %td{:valign => "top"}
+          %b
+            = t(:Forum)
+            \:
+        %td= select_tag "forum_id", options_from_collection_for_select(@forums, "id", "name")
+    %tfoot
+      %tr
+        %td{:colspan => "2"}
+          = submit_tag(t(:Create))
+          or #{link_to t(:Cancel), session[:return_to]}

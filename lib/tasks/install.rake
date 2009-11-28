@@ -5,26 +5,15 @@ def highline
   end
 end
 
-# Ugh. As much as I hate ugly hacks, I have to do this.
-# For what reason? It defaults to test. Always.
-# I have absolutely no clue why.
-# It is late on a Sunday night, all I want to do is relax and go to bed with a clear mind.
-# If you can fix this better than I am, you are a better man (or woman)
-# I have to do this.
-# Forgive me.
-def establish_connection  
-  ActiveRecord::Base.establish_connection(YAML.load_file("#{RAILS_ROOT}/config/database.yml")[ENV['RAILS_ENV']])
-end
-
+desc "Install rBoard database for the current RAILS_ENV"
 task :install => :environment do
-  ENV['RAILS_ENV'] = "production"
-  puts "Creating databases..."
-  # Check the comment for this method.
-  establish_connection
-  Rake::Task["db:create:all"].invoke if STANDALONE
-  puts "Setting up the database"
-  # Check the comment for this method.
-  establish_connection
+  ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV])
+  if STANDALONE
+    puts "Creating #{RAILS_ENV} database..."
+    Rake::Task["db:create"].invoke
+  end
+
+  puts "Setting up the #{RAILS_ENV} database"
   Rake::Task["db:migrate"].invoke
 
   puts "*" * 50
@@ -37,7 +26,6 @@ task :install => :environment do
   email = highline.ask("What is your email address for this account?")
 
   login, password, email = [login, password, email].map!(&:strip)
-
    puts "Creating admin user now..."
    administrator = User.new(:login => login, :password => password, :password_confirmation => password, :email => email)
    administrator.identifier = "administrator"

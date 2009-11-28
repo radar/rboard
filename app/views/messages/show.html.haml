@@ -1,0 +1,16 @@
+%table.action-box{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+  %thead
+    %tr
+      %td
+        = t(:Message_from)
+        = @message.from.login
+        = t(:sent)
+        = time_ago_in_words(@message.created_at)
+        = t(:ago)
+  %tbody
+    %tr
+      %td{:align => "left"}= link_to(t(:Reply), reply_message_path(@message.id))
+    %tr
+      %td= parse_text(@message.text)
+    %tr
+      %td{:align => "left"}= link_to(t(:Reply), reply_message_path(@message.id))

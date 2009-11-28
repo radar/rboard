@@ -1,0 +1,22 @@
+= error_messages_for 'report'
+- form_for [@reportable, @report] do |f|
+  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+    %thead
+      %tr
+        %td{:colspan => "2"}
+          %h2= t(:Reporting_a, :thing => @reportable.class)
+    %tbody
+      %tr
+        %td{:valign => "top"}
+          = f.label "text", t(:Text)
+          \:
+        %td= f.text_area("text", :cols => "80")
+    %tfoot
+      %tr
+        %td{:colspan => "2"}= submit_tag(t(:Report))
+- if @reportable.is_a?(Post)
+  %h3
+    = t(:You_are_reporting_this_post)
+    \:
+  %table.posts{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+    = render :partial => @reportable, :locals => { :show_topic => false, :post_counter => @reportable.topic.posts.index(@reportable) }

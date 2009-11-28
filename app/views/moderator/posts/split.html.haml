@@ -1,0 +1,50 @@
+.breadcrumbs
+  = link_to(t(:rBoard), forums_path)
+  \&raquo; #{link_to @topic.forum.title, forum_path(@topic.forum)} &raquo; #{t(:Splitting)}
+%table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+  %thead
+    %tr
+      %td{:colspan => "2"}
+        %h2= t(:Splitting, :subject => @topic.subject)
+    %tr
+      %td{:align => "left"}
+        - if @previous_post
+          = link_to t(:Previous_post), split_moderator_topic_post_path(@topic, @previous_post)
+        - else
+          = t(:At_first_post)
+      %td{:align => "right"}
+        - if @next_post
+          = link_to t(:Next_post), split_moderator_topic_post_path(@topic, @next_post)
+        - else
+          = t(:At_last_post)
+  %tbody
+    %tr
+      %td{:colspan => "2"}
+        %b
+          = t(:Post_excerpt)
+          \:
+        = h(truncate(@post.text, 100))
+    %tr
+      %td{:colspan => "2"}
+        - form_tag do
+          = radio_button_tag "direction", "after_including", :selected => true
+          = label_tag "direction_after_including", t(:all_posts_after_and_including)
+          %br
+          = radio_button_tag "direction", "after"
+          = label_tag "direction_after", t(:all_posts_after)
+          %br
+          = radio_button_tag "direction", "before"
+          = label_tag "direction_before", t(:all_posts_before)
+          %br
+          = radio_button_tag "direction", "before_including"
+          = label_tag "direction_before_including", t(:all_posts_before_and_including)
+          %br
+          %br
+          = radio_button_tag "how", "just_split", :selected => true
+          = label_tag "how_just_split", t(:split_with_existing_subject)
+          %br
+          = radio_button_tag "how", "split_with_subject"
+          = label_tag "how_split_with_subject", t(:split_with_subject)
+          = text_field_tag "subject"
+          %br
+          = submit_tag t(:Split)

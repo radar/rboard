@@ -1,0 +1,6 @@
+.breadcrumbs
+  = link_to t(:Administration_Section), admin_root_path
+  \&raquo; #{t(:Forums)}
+%h2= t(:Forums)
+= link_to t(:New, :thing => "Forum"), new_admin_forum_path
+= render :partial => "forums"

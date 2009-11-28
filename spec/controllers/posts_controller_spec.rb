@@ -27,6 +27,7 @@ describe PostsController, "as plebian" do
   it "should be able to start a new post with a quote from another" do
     Topic.should_receive(:find).and_return(@topic)
     @topic.should_receive(:posts).and_return(@posts)
+    @topic.stub!(:forum).and_return(forums(:everybody))
     @posts.should_receive(:build).and_return(@post)
     Post.should_receive(:find).and_return(@post)
     @post.should_receive(:text=).and_return("[quote=\"plebian\"]woot[/quote]")

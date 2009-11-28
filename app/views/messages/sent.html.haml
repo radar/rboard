@@ -1,0 +1,17 @@
+%h2= t(:Sent_Messages)
+= link_to "Send New Message", new_message_path
+| #{link_to t(:Inbox), messages_path}
+%table.forums{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+  %thead
+    %tr
+      %td{:align => "center", :width => "20"}= t(:Read)
+      %td{:align => "center", :width => "40"}= t(:Delete)
+      %td{:align => "center"}= t(:To)
+      %td{:align => "center"}= t(:Time_sent)
+  %tbody
+    - unless @messages.empty?
+      = render :partial => "message", :collection => @messages
+    - else
+      %tr
+        %td{:align => "center", :colspan => "4"}
+          %b= t(:no_sent_messages)

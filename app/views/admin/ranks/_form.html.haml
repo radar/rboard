@@ -1,0 +1,12 @@
+%tbody
+  %tr
+    %td.errors{:colspan => "2"}= error_messages_for :rank
+  %tr
+    %td= f.label "name", t(:Name)
+    %td= f.text_field "name"
+  %tr
+    %td= f.label "posts_required", t(:Posts_Required)
+    %td= f.text_field "posts_required", :size => 3
+  %tr
+    %td= f.label "custom", t(:Custom_Rank)
+    %td= f.check_box "custom"

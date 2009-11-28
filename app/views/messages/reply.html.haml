@@ -1,0 +1,22 @@
+%h2
+  = t(:Replying_to)
+  = @message.from.login
+- form_for :message, @message, :url => messages_path do |f|
+  %table.action-box{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+    %tbody
+      %tr
+        %td
+          %b To:
+        %td
+          = f.hidden_field "to_id", :value => @message.from.id
+          = @message.from.login
+      %tr
+        %td{:valign => "top"}
+          %b
+            = t(:Text)
+            \:
+        %td= f.text_area "text", :cols => 80, :value => "[quote=\"" + @message.from.login + "\"]" + @message.text + "[/quote]"
+    %tfoot
+      %tr
+        %td{:colspan => "2"}
+          = submit_tag t(:Reply)

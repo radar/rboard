@@ -1,0 +1,9 @@
+- form_tag do
+  = t(:Search)
+  \: #{text_field_tag "query", params[:query]}
+  \#{submit_tag t(:Search)}
+- if request.post?
+  = t(:Search_returned)
+  = t(:results, :count => @posts.size)
+  \:
+  \#{render :partial => @posts, :locals => { :show_topic => true }}
