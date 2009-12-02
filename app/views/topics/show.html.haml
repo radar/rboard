@@ -3,8 +3,8 @@
   %link{:href => forum_topic_url(@topic.forum, @topic, :format => :rss), :rel => "alternate", :title => "#{@topic.subject} Feed", :type => "application/rss+xml"}
 %span.breadcrumbs
   = link_to(t(:rBoard), forums_path)
-  \&raquo; #{breadcrumb(@topic.forum)} &raquo; #{link_to(@topic.subject, forum_topic_path(@topic))}
-%h2= link_to(@topic.subject, forum_topic_path(@topic))
+  \&raquo; #{breadcrumb(@topic.forum)} &raquo; #{link_to(@topic.subject, forum_topic_path(@forum, @topic))}
+%h2= link_to(@topic.subject, forum_topic_path(@forum, @topic))
 = pagination = will_paginate(@posts)
 = menu_for_topic
 - if current_user.can?(:view_reports, @forum)

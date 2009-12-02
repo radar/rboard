@@ -37,8 +37,12 @@ Feature: Topics
     When I follow "Admins Only"
     And I follow "Default Topic"
     When I follow "Edit topic"
+    And I fill in "Subject" with "Not the default anymore"
+    And I press "Update"
     Then show me the page
-    
+    Then I should not see "Default Topic"
+    And I should see "Not the default anymore"
+  
   Scenario: Admins should be able to create a new topic in the admin forum
     Given I am logged in as "administrator" with the password "godly"
     When I follow "Admins Only"

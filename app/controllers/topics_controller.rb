@@ -60,7 +60,7 @@ class TopicsController < ApplicationController
       if @topic.update_attributes(params[:topic])
         if @topic.posts.first.update_attributes(params[:post])
           flash[:notice] = t(:updated, :thing => "topic")
-          redirect_back_or_default forum_topic_path(@forum, @topic)
+          redirect_to forum_topic_path(@forum, @topic)
         else
           flash.now[:notice] = t(:not_updated, :thing => "post")
           render :action => "edit"
