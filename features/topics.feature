@@ -11,7 +11,7 @@ Feature: Topics
     When I fill in "subject" with "Tribute"
     When I fill in "Text" with "This is just a tribute"
     When I press "Create"
-    Then I should see "rBoard -> Public Category -> Public Forum -> Tribute"
+    Then I should see "Tribute - Public Forum"
     
   Scenario: Topics should not be able to be posted without subjects or text
     Given I am logged in as "registered_user"
@@ -25,7 +25,7 @@ Feature: Topics
     Then I should see "Text can't be blank"
     When I fill in "Text" with "Fine have it your way."
     And I press "Create"
-    Then I should see "rBoard -> Public Category -> Public Forum -> Alright then"
+    Then I should see "Alright then - Public Forum"
   
   Scenario: Admins should be able to see topics in the admin forum
     Given I am logged in as "administrator" with the password "godly"
@@ -50,4 +50,4 @@ Feature: Topics
     When I fill in "Subject" with "Look at me go!"
     And I fill in "Text" with "Wooooaaaaah!"
     And I press "Create"
-    Then I should see "rBoard -> Admin Walled Garden -> Admins Only -> Look at me go!"
+    Then I should see "Look at me go! - Admins Only"
