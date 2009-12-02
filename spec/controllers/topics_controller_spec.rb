@@ -96,16 +96,6 @@ describe TopicsController do
         response.should redirect_to(forum_topic_path(@everybody, @everybody_topic))
       end
 
-      it "should not be able to update a topic that belongs to itself with invalid attributes for a topic" do
-        put 'update', params.merge!(:topic => { :subject => ""})
-        response.should render_template("edit")
-      end
-
-      it "should not be able to update a topic that belongs to itself with invalid attributes for a post" do
-        put 'update', params.merge!(:topic => { :subject => "Testing"}, :post => { :text => ""})
-        response.should render_template("edit")
-      end
-
       it "should not be able to edit a topic that does not belong to itself" do
         get 'edit', { :forum_id => @everybody.id, :id => @other_user_topic.id }
         response.should redirect_to(forum_topic_path(@everybody, @other_user_topic))
@@ -121,15 +111,3 @@ describe TopicsController do
 
   end
 
-  describe "as an admin" do
-    before do
-      login_as(:administrator)
-    end
-
-    it "should be able to edit a topic" do
-      get 'edit', params
-      response.should render_template("edit")
-    end
-  end
-
-end
