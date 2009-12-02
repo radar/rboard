@@ -106,22 +106,14 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
     You can send money to `radarlistener@gmail.com` on Paypal or click the donate link and I will love you back.
 
-## Integratiion
+## Integration
 
 **Please note:** by no means is integration into an existing site easy. Rails apps are not made to be pluginable. I am waiting for Rails 3 so I can engine-ize rboard and ideally it'll Just Work. Until that magical day of pixies, unicorns, puppies and higher wages, I have no suggestions other than to try it yourself and write about it. I am available most of the time via email. I do not bite. We'll be BFF if you want to use my project.
 
-rBoard works as a stand-alone solution as well as a drop-in solution for your site's forum needs. All the user model specific code has been moved to a module to ensure that this process is made easier. You have two options:
+**There is an easy way though**: Run rboard as a separate app on a subdomain for your app and point it to the same database. You may wish to customize the user model to use whatever method you authenticate with, since there's a high proabability you're using a separate method to what I am.
 
-  1. Use the pre-existing user model (integrate your site into rBoard). 
-  
-  2. Use your own user model (integrate rBoard into your site). In user model you just have to write `include Rboard::UserExtension`. The relevant authentication system code has also been modularized into *lib/rboard/auth.rb* and must be included into the ApplicationController of your site like this: `include Rboard::Auth`. Please be aware that this module will override any `current_user` or `logged_in?` methods you have defined anywhere else. 
-  
-Also you should set `STANDALONE = false` inside _config/environment.rb_.
-  
-If you wish to use a different authentication system other than Restful Authentication then remove the user model (*app/models/user.rb*) and replace it with your own whilst not forgetting to `include Rboard::UserExtension`, the AuthenticatedSystem module (*lib/authenticated_system.rb*) and the AuthenticatedTestHelper module (*lib/authenticated_test_helper.rb*)
-  
 ## Contributors
   
-  Thomas Sinclair
-  Bodaniel Jeanes
-  Tore Darell
+* Thomas Sinclair
+* Bodaniel Jeanes
+* Tore Darell
