@@ -110,7 +110,7 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
 **Please note:** by no means is integration into an existing site easy. Rails apps are not made to be pluginable. I am waiting for Rails 3 so I can engine-ize rboard and ideally it'll Just Work. Until that magical day of pixies, unicorns, puppies and higher wages, I have no suggestions other than to try it yourself and write about it. I am available most of the time via email. I do not bite. We'll be BFF if you want to use my project.
 
-**There is an easy way though**: Run rboard as a separate app on a subdomain for your app and point it to the same database. You may wish to customize the user model to use whatever method you authenticate with, since there's a high proabability you're using a separate method to what I am.
+**There is an easy non-integration way though**: Run rboard as a separate app on a subdomain for your app and point it to the same database. You may wish to customize the user model to use whatever method you authenticate with, since there's a high proabability you're using a separate method to what I am.
 
 ## Contributors
 
