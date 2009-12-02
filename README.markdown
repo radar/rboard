@@ -106,7 +106,9 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
     You can send money to `radarlistener@gmail.com` on Paypal or click the donate link and I will love you back.
 
-## Integration
+## Integratiion
+
+**Please note:** by no means is integration into an existing site easy. Rails apps are not made to be pluginable. I am waiting for Rails 3 so I can engine-ize rboard and ideally it'll Just Work. Until that magical day of pixies, unicorns, puppies and higher wages, I have no suggestions other than to try it yourself and write about it. I am available most of the time via email. I do not bite. We'll be BFF if you want to use my project.
 
 rBoard works as a stand-alone solution as well as a drop-in solution for your site's forum needs. All the user model specific code has been moved to a module to ensure that this process is made easier. You have two options:
 
