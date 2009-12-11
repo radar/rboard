@@ -1,12 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe User do
-  fixtures :permissions, :users, :groups, :forums, :group_users
+  
+  before do
+    setup_user_base
+    setup_forums
+  end
 
   describe User, "who is in the administrator group with given permissions" do
 
     before do
-      @user = users(:administrator)
-      @forum = forums(:admins_only)
+      @user = User.find_by_login("administrator")
+      @forum = Forum.find_by_title("Admins Only")
     end
 
     it "should be able to see a forum" do
@@ -78,10 +82,6 @@ describe User do
       @user.can?(:send_messages_to_groups).should be_true
     end
 
-    it "should be able to read messages" do
-      @user.can?(:read_messages).should be_true
-    end
-
     it "should be able to read private messages" do
       @user.can?(:read_private_messages).should be_true
     end
@@ -143,9 +143,9 @@ describe User do
   describe User, "who is in the registered users group with given permissions" do
 
     before do
-      @user = users(:plebian)
-      @admin_forum = forums(:admins_only)
-      @registered_user_forum = forums(:sub_of_everybody)
+      @user = User.find_by_login("registered_user")
+      @admin_forum = Forum.find_by_title("Admins Only")
+      @registered_user_forum = Forum.find_by_title("Sub of Public Forum")
     end
 
     it "should not be able to see the specified forum" do
@@ -160,10 +160,10 @@ describe User do
   describe User, "who is in the anonymous group with given permissions" do
 
     before do
-      @user = users(:anonymous)
-      @admin_forum = forums(:admins_only)
-      @registered_user_forum = forums(:sub_of_everybody)
-      @everybody = forums(:everybody)
+      @user = User.find_by_login("anonymous")
+      @admin_forum = Forum.find_by_title("Admins Only")
+      @registered_user_forum = Forum.find_by_title("Sub of Public Forum")
+      @everybody = Forum.find_by_title("Public Forum")
     end
 
     it "should not be able to see the specified forum" do
@@ -171,7 +171,7 @@ describe User do
     end
 
     it "should not be able to see the registered users forum" do
-      @user.can?(:see_forum, @registered_user_forum).should be_false
+      @user.can?(:see_forum, @registered_user_forum).should be_true
     end
 
     it "should be able to see the everybody forum" do
