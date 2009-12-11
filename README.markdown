@@ -113,7 +113,7 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 **There is an easy non-integration way though**: Run rboard as a separate app on a subdomain for your app and point it to the same database. You may wish to customize the user model to use whatever method you authenticate with, since there's a high proabability you're using a separate method to what I am.
 
 ## Contributors
-
-  Thomas Sinclair
-  Bodaniel Jeanes
-  Tore Darell
+  
+* Thomas Sinclair
+* Bodaniel Jeanes
+* Tore Darell
