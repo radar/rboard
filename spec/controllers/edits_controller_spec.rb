@@ -12,7 +12,7 @@ describe EditsController do
     @edit = @post.edits.create
     @invisible_edit = @post.edits.create(:hidden => true)
     
-    @admin_forum = Forum.find_by_title("Admins Only")
+    @admin_forum = Forum("Admins Only")
     @admin_post = @admin_forum.posts.first
     @admin_edit = @admin_post.edits.create
   end

@@ -7,7 +7,7 @@ describe ForumsController do
     setup_user_base
     setup_forums
     @admin_category = Category.find_by_name("Admin Walled Garden")
-    @admins_only = Forum.find_by_title("Admins Only")
+    @admins_only = Forum("Admins Only")
   end
 
   describe "plebian" do

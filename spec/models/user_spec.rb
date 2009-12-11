@@ -18,8 +18,8 @@ describe User, "with users" do
 
   before do
     setup_user_base
-    @administrator = User.find_by_login("administrator")
-    @registered_user = User.find_by_login("registered_user")
+    @administrator = User("administrator")
+    @registered_user = User("registered_user")
 
     @banned_noob = User.ensure("Banned Noob")
     @moderator = User.ensure("moderator")

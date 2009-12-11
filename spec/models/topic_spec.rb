@@ -12,7 +12,7 @@ describe Topic, "in general" do
     @another_valid_topic = valid_topic_for(@everybody)
 
     @sub_of_everybody = Forum.make(:sub_of_public)
-    @administrator = User.find_by_login("administrator")
+    @administrator = User("administrator")
     # Remove the call to reverse for an interesting failing test
     @posts = @valid_topic.posts.reverse
   end

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # Ensures there's always a user with that login, and ideally only one.
   def self.ensure(login)
     # Wouldn't have to do the gsub if Rails correctly underscored strings like "Registered User"
-    User.find_by_login(login.to_s) || User.make(login.to_s.gsub(" ", "").underscore.to_sym)
+    User(login.to_s) || User.make(login.to_s.gsub(" ", "").underscore.to_sym)
   end
 
   # Shame that I have to do this...

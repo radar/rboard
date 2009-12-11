@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PostsController, "as plebian" do
-  fixtures :users, :forums, :posts, :topics, :edits, :permissions, :groups, :group_users
+  
   before do
-    login_as(:plebian)
-    @plebian = users(:plebian)
+    login_as(:registered_user)
+    @plebian = User("registered_user")
     @user_topic = topics(:user)
     @topic = mock_model(Topic)
     @post = mock_model(Post)

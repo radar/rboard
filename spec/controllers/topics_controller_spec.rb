@@ -4,9 +4,9 @@ describe TopicsController do
   before do
     setup_user_base
     setup_forums
-    @admin_forum = Forum.find_by_title("Admins Only")
+    @admin_forum = Forum("Admins Only")
     @admin_topic = @admin_forum.topics.first
-    @everybody = Forum.find_by_title("Public Forum")
+    @everybody = Forum("Public Forum")
     @everybody_topic = @everybody.topics.first
     @other_user_topic = @everybody.topics.last
   end

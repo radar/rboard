@@ -9,8 +9,8 @@ describe User do
   describe User, "who is in the administrator group with given permissions" do
 
     before do
-      @user = User.find_by_login("administrator")
-      @forum = Forum.find_by_title("Admins Only")
+      @user = User("administrator")
+      @forum = Forum("Admins Only")
     end
 
     it "should be able to see a forum" do
@@ -143,9 +143,9 @@ describe User do
   describe User, "who is in the registered users group with given permissions" do
 
     before do
-      @user = User.find_by_login("registered_user")
-      @admin_forum = Forum.find_by_title("Admins Only")
-      @registered_user_forum = Forum.find_by_title("Sub of Public Forum")
+      @user = User("registered_user")
+      @admin_forum = Forum("Admins Only")
+      @registered_user_forum = Forum("Sub of Public Forum")
     end
 
     it "should not be able to see the specified forum" do
@@ -160,10 +160,10 @@ describe User do
   describe User, "who is in the anonymous group with given permissions" do
 
     before do
-      @user = User.find_by_login("anonymous")
-      @admin_forum = Forum.find_by_title("Admins Only")
-      @registered_user_forum = Forum.find_by_title("Sub of Public Forum")
-      @everybody = Forum.find_by_title("Public Forum")
+      @user = User("anonymous")
+      @admin_forum = Forum("Admins Only")
+      @registered_user_forum = Forum("Sub of Public Forum")
+      @everybody = Forum("Public Forum")
     end
 
     it "should not be able to see the specified forum" do

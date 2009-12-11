@@ -25,8 +25,8 @@ describe Post, "general" do
     @sub_topic = valid_topic_for(@sub_of_public)
     @post = @topic.posts.first
     @sub_post = @sub_topic.posts.first
-    @registered_user = User.find_by_login("registered_user")
-    @administrator = User.find_by_login("administrator")
+    @registered_user = User("registered_user")
+    @administrator = User("administrator")
   end
 
   it "should be able to find its forum" do
