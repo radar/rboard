@@ -7,8 +7,7 @@ class PostsController < ApplicationController
   before_filter :create_ip, :only => [:create, :update]
 
   def index
-    @posts = @user.posts.paginate :per_page => per_page, :page => params[:page]
-
+    @posts = @user.posts.paginate :per_page => per_page, :page => params[:page], :include => { :topic => :forum }
   end
 
   def new
@@ -44,7 +43,7 @@ class PostsController < ApplicationController
         @post.edits.create(:original_content => @post.text,
                            :current_content => params[:post][:text],
                            :user => current_user,
-                           :hidden => params[:silent_edit] == "1",
+                           :hidden => params[:silent_edit] == "1" && current_user.can?(:silently_edit, @forum),
                            :ip => create_ip)
         @post.update_attribute("edited_by", current_user)
       end
@@ -108,7 +107,7 @@ class PostsController < ApplicationController
     end
 
     def find_user
-      @user = User.find(params[:user_id])
+      @user = User.find_by_permalink(params[:user_id])
     end
 
     def create_ip

@@ -3,20 +3,15 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PostsController, "as plebian" do
   
   before do
+    setup_user_base
+    setup_forums
     login_as(:registered_user)
     @plebian = User("registered_user")
-    @user_topic = topics(:user)
-    @topic = mock_model(Topic)
-    @post = mock_model(Post)
-    @posts = [@post]
-    @user = mock_model(User)
-    @first_post = posts(:user)
-    @everybody = topics(:user)
-  end
-
-  it "should be able to get posts for the current user" do
-    get 'index', :user_id => @plebian.id
-    response.should render_template("index")
+    @admin_forum = Forum("Admins Only")
+    @admin_topic = @admin_forum.topics.first
+    @everybody = Forum("Public Forum")
+    @topic = @everybody.topics.first
+    @other_user_topic = @everybody.topics.last
   end
 
   it "should be able to start a new post" do
@@ -25,14 +20,6 @@ describe PostsController, "as plebian" do
   end
 
   it "should be able to start a new post with a quote from another" do
-    Topic.should_receive(:find).and_return(@topic)
-    @topic.should_receive(:posts).and_return(@posts)
-    @topic.stub!(:forum).and_return(forums(:everybody))
-    @posts.should_receive(:build).and_return(@post)
-    Post.should_receive(:find).and_return(@post)
-    @post.should_receive(:text=).and_return("[quote=\"plebian\"]woot[/quote]")
-    @post.should_receive(:user).and_return(@user)
-    @post.should_receive(:text).and_return("[quote=\"plebian\"]woot[/quote]")
     get 'reply', { :id => posts(:user).id, :topic_id => topics(:user).id }
     response.should render_template("new")
   end

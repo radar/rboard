@@ -12,10 +12,11 @@ Permission.blueprint(:moderators) do
 end
 
 Permission.blueprint(:registered_users) do
+  can_reply true
   can_reply_to_topics true
   can_start_new_topics true
   can_subscribe true
-  can_edit_posts true
+  can_edit_own_posts true
   group { Group.ensure("Registered Users") }
 end
 
@@ -59,6 +60,8 @@ Permission.blueprint(:administrators) do
   can_see_category true
   can_access_moderator_section true
   can_read_others_private_messages true
+  can_silently_edit true
+  can_see_hidden_edits true
   group { Group.ensure("Administrators") }
 end
 

@@ -9,17 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091025021611) do
-
-  create_table "attachments", :force => true do |t|
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "post_id"
-  end
+ActiveRecord::Schema.define(:version => 20091221070406) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -182,7 +172,8 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.boolean "can_manage_configurations",        :default => false
     t.boolean "can_see_inactive_forums",          :default => false
     t.boolean "can_post_in_closed_forums",        :default => false
-    t.boolean "can_use_attachments",              :default => false
+    t.boolean "can_see_hidden_edits",             :default => false
+    t.boolean "can_silently_edit",                :default => false
   end
 
   add_index "permissions", ["category_id"], :name => "index_permissions_on_category_id"
@@ -200,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.boolean  "delta"
     t.boolean  "deleted",      :default => false
     t.integer  "ip_id"
-    t.boolean  "finished",     :default => false
+    t.integer  "number",       :default => 1
   end
 
   add_index "posts", ["id", "topic_id"], :name => "index_posts_on_id_and_topic_id"
@@ -254,7 +245,6 @@ ActiveRecord::Schema.define(:version => 20091025021611) do
     t.integer  "ip_id"
     t.boolean  "moved",        :default => false
     t.integer  "moved_to_id"
-    t.boolean  "finished",     :default => false
   end
 
   add_index "topics", ["id", "forum_id"], :name => "index_topics_on_id_and_forum_id"

@@ -12,7 +12,8 @@ Feature: Edits
     When I follow "Public Forum"
     And I follow "Default topic"
     And I follow "Edit"
-    And I fill in "Post" with "Something other than the norm."
+    Then show me the page
+    And I fill in "Text" with "Something other than the norm."
     And I press "Update"
     Then I should see "This post was edited by administrator less than a minute ago"
     When I follow "1 edit"
@@ -24,7 +25,7 @@ Feature: Edits
     When I follow "Public Forum"
     And I follow "Default topic"
     And I follow "Edit"
-    And I fill in "Post" with "Something other than the norm."
+    And I fill in "Text" with "Something other than the norm."
     And I check "Edit silently"
     And I press "Update"
     Then I should see "This post was edited by administrator less than a minute ago"

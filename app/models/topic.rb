@@ -10,7 +10,7 @@ class Topic < ActiveRecord::Base
   has_one :redirect, :class_name => "Topic", :foreign_key => "moved_to_id", :dependent => :destroy
 
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
-  has_many :posts, :order => "posts.created_at asc", :dependent => :destroy
+  has_many :posts, :dependent => :destroy
   has_many :read_topics, :dependent => :destroy
   has_many :readers, :through => :read_topics, :source => :user
   has_many :reports, :as => :reportable, :dependent => :destroy

@@ -1,4 +1,7 @@
 class Post < ActiveRecord::Base
+  default_scope :order => "posts.created_at ASC"
+  
+  acts_as_list :column => "number", :scope => :topic_id
 
   # For distance_of_time_in_words
   include ActionView::Helpers::DateHelper

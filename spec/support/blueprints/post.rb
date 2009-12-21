@@ -1,3 +1,3 @@
 Post.blueprint do
-  text { Faker::Lorem.paragraphs.join("\n") }
+  text { "This is some default text" }
 end

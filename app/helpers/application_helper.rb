@@ -32,7 +32,7 @@ module ApplicationHelper
 
   def bbquote(text)
     text.gsub!(/\[quote=["']?(.*?)["']?\](.*)\[\/quote\]/mis) do
-      "<div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br />#{bbquote($2)}</div>"
+      "<div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br /><span>#{bbquote($2)}</span></div>"
     end
     text
   end
