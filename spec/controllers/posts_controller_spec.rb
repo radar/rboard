@@ -19,12 +19,6 @@ describe PostsController, "as plebian" do
     response.should render_template("new")
   end
 
-  it "should be able to start a new post with a quote from another" do
-    get 'reply', { :id => posts(:user).id, :topic_id => topics(:user).id }
-    response.should render_template("new")
-  end
-
-
   it "should be able to edit a post" do
     get 'edit', :id => @first_post.id, :topic_id => @everybody.id
     response.should render_template("edit")
