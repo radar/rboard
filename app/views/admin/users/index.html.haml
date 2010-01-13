@@ -16,6 +16,7 @@
       = submit_tag t(:Add_to_group)
       :javascript
         $("#user").autocomplete("/admin/users/search");%table.list-table{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+%table
   %thead
     %tr
       %td &nbsp;
