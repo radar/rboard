@@ -14,7 +14,6 @@ User.blueprint(:anonymous) do
 end
 
 User.blueprint(:administrator) do
-  # group = Group.ensure("Administrator")
   login "administrator"
   email "administrator@rboard.com"
   permalink "administrator"
@@ -22,6 +21,16 @@ User.blueprint(:administrator) do
   password_confirmation "godly"
   remember_token_expires_at { Time.now + 2.weeks }
   rank { Rank.find_by_name("God") || Rank.make(:god) }
+end
+
+User.blueprint(:moderator) do
+  login "moderator"
+  email "moderator@rboard.com"
+  permalink "moderator"
+  password "subbie"
+  password_confirmation "subbie"
+  remember_token_expires_at { Time.now + 2.weeks }
+  rank { Rank.find_by_name("Jesus") || Rank.make(:jesus) }
 end
 
 User.blueprint(:registered_user) do

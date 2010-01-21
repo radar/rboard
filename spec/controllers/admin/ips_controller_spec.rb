@@ -1,19 +1,19 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::IpsController do
-  fixtures :users, :ips, :groups, :permissions, :group_users
 
   before do
+    setup_user_base
     login_as(:administrator)
   end
 
   it "should show the ips for a specific user" do
-    get 'index', :user_id => "plebian"
+    get 'index', :user_id => "registered_user"
     response.should render_template("index")
   end
 
   it "should show a specific ip" do
-    get 'show', :id => ips(:localhost)
+    get 'show', :id => Ip.make.id, :user_id => "registered_user"
     response.should render_template("show")
   end
 

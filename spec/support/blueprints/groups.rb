@@ -13,6 +13,11 @@ Group.blueprint(:anonymous) do
   identifier "anonymous"
 end
 
+Group.blueprint(:moderators) do
+  name "Moderators"
+  identifier "moderators"
+end
+
 Group.blueprint(:registered_users) do
   name "Registered Users"
   identifier "registered_users"

@@ -1,11 +1,14 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Moderator::ModerationsController do
-  fixtures :users, :moderations, :topics, :posts, :forums, :groups, :group_users, :permissions
+  before do
+    setup_user_base
+    setup_forums
+  end
 
   describe Moderator::ModerationsController, "a user" do
     before do
-      login_as(:plebian)
+      login_as(:registered_user)
     end
 
     it "should not be able to see the index page" do
@@ -18,6 +21,8 @@ describe Moderator::ModerationsController do
   describe Moderator::ModerationsController, "a moderator" do
     before do
       login_as(:moderator)
+      @moderator = User(:moderator)
+      @topic = Topic.make
     end
 
     it "should be able to see the index page" do
@@ -26,12 +31,12 @@ describe Moderator::ModerationsController do
     end
 
     it "should be able to create a moderation" do
-      post 'create', :topic_id => topics(:moderator)
+      post 'create', :topic_id => @topic
       response.should render_template("create")
     end
 
     it "should try to create a moderation, but finding it there should destroy it" do
-      post 'create', :topic_id => topics(:user)
+      post 'create', :topic_id => @topic
       response.should render_template("destroy")
     end
 

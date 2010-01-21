@@ -1,14 +1,19 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe MessagesController do
-  fixtures :users, :messages, :groups, :permissions, :group_users
-
+  before do
+    setup_user_base
+    setup_forums
+    @moderator = User(:moderator)
+    @plebian = User(:registered_user)
+    @admin = User(:administrator)
+    @message = Message.create(:to => @moderator, :from => @plebian, :text => "PLZ BAN THIS GUY")
+    @disallowed_message = Message.create(:to => @admin, :from => @moderator, :text => "registered_user is annoying.")
+  end
+  
   describe MessagesController, "as a user" do
     before do
-      login_as(:plebian)
-      @moderator = users(:moderator)
-      @message = messages(:one)
-      @disallowed_message = messages(:disallowed)
+      login_as(:registered_user)
     end
 
     it "should be able to see their inbox" do
@@ -76,8 +81,6 @@ describe MessagesController do
 
   describe MessagesController, "as an admin" do
     before do
-      @message = messages(:one)
-      @disallowed_message = messages(:disallowed)
       login_as(:administrator)
     end
 

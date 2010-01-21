@@ -11,3 +11,8 @@ Rank.blueprint(:god) do
   name "God"
   custom true
 end
+
+Rank.blueprint(:jesus) do
+  name "Jesus"
+  custom true
+end

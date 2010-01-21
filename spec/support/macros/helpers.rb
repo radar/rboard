@@ -11,6 +11,8 @@ def setup_user_base
   # Create the users
   User.make_with_group(:registered_user, "Registered Users")
   
+  # And the people who control it all
+  moderator     = User.make_with_group(:moderator, "Moderators")
   administrator = User.make_with_group(:administrator, "Administrators")
   administrator.groups -= [Group.find_by_name("Registered Users")]
   administrator.save!
@@ -18,9 +20,8 @@ def setup_user_base
   registered_user_group.owner = administrator
   registered_user_group.save
   
-  
-
   Permission.make(:administrators)
+  Permission.make(:moderators)
 end
 
 def setup_forums
