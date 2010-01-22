@@ -68,3 +68,13 @@ Spec::Runner.configure do |config|
   #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
+
+def puts str
+  super caller.first if caller.first.index("shoulda.rb") == -1
+  super str
+end
+
+def p obj
+  puts caller.first
+  super obj
+end

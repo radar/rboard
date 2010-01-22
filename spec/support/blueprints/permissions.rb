@@ -9,6 +9,10 @@ Permission.blueprint(:moderators) do
   can_start_new_topics true
   can_subscribe true
   can_read_private_messages true
+  can_access_moderator_section true
+  can_manage_moderations true
+  can_manage_posts true
+  can_manage_topics true
   group { Group.ensure("Moderators") }
 end
 

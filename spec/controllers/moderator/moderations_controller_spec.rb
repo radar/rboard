@@ -22,8 +22,13 @@ describe Moderator::ModerationsController do
     before do
       login_as(:moderator)
       @moderator = User(:moderator)
-      @topic = Topic.make
+      @forum = Forum("Public Forum")
+      @topic = @forum.topics.first
     end
+    
+   def create_moderation
+     @topic.moderations.create!(:user => @moderator)
+   end
 
     it "should be able to see the index page" do
       get 'index'
@@ -36,12 +41,14 @@ describe Moderator::ModerationsController do
     end
 
     it "should try to create a moderation, but finding it there should destroy it" do
+      create_moderation
       post 'create', :topic_id => @topic
       response.should render_template("destroy")
     end
 
     it "should be able to begin to edit a moderation" do
-      get 'edit', :id => moderations(:first).id
+      moderation = create_moderation
+      get 'edit', :id => moderation
       response.should render_template("edit")
     end
 
@@ -52,7 +59,8 @@ describe Moderator::ModerationsController do
     end
 
     it "should be able to update a moderation" do
-      put 'update', { :id => moderations(:first).id, :moderation => { :reason => "Because." } }
+      moderation = create_moderation
+      put 'update', { :id => moderation, :moderation => { :reason => "Because." } }
       flash[:notice].should eql(t(:updated, :thing => "moderation"))
       response.should redirect_to(moderator_moderations_path)
     end

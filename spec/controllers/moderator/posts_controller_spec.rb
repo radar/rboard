@@ -2,15 +2,14 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Moderator::PostsController do
 
-  fixtures :forums, :posts, :topics, :users, :groups, :group_users, :permissions
-
   before do
+    setup_user_base
+    setup_forums
     login_as(:moderator)
-    @forum = forums(:everybody)
-    @first_post = posts(:user)
-    @second_post = posts(:user_2)
-    @last_post = posts(:user_3)
-    @topic = topics(:user)
+    @forum = Forum("Public Forum")
+    @first_post = @forum.posts.first
+    @second_post = @forum.posts.last
+    @topic = @forum.topics.first
   end
 
   def topic_split

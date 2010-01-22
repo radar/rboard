@@ -38,7 +38,7 @@ def setup_forums
 
   # A couple of topics for forum
 
-  3.times { valid_topic_for(forum) }
+  3.times { valid_topic_for(forum, 3) }
   
 
   # Decategorized forum
@@ -55,6 +55,12 @@ def setup_forums
   
   valid_topic_for(admin_forum)
   
+  # Moderator forum
+  
+  moderator_forum = Forum.make(:title => "Moderators Only")
+  
+  valid_topic_for(moderator_forum)
+  
   # Various permissions
   Permission.make(:administrators, :forum => admin_forum)
   Permission.make(:anonymous, :forum => admin_forum, :can_see_forum => false)
@@ -65,10 +71,13 @@ def setup_forums
   Permission.make(:registered_users, :category => admins_only_category, :can_see_category => false)
 end
 
-def valid_topic_for(forum)
+def valid_topic_for(forum, posts_count=1)
   topic = forum.topics.make_unsaved
-  post = topic.posts.build(Post.plan)
-  post.user = User.ensure(:administrator)
+  
+  posts_count.to_i.times do
+    post = topic.posts.build(Post.plan)
+    post.user = User.ensure(:administrator)
+  end
 
   topic.tap(&:save!)
 end
