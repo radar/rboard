@@ -1,11 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SubscriptionsController do
-  fixtures :topics, :subscriptions, :users, :groups, :group_users, :permissions
 
   before do
-    login_as(:plebian)
-    @user_topic = topics(:user)
+    setup_user_base
+    setup_forums
+    login_as(:registered_user)
+    @user_topic = Forum("Public Forum").topics.first
   end
 
   it "should be able to see the topics I am subscribed to" do
@@ -19,9 +20,9 @@ describe SubscriptionsController do
   end
 
   it "should be able to unsubscribe from a topic" do
-    sub = Subscription.create!(:topic => @user_topic, :user => users(:plebian))
+    sub = Subscription.create!(:topic => @user_topic, :user => User(:registered_user))
     delete 'destroy', :id => sub.id
-    flash[:notice].should eql(t(:topic_unsubscription))    
+    flash[:notice].should eql(t(:topic_unsubscription))
   end
 
 end

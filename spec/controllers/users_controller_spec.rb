@@ -1,11 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe UsersController do
-  fixtures :users
-
+  
   describe "as plebian" do
     before do
-      login_as(:plebian)
+      setup_user_base
+      setup_forums
+      login_as(:registered_user)
     end
 
     it "should be able to see a list of users" do

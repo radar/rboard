@@ -5,12 +5,13 @@ class TestView < ActionView::Base
 end
 
 describe ApplicationHelper, "general" do
-  fixtures :forums, :categories
   include ApplicationHelper
 
   before do
-    @everybody = forums(:everybody)
-    @sub_of_everybody = forums(:sub_of_everybody)
+    setup_user_base
+    setup_forums
+    @everybody = Forum("Public Forum")
+    @sub_of_everybody = @everybody.children.first
   end
 
   it "should correctly output breadcrumbs" do
