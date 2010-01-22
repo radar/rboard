@@ -4,6 +4,28 @@ require 'rubygems'
 require 'yaml'
 require 'pp'
 
+begin
+  require 'Win32/Console/ANSI' if RUBY_PLATFORM =~ /mswin/
+rescue LoadError
+end
+
+require 'optparse'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-g [NAME]", "--ginger [NAME]", "Ginger gem name") do |name|
+    options[:ginger] = name
+  end
+
+  opts.on("-s [NAME]", "--sphinx [NAME]", "Sphinx daemon name") do |name|
+    options[:sphinx] = name
+  end
+end.parse!
+
+OPTIONS = options
+
 module ContributeHelper; end
 
 class Contribute
@@ -14,7 +36,11 @@ class Contribute
       Dependencies::Sphinx,
       Dependencies::Mysql,
       Dependencies::AR,
-      Dependencies::Ginger
+      Dependencies::Rspec,
+      Dependencies::Cucumber,
+      Dependencies::Yard,
+      Dependencies::Jeweler,
+      Dependencies::Ginger,
     ]
   end
 
@@ -159,6 +185,8 @@ EO_CREATE_DATABASE_FAILED
     begin
       ActiveRecord::Base.connection.create_database('thinking_sphinx')
       colour_puts "<green>successful</green>"
+      puts
+      return true
     rescue ActiveRecord::StatementInvalid
       if $!.message[/database exists/]
         colour_puts "<green>successful</green> (database already existed)"
@@ -166,10 +194,9 @@ EO_CREATE_DATABASE_FAILED
         return true
       else
         colour_puts "<red>failed</red>"
+        colour_puts CREATE_DATABASE_FAILED
       end
     end
-
-    colour_puts CREATE_DATABASE_FAILED
 
     false
   end
@@ -229,7 +256,7 @@ module ContributeHelper
 
     def check; false end
     def check!
-      @found = check 
+      @found = check
     end
 
     def found?
@@ -272,20 +299,29 @@ module ContributeHelper
 
     puts
 
+    if !all_found
+      print "You may wish to try setting additional options. Use ./contribute.rb -h for details"
+      puts
+    end
+
     all_found
   end
 
-
+  def colourise_output?
+    @colourise_output = !!(RUBY_PLATFORM !~ /mswin/ || defined?(Win32::Console::ANSI)) if @colourise_output.nil?
+    @colourise_output
+  end
 
   DEFAULT_TERMINAL_COLORS = "\e[0m\e[37m\e[40m"
+  MONOCHROME_OUTPUT = "\\1"
   def subs_colour(data)
-  	data = data.gsub(%r{<b>(.*?)</b>}m, "\e[1m\\1#{DEFAULT_TERMINAL_COLORS}")
-  	data.gsub!(%r{<red>(.*?)</red>}m, "\e[1m\e[31m\\1#{DEFAULT_TERMINAL_COLORS}")
-  	data.gsub!(%r{<green>(.*?)</green>}m, "\e[1m\e[32m\\1#{DEFAULT_TERMINAL_COLORS}")
-  	data.gsub!(%r{<yellow>(.*?)</yellow>}m, "\e[1m\e[33m\\1#{DEFAULT_TERMINAL_COLORS}")
-  	data.gsub!(%r{<banner>(.*?)</banner>}m, "\e[33m\e[44m\e[1m\\1#{DEFAULT_TERMINAL_COLORS}")
+    data = data.gsub(%r{<b>(.*?)</b>}m, colourise_output? ? "\e[1m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data.gsub!(%r{<red>(.*?)</red>}m, colourise_output? ? "\e[1m\e[31m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data.gsub!(%r{<green>(.*?)</green>}m, colourise_output? ? "\e[1m\e[32m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data.gsub!(%r{<yellow>(.*?)</yellow>}m, colourise_output? ? "\e[1m\e[33m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data.gsub!(%r{<banner>(.*?)</banner>}m, colourise_output? ? "\e[33m\e[44m\e[1m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
 
-  	return data
+    return data
   end
 
   def colour_puts(text)
@@ -309,22 +345,39 @@ module Dependencies
   class Mysql < ContributeHelper::Gem
     name(defined?(JRUBY_VERSION) ? 'jdbc-mysql' : 'mysql')
   end
+  
+  class Rspec < ContributeHelper::Gem
+    name 'rspec'
+  end
+
+  class Cucumber < ContributeHelper::Gem
+    name 'cucumber'
+  end
+
+  class Yard < ContributeHelper::Gem
+    name 'yard'
+  end
+
+  class Jeweler < ContributeHelper::Gem
+    name 'jeweler'
+  end
 
   class AR < ContributeHelper::Gem
     name 'activerecord'
   end
 
   class Ginger < ContributeHelper::Gem
-    name 'ginger'
+    name(OPTIONS.has_key?(:ginger) ? OPTIONS[:ginger] : 'ginger')
   end
 
   class Sphinx < ContributeHelper::Dependency
     name 'sphinx'
 
     def check
-      output = `which searchd`
-      @location = output.chomp if $? == 0
-      $? == 0
+      app_name = OPTIONS.has_key?(:sphinx) ? OPTIONS[:sphinx] : 'searchd'
+      app_name << '.exe' if RUBY_PLATFORM =~ /mswin/ && app_name[-4, 4] != '.exe'
+
+      !(@location = ENV['PATH'].split(File::PATH_SEPARATOR).map { |path| File.join(path, app_name) }.find { |path| File.file?(path) && File.executable?(path) }).nil?
     end
   end
 end

@@ -5,7 +5,7 @@ module ThinkingSphinx
   # 
   class Association
     attr_accessor :parent, :reflection, :join
-
+    
     # Create a new association by passing in the parent association, and the
     # corresponding reflection instance. If there is no parent, pass in nil.
     # 
@@ -16,7 +16,7 @@ module ThinkingSphinx
       @parent, @reflection = parent, reflection
       @children = {}
     end
-
+    
     # Get the children associations for a given association name. The only time
     # that there'll actually be more than one association is when the
     # relationship is polymorphic. To keep things simple though, it will always
@@ -28,7 +28,7 @@ module ThinkingSphinx
     def children(assoc)
       @children[assoc] ||= Association.children(@reflection.klass, assoc, self)
     end
-
+    
     # Get the children associations for a given class, association name and
     # parent association. Much like the instance method of the same name, it
     # will return an empty array if no associations have the name, and only
@@ -39,10 +39,10 @@ module ThinkingSphinx
     # 
     def self.children(klass, assoc, parent=nil)
       ref = klass.reflect_on_association(assoc)
-
+      
       return [] if ref.nil?
       return [Association.new(parent, ref)] unless ref.options[:polymorphic]
-
+      
       # association is polymorphic - create associations for each
       # non-polymorphic reflection.
       polymorphic_classes(ref).collect { |klass|
@@ -54,18 +54,18 @@ module ThinkingSphinx
         )
       }
     end
-
+    
     # Link up the join for this model from a base join - and set parent
     # associations' joins recursively.
     #
     def join_to(base_join)
       parent.join_to(base_join) if parent && parent.join.nil?
-
+      
       @join ||= ::ActiveRecord::Associations::ClassMethods::JoinDependency::JoinAssociation.new(
         @reflection, base_join, parent ? parent.join : base_join.joins.first
       )
     end
-
+    
     # Returns the association's join SQL statements - and it replaces
     # ::ts_join_alias:: with the aliased table name so the generated reflection
     # join conditions avoid column name collisions.
@@ -75,7 +75,7 @@ module ThinkingSphinx
         "#{@reflection.klass.connection.quote_table_name(@join.parent.aliased_table_name)}"
       )
     end
-
+    
     # Returns true if the association - or a parent - is a has_many or
     # has_and_belongs_to_many.
     # 
@@ -87,37 +87,40 @@ module ThinkingSphinx
         @parent ? @parent.is_many? : false
       end
     end
-
+    
     # Returns an array of all the associations that lead to this one - starting
     # with the top level all the way to the current association object.
     # 
     def ancestors
       (parent ? parent.ancestors : []) << self
     end
-
+    
     def has_column?(column)
       @reflection.klass.column_names.include?(column.to_s)
     end
-
+    
     def primary_key_from_reflection
       if @reflection.options[:through]
         @reflection.source_reflection.options[:foreign_key] ||
         @reflection.source_reflection.primary_key_name
+      elsif @reflection.macro == :has_and_belongs_to_many
+        @reflection.association_foreign_key
       else
         nil
       end
     end
-
+    
     def table
-      if @reflection.options[:through]
+      if @reflection.options[:through] ||
+        @reflection.macro == :has_and_belongs_to_many
         @join.aliased_join_table_name
       else
         @join.aliased_table_name
       end
     end
-
+    
     private
-
+    
     # Returns all the objects that could be currently instantiated from a
     # polymorphic association. This is pretty damn fast if there's an index on
     # the foreign type column - but if there isn't, it can take a while if you
@@ -132,7 +135,7 @@ module ThinkingSphinx
         row[ref.options[:foreign_type]].constantize
       }
     end
-
+    
     # Returns a new set of options for an association that mimics an existing
     # polymorphic relationship for a specific class. It adds a condition to
     # filter by the appropriate object.
@@ -142,7 +145,7 @@ module ThinkingSphinx
       options[:polymorphic]   = nil
       options[:class_name]    = klass.name
       options[:foreign_key] ||= "#{ref.name}_id"
-
+      
       quoted_foreign_type = klass.connection.quote_column_name ref.options[:foreign_type]
       case options[:conditions]
       when nil
@@ -154,7 +157,7 @@ module ThinkingSphinx
       else
         options[:conditions] << " AND ::ts_join_alias::.#{quoted_foreign_type} = '#{klass.name}'"
       end
-
+      
       options
     end
   end
