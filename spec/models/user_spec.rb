@@ -23,6 +23,7 @@ describe User, "with users" do
 
     @banned_noob = User.ensure("Banned Noob")
     @moderator = User.ensure("moderator")
+    
 
     @god = Rank.make(:god)
   end
@@ -37,6 +38,7 @@ describe User, "with users" do
   end
 
   it "should be able to remember a user" do
+    @moderator.remember_token_expires_at = nil
     @moderator.remember_token?.should be_nil
     @moderator.remember_me
     @moderator.remember_token?.should be_true

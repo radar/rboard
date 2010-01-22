@@ -10,6 +10,7 @@ def setup_user_base
 
   # Create the users
   User.make_with_group(:registered_user, "Registered Users")
+  User.make_with_group(:banned_noob, "Registered Users")
   
   # And the people who control it all
   moderator     = User.make_with_group(:moderator, "Moderators")
