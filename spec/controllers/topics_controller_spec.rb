@@ -22,7 +22,7 @@ describe TopicsController do
 
   describe "as a plebian" do
     before do
-      login_as(:plebian)
+      login_as(:registered_user)
     end
 
     describe "in an unknown forum" do
@@ -86,11 +86,15 @@ describe TopicsController do
       end
 
       it "should be able to edit a topic that belongs to itself" do
+        @everybody_topic.user = User("registered_user")
+        @everybody_topic.save!
         get 'edit', params
         response.should render_template("edit")
       end
 
       it "should be able to update a topic that belongs to itself" do
+        @everybody_topic.user = User("registered_user")
+        @everybody_topic.save!
         put 'update', params.merge!(:topic => { :subject => "Testing" })
         flash.now[:notice].should eql(t(:updated, :thing => "topic"))
         response.should redirect_to(forum_topic_path(@everybody, @everybody_topic))

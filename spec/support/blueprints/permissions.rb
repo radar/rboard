@@ -22,6 +22,7 @@ Permission.blueprint(:registered_users) do
   can_start_new_topics true
   can_subscribe true
   can_edit_own_posts true
+  can_edit_own_topics true
   can_read_private_messages true
   group { Group.ensure("Registered Users") }
 end
