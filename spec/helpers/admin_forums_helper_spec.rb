@@ -10,7 +10,7 @@ describe Admin::ForumsHelper, "general" do
   end
 
   it "should correctly output forums" do
-    select_display(@everybody).should eql("General Discussion!")
-    select_display(@sub_of_everybody).should eql("--Unmoderated Discussion")
+    select_display(@everybody).should eql("Public Forum")
+    select_display(@sub_of_everybody).should eql("--Sub of Public Forum")
   end
 end  

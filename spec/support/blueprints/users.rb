@@ -9,6 +9,7 @@ end
 
 User.blueprint(:anonymous) do
   # group = Group.ensure("Anonymous")
+  identifier "anonymous"
   login "anonymous"
   email "anony@mous.com"
 end
@@ -41,7 +42,7 @@ end
 
 User.blueprint(:banned_noob) do
   group = Group.ensure("Registered User")
-  login "Banned Noob"
+  login "banned_noob"
   ban_time { Time.now + 1.week }
   ban_reason "A nusiance."
 end

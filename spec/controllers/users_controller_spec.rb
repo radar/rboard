@@ -15,7 +15,8 @@ describe UsersController do
     end
 
     it "should show a user" do
-      get 'show', :id => "plebian"
+      get 'show', :id => "registered_user"
+      flash[:notice].should be_nil
       response.should render_template("show")
     end
 

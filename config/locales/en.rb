@@ -112,6 +112,7 @@
    :all_posts_before_and_including => "All posts before and including this one",
    :already_logged_in => "You are already logged in.",
    :already_reported => "You have already reported that.",
+   :anonymous_stays => "The anonymous user cannot be deleted.",
    :as_the_reason => "as the reason",
    :At_first_post => "At first post",
    :At_last_post => "At last post",

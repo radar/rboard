@@ -58,7 +58,8 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     flash[:notice] = t(:deleted, :thing => "post")
-    if @post.topic.posts.size.zero?
+    p @post.topic.posts.count
+    if @post.topic.posts.count.zero?
       @post.topic.destroy
       flash[:notice] += t(:topic_too)
       redirect_to forum_path(@post.forum)
