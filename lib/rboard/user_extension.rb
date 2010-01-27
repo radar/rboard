@@ -46,6 +46,8 @@ module Rboard::UserExtension
       before_create :set_permissions
       before_save :set_permalink
       before_save :logins_should_not_contain_commas
+      
+      before_destroy :anonymous_cannot_be_deleted
 
       attr_protected :identifier
 
@@ -100,6 +102,14 @@ module Rboard::UserExtension
       end
 
       private
+      
+      def anonymous_cannot_be_deleted
+        if identifier == "anonymous"
+          errors.add_to_base(t(:anonymous_stays))
+          return false
+        end
+        return true
+      end
 
       def set_permissions
         # HACK

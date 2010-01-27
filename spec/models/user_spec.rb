@@ -18,10 +18,11 @@ describe User, "with users" do
 
   before do
     setup_user_base
-    @administrator = User("administrator")
+    @administrator   = User("administrator")
     @registered_user = User("registered_user")
+    @anonymous       = User("anonymous")
 
-    @banned_noob = User.ensure("Banned Noob")
+    @banned_noob = User.ensure("banned_noob")
     @moderator = User.ensure("moderator")
     
 
@@ -61,6 +62,16 @@ describe User, "with users" do
 
   it "should see that the user was recently online" do
     @registered_user.online?.should be_true
+  end
+  
+  it "should not be able to delete the anonymous user" do
+    @registered_user.destroy.should be_true
+    # TODO: Figure out why this isn't being set in blueprints.
+    @anonymous.identifier = "anonymous"
+    @anonymous.save!
+    @anonymous.destroy.should be_false
+
+    @anonymous.errors.full_messages.should eql(["The anonymous user cannot be deleted."])
   end
 
 end
