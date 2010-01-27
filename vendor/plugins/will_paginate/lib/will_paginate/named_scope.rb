@@ -100,7 +100,7 @@ module WillPaginate
         end
       end
     end
-    
+
     class Scope
       attr_reader :proxy_scope, :proxy_options
 

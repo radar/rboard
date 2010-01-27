@@ -5,13 +5,13 @@ module ThinkingSphinx
 
     # Compatibility with older versions of will_paginate
     alias_method :page_count, :total_pages
-    
+
     def initialize(page, per_page, entries, total_entries)
       @current_page, @per_page, @total_entries = page, per_page, total_entries
-      
+
       @total_pages = (entries / @per_page.to_f).ceil
     end
-    
+
     def self.ids_from_results(results, page, limit, options)
       collection = self.new(page, limit,
         results[:total] || 0, results[:total_found] || 0
@@ -22,7 +22,7 @@ module ThinkingSphinx
       }
       return collection
     end
-    
+
     def self.create_from_results(results, page, limit, options)
       collection = self.new(page, limit,
         results[:total] || 0, results[:total_found] || 0
@@ -31,7 +31,7 @@ module ThinkingSphinx
       collection.replace instances_from_matches(results[:matches], options)
       return collection
     end
-    
+
     def self.instances_from_matches(matches, options = {})
       if klass = options[:class]
         instances_from_class klass, matches, options
@@ -39,7 +39,7 @@ module ThinkingSphinx
         instances_from_classes matches, options
       end
     end
-    
+
     def self.instances_from_class(klass, matches, options = {})
       index_options = klass.sphinx_index_options
 
@@ -69,7 +69,7 @@ module ThinkingSphinx
         instances.detect { |obj| obj.id == obj_id }
       }
     end
-    
+
     # Group results by class and call #find(:all) once for each group to reduce
     # the number of #find's in multi-model searches.
     # 
@@ -80,7 +80,7 @@ module ThinkingSphinx
           instances_from_class(class_from_crc(crc), group, options)
         )
       end
-      
+
       matches.collect do |match|
         groups.detect { |crc, group|
           crc == match[:attributes]["class_crc"]
@@ -89,7 +89,7 @@ module ThinkingSphinx
         }
       end
     end
-    
+
     def self.class_from_crc(crc)
       @@models_by_crc ||= ThinkingSphinx.indexed_models.inject({}) do |hash, model|
         hash[model.constantize.to_crc32] = model
@@ -100,43 +100,43 @@ module ThinkingSphinx
       end
       @@models_by_crc[crc].constantize
     end
-    
+
     def previous_page
       current_page > 1 ? (current_page - 1) : nil
     end
-    
+
     def next_page
       current_page < total_pages ? (current_page + 1): nil
     end
-    
+
     def offset
       (current_page - 1) * @per_page
     end
-    
+
     def method_missing(method, *args, &block)
       super unless method.to_s[/^each_with_.*/]
-      
+
       each_with_attribute method.to_s.gsub(/^each_with_/, ''), &block
     end
-    
+
     def each_with_groupby_and_count(&block)
       results[:matches].each_with_index do |match, index|
         yield self[index], match[:attributes]["@groupby"], match[:attributes]["@count"]
       end
     end
-    
+
     def each_with_attribute(attribute, &block)
       results[:matches].each_with_index do |match, index|
         yield self[index], (match[:attributes][attribute] || match[:attributes]["@#{attribute}"])
       end
     end
-    
+
     def each_with_weighting(&block)
       results[:matches].each_with_index do |match, index|
         yield self[index], match[:weight]
       end
     end
-    
+
     def inject_with_groupby_and_count(initial = nil, &block)
       index = -1
       results[:matches].inject(initial) do |memo, match|

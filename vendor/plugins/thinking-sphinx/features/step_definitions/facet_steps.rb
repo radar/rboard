@@ -1,6 +1,16 @@
-When "I am requesting facet results$" do
+When /^I am requesting facet results$/ do
   @results = nil
   @method  = :facets
+end
+
+When /^I am requesting just the facet (\w+)$/ do |facet|
+  @results = nil
+  @options[:facets] = facet.downcase.to_sym
+end
+
+When /^I am requesting just the facets (\w+) and (\w+)$/ do |one, two|
+  @results = nil
+  @options[:facets] = [one.downcase.to_sym, two.downcase.to_sym]
 end
 
 When "I want classes included" do
@@ -12,7 +22,7 @@ When "I don't want classes included" do
 end
 
 When "I want all possible attributes" do
-  @options[:all_attributes] = true
+  @options[:all_facets] = true
 end
 
 When /^I drill down where (\w+) is (\w+)$/ do |facet, value|
@@ -57,14 +67,28 @@ Then /^I should not have the facet ([\w_\s]+)$/ do |name|
   results.keys.should_not include(facet_name(name))
 end
 
-Then /^the ([\w_\s]+) facet should have a "([\w\s_]+)" key with (\d+) hits$/ do |name, key, hit_count|
+Then /^the ([\w_\s]+) facet should have an? "([\w\s_]+)" key with (\d+) hits$/ do |name, key, hit_count|
   facet_name = facet_name name
   results[facet_name].keys.should include(key)
   results[facet_name][key].should eql(hit_count.to_i)
 end
 
-Then /^the ([\w_\s]+) facet should have a "(\w+)" key$/ do |name, key|
+Then /^the ([\w_\s]+) facet should have an? "(\w+)" key$/ do |name, key|
   results[facet_name(name)].keys.should include(key)
+end
+
+Then /^the ([\w_\s]+) facet should have an? (\d+\.?\d*) key$/ do |name, key|
+  if key[/\./]
+    key = key.to_f
+  else
+    key = key.to_i
+  end
+  
+  results[facet_name(name)].keys.should include(key)
+end
+
+Then /^the ([\w\s]+) facet should have (\d+) keys$/ do |name, count|
+  results[facet_name(name)].keys.length.should == count.to_i
 end
 
 def facet_name(string)

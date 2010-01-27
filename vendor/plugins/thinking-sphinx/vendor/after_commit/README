@@ -6,11 +6,11 @@ to trigger events that run only after the entire transaction is complete. This i
 in situations where you are doing asynchronous processing and need committed objects.
 
 The following callbacks are provided:
-  
+
    * (1) after_commit
    * (2) after_commit_on_create
    * (3) after_commit_on_update
    * (4) after_commit_on_destroy
-   
+
 The after_commit callback is run for any object that has just been committed. You can obtain finer
 callback control by using the additional <tt>after_commit_on_*</tt> callbacks.

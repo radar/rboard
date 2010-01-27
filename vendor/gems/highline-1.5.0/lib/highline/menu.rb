@@ -29,7 +29,7 @@ class HighLine
       # adjust ours as needed.
       # 
       super("Ignored", [ ], &nil)    # avoiding passing the block along
-      
+
       @items           = [ ]
       @hidden_items    = [ ]
       @help            = Hash.new("There's no help for that topic.")
@@ -44,12 +44,12 @@ class HighLine
       @layout          = :list
       @shell           = false
       @nil_on_handled  = false
-      
+
       # Override Questions responses, we'll set our own.
       @responses       = { }
       # Context for action code.
       @highline        = nil
-      
+
       yield self if block_given?
 
       init_help if @shell and not @help.empty?
@@ -122,7 +122,7 @@ class HighLine
     # Defaults to +false+.
     # 
     attr_accessor :nil_on_handled
-    
+
     #
     # Adds _name_ to the list of available menu items.  Menu items will be
     # displayed in the order they are added.
@@ -138,10 +138,10 @@ class HighLine
     # 
     def choice( name, help = nil, &action )
       @items << [name, action]
-      
+
       @help[name.to_s.downcase] = help unless help.nil?
     end
-    
+
     #
     # A shortcut for multiple calls to the sister method choice().  <b>Be
     # warned:</b>  An _action_ set here will apply to *all* provided
@@ -155,10 +155,10 @@ class HighLine
     # Identical to choice(), but the item will not be listed for the user.
     def hidden( name, help = nil, &action )
       @hidden_items << [name, action]
-      
+
       @help[name.to_s.downcase] = help unless help.nil?
     end
-    
+
     # 
     # Sets the indexing style for this Menu object.  Indexes are appended to
     # menu items, when displayed in list form.  The available settings are:
@@ -176,21 +176,21 @@ class HighLine
     # 
     def index=( style )
       @index = style
-      
+
       # Default settings.
       if @index == :none or @index.is_a?(String)
         @index_suffix = " "
         @select_by    = :name
       end
     end
-    
+
     # 
     # Initializes the help system by adding a <tt>:help</tt> choice, some
     # action code, and the default help listing.
     # 
     def init_help(  )
       return if @items.include?(:help)
-      
+
       topics    = @help.keys.sort
       help_help = @help.include?("help") ? @help["help"] :
                   "This command will display helpful messages about " +
@@ -208,7 +208,7 @@ class HighLine
         end
       end
     end
-    
+
     #
     # Used to set help for arbitrary topics.  Use the topic <tt>"help"</tt>
     # to override the default message.
@@ -216,7 +216,7 @@ class HighLine
     def help( topic, help )
       @help[topic] = help
     end
-    
+
     # 
     # Setting a _layout_ with this method also adjusts some other attributes
     # of the Menu object, to ideal defaults for the chosen _layout_.  To
@@ -249,7 +249,7 @@ class HighLine
     # 
     def layout=( new_layout )
       @layout = new_layout
-      
+
       # Default settings.
       case @layout
       when :one_line, :menu_only
@@ -265,7 +265,7 @@ class HighLine
     def options(  )
       # add in any hidden menu commands
       @items.concat(@hidden_items)
-      
+
       by_index = if @index == :letter
         l_index = "`"
         @items.map { "#{l_index.succ!}" }
@@ -295,7 +295,7 @@ class HighLine
     def select( highline_context, selection, details = nil )
       # add in any hidden menu commands
       @items.concat(@hidden_items)
-      
+
       # Find the selected action.
       name, action = if selection =~ /^\d+$/
         @items[selection.to_i - 1]
@@ -304,7 +304,7 @@ class HighLine
         index = @items.map { "#{l_index.succ!}" }.index(selection)
         @items.find { |c| c.first == selection } or @items[index]
       end
-      
+
       # Run or return it.
       if not @nil_on_handled and not action.nil?
         @highline = highline_context
@@ -322,7 +322,7 @@ class HighLine
       # make sure the hidden items are removed, before we return
       @items.slice!(@items.size - @hidden_items.size, @hidden_items.size)
     end
-    
+
     #
     # Allows Menu objects to pass as Arrays, for use with HighLine.list().
     # This method returns all menu items to be displayed, complete with
@@ -341,7 +341,7 @@ class HighLine
         @items.map { |c| "#{index}#{@index_suffix}#{c.first}" }
       end
     end
-    
+
     #
     # Allows Menu to behave as a String, just like Question.  Returns the
     # _layout_ to be rendered, which is used by HighLine.say().

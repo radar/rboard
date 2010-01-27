@@ -32,7 +32,7 @@ module Paperclip
       new(file, options, attachment).make
     end
   end
-  
+
   # Due to how ImageMagick handles its image format conversion and how Tempfile
   # handles its naming scheme, it is necessary to override how Tempfile makes
   # its names so as to allow for file extensions. Idea taken from the comments

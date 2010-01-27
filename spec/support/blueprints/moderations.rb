@@ -1,0 +1,3 @@
+Moderation.blueprint do
+
+end

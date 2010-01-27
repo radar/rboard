@@ -4,21 +4,21 @@ module AuthenticatedSystem
   def store_location
     session[:return_to] = request.request_uri
   end
-  
+
   # Redirect to the URI stored by the most recent store_location call or
   # to the passed default.
   def redirect_back_or_default(default)
     session[:return_to] ? redirect_to(session[:return_to]) : redirect_to(default)
     session[:return_to] = nil
   end
-  
+
   # Inclusion hook to make #current_user and #logged_in?
   # available as ActionView helper methods.
   def self.included(base)
     base.send :helper_method, 
               :current_user
   end
-  
+
   # When called with before_filter :login_from_cookie will check for an :auth_token
   # cookie and log the user back in if apropriate
   def login_from_cookie
@@ -31,5 +31,5 @@ module AuthenticatedSystem
     end
   end
 
- 
+
 end

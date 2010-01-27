@@ -1,10 +1,10 @@
 garlic do
   repo 'nested_has_many_through', :path => '.'
-  
+
   repo 'rails', :url => 'git://github.com/rails/rails'
   repo 'rspec', :url => 'git://github.com/dchelimsky/rspec'
   repo 'rspec-rails', :url => 'git://github.com/dchelimsky/rspec-rails'
-  
+
   # target rails versions
   ['origin/2-2-stable', 'origin/2-1-stable', 'origin/2-0-stable'].each do |rails|
     # specify how to prepare app and run CI task

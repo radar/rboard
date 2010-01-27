@@ -32,7 +32,7 @@ namespace :spec do
       t.index_html = File.join(File.dirname(__FILE__), 'doc/coverage/index.html')
     end
   end
-  
+
   desc "Generate specdoc for #{plugin_name}"
   Spec::Rake::SpecTask.new(:doc) do |t|
     t.spec_files  = FileList['spec/**/*_spec.rb']

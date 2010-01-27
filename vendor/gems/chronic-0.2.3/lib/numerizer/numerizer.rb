@@ -47,13 +47,13 @@ class Numerizer
 class << self
   def numerize(string)
     string = string.dup
-  
+
     # preprocess
     string.gsub!(/ +|([^\d])-([^d])/, '\1 \2') # will mutilate hyphenated-words but shouldn't matter for date extraction
     string.gsub!(/a half/, 'haAlf') # take the 'a' out so it doesn't turn into a 1, save the half for the end
 
     # easy/direct replacements
-  
+
     DIRECT_NUMS.each do |dn|
       string.gsub!(/#{dn[0]}/i, dn[1])
     end

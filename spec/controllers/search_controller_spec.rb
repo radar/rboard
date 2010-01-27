@@ -5,7 +5,7 @@ describe SearchController do
     @post = mock_model(Post)
     @posts = [@post]
   end
-  
+
   it "should be able to find posts" do
     post 'index', :query => "lolz"
     if SEARCHING

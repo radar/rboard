@@ -5,7 +5,7 @@ class Admin::ApplicationController < ApplicationController
   before_filter :can_not_manage
   before_filter :find_sections
   before_filter :login_required
-  
+
   private
     def can_access
       if !current_user.can?(:access_admin_section)
@@ -13,7 +13,7 @@ class Admin::ApplicationController < ApplicationController
         redirect_back_or_default(root_path)
       end
     end
-      
+
     def can_not_manage
       unless controller_name == "index" || controller_name == "chronic"
         if !current_user.can?("manage_#{controller_name}")
@@ -22,7 +22,7 @@ class Admin::ApplicationController < ApplicationController
         end
       end
     end
-    
+
     def find_sections
       @sections = ["categories", "forums", "users", "groups", "ranks", "themes", "configurations"].select do |name|
         current_user.can?("manage_#{name}")

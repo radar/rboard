@@ -194,7 +194,7 @@ module Paperclip
 
       define_callbacks :before_post_process, :after_post_process
       define_callbacks :"before_#{name}_post_process", :"after_#{name}_post_process"
-     
+
       define_method name do |*args|
         a = attachment_for(name)
         (args.length > 0) ? a.to_s(args.first) : a
@@ -245,7 +245,7 @@ module Paperclip
         message unless attachment.file?
       end
     end
-    
+
     # Places ActiveRecord-style validations on the content type of the file
     # assigned. The possible options are: 
     # * +content_type+: Allowed content types.  Can be a single content type 
@@ -262,7 +262,7 @@ module Paperclip
     def validates_attachment_content_type name, options = {}
       attachment_definitions[name][:validations][:content_type] = lambda do |attachment, instance|
         valid_types = [options[:content_type]].flatten
-        
+
         unless attachment.original_filename.blank?
           unless valid_types.blank?
             content_type = attachment.instance_read(:content_type)
@@ -286,7 +286,7 @@ module Paperclip
       @_paperclip_attachments ||= {}
       @_paperclip_attachments[name] ||= Attachment.new(name, self, self.class.attachment_definitions[name])
     end
-    
+
     def each_attachment
       self.class.attachment_definitions.each do |name, definition|
         yield(name, attachment_for(name))

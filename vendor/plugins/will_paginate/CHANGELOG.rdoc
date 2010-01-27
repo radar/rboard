@@ -40,20 +40,20 @@
   subclasses
 * Changed page_entries_info() method to adjust its output according to humanized class name of
   collection items. Override this with :entry_name parameter (singular).
-    
+
     page_entries_info(@posts)
     #-> "Displaying all 12 posts"
     page_entries_info(@posts, :entry_name => 'item')
     #-> "Displaying all 12 items"
-    
+
 == 2.2.3, released 2008-04-26
 
 * will_paginate gem is no longer published on RubyForge, but on
   gems.github.com:
-  
+
     gem sources -a http://gems.github.com/  (you only need to do this once)
     gem install mislav-will_paginate
-    
+
 * extract reusable pagination testing stuff into WillPaginate::View
 * rethink the page URL construction mechanizm to be more bulletproof when
   combined with custom routing for page parameter
@@ -64,7 +64,7 @@
 * Add support for page parameter in custom routes like "/foo/page/2"
 * Change output of "page_entries_info" on single-page collection and erraneous
   output with empty collection as reported by Tim Chater
-  
+
 == 2.2.1, released 2008-04-08
 
 * take less risky path when monkeypatching named_scope; fix that it no longer
@@ -103,7 +103,7 @@
 
     gem 'will_paginate'
     require 'will_paginate/array'
-    
+
 * Add "paginated_each" method for iterating through every record by loading only
   one page of records at the time
 * Rails 2: Rescue from WillPaginate::InvalidPage error with 404 Not Found by

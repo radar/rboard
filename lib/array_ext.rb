@@ -6,15 +6,15 @@ class Array
   def previous(element)
     self[index(element)-1] if !empty? && include?(element) && !index(element).zero?
   end
-  
+
   # For finding the element after another in an array.
   def next(element)
     self[index(element)+1] if !empty? && include?(element) && last != element
   end
-  
+
   def all_next(element, included=false)
     (included ? self[index(element)..-1] : self[(index(element)+1)..-1]) if !empty? && include?(element) && last != element
   end
 end
-    
-    
+
+

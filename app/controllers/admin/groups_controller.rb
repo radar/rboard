@@ -5,16 +5,16 @@ class Admin::GroupsController < Admin::ApplicationController
   def index
     @groups = Group.all
   end
-  
+
   def show
     redirect_to admin_group_users_path(params[:id])
   end
-  
+
   def new
     @group = Group.new
     @permission = @group.permissions.build
   end
-  
+
   def create
     @group = Group.new(params[:group].merge!(:owner => current_user))
     @group.permissions.build(params[:permission])
@@ -26,11 +26,11 @@ class Admin::GroupsController < Admin::ApplicationController
       render :action => "new"
     end
   end
-  
+
   def edit
     @permission = @group.permissions.global
   end
-  
+
   def update
     @permission = @group.permissions.global
     if @group.update_attributes(params[:group]) && @permission.update_attributes(params[:permission])
@@ -41,21 +41,21 @@ class Admin::GroupsController < Admin::ApplicationController
       render :action => "edit"
     end
   end
-  
+
   def destroy
     @group.destroy
     flash[:notice] = t(:deleted, :thing => "group")
     redirect_to admin_groups_path
   end
-  
+
   private
-  
+
     def find_group
       @group = Group.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       not_found
     end
-    
+
     def not_found
       flash[:notice] = t(:not_found, :thing => "group")
       redirect_to admin_groups_path

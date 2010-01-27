@@ -1,1 +1,8 @@
-= t(:Users_posts, :user => current_user)
+= t(:Users_posts, :user => @user)
+
+- @posts.group_by(&:topic).each do |topic, posts|
+  %h2= link_to topic, [topic.forum, topic]
+  - for post in posts
+    = render :partial => "posts/post", :object => post, :locals => { :show_topic => false }
+  
+  

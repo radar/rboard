@@ -22,8 +22,7 @@
         %b
           = t(:Posts)
           \:
-        = @user.posts.size
-        , #{t(:about)} #{@posts_percentage}% #{t(:of_all_posts_on_this_forum)}
+        = link_to(@user.posts.size.to_s + ", #{t(:about)} #{@posts_percentage}% #{t(:of_all_posts_on_this_forum)}", user_posts_path(@user), :id => "user_posts")
         %br
         %b
           = t(:Bans)

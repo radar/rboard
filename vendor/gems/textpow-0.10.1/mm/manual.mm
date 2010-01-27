@@ -62,7 +62,7 @@ digraph G {
    }
    parse [label="", style=invis, fontsize=0,height=0,width=0,shape=none];
    rank=same{syntax_object; parse};
-   
+
    syntax_file -> syntax_object [label="  SyntaxNode#load"];
    syntax_object -> parse [arrowhead=none];
    text -> parse [arrowhead=none];
@@ -211,16 +211,16 @@ methods:
 class Processor
    def open_tag name, position
    end
-      
+
    def close_tag name, position
    end
-      
+
    def new_line line
    end
-      
+
    def start_parsing name
    end
-   
+
    def end_parsing name
    end
 end

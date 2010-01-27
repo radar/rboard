@@ -1,9 +1,7 @@
 %tbody
   %tr
     %td{:valign => "top"}
-      %b
-        = t(:Post)
-        \:
+      = f.label :text, t(:Text)
     %td
       = f.text_area 'text', :cols => (cols || 70), :rows => (rows || 20)
   - if current_user.can?(:edit_posts, @forum) && !@post.new_record?
@@ -13,7 +11,7 @@
         = f.text_field 'edit_reason'
     %tr
       %td{:colspan => "2"}
-        = check_box_tag 'silent_edit', t(:silent_edit)
+        = check_box_tag 'silent_edit'
         = label_tag 'silent_edit', t(:Edit_silently?)
 %tfoot
   %tr
