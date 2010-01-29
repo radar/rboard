@@ -1,6 +1,6 @@
 class Admin::MembersController < ApplicationController
   before_filter :find_group
-  
+
   def create
     @user = User.find_by_login!(params[:user])
     @group.users << @user unless @group.users.include?(@user)
@@ -10,7 +10,7 @@ class Admin::MembersController < ApplicationController
   ensure
     redirect_to admin_group_users_path(@group)
   end
-  
+
   def destroy
     @user = User.find_by_login!(params[:id])
     @group.users -= [@user]
@@ -20,9 +20,9 @@ class Admin::MembersController < ApplicationController
   ensure
     redirect_to admin_group_users_path(@group)
   end
-  
+
   private
-  
+
   def find_group
     @group = Group.find(params[:group_id], :include => :users)
   rescue ActiveRecord::RecordNotFound

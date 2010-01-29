@@ -3,15 +3,15 @@ module AuthenticatedTestHelper
   def login_as(user)
     @request.session[:user] = user ? users(user).id : nil
   end
-  
+
   def content_type(type)
     @request.env['Content-Type'] = type
   end
-  
+
   def accept(accept)
     @request.env["HTTP_ACCEPT"] = accept
   end
-  
+
   def authorize_as(user)
     if user
       @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64.encode64("#{users(user).login}:test")}"
@@ -23,7 +23,7 @@ module AuthenticatedTestHelper
       content_type nil
     end
   end
-  
+
   # http://project.ioni.st/post/217#post-217
   #
   #  def test_new_publication
@@ -38,11 +38,11 @@ module AuthenticatedTestHelper
     yield
     assert_equal initial_value + difference, object.send(method), "#{object}##{method}"
   end
-  
+
   def assert_no_difference(object, method, &block)
     assert_difference object, method, 0, &block
   end
-  
+
   # Assert the block redirects to the login
   # 
   #   assert_requires_login(:bob) { |c| c.get :edit, :id => 1 }
@@ -50,11 +50,11 @@ module AuthenticatedTestHelper
   def assert_requires_login(login = nil)
     yield HttpLoginProxy.new(self, login)
   end
-  
+
   def assert_http_authentication_required(login = nil)
     yield XmlLoginProxy.new(self, login)
   end
-  
+
   def reset!(*instance_vars)
     instance_vars = [:controller, :request, :response] unless instance_vars.any?
     instance_vars.collect! { |v| "@#{v}".to_sym }
@@ -71,16 +71,16 @@ class BaseLoginProxy
     @controller = controller
     @login      = login
   end
-  
+
   private
   def authenticated
     raise NotImplementedError
   end
-  
+
   def check
     raise NotImplementedError
   end
-  
+
   def method_missing(method, *args)
     @controller.reset!
     authenticate
@@ -94,7 +94,7 @@ class HttpLoginProxy < BaseLoginProxy
   def authenticate
     @controller.login_as @login if @login
   end
-  
+
   def check
     @controller.assert_redirected_to :controller => 'account', :action => 'login'
   end
@@ -106,7 +106,7 @@ class XmlLoginProxy < BaseLoginProxy
     @controller.accept 'application/xml'
     @controller.authorize_as @login if @login
   end
-  
+
   def check
     @controller.assert_response 401
   end

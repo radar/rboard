@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :store_location, :only => [:index]
   before_filter :login_required, :only => [:edit, :update, :index]
   include Rboard::Login
-  
+
   def index
     @users = User.paginate :page => params[:page], :per_page => 30, :order => "login ASC"
   end
@@ -14,11 +14,11 @@ class UsersController < ApplicationController
       flash[:notice] = t(:not_found, :thing => "user")
       redirect_back_or_default(users_path)
   end
-  
+
   def edit
     @themes = Theme.all
   end
-  
+
   def update
     if !params[:user][:password].blank? &&
        params[:user][:password] == params[:user][:password_confirmation]
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     flash[:notice] ||= t(:profile_has_been_updated)
     redirect_to edit_user_path(current_user)
   end
-  
+
 
   def ip_is_banned
     unless ip_banned?

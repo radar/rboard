@@ -1,0 +1,37 @@
+admins_only:
+  title: Administrators Only!
+  description: Top secret admin stuff goes here!
+  position: 1
+  category: admins_only
+
+moderators_only:
+  title: Moderators Only!
+  description: top secret moderator discussion!
+  position: 2
+  category: test
+
+everybody:
+  title: General Discussion!
+  description: Anything and everyone is welcome to discuss whatever!
+  position: 3
+  last_post: user
+  category: test
+
+sub_of_everybody:
+  title: Unmoderated Discussion
+  description: Totally unmoderated!
+  position: 1
+  parent: everybody
+  category: test
+
+sub_of_sub_of_everybody:
+  title: Unmoderated Unmoderated Discussion
+  description: Really really unmoderated!
+  position: 1
+  parent: sub_of_everybody
+  category: test
+
+invalid:
+  id: 5
+  category: test
+

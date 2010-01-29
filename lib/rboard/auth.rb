@@ -1,5 +1,5 @@
 module Rboard::Auth
-  
+
   # Store the given user in the session.
   def current_user=(new_user)
     return if new_user.nil?
@@ -12,7 +12,7 @@ module Rboard::Auth
     session[:user] = new_user.id
     @current_user = new_user
   end
-   
+
   #Per Page value for paginated sections of the forums,
   def per_page
     logged_in? ? current_user.per_page : PER_PAGE
@@ -31,7 +31,7 @@ module Rboard::Auth
   def date_time_display
     date_display + " " + time_display
   end
-  
+
   def non_admin_redirect
     if !current_user.can?(:access_admin_section)
       flash[:notice] = t(:need_to_be_admin)
@@ -82,19 +82,20 @@ module Rboard::Auth
   def current_user
     @current_user ||= (session[:user] && User.find_by_id(session[:user])) || User.find_by_login("anonymous")
   end
-  
+
   # Use as a before filter to ensure that the user is logged in.
   def login_required
     # Gather data from HTTP-based authentication.
     username, password = get_auth_data
-    
-    self.current_user ||= User.authenticate(username, password) || User.find_by_login("anonymous") if username && password
+    self.current_user ||= User.authenticate(username, password) if username && password
+
+    self.current_user ||= User.find_by_login("anonymous")
     if !logged_in?
       flash[:notice] = t(:you_must_be_logged_in)
       redirect_to login_path
     end
   end
-  
+
   def self.included(base)
     base.send :helper_method,
               :is_moderator?,
@@ -107,7 +108,7 @@ module Rboard::Auth
               :date_time_display,
               :per_page
   end
-  
+
   private
    @@http_auth_headers = %w(X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization)
    # gets BASIC auth info

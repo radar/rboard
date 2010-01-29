@@ -33,13 +33,13 @@
       .post_details
         %a{:href => forum_topic_path(post.topic.forum, post.topic) + "/#{(params[:page] || 1)}" + "#post_#{post.id}", :name => "post_#{post.id}"}
           \#
-          = per_page * ((params[:page] || 1).to_i - 1) + post_counter + 1
+          = post.number
         \-
         = post.created_at.strftime(date_time_display)
         - unless post.edits.empty?
           \-
           = link_to pluralize(post.edits.size, "edit"), post_edits_path(post)
-      .post_actions
+      .post_actions{ :id => "post_#{post.number}_actions" }
         - if !post.topic.locked? || (post.topic.locked? && current_user.can?(:edit_locked_topics, @forum))
           - if current_user.can?(:reply, @forum)
             = link_to t(:Reply), new_topic_post_path(post.topic)
@@ -65,10 +65,8 @@
         ______________
         %br
         = parse_text(post.user.signature)
-    - unless post.edits.empty?
+    - edits = current_user.can?(:see_hidden_edits, @forum) ? post.edits : post.edits.visible
+    - unless edits.empty?
       %span.edit-note
-        = t(:This_post_was_edited_by)
-        = post.editor.login
-        = time_ago_in_words(post.updated_at)
-        = t(:ago)
+        == #{t(:This_post_was_edited_by)} #{post.editor.login} #{time_ago_in_words(post.updated_at)} #{t(:ago)}
   .clear

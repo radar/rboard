@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::ApplicationController
   before_filter :find_ip
   before_filter :find_user, :only => [:show, :edit, :update, :destroy]
   before_filter :find_group
-  
+
   # Show all the users, by login in ascending order. 
   def index
     @users = if @object
@@ -12,18 +12,18 @@ class Admin::UsersController < Admin::ApplicationController
       User
     end.paginate(:order => "login ASC", :page => params[:page], :per_page => per_page)
   end
-  
+
   # See details for a particular user.
   def show
   end
-  
+
   # Edit the details for a specific user. 
   def edit
     @ranks = Rank.find_all_by_custom(true)
     @ranks = Rank.custom
     @userlevels = UserLevel.all
   end
-  
+
   # Updates the details for a specific user.  
   def update
     if @user.update_attributes(params[:user])
@@ -34,18 +34,18 @@ class Admin::UsersController < Admin::ApplicationController
       render :action => "edit"
     end
   end
-  
+
   def destroy
     @user.destroy
     flash[:notice] = t(:deleted, :thing => "user")
     redirect_to admin_users_path
   end
-  
+
   def search
     render :text => User.search(params[:q]).map(&:login).join("\n")
   end
-  
-  
+
+
   # Used for banning ips
   # Firstly gathers the time to ban to and parses it using Chronic
   # Escapes all . in the ip and replaces all * with [0-9]{1,3}
@@ -66,13 +66,13 @@ class Admin::UsersController < Admin::ApplicationController
       else
         flash[:notice] = t(:ip_not_banned)
       end
-    
+
     else
       @banned_ip = BannedIp.new(:ip => params[:id])
     end
     @banned = BannedIp.find(:all, :conditions => ["ban_time > ?",Time.now])
   end
-  
+
   # Used for banning users.
   # Will tell the user they are banning themselves before it happens.
   # 
@@ -89,7 +89,7 @@ class Admin::UsersController < Admin::ApplicationController
       redirect_back_or_default(admin_users_path)
     end
   end
-  
+
   # Maybe should be moved to a banned ip controller...
   # Removes a banned IP immediately.
   def remove_banned_ip
@@ -97,21 +97,21 @@ class Admin::UsersController < Admin::ApplicationController
     flash[:notice] = t(:ip_range_unbanned)
     redirect_back_or_default ban_ip_admin_users_path
   end
-  
-  
+
+
   private
 
   def find_user
     @user = User.find_by_permalink(params[:id])
   end
-  
+
   def find_ip
     @object = Ip.find(params[:ip_id]) unless params[:ip_id].nil?
   end
-  
+
   def find_group
     @object = Group.find(params[:group_id]) unless params[:group_id].nil?
   end
-    
-  
+
+
 end

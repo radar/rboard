@@ -68,7 +68,7 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency 'thoughtbot-shoulda'
   s.add_development_dependency 'mocha'
 end
- 
+
 desc "Generate a gemspec file for GitHub"
 task :gemspec do
   File.open("#{spec.name}.gemspec", 'w') do |f|

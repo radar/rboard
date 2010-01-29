@@ -19,7 +19,7 @@ module Paperclip
     module Filesystem
       def self.extended base
       end
-      
+
       def exists?(style = default_style)
         if original_filename
           File.exist?(path(style))
@@ -176,7 +176,7 @@ module Paperclip
         creds = find_credentials(creds).stringify_keys
         (creds[ENV['RAILS_ENV']] || creds).symbolize_keys
       end
-      
+
       def exists?(style = default_style)
         s3_bucket.key(path(style)) ? true : false
       end
@@ -221,7 +221,7 @@ module Paperclip
         end
         @queued_for_delete = []
       end
-      
+
       def find_credentials creds
         case creds
         when File

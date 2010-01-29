@@ -6,11 +6,11 @@ module ThinkingSphinx
         stack = [@reflection.options[:through]].compact
         
         attribute   = nil
+        @reflection.klass.define_indexes
         (@reflection.klass.sphinx_indexes || []).each do |index|
           attribute = index.attributes.detect { |attrib|
             attrib.columns.length == 1 &&
-            attrib.columns.first.__name  == foreign_key.to_sym &&
-            attrib.columns.first.__stack == stack
+            attrib.columns.first.__name  == foreign_key.to_sym
           }
           break if attribute
         end

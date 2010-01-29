@@ -118,7 +118,7 @@ Specific Times (many of the above with an added time)
   etc
 
 == LIMITATIONS:
-  
+
 Chronic uses Ruby's built in Time class for all time storage and computation. Because of this, only times that the Time class can handle will be properly parsed. Parsing for times outside of this range will simply return nil. Support for a wider range of times is planned for a future release.
 
 Time zones other than the local one are not currently supported. Support for other time zones is planned for a future release.

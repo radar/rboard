@@ -4,7 +4,7 @@ module ThinkingSphinx
       def self.enqueue(object, priority = 0)
         super unless duplicates_exist(object)
       end
-      
+
       def self.cancel_thinking_sphinx_jobs
         if connection.tables.include?("delayed_jobs")
           delete_all("handler LIKE '--- !ruby/object:ThinkingSphinx::Deltas::%'")

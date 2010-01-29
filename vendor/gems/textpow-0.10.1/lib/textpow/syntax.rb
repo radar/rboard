@@ -7,7 +7,7 @@ module Textpow
          @syntax = syntax
          @proxy = hash["include"]
       end
-      
+
       def method_missing method, *args, &block
          if @proxy 
             @proxy_value = proxy unless @proxy_value
@@ -18,7 +18,7 @@ module Textpow
             end
          end
       end
-      
+
       def proxy
          case @proxy 
          when /^#/
@@ -39,9 +39,9 @@ module Textpow
 
    class SyntaxNode
       OPTIONS = {:options => Oniguruma::OPTION_CAPTURE_GROUP}
-      
+
       @@syntaxes = {}
-      
+
       attr_accessor :syntax
       attr_accessor :firstLineMatch
       attr_accessor :foldingStartMarker
@@ -60,7 +60,7 @@ module Textpow
       attr_accessor :endCaptures
       attr_accessor :repository
       attr_accessor :patterns
-      
+
       def self.load filename, name_space = :default
          table = nil
          case filename
@@ -77,7 +77,7 @@ module Textpow
             nil
          end
       end
-      
+
       def initialize hash, syntax = nil, name_space = :default
          @name_space = name_space
          @@syntaxes[@name_space] ||= {}
@@ -104,12 +104,12 @@ module Textpow
             end
          end
       end
-      
-      
+
+
       def syntaxes
          @@syntaxes[@name_space]
       end
-      
+
       def parse( string, processor = nil )
          processor.start_parsing self.scopeName if processor
          stack = [[self, nil]]
@@ -119,9 +119,9 @@ module Textpow
          processor.end_parsing self.scopeName if processor
          processor
       end
-      
+
       protected
-    
+
       def parse_repository repository
          @repository = {}
          repository.each do |key, value|
@@ -132,7 +132,7 @@ module Textpow
             end
          end
       end
-      
+
       def create_children patterns
          @patterns = []
          patterns.each do |p|
@@ -153,14 +153,14 @@ module Textpow
             starts << [range.first, group, name]
             ends   << [range.last, -group, name]
          end
-         
+
 #          STDERR.puts '-' * 100
 #          starts.sort!.reverse!.each{|c| STDERR.puts c.join(', ')}
 #          STDERR.puts 
 #          ends.sort!.reverse!.each{|c| STDERR.puts c.join(', ')}
          starts.sort!.reverse!
          ends.sort!.reverse!
-         
+
          while ! starts.empty? || ! ends.empty?
             if starts.empty?
                pos, key, name = ends.pop
@@ -177,7 +177,7 @@ module Textpow
             end
          end
       end
-      
+
       def match_captures name, match
          matches = []
          captures = instance_variable_get "@#{name}"
@@ -192,7 +192,7 @@ module Textpow
          end
          matches
       end
-      
+
       def match_first string, position
          if self.match
             if match = self.match.match( string, position )
@@ -208,14 +208,14 @@ module Textpow
          end
          nil
       end
-      
+
       def match_end string, match, position
          regstring = self.end.clone
          regstring.gsub!( /\\([1-9])/ ) { |s| match[$1.to_i] }
          regstring.gsub!( /\\k<(.*?)>/ ) { |s| match[$1.to_sym] }
          Oniguruma::ORegexp.new( regstring ).match( string, position )
       end
-      
+
       def match_first_son string, position
          match = nil
          if self.patterns
@@ -231,7 +231,7 @@ module Textpow
          end
          match
       end
-      
+
       def parse_line stack, line, processor
          processor.new_line line if processor
          top, match = stack.last
@@ -245,12 +245,12 @@ module Textpow
             else
                pattern, pattern_match = nil
             end
-            
+
             end_match = nil
             if top.end
                end_match = top.match_end( line, match, position )
             end
-            
+
             if end_match && ( ! pattern_match || pattern_match.offset.first >= end_match.offset.first )
                pattern_match = end_match
                start_pos = pattern_match.offset.first

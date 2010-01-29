@@ -1,10 +1,8 @@
 module Rboard::UserExtension
-  
+
   def self.included(klass)
     klass.class_eval do
       named_scope :recent, lambda { { :conditions => ["login_time > ?", 15.minutes.ago] } }
-      
-      
       validates_presence_of     :login, :email
       validates_presence_of     :password,                   :if => :password_required?
       validates_presence_of     :password_confirmation,      :if => :password_required?
@@ -17,7 +15,7 @@ module Rboard::UserExtension
 
 
       has_many :group_users
-      
+
       has_many :banned_ips, :foreign_key => "banned_by"
       has_many :edits
       has_many :groups, :through => :group_users
@@ -38,6 +36,7 @@ module Rboard::UserExtension
       has_attached_file :avatar, :styles => { :thumbnail => "100>" }
 
       belongs_to :banned_by, :class_name => "User", :foreign_key => "banned_by"
+      belongs_to :rank
       belongs_to :style
       belongs_to :theme
       belongs_to :user_level
@@ -46,41 +45,46 @@ module Rboard::UserExtension
       before_create :set_theme
       before_create :set_permissions
       before_save :set_permalink
+      before_save :logins_should_not_contain_commas
       
+      before_destroy :anonymous_cannot_be_deleted
+
       attr_protected :identifier
-      
+
       attr_accessor :password
-      
+
       if SEARCHING
         define_index do
           indexes login, email, display_name
         end if User.table_exists?
       end
-      
+
       def set_permalink
         self.permalink = to_s.parameterize
       end
 
       def set_theme
-        self.theme = Theme.find(:first)
+        self.theme = Theme.default
       end
 
       def to_s
         output = display_name unless display_name.blank?
         output ||= login
       end
-      
+
       def to_param
         to_s.parameterize
       end
 
+      alias_method :old_rank, :rank
+
       #misc. user information
       def rank
-        rank = Rank.find_by_id(rank_id) unless rank_id.nil?
-    	  rank ||= Rank.for_user(self)
+        rank = old_rank || Rank.for_user(self)
         rank ? rank.name : nil
       end
-      
+
+
       def user?
         user_level.to_s == "User"
       end
@@ -92,13 +96,21 @@ module Rboard::UserExtension
       def has_avatar?
         !avatar_file_name.blank?
       end
-      
+
       def online?
         !!(login_time && login_time > Time.now - 15.minutes)
       end
-      
+
       private
       
+      def anonymous_cannot_be_deleted
+        if identifier == "anonymous"
+          errors.add_to_base(t(:anonymous_stays))
+          return false
+        end
+        return true
+      end
+
       def set_permissions
         # HACK
         # puts Group.all.inspect
@@ -106,7 +118,7 @@ module Rboard::UserExtension
           groups << Group.find_by_identifier("registered_users")
         end
       end
-      
+
       def set_permalink
         self.permalink = to_s.parameterize
       end
@@ -114,7 +126,11 @@ module Rboard::UserExtension
       def set_theme
         self.theme = Theme.find(:first)
       end
+      
+      def logins_should_not_contain_commas
+        errors.add(:login, t(:cannot_contain_commas)) and return false if /,/.match(login)
+      end
     end
   end
-  
+
 end

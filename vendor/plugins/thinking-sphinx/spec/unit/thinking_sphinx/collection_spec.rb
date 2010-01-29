@@ -8,7 +8,7 @@ describe ThinkingSphinx::Collection do
     ThinkingSphinx::Collection.instance_methods.should include("total_pages")
     ThinkingSphinx::Collection.instance_methods.should include("total_entries")
     ThinkingSphinx::Collection.instance_methods.should include("offset")
-    
+
     ThinkingSphinx::Collection.ancestors.should include(Array)
   end
 end

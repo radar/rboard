@@ -10,7 +10,7 @@ When "I wait for Sphinx to catch up" do
   sleep(0.25)
 end
 
-When "I start Sphinx" do
+When /^I start Sphinx/ do
   ThinkingSphinx::Configuration.instance.controller.start
 end
 
@@ -18,7 +18,15 @@ When "I stop Sphinx" do
   ThinkingSphinx::Configuration.instance.controller.stop
 end
 
-Then "Sphinx should be running" do
+When /^I (enable|disable) delta updates$/ do |mode|
+  ThinkingSphinx.deltas_enabled = (mode == 'enable')
+end
+
+When /^I process the (\w+) index$/ do |index|
+  ThinkingSphinx::Configuration.instance.controller.index index
+end
+
+Then /^Sphinx should be running/ do
   ThinkingSphinx.sphinx_running?.should be_true
 end
 

@@ -10,7 +10,7 @@ class Chronic::Repeater < Chronic::Tag #:nodoc:
     end
     tokens
   end
-  
+
   def self.scan_for_month_names(token)
     scanner = {/^jan\.?(uary)?$/ => :january,
                /^feb\.?(ruary)?$/ => :february,
@@ -29,7 +29,7 @@ class Chronic::Repeater < Chronic::Tag #:nodoc:
     end
     return nil
   end
-  
+
   def self.scan_for_day_names(token)
     scanner = {/^m[ou]n(day)?$/ => :monday,
                /^t(ue|eu|oo|u|)s(day)?$/ => :tuesday,
@@ -46,7 +46,7 @@ class Chronic::Repeater < Chronic::Tag #:nodoc:
     end
     return nil
   end
-  
+
   def self.scan_for_day_portions(token)
     scanner = {/^ams?$/ => :am,
                /^pms?$/ => :pm,
@@ -59,14 +59,14 @@ class Chronic::Repeater < Chronic::Tag #:nodoc:
     end
     return nil
   end
-  
+
   def self.scan_for_times(token, options)
     if token.word =~ /^\d{1,2}(:?\d{2})?([\.:]?\d{2})?$/
       return Chronic::RepeaterTime.new(token.word, options)
     end
     return nil
   end
-  
+
   def self.scan_for_units(token)
     scanner = {/^years?$/ => :year,
                /^seasons?$/ => :season,
@@ -87,28 +87,28 @@ class Chronic::Repeater < Chronic::Tag #:nodoc:
     end
     return nil
   end
-  
+
   def <=>(other)
     width <=> other.width
   end
-  
+
   # returns the width (in seconds or months) of this repeatable.
   def width
     raise("Repeatable#width must be overridden in subclasses")
   end
-  
+
   # returns the next occurance of this repeatable.
   def next(pointer)
     !@now.nil? || raise("Start point must be set before calling #next")
     [:future, :none, :past].include?(pointer) || raise("First argument 'pointer' must be one of :past or :future")
     #raise("Repeatable#next must be overridden in subclasses")
   end
-  
+
   def this(pointer)
     !@now.nil? || raise("Start point must be set before calling #this")
     [:future, :past, :none].include?(pointer) || raise("First argument 'pointer' must be one of :past, :future, :none")
   end
-  
+
   def to_s
     'repeater'
   end

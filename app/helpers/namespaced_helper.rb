@@ -12,7 +12,7 @@ module NamespacedHelper
       'selected'
     end
   end
-  
+
   def report_text(reportable)
     if reportable.is_a?(Topic)
       "#{link_to(reportable.subject, forum_topic_path(reportable.forum, reportable))} by #{reportable.user}"

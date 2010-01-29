@@ -36,7 +36,7 @@ class Object
   def or_ask( *args, &details )
     ask(*args) do |question|
       question.first_answer = String(self) unless nil?
-      
+
       details.call(question) unless details.nil?
     end
   end

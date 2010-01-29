@@ -13,7 +13,7 @@ In order to start using rBoard you should only have to clone the repository
     git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
     rake install
-    
+
 ## Requirements
 
 This app requires Sphinx which can be obtained from the Sphinx [website](http://sphinxsearch.com). Sphinx works with both MySQL and PostgreSQL. 
@@ -25,11 +25,11 @@ Alternatively, you could just set `THINKING_SPHINX = false` in _config/environme
   1. download Sphinx
   2. extract it
   3. run `./configure && make && sudo make install` 
-  
+
 ## Features
 
 rboard has the following awesome things:
-  
+
   * Runs on Rails 2.3 only (sorry!)
     * Can run on 2.x but requires a few lines to be removed.
   * Easy Internationalisation Support
@@ -73,7 +73,7 @@ rboard has the following awesome things:
   * Tracks read topics on a per-user basis
   * Searching (courtesy of ThinkingSphinx)
 
-  
+
 Puppies, Kittens, Rainbows and Unicorns sold separately. 
 
 ## OAQ (Occasionally Asked Questions)
