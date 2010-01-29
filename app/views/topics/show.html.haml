@@ -4,22 +4,24 @@
 %span.breadcrumbs
   = link_to(t(:rBoard), forums_path)
   \&raquo; #{breadcrumb(@topic.forum)} &raquo; #{link_to(@topic.subject, forum_topic_path(@forum, @topic))}
-%h2= link_to(@topic.subject, forum_topic_path(@forum, @topic))
-= pagination = will_paginate(@posts)
-= menu_for_topic
-- if current_user.can?(:view_reports, @forum)
-  .warning
-    = t(:Topic_has_been_reported, :count => @topic.reports.count)
-    = link_to t(:See_reports), moderator_topic_reports_path(@topic)
-= render :partial => @posts, :locals => { :show_topic => false }
-- if current_user.can?(:reply)
-  %table#quick-reply.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
-    %thead
-      %tr
-        %td{:colspan => "2"}
-          %h3= t(:Quick_Reply)
-    %tbody
-      - form_for [@topic, @post] do |f|
-        = render :partial => "posts/form", :locals => { :f => f, :rows => 10, :cols => 70 }
-= menu_for_topic
-= pagination
+.topic
+  %h2= link_to(@topic.subject, forum_topic_path(@forum, @topic))
+  = pagination = will_paginate(@posts)
+  = menu_for_topic
+  - if current_user.can?(:view_reports, @forum)
+    .warning
+      = t(:Topic_has_been_reported, :count => @topic.reports.count)
+      = link_to t(:See_reports), moderator_topic_reports_path(@topic)
+  .posts
+    = render :partial => @posts, :locals => { :show_topic => false }
+  - if current_user.can?(:reply)
+    %table#quick-reply{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+      %thead
+        %tr
+          %td{:colspan => "2"}
+            %h3= t(:Quick_Reply)
+      %tbody
+        - form_for [@topic, @post] do |f|
+          = render :partial => "posts/form", :locals => { :f => f, :rows => 10, :cols => 70, :submit => "Reply" }
+  = menu_for_topic
+  = pagination

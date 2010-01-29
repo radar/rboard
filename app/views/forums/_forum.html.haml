@@ -1,6 +1,6 @@
 %tr
-  %td{:align => "left"}
-    %h1= link_to(h(forum.title), forum_path(forum))
+  %td{:align => "left", :class => "title"}
+    %h2= link_to(h(forum.title), forum_path(forum))
     = h(forum.description)
     - if !forum.children.empty?
       %br
@@ -8,9 +8,9 @@
       \:
       - forum.children(Configuration['subforums_display'].to_i).each do |forum|
         = link_to(h(forum.title), forum_path(forum))
-  %td{:align => "center"}= forum.topics.count
-  %td{:align => "center"}= forum.posts.count
-  %td{:align => "right"}
+  %td{:align => "center", :class => "topics_count"}= forum.topics.count
+  %td{:align => "center", :class => "posts_count" }= forum.posts.count
+  %td{:align => "right",  :class => "last_post"   }
     - if !forum.last_post.nil?
       = time_ago_in_words(forum.last_post.created_at)
       = t(:ago)

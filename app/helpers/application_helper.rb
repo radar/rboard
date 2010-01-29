@@ -2,7 +2,7 @@
 module ApplicationHelper
   def parse_text (text)
     # Code snippets
-    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { CodeRay.scan($2.strip, ($1.blank? ? :plain : $1.to_sym)).div(:line_numbers => :table)}
+    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<pre>#{$2}</pre>"}
     text = sanitize(text, :tags => %w(span div table tr td br pre tt), :attributes => %w(id class style))
     # Gist embedding
     text.gsub!(/\[gist\](.*?)\[\/gist\]/) { $1.split(" ").map { |gist| "<script src='http://gist.github.com/#{gist}.js'></script>" } }
@@ -63,7 +63,7 @@ module ApplicationHelper
     buttons = []
     links = []
     if logged_in? 
-      if current_user.can?(:start_new_topics, @forum) 
+      if current_user.can?(:start_new_topics, @forum)
         buttons << link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum), :class => "new_topic_button")
       end 
 
@@ -91,7 +91,7 @@ module ApplicationHelper
            link_to(t(:Subscribe), topic_subscriptions_path(@topic), :method => :post)
      	  end 
       end 
-    '<div><div class="topic_buttons">' + buttons.to_s + ' </div><div class="topic_actions">' + links.join(" | ") + '</div><div class="clear"></div></div>'
+    '<div class="buttons">' + buttons.join(" / ") + ' </div><div class="actions">' + links.join(" / ") + '</div>'
     else 
       if @topic.locked? 
         t(:Locked!) 
