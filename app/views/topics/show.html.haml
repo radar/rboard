@@ -1,4 +1,3 @@
-= render :partial => "sidebar"
 - @title = t(:Viewing_topic, :forum => @forum, :topic => @topic)
 - content_for :feed do
   %link{:href => forum_topic_url(@topic.forum, @topic, :format => :rss), :rel => "alternate", :title => "#{@topic.subject} Feed", :type => "application/rss+xml"}
