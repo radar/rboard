@@ -500,7 +500,9 @@
    :you_have_been_logged_out => "You have been logged out.",
    :you_must_be_logged_in => "You must be logged in to do that.",
    :you_should_create_category_or_forum => "Maybe you should create a category or forum.",
-   :you_should_create_forum => "Maybe you should create a forum."
-
+   :you_should_create_forum => "Maybe you should create a forum.",
+   :Delete_user => "Delete User",
+   :Edit_user => "Edit User",
+   :Ban_user => "Ban User"
   }
 }
