@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091221070406) do
+ActiveRecord::Schema.define(:version => 20100130103341) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -179,6 +179,14 @@ ActiveRecord::Schema.define(:version => 20091221070406) do
   add_index "permissions", ["category_id"], :name => "index_permissions_on_category_id"
   add_index "permissions", ["forum_id"], :name => "index_permissions_on_forum_id"
   add_index "permissions", ["group_id"], :name => "index_permissions_on_group_id"
+
+  create_table "post_attachments", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.integer  "post_id"
+  end
 
   create_table "posts", :force => true do |t|
     t.text     "text"

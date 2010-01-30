@@ -59,6 +59,11 @@
       .clear
     .post_content
       = parse_text(post.text)
+    - if post.attachments.exists?
+      %h5 Attachments
+      %ol
+        - for attachment in post.attachments
+          %li= link_to attachment.file_file_name, attachment.file.url
     - if post.user.can?(:use_signature, @forum) && !post.user.signature.blank?
       .user_signature
         %br

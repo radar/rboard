@@ -28,15 +28,24 @@ class TopicsController < ApplicationController
   def new
     @topic = @forum.topics.new
     @post = @topic.posts.build
+    @attachment = @post.attachments.build
   end
 
   def create
     @topic = current_user.topics.build(params[:topic].merge(:forum => @forum, :ip => @ip))
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
+    
+    # TODO: Work out how to get attachments to be able to be passed in as an ANAF field correctly.
+    @attachments = params[:post_attachment].values.map { |attachment| @post.attachments.build(attachment) }
+    
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
     @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
-    if @topic.save && @post.save
-      flash[:notice] = t(:created, :thing => "Topic")
+    if @topic.save
+      flash[:notice] = if @post.attachments.count > 0
+        t(:created_with_attachments, :thing => "Topic", :count => @post.attachments.count)
+      else
+        t(:created, :thing => "Topic")
+      end
       redirect_to forum_topic_path(@topic.forum, @topic)
     else
       flash[:notice] = t(:not_created, :thing => "Topic")

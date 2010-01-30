@@ -10,3 +10,8 @@
     %tr
       %td= f.label 'sticky', t(:Sticky)
       %td= f.check_box "sticky"
+  - for post_attachment in @post.attachments
+    - fields_for post_attachment, :index => @post.attachments.index(post_attachment) do |attachment|
+      %tr
+        %td{ :valign => "top"}= attachment.label 'file', t(:File)
+        %td=attachment.file_field 'file'

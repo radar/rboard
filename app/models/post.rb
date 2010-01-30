@@ -12,11 +12,14 @@ class Post < ActiveRecord::Base
 
   has_many :edits, :order => "created_at DESC", :dependent => :destroy
   has_many :moderations, :as => :moderated_object, :dependent => :destroy
+  has_many :attachments, :class_name => "PostAttachment"
   has_many :reports, :as => :reportable, :dependent => :destroy
   has_many :reporters, :through => :reports, :source => :user
 
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
+  
+  accepts_nested_attributes_for :attachments
 
   if SEARCHING
     define_index do
