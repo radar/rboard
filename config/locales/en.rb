@@ -117,12 +117,13 @@
    :At_first_post => "At first post",
    :At_last_post => "At last post",
    :Author => "Author",
+   :Ban_user => "Ban User",
    :Banned => "Banned",
    :banned_by => "banned by {{user}}",
    :Banned_by => "Banned by",
    :Banned_IPs => "Banned IPs",
    :Banned_until => "Banned until",
-   :banned_you => "banned you",
+   :banned_you => "banned you",   
    :banning => "banning",
    :banning => "banning",
    :Bans => "Bans",
@@ -214,6 +215,7 @@
    :Date_and_Time_Display => "Date and Time Display",
    :Date_joined => "Date joined",
    :Delete => "Delete",
+   :Delete_user => "Delete User",
    :deleted => "The {{thing}} has been deleted.",
    :Delete_this_topic => "Delete this topic",
    :Description => "Description",
@@ -235,6 +237,7 @@
    :edit_reason => "Edit reason",
    :Edit_silently? => "Edit silently?",
    :Edit_topic => "Edit topic",
+   :Edit_user => "Edit User",
    :Email => "Email",
    :email => "email",
    :example_forum_description => "This is an example forum for Rboard.",
@@ -500,9 +503,6 @@
    :you_have_been_logged_out => "You have been logged out.",
    :you_must_be_logged_in => "You must be logged in to do that.",
    :you_should_create_category_or_forum => "Maybe you should create a category or forum.",
-   :you_should_create_forum => "Maybe you should create a forum.",
-   :Delete_user => "Delete User",
-   :Edit_user => "Edit User",
-   :Ban_user => "Ban User"
+   :you_should_create_forum => "Maybe you should create a forum."
   }
 }
