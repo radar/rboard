@@ -18,3 +18,6 @@ config.action_controller.perform_caching             = true
 # config.action_mailer.raise_delivery_errors = false
 
 TIME_BETWEEN_POSTS = 1.minute
+
+## Set this to false if you don't want to use thinking sphinx.
+SEARCHING = true
