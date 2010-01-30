@@ -314,22 +314,22 @@ dt {
       .ac_results ul li:hover {
         background: #DBF8FF; }
 
-ul #admin-navlist, ul #moderator-navlist {
+ul.navlist {
   margin: 2px 2px 2px 0;
   padding: 0;
   white-space: nowrap; }
-  ul #admin-navlist li, ul #moderator-navlist li {
+  ul.navlist li {
     display: inline;
     list-style-type: none; }
-  ul #admin-navlist a, ul #moderator-navlist a {
+  ul.navlist a {
     padding: 3px 10px; }
-    ul #admin-navlist a:link, ul #admin-navlist a:visited, ul #moderator-navlist a:link, ul #moderator-navlist a:visited {
+    ul.navlist a:link, ul.navlist a:visited {
       color: #336699;
       background-color: #b8dcfc;
       text-decoration: none;
       border: 1px solid #336699;
       border-bottom: 0; }
-    ul #admin-navlist a.selected, ul #moderator-navlist a.selected {
+    ul.navlist a.selected {
       border: 2px solid #336699;
       border-bottom: 0;
       font-weight: bold; }

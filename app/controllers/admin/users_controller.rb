@@ -78,7 +78,7 @@ class Admin::UsersController < Admin::ApplicationController
   # 
   # TODO: Rescue Chronic exceptions when given incorrect dates.
   def ban
-    @user = User.find(params[:id])
+    @user = User.find_by_login(params[:id])
     flash[:notice] = t(:you_are_banning_yourself) if @user == current_user
     if request.put?
       params[:user][:banned_by] = current_user
