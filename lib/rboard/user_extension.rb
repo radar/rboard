@@ -84,11 +84,6 @@ module Rboard::UserExtension
         rank ? rank.name : nil
       end
 
-
-      def user?
-        user_level.to_s == "User"
-      end
-
       def banned?
         ban_time.nil? ? false : ban_time > Time.now
       end
