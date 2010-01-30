@@ -9,6 +9,7 @@ Feature: Groups Administration
     And I follow "Administration Section"
     And I follow "Groups"
     
+  @wip
   Scenario: Creating a new group
     When I follow "New"
     And I fill in "Name" with "Viewers"
@@ -16,7 +17,6 @@ Feature: Groups Administration
     And I check "Can see forum?"
     And I press "Create"
     And I follow "members_for_viewers"
-    Then show me the page
     
     
     

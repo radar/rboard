@@ -19,17 +19,12 @@ Feature: Posts
     And I follow "Default topic"
     And I follow "Quote"
     And I press "Create"
-    Then show me the page
     Then I should see a quote by "administrator" that says "This is some default text"
 
+  @wip
   Scenario: Editing a post
     Given I am logged in as "administrator" with the password "godly"
     When I follow "Public Forum"
     And I follow "Default topic"
-    Then show me the page
     When I follow "Edit" within "post_1_actions"
-    Then show me the page
-  
-  
-  
-  
+    And I fill in "Text" with "This is some other text"
