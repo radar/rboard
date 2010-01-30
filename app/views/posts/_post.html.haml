@@ -1,9 +1,3 @@
-- if show_topic
-  %h2
-    = t(:In)
-    = breadcrumb(post.forum)
-    \&raquo;
-    = link_to post.topic, [post.topic.forum, post.topic]
 .post{:id => "post_#{post.id}", :class => cycle("odd", "even")}
   .actions
     - if !post.topic.locked? || (post.topic.locked? && current_user.can?(:edit_locked_topics, @forum))
@@ -51,13 +45,13 @@
             = link_to pluralize(post.edits.size, "edit"), post_edits_path(post)
         .content
           = parse_text(post.text)
-        - if post.user.can?(:use_signature, @forum) && !post.user.signature.blank?
-          .user_signature
-            %br
-            ______________
-            %br
-            = parse_text(post.user.signature)
-        - edits = current_user.can?(:see_hidden_edits, @forum) ? post.edits : post.edits.visible
-        - unless edits.empty?
-          %span.edit-note
-            == #{t(:This_post_was_edited_by)} #{post.editor.login} #{time_ago_in_words(post.updated_at)} #{t(:ago)}
+          - if post.user.can?(:use_signature, @forum) && !post.user.signature.blank?
+            .signature
+              %br
+              ______________
+              %br
+              = parse_text(post.user.signature)
+          - edits = current_user.can?(:see_hidden_edits, @forum) ? post.edits : post.edits.visible
+          - unless edits.empty?
+            .edit-note
+              == #{t(:This_post_was_edited_by)} #{post.editor.login} #{time_ago_in_words(post.updated_at)} #{t(:ago)}

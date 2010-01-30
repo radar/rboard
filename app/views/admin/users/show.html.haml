@@ -19,7 +19,7 @@
       = @user.created_at.strftime(date_display)
       %br
       %b= t(:Posts)
-      = @user.posts.size
+      = @user.posts.count
       , #{t(:about)} #{@posts_percentage}% #{t(:of_all_posts)}
       %br
       %b= t(:IP)

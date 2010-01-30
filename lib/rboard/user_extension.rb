@@ -58,13 +58,11 @@ module Rboard::UserExtension
           indexes login, email, display_name
         end if User.table_exists?
       end
-
-      def set_permalink
-        self.permalink = to_s.parameterize
-      end
-
-      def set_theme
-        self.theme = Theme.default
+      
+      class << self
+        def anonymous
+          find_by_identifier("anonymous")
+        end
       end
 
       def to_s
@@ -99,17 +97,24 @@ module Rboard::UserExtension
       private
       
       def anonymous_cannot_be_deleted
-        if identifier == "anonymous"
+        if self == User.anonymous
           errors.add_to_base(t(:anonymous_stays))
           return false
         end
         return true
       end
+      
+      def set_permalink
+        self.permalink = to_s.parameterize
+      end
+
+      def set_theme
+        self.theme = Theme.default
+      end
 
       def set_permissions
         # HACK
-        # puts Group.all.inspect
-        if !User.count.zero? && login != "anonymous"
+        if !User.count.zero? && self != User.anonymous
           groups << Group.find_by_identifier("registered_users")
         end
       end

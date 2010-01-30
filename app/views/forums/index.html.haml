@@ -56,35 +56,7 @@
         = render :partial => @forums
 %br
 - if logged_in?
-  %table.info-box{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
-    %thead
-      %tr
-        %td= t(:forum_statistics)
-    %tbody
-      %tr
-        %td
-          %span.right
-            %b
-              = t(:Posts)
-              \:
-            = @posts
-            %br
-            %b
-              = t(:Topics)
-              \:
-            = @topics
-            %br
-            %b
-              = t(:posts_per_topic)
-              \:
-            = @ppt
-            %br
-          %b
-            = t(:registered_users)
-            \:
-          = @users
-          %br
-          %b
-            = t(:recent_users)
-            \:
-          = @lusers.blank? ? t(:none) : @lusers
+  .center
+    %em
+      %b== #{t(:posts_count, :count => @posts)}, #{t(:topics_count, :count => @topics)} & #{t(:users_count, :count => @topics)}
+    

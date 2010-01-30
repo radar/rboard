@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
 
   def new
     @message = current_user.outbox_messages.new
-    @users = User.all(:order => "login ASC") - [current_user]
+    @users = User.all(:order => "login ASC") - [current_user, User.anonymous]
     if @users.empty?
       flash[:notice] = t(:nobody_else)
       redirect_back_or_default(messages_path)

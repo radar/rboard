@@ -38,7 +38,7 @@
             %td{:align => "right", :width => "20%"}= t(:Last_Post)
         %tbody{ :class => "topics"}
           - for topic in @topics
-            %tr{:id => "topic_#{topic.id}", :class => cycle("odd", "even") + " row"}
+            %tr{:id => "topic_#{topic.id}", :class => stripe + " row"}
               - if current_user.can_moderate_topics?
                 %td{:align => "center"}
                   - if !topic.moved?

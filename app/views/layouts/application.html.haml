@@ -40,7 +40,7 @@
       - form_tag :controller => "search" do
         = t(:Search)
         \:
-        = text_field_tag :search
+        = text_field_tag :search, params[:search]
       .clear
     .content
       - unless flash[:notice].blank?

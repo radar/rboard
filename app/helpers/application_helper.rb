@@ -29,15 +29,14 @@ module ApplicationHelper
   def bbcode_ext(text)
     text
   end
-
+  
   def bbquote(text)
     text.gsub!(/\[quote=["']?(.*?)["']?\](.*)\[\/quote\]/mis) do
       "<div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br /><span>#{bbquote($2)}</span></div>"
     end
     text
   end
-
-
+  
   def theme_image_tag(f, html_options={})
     if !theme.nil?
       o = "<img src='#{ActionController::Base.relative_url_root}/themes/" + theme.name + "/#{f}'"
@@ -48,7 +47,11 @@ module ApplicationHelper
     end
   end
 
-   def breadcrumb(forum, breadcrumb='')
+  def stripe
+    cycle("odd", "even")
+  end
+  
+  def breadcrumb(forum, breadcrumb='')
     breadcrumb = ''
     if forum.parent.nil?
       breadcrumb += link_to(forum.category.name, category_forums_path(forum.category)) + ' &raquo;' if forum.category
