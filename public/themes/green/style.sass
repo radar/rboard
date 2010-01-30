@@ -90,13 +90,16 @@ form
 / These would be ids, but there can be multiple blocks of forums on the home page
 / Therefore, we're forced to the convention of using classes. Do we really care?
 
-.users, .forums, .messages, .subscriptions
+.users, .forums, .messages, .subscriptions, .categories
   thead
     tr
       td
         background: transparent url(thead-bg.jpg) repeat-x
         color: black
         border-right: 1px solid #325600
+        
+        a
+          color: #315300
         
   tr
     td
@@ -176,7 +179,7 @@ form
     margin: 0px
     padding: 0px
 
-ul#moderator-navlist
+ul#navlist
   li
     display: inline
     background: #121212

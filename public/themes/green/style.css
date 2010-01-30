@@ -78,11 +78,13 @@ form p {
 
 
 
-.users thead tr td, .forums thead tr td, .messages thead tr td, .subscriptions thead tr td {
+.users thead tr td, .forums thead tr td, .messages thead tr td, .subscriptions thead tr td, .categories thead tr td {
   background: transparent url(thead-bg.jpg) repeat-x;
   color: black;
   border-right: 1px solid #325600; }
-.users tr td, .forums tr td, .messages tr td, .subscriptions tr td {
+  .users thead tr td a, .forums thead tr td a, .messages thead tr td a, .subscriptions thead tr td a, .categories thead tr td a {
+    color: #315300; }
+.users tr td, .forums tr td, .messages tr td, .subscriptions tr td, .categories tr td {
   padding: 5px; }
 
 .forums .title, .forums .topics_count, .forums .posts_count, .forums .last_post {
@@ -139,7 +141,7 @@ form p {
     margin: 0px;
     padding: 0px; }
 
-ul#moderator-navlist li {
+ul#navlist li {
   display: inline;
   background: #121212;
   padding: 9px;
