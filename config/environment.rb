@@ -32,16 +32,13 @@ THEMES_DIRECTORY = Proc.new { File.join(Rails.public_path, "themes") }
 # This determines if rake db:create:all is ran when running the install script.
 STANDALONE = true
 
-## Set this to false if you don't want to use thinking sphinx.
-SEARCHING = true
-
-
 CONFIG = Rails::Initializer.run do |config|
 
   config.gem 'chronic'
   config.gem 'RedCloth'
   config.gem 'highline'
   config.gem 'coderay'
+  config.gem 'thinking-sphinx', :lib => "thinking_sphinx"
 
   # lol actionwebservice
   # lol activeresource
