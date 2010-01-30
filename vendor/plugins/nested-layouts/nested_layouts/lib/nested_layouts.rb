@@ -5,7 +5,6 @@ module ActionView #:nodoc:
       # All layout files must be in app/views/layouts.
       def inside_layout(layout, &block)
         layout = Dir.entries('app/views/layouts').detect { |a| /#{layout}/.match(a) }
-        p @template.methods.sort - Object.methods
         @template.instance_variable_set('@content_for_layout', capture(&block))
         concat(@template.render(:file => "#{RAILS_ROOT}/app/views/layouts/#{layout}", :user_full_path => true))
       end
