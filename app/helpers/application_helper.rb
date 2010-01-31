@@ -2,7 +2,7 @@
 module ApplicationHelper
   def parse_text (text)
     # Code snippets
-    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { CodeRay.scan($2.strip, ($1.blank? ? :plain : $1.to_sym)).div(:line_numbers => :table)}
+    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<pre>#{$2}</pre>"}
     text = sanitize(text, :tags => %w(span div table tr td br pre tt), :attributes => %w(id class style))
     # Gist embedding
     text.gsub!(/\[gist\](.*?)\[\/gist\]/) { $1.split(" ").map { |gist| "<script src='http://gist.github.com/#{gist}.js'></script>" } }
@@ -29,15 +29,14 @@ module ApplicationHelper
   def bbcode_ext(text)
     text
   end
-
+  
   def bbquote(text)
     text.gsub!(/\[quote=["']?(.*?)["']?\](.*)\[\/quote\]/mis) do
       "<div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br /><span>#{bbquote($2)}</span></div>"
     end
     text
   end
-
-
+  
   def theme_image_tag(f, html_options={})
     if !theme.nil?
       o = "<img src='#{ActionController::Base.relative_url_root}/themes/" + theme.name + "/#{f}'"
@@ -48,7 +47,11 @@ module ApplicationHelper
     end
   end
 
-   def breadcrumb(forum, breadcrumb='')
+  def stripe
+    cycle("odd", "even")
+  end
+  
+  def breadcrumb(forum, breadcrumb='')
     breadcrumb = ''
     if forum.parent.nil?
       breadcrumb += link_to(forum.category.name, category_forums_path(forum.category)) + ' &raquo;' if forum.category
@@ -62,14 +65,14 @@ module ApplicationHelper
   def menu_for_topic
     buttons = []
     links = []
-    if logged_in? 
-      if current_user.can?(:start_new_topics, @forum) 
-        buttons << link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum), :class => "new_topic_button")
-      end 
+    if logged_in?
+      # Permissions checking is done in the partial.
+      # This is also used in the forums/show view.
+      buttons << render(:partial => "topics/new_button")
 
       if (@topic.locked? && current_user.can?(:reply_to_locked_topics)) || (!@topic.locked? && current_user.can?(:reply_to_topics)) &&
          (!@forum.open? && current_user.can?(:post_in_closed_forums) || @forum.open?)  
-        buttons << link_to(t(:New, :thing => "Reply"), new_topic_post_path(@topic)) 
+        buttons << link_to(t(:New, :thing => "Reply"), new_topic_post_path(@topic), :class => "button")
       end 
 
       if current_user.can?(:lock_topics, @forum) || (current_user.can?(:lock_own_topics, @forum) && @topic.belongs_to?(current_user)) 
@@ -91,7 +94,7 @@ module ApplicationHelper
            link_to(t(:Subscribe), topic_subscriptions_path(@topic), :method => :post)
      	  end 
       end 
-    '<div><div class="topic_buttons">' + buttons.to_s + ' </div><div class="topic_actions">' + links.join(" | ") + '</div><div class="clear"></div></div>'
+    '<div class="buttons">' + buttons.join(" / ") + ' </div><div class="actions">' + links.join(" / ") + '</div>'
     else 
       if @topic.locked? 
         t(:Locked!) 

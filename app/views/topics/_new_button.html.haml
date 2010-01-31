@@ -1,0 +1,2 @@
+- if (@forum.open? && current_user.can?(:start_new_topics, @forum)) || (!@forum.open? && current_user.can?(:post_in_closed_forums, @forum))
+  = link_to(t(:New, :thing => "Topic"), new_forum_topic_path(@forum), :class => "button")

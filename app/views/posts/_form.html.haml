@@ -16,7 +16,9 @@
 %tfoot
   %tr
     %td{:colspan => "2"}
-      - if @post.new_record?
+      - if local_assigns[:submit]
+        = submit_tag(t(local_assigns[:submit].to_sym))
+      - elsif @post.new_record?
         = submit_tag(t(:Create))
       - else
         = submit_tag(t(:Update))

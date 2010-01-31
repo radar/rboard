@@ -39,7 +39,7 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'highline'
   config.gem 'coderay'
   config.gem 'thinking-sphinx', :lib => "thinking_sphinx"
-
+  
   # lol actionwebservice
   # lol activeresource
   config.frameworks -= [:action_web_service, :activeresource]
@@ -66,3 +66,13 @@ Find.find(RAILS_ROOT + "/public/themes") do |path|
 end
 
 Sass::Plugin.options[:template_location] = themes
+
+def puts str
+  super caller.first if caller.first.index("shoulda.rb") == -1
+  super str
+end
+
+def p obj
+  puts caller.first
+  super obj
+end

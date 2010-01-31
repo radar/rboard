@@ -1,13 +1,13 @@
 %h2 Inbox
 = link_to t(:Send_new_message), new_message_path
 | #{link_to t(:Sent_Messages), sent_messages_path}
-%table.list-table{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
+%table.messages.listing{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
   %thead
     %tr
-      %td{:align => "center", :width => "20"}= t(:Read)
-      %td{:align => "center", :width => "40"}= t(:Delete)
-      %td{:align => "center"}= t(:From)
-      %td{:align => "center"}= t(:Time_sent)
+      %td &nbsp;
+      %td &nbsp;
+      %td= t(:From)
+      %td= t(:Time_sent)
   %tbody
     - unless @messages.empty?
       = render :partial => "message", :collection => @messages

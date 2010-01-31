@@ -15,5 +15,5 @@
       %tr
         %td= link_to ip.ip, admin_ip_path(ip)
         %td= link_to t(:topics, :count => ip.topics.count), admin_ip_topics_path(ip)
-        %td= link_to t(:posts, :count => ip.posts.count), admin_ip_posts_path(ip)
+        %td= link_to t(:posts_counter, :count => ip.posts.count), admin_ip_posts_path(ip)
   %tfoot

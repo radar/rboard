@@ -44,7 +44,7 @@ describe PostsController, "as plebian" do
   end
 
   it "should not be able to update a post with invalid data" do
-    put 'update', :id => @first_post.id, :post => { :text => "" }, :topic_id => @topic.id
+    put 'update', :id => @post.id, :post => { :text => "" }, :topic_id => @topic.id
     response.should render_template("edit")
   end
 
@@ -77,11 +77,6 @@ describe PostsController, "as plebian" do
   end
 
   it "should be able to destroy a post, and the topic if they own the post" do
-    Post.expects(:find).with(@topic.posts.first.to_param).returns(post = stub)
-    Post.expects(:find).returns([post])
-    post.expects(:destroy)
-    post.expects(:topic).returns(topic = stub)
-    topic.expects(:posts).returns([])
     delete 'destroy', :id => @topic.posts.first.to_param, :topic_id => @topic.to_param
     response.should redirect_to(forum_path(@everybody))
     flash[:notice].should eql(t(:deleted, :thing => "post") + t(:topic_too))

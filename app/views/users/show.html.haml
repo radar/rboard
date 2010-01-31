@@ -6,8 +6,6 @@
   %tbody
     %tr
       %td{:valign => "top", :width => "20%"}
-        %b= @user
-        %br
         - if @user.has_avatar?
           = image_tag @user.avatar(:thumbnail)
         - elsif !@user.email.blank?

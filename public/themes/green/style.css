@@ -1,0 +1,151 @@
+body {
+  background: #232323;
+  font: 14pt "Myriad Pro";
+  color: white; }
+
+a {
+  color: #99ff00; }
+  a img {
+    border: 0px; }
+
+form label {
+  float: left;
+  width: 15em;
+  background: #121212;
+  padding: 9px;
+  height: 100%; }
+form input {
+  padding: 5px;
+  font-size: 14pt; }
+form textarea {
+  font: 14pt "Myriad Pro"; }
+form p {
+  background: #343434;
+  border: 3px solid black; }
+
+.center {
+  text-align: center; }
+
+.title-bar {
+  float: left;
+  clear: both; }
+
+.menu-bar {
+  float: left;
+  margin-left: 30px;
+  margin-top: 15px;
+  color: #9a9a9a; }
+
+#flash {
+  -moz-border-radius: 10px;
+  font-weight: bold;
+  clear: both;
+  text-align: center;
+  background: #99ff00;
+  color: black;
+  border: 3px solid #61A200;
+  padding: 5px; }
+
+#logged-in-as {
+  font-size: 90%; }
+
+.search {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 10pt; }
+  .search input {
+    padding: 0;
+    font-size: 10pt; }
+
+.search {
+  float: right; }
+
+.forums_container {
+  clear: both;
+  margin: 14px; }
+
+.listing {
+  border: 1px solid black; }
+  .listing .odd {
+    background: #121212; }
+    .listing .odd td {
+      background: #121212; }
+  .listing .even {
+    background: #191919; }
+    .listing .even td {
+      background: #191919; }
+
+
+
+.users thead tr td, .forums thead tr td, .messages thead tr td, .subscriptions thead tr td, .categories thead tr td {
+  background: transparent url(thead-bg.jpg) repeat-x;
+  color: black;
+  border-right: 1px solid #325600; }
+  .users thead tr td a, .forums thead tr td a, .messages thead tr td a, .subscriptions thead tr td a, .categories thead tr td a {
+    color: #315300; }
+.users tr td, .forums tr td, .messages tr td, .subscriptions tr td, .categories tr td {
+  padding: 5px; }
+
+.forums .title, .forums .topics_count, .forums .posts_count, .forums .last_post {
+  padding: 10px;
+  border-bottom: 1px dotted #353535; }
+.forums .title, .forums .last_post {
+  background: #121212;
+  padding: 10px;
+  border-right: 1px solid #353535; }
+.forums .topics_count, .forums .posts_count {
+  background: #191919;
+  border-right: 1px solid #353535; }
+
+.forum thead tr td {
+  background: transparent url(thead-bg.jpg) repeat-x;
+  color: black;
+  padding: 5px; }
+.forum tbody tr td {
+  padding: 5px; }
+
+.topic .buttons {
+  float: left; }
+.topic .actions {
+  float: right; }
+.topic .posts {
+  border: 0; }
+
+.post {
+  -moz-border-radius: 7px;
+  clear: both;
+  margin-bottom: 10px;
+  border: 3px solid black; }
+  .post .actions {
+    padding: 5px;
+    float: right; }
+  .post .user_info {
+    padding: 5px;
+    padding-right: 20px;
+    border-right: 1px solid #1C3901; }
+  .post .content {
+    padding: 5px; }
+  .post .details {
+    margin-bottom: 20px; }
+  .post .edit-note {
+    margin-top: 20px;
+    font-size: 75%; }
+  .post .signature {
+    font-size: 90%; }
+
+#quick-reply {
+  border: 5px solid black;
+  padding: 10px; }
+  #quick-reply h3 {
+    margin: 0px;
+    padding: 0px; }
+
+ul#navlist li {
+  display: inline;
+  background: #121212;
+  padding: 9px;
+  border: 3px solid #292929; }
+
+.translation_missing {
+  background: red; }

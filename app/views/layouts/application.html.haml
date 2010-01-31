@@ -11,41 +11,46 @@
       = yield :head
   %body
     .title-bar
-      = link_to "<h1>#{t(:rBoard)}</h1>", forums_path
+      = link_to theme_image_tag("logo.jpg"), forums_path
     .menu-bar
       = link_to t(:Home), forums_path
-      \|
+      \/
       - unless logged_in?
         = link_to t(:Login), login_path
-        \|
+        \/
         = link_to t(:Signup), signup_path
+        \/
       - else
-        = t(:Logged_in_as)
-        = link_to current_user, current_user
-        \|
         = link_to t(:Edit_Profile), [:edit, current_user]
-        \|
+        \/
         = link_to t(:Member_List), users_path
-        \|
+        \/
         = link_to t(:x_new_messages, :count => @current_user.unread_messages.size), messages_path
-        \|
+        \/
         - if current_user.can?(:subscribe)
           = link_to t(:Subscriptions), subscriptions_path
-          \|
+          \/
         = link_to t(:Logout), logout_path
-      .search
-        - form_tag :controller => "search" do
-          = t(:Search)
-          \:
-          = text_field_tag :search
+        \/
+        %span{ :id => "logged-in-as"}
+          - if logged_in?
+            = t(:Logged_in_as)
+            = link_to current_user, current_user
+      
+    .search
+      - form_tag :controller => "search" do
+        = t(:Search)
+        \:
+        = text_field_tag :search, params[:search]
       .clear
     .content
       - unless flash[:notice].blank?
         .flash#flash= flash[:notice]
-      = yield
-      .center
-        - if current_user.can?(:access_moderator_section)
-          = link_to "Moderator Section", moderator_root_path
-        - if current_user.can?(:access_admin_section)
-          \|
-          = link_to "Administration Section", admin_root_path
+      .forums_container
+        = yield
+        .center
+          - if current_user.can?(:access_moderator_section)
+            = link_to "Moderator Section", moderator_root_path
+          - if current_user.can?(:access_admin_section)
+            \/
+            = link_to "Administration Section", admin_root_path

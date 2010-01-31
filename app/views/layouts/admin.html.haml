@@ -1,5 +1,5 @@
 - inside_layout "application" do
-  %ul.navlist
+  %ul#navlist
     %li= link_to "Index", admin_root_path,  :class => selected("index")
     - for section in @sections
       %li= link_to section.titleize, send("admin_#{section}_path"), :class => selected(section)

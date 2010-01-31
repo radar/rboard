@@ -45,7 +45,7 @@
           %td= link_to h(user.login), admin_user_path(user)
           %td= link_to h(user.display_name), admin_user_path(user)
           %td= user.created_at.strftime date_time_display
-          %td= user.posts.size
+          %td= user.posts.count
           %td= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No)
           %td= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(date_time_display)
           %td= user.ban_times

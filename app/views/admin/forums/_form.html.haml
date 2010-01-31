@@ -9,7 +9,7 @@
     %tr
       %td= f.label :parent_id, t(:Child_of)
       %td= f.select "parent_id", @forums.map { |forum| [select_display(forum),forum.id] }, :include_blank => true
-  - unless @category
+  - unless @category || @categories.blank?
     %tr
       %td= f.label :category_id, t(:Category)
       %td= f.select "category_id", @categories.map { |category| [select_display(category, 'name'), category.id] }, :include_blank => true

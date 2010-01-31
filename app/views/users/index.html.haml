@@ -1,26 +1,26 @@
 %h2= t(:Users)
 = will_paginate @users
-%table.forums{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+%table.users.listing{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
   %thead
     %tr
-      %td{:align => "center"}= t(:Login)
-      %td{:align => "center"}= t(:Member_since)
-      %td{:align => "center"}= t(:Posts)
-      %td{:align => "center"}= t(:Banned)
-      %td{:align => "center"}= t(:Banned_until)
-      %td{:align => "center"}= t(:Times_banned)
+      %td= t(:Login)
+      %td= t(:Member_since)
+      %td= t(:Posts)
+      %td= t(:Banned)
+      %td= t(:Banned_until)
+      %td= t(:Times_banned)
       - if current_user.can?(:manage_users)
         %td{:align => "center"}= t(:IP)
   %tbody
     - for user in @users
-      %tr
-        %td{:align => "center"}= link_to user, user_path(user)
-        %td{:align => "center"}= user.created_at.strftime(date_display)
-        %td{:align => "center"}= user.posts.size
-        %td{:align => "center"}= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No)
-        %td{:align => "center"}= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(:long_ordinal)
-        %td{:align => "center"}= user.ban_times
+      %tr{ :class => stripe}
+        %td= link_to user, user_path(user)
+        %td= user.created_at.strftime(date_display)
+        %td= user.posts.size
+        %td= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No)
+        %td= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(:long_ordinal)
+        %td= user.ban_times
         - if current_user.can?(:manage_users)
-          %td{:align => "center"}= user.ip
+          %td= user.ip
   %tfoot
 = will_paginate @users
