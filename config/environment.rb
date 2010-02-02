@@ -38,6 +38,7 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'RedCloth'
   config.gem 'highline'
   config.gem 'coderay'
+  config.gem 'paperclip', :version => "2.3.1.1"
   config.gem 'thinking-sphinx', :lib => "thinking_sphinx"
   
   # lol actionwebservice
