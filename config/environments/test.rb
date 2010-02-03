@@ -26,4 +26,5 @@ config.gem "machinist"
 require 'faker'
 require 'machinist/active_record'
 
+SEARCHING = false
 TIME_BETWEEN_POSTS = 0
