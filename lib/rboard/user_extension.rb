@@ -114,7 +114,7 @@ module Rboard::UserExtension
 
       def set_permissions
         # HACK
-        if !User.count.zero? && self != User.anonymous
+        if !User.count.zero? && self.identifier != "anonymous"
           groups << Group.find_by_identifier("registered_users")
         end
       end

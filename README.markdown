@@ -117,3 +117,4 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 * Thomas Sinclair
 * Bodaniel Jeanes
 * Tore Darell
+* rubygem
