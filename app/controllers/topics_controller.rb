@@ -36,7 +36,11 @@ class TopicsController < ApplicationController
     @post = @topic.posts.build(params[:post].merge(:user => current_user, :ip => @ip))
     
     # TODO: Work out how to get attachments to be able to be passed in as an ANAF field correctly.
-    @attachments = params[:post_attachment].values.map { |attachment| @post.attachments.build(attachment) }
+    @attachments = if params[:post_attachment]
+      params[:post_attachment].values.map { |attachment| @post.attachments.build(attachment) }
+    else
+      []
+    end
     
     @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
     @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
