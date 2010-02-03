@@ -1,25 +1,36 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def parse_text (text)
+  
+  # This could probably be done better.
+  def bbcode(tag, start_piece, end_piece, &block)
+    block.call.gsub!(%r{\[#{tag}\](.*?)\[\/#{tag}\]}) { "#{start_piece}#{$1}#{end_piece}" }
+  end
+  
+  def parse_text(text)
     # Code snippets
-    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<pre>#{$2}</pre>"}
-    text = sanitize(text, :tags => %w(span div table tr td br pre tt), :attributes => %w(id class style))
-    # Gist embedding
-    text.gsub!(/\[gist\](.*?)\[\/gist\]/) { $1.split(" ").map { |gist| "<script src='http://gist.github.com/#{gist}.js'></script>" } }
+    
+    # All this sanitization is probably quite draining. Needs refactoring.
+    if !text.include?("[code")
+      text = h(text)
+    end
+    text.gsub!(/(.*?)\[code=?["']?(.*?)["']?\](.*?)\[\/code\](.*?)/mis) { h($1.to_s) + "[code='#{$2}']#{$3}[/code]" + h($4)}
+    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<strong>#{t(:Code)}:</strong><pre>#{clean_code($2)}</pre>"}
 
     # allows for nested quotes
     bbquote(text)
-
-    # non-attributed quote
-    text.gsub!(/\[quote\](.*?)\[\/quote\]/mis) { "<div class='quote'>" << $1 << "</div>" }
-    # Terminal example
-    text.gsub!(/\[term\](.*?)\[\/term\]/mi) { "<span class='term'>" << $1.gsub(/^\r\n/,"").gsub("<","&lt;").gsub(">","&gt;") << "</span>" }
+    
+    # Parse all similar tags
+    bbcode("img", "<img src='", "'>") { text }
+    bbcode("gist", "<script src='http://gist.github.com/", '></script>') { text }
+    bbcode("quote", "<strong>Quote:</strong><div class='quote'>", "</div>") { text }
+    bbcode("term", "<span class='term'>", "</span>") { text }
 
     # URLs
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a rel='nofollow' href='" << $1 << "'>" << $2 << "</a>" }
     
     # handle newlines
     text.gsub!(/(.*)(\r)+?\n/) { $1 << "<br />\n" }
+
 
     # handle with care...
     bbcode_ext(text)
@@ -28,6 +39,10 @@ module ApplicationHelper
   # Dummy method so that people can extend bbcode method without having to alias it.
   def bbcode_ext(text)
     text
+  end
+  
+  def clean_code(text)
+    text.gsub(/^\r\n/, '').gsub(/\r\n$/, '').gsub("<", "&lt;").gsub(">", "&gt;")
   end
   
   def bbquote(text)
