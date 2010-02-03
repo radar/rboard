@@ -34,12 +34,14 @@ STANDALONE = true
 
 CONFIG = Rails::Initializer.run do |config|
 
+  config.gem 'by_star', :version => '0.6.1'
   config.gem 'chronic'
-  config.gem 'RedCloth'
-  config.gem 'highline'
   config.gem 'coderay'
-  config.gem 'paperclip', :version => "2.3.1.1"
-  config.gem 'thinking-sphinx', :lib => "thinking_sphinx"
+  config.gem 'highline'
+  config.gem 'paperclip', :version => '2.3.1.1'
+  config.gem 'RedCloth'
+  config.gem 'thinking-sphinx', :lib => 'thinking_sphinx'
+
   
   # lol actionwebservice
   # lol activeresource
@@ -66,14 +68,17 @@ Find.find(RAILS_ROOT + "/public/themes") do |path|
   Find.prune
 end
 
+# Needs to be set for paperclip to find the identify command with Passenger.
+Paperclip.options[:command_path] = "/usr/local/bin"
+
 Sass::Plugin.options[:template_location] = themes
 
-def puts str
-  super caller.first if caller.first.index("shoulda.rb") == -1
-  super str
-end
-
-def p obj
-  puts caller.first
-  super obj
-end
+# def puts str
+#   super caller.first if caller.first.index("shoulda.rb") == -1
+#   super str
+# end
+# 
+# def p obj
+#   puts caller.first
+#   super obj
+# end

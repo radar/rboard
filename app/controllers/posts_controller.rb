@@ -31,6 +31,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @posts = @topic.posts.past(@post.created_at).last(10).reverse
   end
 
   def update
