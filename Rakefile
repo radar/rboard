@@ -6,8 +6,4 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 
-task :ar_test => :environment do
-  t = Topic.new(:subject => "topic")
-  p = t.posts.build
-  p p.topic
-end
+require 'thinking_sphinx/tasks'
