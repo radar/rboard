@@ -7,7 +7,7 @@
 - if @object.is_a?(Group)
   %h3= t(:Global_Permissions)
   = link_to "Edit Global Permissions", edit_admin_group_path(@object)
-  %table.list-table{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %table.listing{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
     %thead
       %tr
         %td= t(:can_see_forum?)
@@ -15,7 +15,7 @@
         %td= t(:can_reply_to_topics?)
         %td= t(:can_start_new_topics?)
     %tbody
-      %tr
+      %tr{ :class => "even"}
         %td= theme_image_tag(@object.permissions.global.can_see_forum?.to_s + ".jpg")
         %td= theme_image_tag(@object.permissions.global.can_see_category?.to_s + ".jpg")
         %td= theme_image_tag(@object.permissions.global.can_reply_to_topics?.to_s + ".jpg")
@@ -25,7 +25,7 @@
     %h3= t(:No_forums_to_assign_specific_permissions_to)
   %h3= t(:Forum_specific_permissions)
   = link_to t(:New, :thing => t(:Forum_specific_permissions)), new_admin_group_permission_path(@object, :type => "forum")
-  %table.list-table{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
+  %table.listing{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
     - if @object.permissions.forums.empty?
       %thead
         %tr

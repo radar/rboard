@@ -1,24 +1,19 @@
-%tbody
-  %tr
-    %td{:valign => "top"}
-      = f.label :text, t(:Text)
-    %td
-      = f.text_area 'text', :cols => (cols || 70), :rows => (rows || 20)
-  - if current_user.can?(:edit_posts, @forum) && !@post.new_record?
-    %tr
-      %td{:colspan => "2"}
-        = f.label 'edit_reason', t(:edit_reason)
-        = f.text_field 'edit_reason'
-    %tr
-      %td{:colspan => "2"}
-        = check_box_tag 'silent_edit'
-        = label_tag 'silent_edit', t(:Edit_silently?)
-%tfoot
-  %tr
-    %td{:colspan => "2"}
-      - if local_assigns[:submit]
-        = submit_tag(t(local_assigns[:submit].to_sym))
-      - elsif @post.new_record?
-        = submit_tag(t(:Create))
-      - else
-        = submit_tag(t(:Update))
+%p 
+  - if label
+    = f.label 'text', t(:Text)
+    %br
+  = f.text_area 'text', :cols => 140, :rows => 10
+- if current_user.can?(:edit_posts, @forum) && !@post.new_record?
+  %p
+    = f.label 'edit_reason', t(:edit_reason)
+    = f.text_field 'edit_reason'
+  %p
+    = check_box_tag 'silent_edit'
+    = label_tag 'silent_edit', t(:Edit_silently?)
+%p
+  - if local_assigns[:submit]
+    = submit_tag(t(local_assigns[:submit].to_sym))
+  - elsif @post.new_record?
+    = submit_tag(t(:Create))
+  - else
+    = submit_tag(t(:Update))

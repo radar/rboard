@@ -1,15 +1,11 @@
-%table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
-  %thead
-    %tr
-      %td{:colspan => "6"}
-        %h2= t(:Editing_a_group)
-  %tbody
-    %tr
-      %td{:colspan => "2"}= f.label :name, t(:Name)
-      %td{:colspan => "4"}= f.text_field "name"
-%table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
+%p
+  = f.label :name, t(:Name)
+  %br
+  = f.text_field "name"
+  
+%table.listing{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
   %thead
     %tr
       %td{:colspan => "10"}
-        %h2= t(:Global_Permissions)
+        %h3= t(:Global_Permissions)
   = render :partial => "admin/permissions/form"

@@ -2,7 +2,7 @@
 %html{:lang => "en", "xml:lang" => "en", :xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title
-      = @title || params[:action].capitalize + " - " + params[:controller].split("/").map(&:capitalize).join(" - ")
+      = @title || params[:action].gsub("_", " ").titleize + " - " + params[:controller].split("/").reverse.map(&:capitalize).join(" - ")
       \-
       = t(:rBoard)
     %link{:href => "#{ActionController::Base.relative_url_root}/themes/#{theme.name}/style.css", :rel => "stylesheet"}

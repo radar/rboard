@@ -12,6 +12,6 @@
   - else
     %thead
       %tr
-        %td{:align => "center", :colspan => "3"}
+        %td{:align => "center", :colspan => "3", :class => "even"}
           = t(:no_forums)
           = link_to t(:user_should_create), @category.nil? ? new_admin_forum_path : new_admin_category_forum_path(@category)

@@ -1,4 +1,4 @@
-%tr
+%tr{ :class => stripe }
   %td.icon
     = link_to theme_image_tag("edit.jpg"), edit_admin_forum_path(forum)
     = link_to theme_image_tag("delete.png"), admin_forum_path(forum), :method => "delete", :confirm => t(:confirm_deletion, :thing => "forum")

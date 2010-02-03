@@ -15,6 +15,12 @@ h3
 
 img
   border: 0 none
+  
+form
+  p
+    label
+      float: left
+      width: 10em
 
 #logged-in-as
   font-size: 82%
@@ -79,6 +85,9 @@ img
 .breadcrumbs
   color: #84bef0
   margin-top: .8em
+  
+  span
+    color: black
 
 #moderated_topics_count
   font-size: 9pt
@@ -104,6 +113,50 @@ img
   width: 80px
 
 .listing
+  .odd
+    background: #DBEAFF
+  
+  .even
+    background: white
+    
+  .header
+    border: 0px
+
+table.listing
+  thead
+    tr
+      td
+        font-weight: bold
+        border-right: 1px solid #B5C8DF
+        border-bottom: 1px solid #9CACC0
+        border-top: 1px solid #9CACC0
+        padding: 10px
+        background: #CDE1FF
+      
+      td:first-child
+        border-left: 1px solid #B5C8DF
+  tbody
+    tr
+      td
+        padding: 5px
+  
+  tbody
+    tr:last-child
+      td
+        border-bottom: 1px solid #9CACC0
+    
+    tr
+      td:first-child
+        border-left: 1px solid #B5C8DF
+      
+      td:last-child
+        border-right: 1px solid #B5C8DF
+        
+      td
+        border-right: 1px solid #B5C8DF
+        border-bottom: 1px solid #B5C8DF
+      
+ul.listing
   list-style-type: none
   padding: 0px
   margin: 0px
@@ -111,9 +164,6 @@ img
   li
     border-bottom: 1px solid #84AFD3
     padding: 3px
-  
-  .odd
-    background: #DBEAFF
 
 .forums
   list-style-type: none
@@ -133,31 +183,12 @@ img
   input, .status
     float: left
 
-.category
-  padding: 5px
-
-.forum, .info-box, .list-table, .category
-  border: 1px solid #84AFD3
-
-.forums td, .forum td, .list-table td
-  padding: 5px
-
-.forums thead, .forum thead, .info-box thead, .post thead, .action-box thead, .list-table thead
-  background: #aad8ff none repeat-x scroll 0
-  font-weight: bold
-
-.forums tbody td, .list-table tbody td
-  background: white
-
-.forum tfoot
-  background: #C1E2FE none repeat scroll 0
-  input
-    background: #DBEEFD none repeat scroll 0
-    border: 1px solid #48769D
-    font-size: 10pt
-    letter-spacing: -1px
-    margin: 2px
-
+.messages
+  .read
+    background: #85c7ff
+  
+  .unread
+    background: white
 
 .button
   display: inline-block
@@ -186,18 +217,75 @@ img
   margin-bottom: 1.5em
   border: 1px #84afd3 solid
   background: #e1f1ff
+  margin: 0.5em auto
+  overflow: auto
+  -moz-border-radius: 5px
   
-  .actions
-    background: red
+  div, pre
+    padding: 5px
+  
+  pre
+    background: white
+    border: 1px solid black
+    -moz-border-radius: 5px
+    line-height: 0.75em
+    overflow: auto
+    text-align: left
 
   .user_info
-    width: 20%
-    float: left
-    background: red
+    width: 18%
+  
+  .body
+    float: right
+    clear: both
+    border-left: 1px dotted #84afd3
+    width: 78%
+    min-height: 10.5em
+    
+  .details
+    border-bottom: 1px dotted #84afd3
+    
+  .actions
+    float: right
 
-.post_content
-  padding: .5em 0
-  clear: both
+form .post
+  padding: 5px
+  
+#quick-reply
+  padding: 5px
+  border: 1px #84afd3 solid
+  margin: 0.5em auto
+  -moz-border-radius: 5px
+
+.messages
+  a
+    color: black
+    
+ul#navlist
+  margin: 0px
+  padding: 0
+  white-space: nowrap
+  li
+    display: inline
+    list-style-type: none
+  a
+    padding: 3px 10px
+    &:link, &:visited
+      color: #336699
+      background-color: #b8dcfc
+      text-decoration: none
+      border: 1px solid #336699
+      border-bottom: 0
+      -moz-border-radius: 5px
+    &.selected
+      border: 2px solid #336699
+      border-bottom: 0
+      font-weight: bold
+
+#admin-page, #moderator-page
+  background: #b8dcfc
+  padding: 5px
+  border: 1px solid #336699
 
 .clear
   display: block
@@ -225,22 +313,6 @@ img
   padding: 5px
   text-align: left
   width: 90%
-
-.CodeRay
-  padding: 0
-  border-spacing: 0
-  .line_numbers
-    width: 40px
-    background: #efefef
-    padding: 5px
-    text-align: center
-    border: 1px solid #84AFD3
-    border-right: 0
-  .code
-    background: white
-    border: 1px solid #84AFD3
-    border-left: 0
-    padding: 20px
 
 .term
   font-family: Monaco, "Courier New", monospace
@@ -282,33 +354,6 @@ img
       &:hover
         background: #DBF8FF
 
-ul#navlist
-  margin: 2px 2px 2px 0
-  padding: 0
-  white-space: nowrap
-  li
-    display: inline
-    list-style-type: none
-  a
-    padding: 3px 10px
-    &:link, &:visited
-      color: #336699
-      background-color: #b8dcfc
-      text-decoration: none
-      border: 1px solid #336699
-      border-bottom: 0
-    &.selected
-      border: 2px solid #336699
-      border-bottom: 0
-      font-weight: bold
-
-#admin-page, #moderator-page
-  background: #b8dcfc
-  padding: 5px
-  border: 1px solid #336699
-
-.list-table td
-  text-align: center
 
 .lalign
   text-align: left !important

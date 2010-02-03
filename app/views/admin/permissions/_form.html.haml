@@ -1,42 +1,41 @@
 - if params[:type] == "category"
   %tr
-    %td= f.label "category_id", t(:Category)
-    %td{:colspan => "7"}= f.select "category_id", @categories.map { |c| [c.name, c.id] }
+    %td{:class => stripe }= f.label "category_id", t(:Category)
+    %td{:class => stripe, :colspan => "9"}= f.select "category_id", @categories.map { |c| [c.name, c.id] }
 - elsif params[:type] == "forum"
   %tr
-    %td= f.label "forum_id", t(:Forum)
-    %td{:colspan => "7"}= f.select "forum_id", @forums.map { |c| [c.title, c.id] }
+    %td{:class => stripe }= f.label "forum_id", t(:Forum)
+    %td{:class => stripe, :colspan => "9"}= f.select "forum_id", @forums.map { |c| [c.title, c.id] }
 - fields_for @permission do |permission|
   - ## Global only permissions
-  - if params[:type] || @permission.new_record?
+  - if !params[:type]
     %tr
-      %td{:colspan => "10"}
-        %h3 Section Access
+      %td{:colspan => "10", :class => "header"}
+        %h3= t(:Section_access)
+    - sections.in_groups_of(5, false) do |sections|
+      %tr
+        - for section in sections
+          %td{:width => "20px", :class => stripe }= permission.check_box "can_access_#{section}_section"
+          %td{ :class => stripe }= permission.label "can_access_#{section}_section", t("can_access_#{section}_section?")
+        - for management in managements[0..2]
+          = render :partial => "admin/permissions/management", :locals => { :management => management, :permission => permission }
+    - managements[2..-1].in_groups_of(5, false) do |managements|
+      %tr
+        - for management in managements
+          = render :partial => "admin/permissions/management", :locals => { :management => management, :permission => permission }
     %tr
-      - sections.each_with_index do |section, count|
-        %td{:width => "20px"}= permission.check_box "can_access_#{section}_section"
-        %td= permission.label "can_access_#{section}_section", t("can_access_#{section}_section?")
-        = break_row(count)
-      - managements.each_with_index do |management, count|
-        %td{:width => "20px"}= permission.check_box "can_manage_#{management}"
-        %td= permission.label "can_manage_#{management}", t("can_manage_#{management}?")
-      - ## Magic number "3" is because of 5 columns - the 2 sections = 3
-      = break_row(3)
-      - 4.times do
-        %td &nbsp;
-    %tr
-      %td{:colspan => "10"}
+      %td{:colspan => "10", :class => "header"}
         %h3= t(:Systemwide_Permissions)
     - global_permissions.each_with_index do |action, count|
-      %td{:width => "20px"}= permission.check_box action
-      %td= permission.label action, t("#{action}?")
+      %td{:width => "20px", :class => stripe }= permission.check_box action
+      %td{ :class => stripe }= permission.label action, t("#{action}?")
       = break_row(count)
   - ## Global or local permissions
   %tr
-    %td{:colspan => "10"}
+    %td{:colspan => "10", :class => "header"}
       %h3= t(:Forum_Permissions)
   %tr
     - forum_permissions.each_with_index do |action, count|
-      %td{:width => "20px"}= permission.check_box action
-      %td= permission.label action, t("#{action}?")
+      %td{ :class => stripe, :width => "20px"}= permission.check_box action
+      %td{ :class => stripe }= permission.label action, t("#{action}?")
       = break_row(count)

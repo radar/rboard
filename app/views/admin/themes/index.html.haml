@@ -2,7 +2,7 @@
   = link_to t(:Administration_Section)
   \&raquo; #{t(:Themes)}
 %h2= t(:Themes)
-%table.list-table{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+%table.listing.themes{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
   %thead
     %tr
       %td= t(:Name)
@@ -10,13 +10,13 @@
   %tbody
     - unless @themes.empty?
       - for theme in @themes
-        %tr
+        %tr{ :class => stripe }
           %td= theme.name
           %td
             - if theme.is_default?
               = t(:yes)
             - else
-              = link_to t(:make_default), make_default_admin_theme_path(theme), :method => "put"
+              = link_to t(:Make_default), make_default_admin_theme_path(theme), :method => "put"
     - else
       %tr
         %td{:colspan => "4"}= t(:no_themes)

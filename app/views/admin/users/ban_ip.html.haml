@@ -1,28 +1,18 @@
 - form_for @banned_ip, :url => ban_ip_admin_users_path do |f|
   = error_messages_for :banned_ip
-  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
-    %thead
-      %tr
-        %td{:colspan => "2"}
-          %h2= t(:Ban_an_ip)
-    %tbody
-      %tr
-        %td= f.label "ip", t(:IP)
-        %td
-          = f.text_field "ip", :value => params[:ip]
-          = t(:accepts_wildcard)
-      %tr
-        %td= f.label "ban_time", t(:Ban_time)
-        %td
-          = f.text_field "ban_time"
-          = observe_field("banned_ip_ban_time", :frequency => 0.5, :url => admin_chronic_path, :with => "duration", :update => "date")
-          #date
-      %tr
-        %td= f.label "reason", t(:Reason)
-        %td= f.text_field "reason"
-    %tfoot
-      %tr
-        %td{:colspan => "2"}= submit_tag(t(:Ban_this_range))
+  %h2= t(:Ban_an_ip)
+  %p
+    = f.label "ip", t(:IP)
+    = f.text_field "ip", :value => params[:ip]
+    = t(:accepts_wildcard)
+  %p
+    = f.label "ban_time", t(:Ban_time)
+    = f.text_field "ban_time"
+    = observe_field("banned_ip_ban_time", :frequency => 0.5, :url => admin_chronic_path, :with => "duration", :update => "date")
+  %p
+    = f.label "reason", t(:Reason)
+    = f.text_field "reason"
+  = submit_tag(t(:Ban_this_range))
   %h2= t(:Banned_IPs)
   - unless @banned.empty?
     %ul

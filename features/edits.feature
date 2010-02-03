@@ -12,6 +12,7 @@ Feature: Edits
     When I follow "Public Forum"
     And I follow "Default topic"
     And I follow "Edit"
+    Then show me the page
     And I fill in "Text" with "Something other than the norm."
     And I press "Update"
     Then I should see "This post was edited by administrator less than a minute ago"

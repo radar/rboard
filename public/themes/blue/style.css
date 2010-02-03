@@ -15,6 +15,10 @@ h3 {
 img {
   border: 0 none; }
 
+form p label {
+  float: left;
+  width: 10em; }
+
 #logged-in-as {
   font-size: 82%;
   margin: 0px;
@@ -77,6 +81,8 @@ img {
 .breadcrumbs {
   color: #84bef0;
   margin-top: .8em; }
+  .breadcrumbs span {
+    color: black; }
 
 #moderated_topics_count {
   font-size: 9pt; }
@@ -101,15 +107,41 @@ img {
 .icon {
   width: 80px; }
 
-.listing {
+.listing .odd {
+  background: #DBEAFF; }
+.listing .even {
+  background: white; }
+.listing .header {
+  border: 0px; }
+
+table.listing thead tr td {
+  font-weight: bold;
+  border-right: 1px solid #B5C8DF;
+  border-bottom: 1px solid #9CACC0;
+  border-top: 1px solid #9CACC0;
+  padding: 10px;
+  background: #CDE1FF; }
+table.listing thead tr td:first-child {
+  border-left: 1px solid #B5C8DF; }
+table.listing tbody tr td {
+  padding: 5px; }
+table.listing tbody tr:last-child td {
+  border-bottom: 1px solid #9CACC0; }
+table.listing tbody tr td:first-child {
+  border-left: 1px solid #B5C8DF; }
+table.listing tbody tr td:last-child {
+  border-right: 1px solid #B5C8DF; }
+table.listing tbody tr td {
+  border-right: 1px solid #B5C8DF;
+  border-bottom: 1px solid #B5C8DF; }
+
+ul.listing {
   list-style-type: none;
   padding: 0px;
   margin: 0px; }
-  .listing li {
+  ul.listing li {
     border-bottom: 1px solid #84AFD3;
     padding: 3px; }
-  .listing .odd {
-    background: #DBEAFF; }
 
 .forums {
   list-style-type: none; }
@@ -125,30 +157,10 @@ img {
 .topics input, .topics .status {
   float: left; }
 
-.category {
-  padding: 5px; }
-
-.forum, .info-box, .list-table, .category {
-  border: 1px solid #84AFD3; }
-
-.forums td, .forum td, .list-table td {
-  padding: 5px; }
-
-.forums thead, .forum thead, .info-box thead, .post thead, .action-box thead, .list-table thead {
-  background: #aad8ff none repeat-x scroll 0;
-  font-weight: bold; }
-
-.forums tbody td, .list-table tbody td {
+.messages .read {
+  background: #85c7ff; }
+.messages .unread {
   background: white; }
-
-.forum tfoot {
-  background: #C1E2FE none repeat scroll 0; }
-  .forum tfoot input {
-    background: #DBEEFD none repeat scroll 0;
-    border: 1px solid #48769D;
-    font-size: 10pt;
-    letter-spacing: -1px;
-    margin: 2px; }
 
 .button {
   display: inline-block;
@@ -176,17 +188,69 @@ img {
 .post {
   margin-bottom: 1.5em;
   border: 1px #84afd3 solid;
-  background: #e1f1ff; }
-  .post .actions {
-    background: red; }
+  background: #e1f1ff;
+  margin: 0.5em auto;
+  overflow: auto;
+  -moz-border-radius: 5px; }
+  .post div, .post pre {
+    padding: 5px; }
+  .post pre {
+    background: white;
+    border: 1px solid black;
+    -moz-border-radius: 5px;
+    line-height: 0.75em;
+    overflow: auto;
+    text-align: left; }
   .post .user_info {
-    width: 20%;
-    float: left;
-    background: red; }
+    width: 18%; }
+  .post .body {
+    float: right;
+    clear: both;
+    border-left: 1px dotted #84afd3;
+    width: 78%;
+    min-height: 10.5em; }
+  .post .details {
+    border-bottom: 1px dotted #84afd3; }
+  .post .actions {
+    float: right; }
 
-.post_content {
-  padding: .5em 0;
-  clear: both; }
+form .post {
+  padding: 5px; }
+
+#quick-reply {
+  padding: 5px;
+  border: 1px #84afd3 solid;
+  margin: 0.5em auto;
+  -moz-border-radius: 5px; }
+
+.messages a {
+  color: black; }
+
+ul#navlist {
+  margin: 0px;
+  padding: 0;
+  white-space: nowrap; }
+  ul#navlist li {
+    display: inline;
+    list-style-type: none; }
+  ul#navlist a {
+    padding: 3px 10px; }
+    ul#navlist a:link, ul#navlist a:visited {
+      color: #336699;
+      background-color: #b8dcfc;
+      text-decoration: none;
+      border: 1px solid #336699;
+      border-bottom: 0;
+      -moz-border-radius: 5px; }
+    ul#navlist a.selected {
+      border: 2px solid #336699;
+      border-bottom: 0;
+      font-weight: bold; }
+
+#admin-page, #moderator-page {
+  background: #b8dcfc;
+  padding: 5px;
+  border: 1px solid #336699; }
 
 .clear {
   display: block;
@@ -214,22 +278,6 @@ img {
   padding: 5px;
   text-align: left;
   width: 90%; }
-
-.CodeRay {
-  padding: 0;
-  border-spacing: 0; }
-  .CodeRay .line_numbers {
-    width: 40px;
-    background: #efefef;
-    padding: 5px;
-    text-align: center;
-    border: 1px solid #84AFD3;
-    border-right: 0; }
-  .CodeRay .code {
-    background: white;
-    border: 1px solid #84AFD3;
-    border-left: 0;
-    padding: 20px; }
 
 .term {
   font-family: Monaco, "Courier New", monospace;
@@ -269,34 +317,6 @@ img {
       padding: 5px; }
       .ac_results ul li:hover {
         background: #DBF8FF; }
-
-ul#navlist {
-  margin: 2px 2px 2px 0;
-  padding: 0;
-  white-space: nowrap; }
-  ul#navlist li {
-    display: inline;
-    list-style-type: none; }
-  ul#navlist a {
-    padding: 3px 10px; }
-    ul#navlist a:link, ul#navlist a:visited {
-      color: #336699;
-      background-color: #b8dcfc;
-      text-decoration: none;
-      border: 1px solid #336699;
-      border-bottom: 0; }
-    ul#navlist a.selected {
-      border: 2px solid #336699;
-      border-bottom: 0;
-      font-weight: bold; }
-
-#admin-page, #moderator-page {
-  background: #b8dcfc;
-  padding: 5px;
-  border: 1px solid #336699; }
-
-.list-table td {
-  text-align: center; }
 
 .lalign {
   text-align: left !important; }

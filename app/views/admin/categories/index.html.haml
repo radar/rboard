@@ -1,6 +1,6 @@
 .breadcrumbs
   = link_to t(:Administration_Section), admin_root_path
-  \&raquo; #{t(:Categories)}
+  %span &raquo; #{t(:Categories)}
 %h2= t(:Categories)
 = link_to t(:New, :thing => "Category"), new_admin_category_path
 %table.listing.categories{:cellpadding => "3", :cellspacing => "0", :rules => "groups", :width => "100%"}
@@ -17,6 +17,6 @@
   - else
     %thead
       %tr
-        %td{:align => "center", :colspan => "3"}
+        %td{:align => "center", :colspan => "3", :class => "even"}
           = t(:no_categories)
           = link_to t(:user_should_create), new_admin_category_path

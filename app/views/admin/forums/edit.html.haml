@@ -1,6 +1,6 @@
 .breadcrumbs
   = link_to t(:Administration_Section), admin_root_path
-  \&raquo; #{link_to(t(:Forums), admin_forums_path)} &raquo; #{t(:Editing_a_forum)}: #{@forum.title}
+  %span &raquo; #{link_to(t(:Forums), admin_forums_path)} &raquo; #{t(:Editing_a_forum)}: #{@forum.title}
 = error_messages_for :forum
 - form_for [:admin, @forum] do |f|
   %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}

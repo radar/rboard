@@ -1,7 +1,7 @@
-%tr
+%tr{ :class => stripe }
   %td.icon
-    = link_to theme_image_tag("edit.jpg"), edit_admin_category_path(category), :id => "edit_category_#{category.id}"
-    = link_to theme_image_tag("delete.jpg"), admin_category_path(category), :method => "delete", :confirm => t(:confirm_deletion, :thing => "category")
+    = link_to theme_image_tag("edit.jpg", :alt => t(:Edit), :title => t(:Edit)), edit_admin_category_path(category), :id => "edit_category_#{category.id}"
+    = link_to theme_image_tag("delete.jpg", :alt => t(:Delete), :title => t(:Delete)), admin_category_path(category), :method => "delete", :confirm => t(:confirm_deletion, :thing => "category")
   %td{:style => "text-align:left !important"}
     = theme_image_tag("extender.jpg", :style => "padding-left:#{depth*20}px") if extender
     = link_to category.name, admin_category_path(category)

@@ -1,11 +1,7 @@
 .breadcrumbs
   = link_to t(:Administration_Section), admin_root_path
-  \&raquo; #{link_to(t(:Groups), admin_groups_path)} &raquo; #{t(:Editing_a_group)}
+  %span &raquo; #{link_to(t(:Groups), admin_groups_path)} &raquo; #{t(:Editing_a_group)}
 = error_messages_for :group
 - form_for [:admin, @group] do |f|
   = render :partial => "form", :locals => { :f => f }
-  %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
-    %tfoot
-      %tr
-        %td{:colspan => "6"}
-          = submit_tag t(:Update)
+  = submit_tag t(:Update)

@@ -1,17 +1,10 @@
 %h2 Inbox
 = link_to t(:Send_new_message), new_message_path
 | #{link_to t(:Sent_Messages), sent_messages_path}
-%table.messages.listing{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
-  %thead
-    %tr
-      %td &nbsp;
-      %td &nbsp;
-      %td= t(:From)
-      %td= t(:Time_sent)
-  %tbody
-    - unless @messages.empty?
-      = render :partial => "message", :collection => @messages
-    - else
-      %tr
-        %td{:align => "center", :colspan => "4"}
-          %b= t(:no_new_messages)
+- unless @messages.empty?
+  - form_for @messages, :url => change_messages_path do |f|
+    %ul.messages.listing{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
+      = render :partial => @messages, :locals => { :f => f }
+- else
+  %br
+  %strong= t(:no_new_messages)

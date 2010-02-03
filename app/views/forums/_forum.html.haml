@@ -1,4 +1,4 @@
-%li{ :class => cycle("odd", "even")}
+%li{ :class => stripe }
   %h2= link_to(h(forum.title), forum_path(forum))
   = h(forum.description)
   - if forum.children.exists?

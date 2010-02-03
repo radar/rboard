@@ -1,32 +1,24 @@
 = error_messages_for :user
-%table.forums{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
-  %thead
-    %tr
-      %td{:align => "left", :width => "40%"}
-        %b= t(:Signup)
-  %tbody
-    %tr
-      %td{:align => "left"}
-        - form_for :user do |f|
-          %p
-            %label{:for => "login"}= t(:Login)
-            %br
-            = f.text_field :login
-          %p
-            %label{:for => "display_name"}= t(:Display_Name)
-            %br
-            = f.text_field :display_name
-          %p
-            %label{:for => "email"}= t(:Email)
-            %br
-            = f.text_field :email
-          %p
-            %label{:for => "password"}= t(:Password)
-            %br
-            = f.password_field :password
-          %p
-            %label{:for => "password_confirmation"}= t(:Confirm_Password)
-            %br
-            = f.password_field :password_confirmation
-          %p= submit_tag t(:Signup)
-  %tfoot
+%h2= t(:Signup)
+- form_for :user do |f|
+  %p
+    = f.label :login, t(:Login)
+    %br
+    = f.text_field :login
+  %p
+    = f.label :display_name, t(:Display_Name)
+    %br
+    = f.text_field :display_name
+  %p
+    = f.label :email, t(:Email)
+    %br
+    = f.text_field :email
+  %p
+    = f.label :password, t(:Password)
+    %br
+    = f.password_field :password
+  %p
+    = f.label :password_confirmation, t(:Confirm_Password)
+    %br
+    = f.password_field :password_confirmation
+  %p= submit_tag t(:Signup)

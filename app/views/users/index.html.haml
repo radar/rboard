@@ -1,6 +1,6 @@
 %h2= t(:Users)
 = will_paginate @users
-%table.users.listing{:cellpadding => "2", :cellspacing => "0", :rules => "groups", :width => "100%"}
+%table.users.listing{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
   %thead
     %tr
       %td= t(:Login)
@@ -18,7 +18,7 @@
         %td= user.created_at.strftime(date_display)
         %td= user.posts.size
         %td= !user.ban_time.nil? && user.ban_time > Time.now ? t(:Yes) : t(:No)
-        %td= user.ban_time.nil? ? t(:Never) : user.ban_time.strftime(:long_ordinal)
+        %td= user.ban_time.nil? ? t(:Never) : time_ago_in_words(user.ban_time)
         %td= user.ban_times
         - if current_user.can?(:manage_users)
           %td= user.ip

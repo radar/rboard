@@ -1,8 +1,9 @@
 .breadcrumbs
-  = link_to t(:Moderator_Section), moderator_root_path
-  \&raquo; #{t(:Edit_History)} #{t(:for_a_post)}
-%h2= t(:Edit_History)
-%table.forums{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
+  == #{breadcrumb(@post.forum)}
+  &raquo;
+  = link_to(@post.topic.subject, [@post.forum])
+%h2== #{t(:Edit_history_for, :number => @post.number, :subject => @post.topic.subject)}
+%table.edits.listing{:cellpadding => "0", :cellspacing => "0", :width => "100%"}
   %thead
     %tr
       %td= t(:Timestamp)
@@ -10,7 +11,7 @@
       %td IP
   %tbody
     - for edit in @edits
-      %tr
+      %tr{ :class => stripe }
         %td= link_to edit.created_at.strftime(date_display + " " + time_display), [@post, edit]
         %td= edit.user
         %td= edit.ip

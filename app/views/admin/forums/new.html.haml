@@ -1,6 +1,6 @@
 .breadcrumbs
   = link_to t(:Administration_Section), admin_root_path
-  \&raquo; #{link_to(t(:Forums), admin_forums_path)} &raquo; #{t(:Creating_a_forum)}
+  %span &raquo; #{link_to(t(:Forums), admin_forums_path)} &raquo; #{t(:Creating_a_forum)}
 - if @category
   = t(:for)
   = @category.name

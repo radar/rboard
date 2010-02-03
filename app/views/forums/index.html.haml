@@ -19,11 +19,11 @@
         - else
           %li
             %strong
-              = t(:no_forums)
+              = t(:no_forums_for_category)
               - unless current_user.can?(:manage_forums)
                 = t(:administrator_should_create_forum)
               - else
-                = link_to t(:you_should_create_forum), new_admin_forum_path
+                = link_to t(:you_should_create_forum), new_admin_category_forum_path(category)
     %br
 - else
   = link_to(t(:rBoard), forums_path)
