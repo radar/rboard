@@ -70,7 +70,7 @@ class PostsController < ApplicationController
 
   # Not using the find_post method here because we're storing it as quoting_post.
   def reply
-    if current_user.can?(:reply)
+    if current_user.can?(:reply_to_topics)
       quoting_post = Post.find(params[:id])
       @post = @topic.posts.build(:user => current_user)
       @post.text = "[quote=\"#{quoting_post.user}\"]#{quoting_post.text}[/quote]\n"
