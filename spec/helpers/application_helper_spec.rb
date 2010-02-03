@@ -21,7 +21,7 @@ describe ApplicationHelper, "general" do
   end
   
   it "should correctly display multiple nested quotes" do
-    TestView.new.parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='quote'><b>Kitten wrote:</b><br /><span><div class='quote'><b>Dog wrote:</b><br /><span><div class='quote'><b>Turtle wrote:</b><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
+    TestView.new.parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='quote'><b>&quot;Kitten&quot; wrote:</b><br /><span><div class='quote'><b>&quot;Dog&quot; wrote:</b><br /><span><div class='quote'><b>&quot;Turtle&quot; wrote:</b><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
   end
   
   it "correctly formats the bbcode when it contains some code blocks" do

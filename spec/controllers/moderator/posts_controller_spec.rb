@@ -7,9 +7,10 @@ describe Moderator::PostsController do
     setup_forums
     login_as(:moderator)
     @forum = Forum("Public Forum")
-    @first_post = @forum.posts.first
-    @second_post = @forum.posts.last
+    valid_topic_for(@forum, 3)
     @topic = @forum.topics.first
+    @first_post = @topic.posts.first
+    @second_post = @topic.posts.second
   end
 
   def topic_split
@@ -30,7 +31,7 @@ describe Moderator::PostsController do
   it "should be able to split a topic before" do
     post 'split', { :id => @second_post.id, :direction => "before", :how => "just_split", :topic_id => @topic.id }
     topic_split
-    response.should redirect_to(forum_topic_path(@forum, assigns[:new_topic].id))    
+    response.should redirect_to(forum_topic_path(@forum, assigns[:new_topic].id))
   end
 
   it "should be able to split a topic before and including a specific post" do
