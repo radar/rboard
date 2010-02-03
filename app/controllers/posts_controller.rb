@@ -19,7 +19,7 @@ class PostsController < ApplicationController
     @post = @topic.posts.build(params[:post].merge!(:user => current_user, :ip => @ip))
 
     if @post.save
-      flash[:notice] = t(:created, :thing => "post")
+      flash[:notice] = t(:created, :thing => "Post")
       go_directly_to_post
     else
       # The last 10 posts for this topic
