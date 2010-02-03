@@ -1,4 +1,4 @@
-class Admin::PermissionsController < ApplicationController
+class Admin::PermissionsController < Admin::ApplicationController
   before_filter :find_group
   before_filter :store_location, :only => :index
 
