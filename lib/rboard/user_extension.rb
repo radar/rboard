@@ -12,8 +12,9 @@ module Rboard::UserExtension
       validates_length_of       :email,    :within => 3..100
       validates_uniqueness_of   :login, :email, :case_sensitive => false
       validates_uniqueness_of   :display_name, :allow_nil => true
-
-
+      
+      validate :display_name_is_not_other_login_name
+      
       has_many :group_users
 
       has_many :banned_ips, :foreign_key => "banned_by"
@@ -129,6 +130,10 @@ module Rboard::UserExtension
       
       def logins_should_not_contain_commas
         errors.add(:login, t(:cannot_contain_commas)) and return false if /,/.match(login)
+      end
+      
+      def display_name_is_not_other_login_name
+        errors.add(:display_name, t(:Display_name_is_taken)) if User.find_by_login(display_name) != self
       end
     end
   end
