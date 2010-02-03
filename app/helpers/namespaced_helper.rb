@@ -7,8 +7,10 @@ module NamespacedHelper
        (params[:controller] == "admin/themes" && name == "themes") ||
        (params[:controller] == "admin/forums" && name == "forums") ||
        (params[:controller] == "admin/categories" && name == "categories") ||
-       (params[:controller] == "admin/users" && name == "ip_banning" && params[:action] == "ban_ip")
-       (params[:controller] == "moderator/moderations" && name == "moderations")
+       (params[:controller] == "admin/configurations" && name == "configurations") ||
+       (params[:controller] == "admin/users" && name == "ip_banning" && params[:action] == "ban_ip") ||
+       (params[:controller] == "moderator/index" && name == "index") ||
+       (params[:controller] == "moderator/moderations" && name == "moderation") ||
        (params[:controller] == "moderator/reports" && name == "reports")
       'selected'
     end
