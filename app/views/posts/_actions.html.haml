@@ -1,0 +1,17 @@
+.actions
+  - if !post.topic.locked? || (post.topic.locked? && current_user.can?(:edit_locked_topics, @forum))
+    - if current_user.can?(:reply_to_topics, @forum)
+      = link_to t(:Reply), new_topic_post_path(post.topic)
+      \/
+      = link_to t(:Quote), reply_topic_post_path(post.topic, post)
+    - if (post.belongs_to?(current_user) && current_user.can?(:edit_own_posts, @forum)) || current_user.can?(:edit_posts, @forum)
+      \/
+      = link_to t(:Edit), edit_topic_post_path(post.topic, post)
+    - if (post.belongs_to?(current_user) && current_user.can?(:delete_own_posts, @forum)) || current_user.can?(:delete_posts, @forum)
+      \/
+      = link_to t(:Delete), topic_post_path(post.topic, post), :method => "delete", :confirm => t(:confirm_deletion, :thing => "post")
+    - if current_user.can?(:split_topics, @forum)
+      \/
+      = link_to t(:Split), split_moderator_topic_post_path(post.topic, post)
+  - else
+    = t(:topic_locked_or_unlocked, :status => "locked")

@@ -182,6 +182,14 @@ ActiveRecord::Schema.define(:version => 20100203045407) do
   add_index "permissions", ["forum_id"], :name => "index_permissions_on_forum_id"
   add_index "permissions", ["group_id"], :name => "index_permissions_on_group_id"
 
+  create_table "post_attachments", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.integer  "post_id"
+  end
+
   create_table "posts", :force => true do |t|
     t.text     "text"
     t.datetime "created_at"

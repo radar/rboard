@@ -17,6 +17,11 @@
   .body
     :preserve
       #{parse_text(post.text)}
+    - if post.attachments.exists?
+      %h5 Attachments
+      %ol
+        - for attachment in post.attachments
+          %li= link_to attachment.file_file_name, attachment.file.url
     - if post.user.can?(:use_signature, @forum) && !post.user.signature.blank?
       %p.signature
         %br
@@ -39,5 +44,3 @@
     == #{t(:Since)} #{post.user.created_at.strftime(date_display)}
     %br
     == #{post.user.online? ? t(:Online) : t(:Offline)}
-
-  

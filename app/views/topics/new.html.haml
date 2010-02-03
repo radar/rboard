@@ -2,7 +2,7 @@
   = link_to(t(:rBoard), forums_path)
   \&raquo; #{breadcrumb(@forum)} &raquo; #{t(:Creating_a_topic)}
 = error_messages_for :post, :topic
-- form_for [@forum, @topic] do |f|
+- form_for [@forum, @topic], :html => { :multipart => true } do |f|
   %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
     %thead
       %tr

@@ -201,6 +201,10 @@
    :Create => "Create",
    :created => "{{thing}} was created.", 
    :Created_at => "Created at",
+   :created_with_attachments => { :zero => "{{thing}} was created.",
+                                  :one => "{{thing}} was created with one attachment.",
+                                  :other => "{{thing}} was created with {{count}} attachment." 
+                                },
    :create_one? => "create one?",
    :Creating_a_category => "Creating a category",
    :Creating_a_forum => "Creating a forum",
@@ -245,6 +249,7 @@
    :email => "email",
    :example_forum_description => "This is an example forum for Rboard.",
    :Example_time_display => "Example time display",
+   :File => "File",
    :Flagged_On => "Flagged On",
    :for => "for",
    :Forum => "Forum",
