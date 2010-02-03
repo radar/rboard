@@ -113,7 +113,8 @@ class PostsController < ApplicationController
 
     def create_ip
       @ip = Ip.find_or_create_by_ip(request.remote_addr)
-      IpUser.create(:ip => @ip, :user => current_user)
+      IpUser.find_or_create_by_ip_id_and_user_id(@ip.id, current_user.id)
+      @ip
     end
 
     def check_ownership
