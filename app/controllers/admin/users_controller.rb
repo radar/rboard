@@ -42,7 +42,8 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def search
-    render :text => User.search(params[:q]).map(&:login).join("\n")
+    # TODO: Switch to using thinking sphinx. Work out how to get this tested.
+    render :text => User.search(params[:q]).flatten.map(&:login).join("\n")
   end
 
 
