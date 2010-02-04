@@ -39,7 +39,6 @@ Feature: Topics
     When I follow "Edit topic"
     And I fill in "Subject" with "Not the default anymore"
     And I press "Update"
-    Then show me the page
     Then I should not see "Default Topic"
     And I should see "Not the default anymore"
   
@@ -51,3 +50,15 @@ Feature: Topics
     And I fill in "Text" with "Wooooaaaaah!"
     And I press "Create"
     Then I should see "Look at me go! - Admins Only"
+  
+  Scenario: Admins should be able to create sticky topics
+    Given I am logged in as "administrator" with the password "godly"
+    When I follow "Public Forum"
+    And I follow "New Topic"
+    When I fill in "Subject" with "Sticky!"
+    And I fill in "Text" with "Sticky!"
+    And I check "Sticky"
+    And I press "Create"
+    Then I should see "Sticky! - Public Forum"
+    When I follow "Public Forum"
+    Then I should see 1 sticky topic

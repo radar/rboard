@@ -42,7 +42,7 @@ class TopicsController < ApplicationController
       []
     end
     
-    @topic.sticky = true if params[:topic][:sticky] == 1 && current_user.can?(:post_stickies)
+    @topic.sticky = true if params[:topic][:sticky] == "1" && current_user.can?(:post_stickies)
     @topic.subscriptions.build(:user => current_user) if current_user.can?(:subscribe, @forum) && current_user.auto_subscribe? 
     if @topic.save
       flash[:notice] = if @post.attachments.count > 0

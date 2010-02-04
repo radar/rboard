@@ -6,7 +6,7 @@
     %tr
       %td{:valign => "top"}= post.label 'text', t(:Text)
       %td= post.text_area "text", :cols => "80"
-  - if current_user.can?(:sticky_topics, @forum)
+  - if current_user.can?(:post_stickies, @forum)
     %tr
       %td= f.label 'sticky', t(:Sticky)
       %td= f.check_box "sticky"
