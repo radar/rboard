@@ -44,12 +44,22 @@ module ApplicationHelper
   def clean_code(text)
     text.gsub(/^\r\n/, '').gsub(/\r\n$/, '').gsub("<", "&lt;").gsub(">", "&gt;")
   end
-  
+
+  # FIXME: this should be named bbquote! with a ! because it blasts the argument out of the water. Or change it to not modify argument
   def bbquote(text)
-    text.gsub!(/\[quote=["']?(.*?)["']?\](.*)\[\/quote\]/mis) do
-      "<div class='quote'>#{$1.empty? ? "" : "<b>#{$1} #{t(:wrote)}</b>"}<br /><span>#{bbquote($2)}</span></div>"
+#    text = text.dup # uncomment this line (please!) if you don't want it to change the argument
+    if md = text.match( /\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\](?!\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\])(.*?)\[\s*\/\s*quote\s*\]/i )
+      first, last = md.offset(0)[0], md.offset(0)[1]-1
+      name, content = md[2], md[7]
+      text[first..last] = content_tag(:div,
+                                      content_tag(:b,"%s wrote:" % name) +
+                                      tag(:br) +
+                                      content_tag(:span, content),
+                                      :class => 'quote')
+      bbquote(text)
+    else
+      text
     end
-    text
   end
   
   def theme_image_tag(f, html_options={})
