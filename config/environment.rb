@@ -37,6 +37,7 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'by_star', :version => '0.6.1'
   config.gem 'chronic'
   config.gem 'coderay'
+  config.gem 'haml', :version => "2.2.8"
   config.gem 'highline'
   config.gem 'paperclip', :version => '2.3.1.1'
   config.gem 'RedCloth'
@@ -69,9 +70,17 @@ Find.find(RAILS_ROOT + "/public/themes") do |path|
 end
 
 # Needs to be set for paperclip to find the identify command with Passenger.
-Paperclip.options[:command_path] = "/usr/local/bin"
+begin
+  require 'paperclip'
+  Paperclip.options[:command_path] = "/usr/local/bin"
+rescue LoadError
+end
 
-Sass::Plugin.options[:template_location] = themes
+begin
+  require 'sass'
+  Sass::Plugin.options[:template_location] = themes
+rescue LoadError
+end
 
 # def puts str
 #   super caller.first if caller.first.index("shoulda.rb") == -1
