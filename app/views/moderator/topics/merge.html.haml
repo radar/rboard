@@ -13,7 +13,7 @@
             %b= t(:Master_topic)
             %br
             - for topic in @topics
-              = radio_button_tag "master_topic_id", topic.id, false, :onclick => "$('new_subject').value = '#{topic.subject}'"
+              = radio_button_tag "master_topic_id", topic.id, false, :onclick => "jQuery('new_subject').value = '#{topic.subject}'"
               = topic.subject
               %br
             = label_tag "new_subject", t(:New, :thing => "subject")
