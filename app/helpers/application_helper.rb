@@ -11,13 +11,15 @@ module ApplicationHelper
     
     # All this sanitization is probably quite draining. Needs refactoring.
     if !text.include?("[code")
-      text = h(text)
+      # We would use h here but it escapes quotes, which we need for bbquotes.
+      # This is the code it uses anyway.
+      text = text.gsub(/&/, "&amp;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
     end
     text.gsub!(/(.*?)\[code=?["']?(.*?)["']?\](.*?)\[\/code\](.*?)/mis) { h($1.to_s) + "[code='#{$2}']#{$3}[/code]" + h($4)}
     text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<strong>#{t(:Code)}:</strong><pre>#{clean_code($2)}</pre>"}
 
-    # allows for nested quotes
-    bbquote(text)
+    ## Quoting
+    bbquote!(text)
     
     # Parse all similar tags
     bbcode("img", "<img src='", "'>") { text }
@@ -30,7 +32,6 @@ module ApplicationHelper
     
     # handle newlines
     text.gsub!(/(.*)(\r)+?\n/) { $1 << "<br />\n" }
-
 
     # handle with care...
     bbcode_ext(text)
@@ -45,18 +46,16 @@ module ApplicationHelper
     text.gsub(/^\r\n/, '').gsub(/\r\n$/, '').gsub("<", "&lt;").gsub(">", "&gt;")
   end
 
-  # FIXME: this should be named bbquote! with a ! because it blasts the argument out of the water. Or change it to not modify argument
-  def bbquote(text)
-#    text = text.dup # uncomment this line (please!) if you don't want it to change the argument
+  def bbquote!(text)
     if md = text.match( /\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\](?!\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\])(.*?)\[\s*\/\s*quote\s*\]/i )
       first, last = md.offset(0)[0], md.offset(0)[1]-1
       name, content = md[2], md[7]
       text[first..last] = content_tag(:div,
-                                      content_tag(:b,"%s wrote:" % name) +
+                                      content_tag(:strong,"%s wrote:" % name) +
                                       tag(:br) +
                                       content_tag(:span, content),
                                       :class => 'quote')
-      bbquote(text)
+      bbquote!(text)
     else
       text
     end

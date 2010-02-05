@@ -1,9 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-class TestView < ActionView::Base
-  include ApplicationHelper
-end
-
 describe ApplicationHelper, "general" do
   include ApplicationHelper
   extend ActionView::Helpers::SanitizeHelper::ClassMethods
@@ -20,8 +16,16 @@ describe ApplicationHelper, "general" do
     breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">Public Category</a> &raquo; <a href=\"/forums/#{@everybody.id}\">Public Forum</a> &raquo; <a href=\"/forums/#{@sub_of_everybody.id}\">Sub of Public Forum</a>")
   end
   
+  it "should accept quotes with single quotes around the name" do
+    parse_text("[quote='Radar']This is a quote[/quote]").should eql("<div class=\"quote\"><strong>Radar wrote:</strong><br /><span>This is a quote</span></div>")
+  end
+  
+  it "should accept quotes with double quotes around the name" do
+    parse_text("[quote=\"Radar\"]This is a quote[/quote]").should eql("<div class=\"quote\"><strong>Radar wrote:</strong><br /><span>This is a quote</span></div>")
+  end
+  
   it "should correctly display multiple nested quotes" do
-    TestView.new.parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class='quote'><b>&quot;Kitten&quot; wrote:</b><br /><span><div class='quote'><b>&quot;Dog&quot; wrote:</b><br /><span><div class='quote'><b>&quot;Turtle&quot; wrote:</b><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
+    parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class=\"quote\"><strong>Kitten wrote:</strong><br /><span><div class=\"quote\"><strong>Dog wrote:</strong><br /><span><div class=\"quote\"><strong>Turtle wrote:</strong><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
   end
   
   it "correctly formats the bbcode when it contains some code blocks" do
