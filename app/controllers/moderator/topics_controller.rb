@@ -13,7 +13,13 @@ class Moderator::TopicsController < Moderator::ApplicationController
   #
   # The second comes from forums/show which will use all the currently selected moderations as the objects.
   def moderate
-    @moderations = Moderation.for_user(current_user).topics.find(params[:moderation_ids]) if params[:moderation_ids]
+    # Topics
+    @moderations = Topic.find(params[:moderated_topics], :include => :moderations).each do |topic|
+      topic.moderations.find_or_create_by_user_id(current_user.id)
+    end if params[:moderated_topics]
+    # Moderation objects
+    @moderations ||= Moderation.for_user(current_user).topics.find(params[:moderation_ids]) if params[:moderation_ids]
+    # All moderations for the current user.
     @moderations ||= Moderation.topics.for_user(current_user.id)
     case params[:commit]
       when "Lock"
