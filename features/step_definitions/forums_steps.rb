@@ -8,3 +8,7 @@ Given /^there is a closed forum$/ do
   t.posts.build(:text => "I live in the Closed Forum. All by myself.", :user => User.first)
   t.save!
 end
+
+Then /^I should be in the "([^\"]*)" forum$/ do |title|
+  Forum.find(ActionController::Routing::Routes.recognize_path(request.path, { :method => :get })[:forum_id]).title.should eql(title)
+end

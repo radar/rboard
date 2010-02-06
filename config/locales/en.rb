@@ -291,7 +291,7 @@
    :Last_IP => "Last IP",
    :Last_Post => "Last Post",
    :Last_updated => "Last updated",
-   :Leave_redirect? => "Leave redirect?",
+   :Leave_redirect => "Leave redirect",
    :Lock => "Lock",
    :Locked! => "Locked!",
    :Lock_this_topic => "Lock this topic",

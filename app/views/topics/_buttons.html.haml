@@ -3,7 +3,7 @@
     = submit_tag(t(:Move))
     = select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title"))
     = check_box_tag "leave_redirect"
-    = label_tag "leave_redirect", t(:Leave_redirect?)
+    = label_tag "leave_redirect", t(:Leave_redirect)
 - if current_user.can?(:lock_topics, @forum)
   = submit_tag(t(:Lock))
   = submit_tag(t(:Unlock))
