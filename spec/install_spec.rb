@@ -2,7 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "installation" do
   it "installs everything" do
-    Rboard.install!("radar", "password", "radarlistener@gmail.com")
+    silence_stream(STDOUT) do
+      Rboard.install!("radar", "password", "radarlistener@gmail.com")
+    end
     Forum.count.should eql(1)
     Topic.count.should eql(1)
     Group.count.should eql(3)
