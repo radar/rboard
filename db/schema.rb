@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100203045407) do
+ActiveRecord::Schema.define(:version => 20100204214710) do
 
   create_table "banned_ips", :force => true do |t|
     t.string   "ip"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(:version => 20100203045407) do
     t.boolean "can_silently_edit",                :default => false
     t.boolean "can_manage_permissions",           :default => false
     t.boolean "can_manage_reports",               :default => false
+    t.boolean "can_sticky_topics",                :default => false
   end
 
   add_index "permissions", ["category_id"], :name => "index_permissions_on_category_id"
