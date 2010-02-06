@@ -13,7 +13,7 @@
     - edits = current_user.can?(:see_hidden_edits, @forum) ? post.edits : post.edits.visible
     - unless edits.empty?
       %span.edit-note
-        == - #{t(:This_post_was_edited_by)} #{post.editor.login} #{time_ago_in_words(post.updated_at)} #{t(:ago)}
+        == - #{t(:This_post_was_edited_by)} #{post.editor.login} #{time_ago_in_words(post.updated_at, :vague => true)} #{t(:ago)}
   .body
     :preserve
       #{parse_text(post.text)}

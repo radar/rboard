@@ -14,7 +14,7 @@ Feature: Edits
     And I follow "Edit"
     And I fill in "Text" with "Something other than the norm."
     And I press "Update"
-    Then I should see "This post was edited by administrator less than a minute ago"
+    Then I should see "This post was edited by administrator"
     When I follow "1 edit"
 
 
@@ -27,11 +27,11 @@ Feature: Edits
     And I fill in "Text" with "Something other than the norm."
     And I check "Edit silently"
     And I press "Update"
-    Then I should see "This post was edited by administrator less than a minute ago"
+    Then I should see "This post was edited by administrator"
     When I follow "Logout"
     Given I am logged in as "registered_user"
     And I am on the homepage
     When I follow "Public Forum"
     And I follow "Default topic"
-    Then I should not see "This post was edited by administrator less than a minute ago"
+    Then I should not see "This post was edited by administrator"
     
