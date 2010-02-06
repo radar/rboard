@@ -130,37 +130,47 @@ class Moderator::TopicsController < Moderator::ApplicationController
         flash[:notice] = t(:not_found, :thing => "topic")
         redirect_to moderator_moderations_path
     end
+    
+    # With any of these following methods..
+    # We want the system to first detect if there's any moderations they shouldn't be able to do.
+    # If there is some, then we'll remove them and redirect them back to... somewhere.
+    # Then they may try again as the slate may now be clean.
 
     def can_not_move?(moderations)
-      if moderations.any? { |moderation| !current_user.can?(:move_topics, moderation.topic.forum) }
+      if moderations = moderations.select { |moderation| !current_user.can?(:move_topics, moderation.forum) }
+        moderations.map(&:destroy)
         flash[:notice] = t(:You_are_not_allowed_to_move_topics)
         redirect_back_or_default(root_path)
       end
     end
 
     def can_not_lock?(moderations)
-      if !current_user.can?(:lock_topics)
+      if moderations = moderations.select { |moderation| !current_user.can?(:lock_topics, moderation.forum) }
+        moderations.map(&:destroy)
         flash[:notice] = t(:You_are_not_allowed_to_lock_or_unlock_topics)
         redirect_back_or_default root_path
       end
     end
 
     def can_not_delete?(moderations)
-      if !current_user.can?(:delete_topics)
+      if moderations = moderations.select { |moderation| !current_user.can?(:delete_topics, moderation.forum) }
+        moderations.map(&:destroy)
         flash[:notice] = t(:You_are_not_allowed_to_delete_topics)
         redirect_back_or_default root_path
       end
     end
 
     def can_not_sticky?(moderations)
-      if !current_user.can?(:sticky_topics)
+      if moderations = moderations.select { |moderation| !current_user.can?(:sticky_topics, moderation.forum) }
+        moderations.map(&:destroy)
         flash[:notice] = t(:You_are_not_allowed_to_sticky_or_unsticky_topics)
         redirect_back_or_default root_path
       end
     end
 
     def can_not_merge?(moderations)
-      if !current_user.can?(:merge_topics)
+      if moderations = moderations.select { |moderation| !current_user.can?(:merge_topics, moderation.forum) }
+        moderations.map(&:destroy)
         flash[:notice] = t(:You_are_not_allowed_to_merge_topics)
         redirect_back_or_default root_path
       end

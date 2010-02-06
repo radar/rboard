@@ -39,4 +39,9 @@ class Moderation < ActiveRecord::Base
     moderated_object.move!(new_forum_id, leave_redirect)
     destroy
   end
+  
+  # JIC: Forum may not be set, use this as as fallback.
+  def forum
+    Forum.find(self["forum_id"]) || topic.forum
+  end
 end
