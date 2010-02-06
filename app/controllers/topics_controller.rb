@@ -37,7 +37,7 @@ class TopicsController < ApplicationController
     
     # TODO: Work out how to get attachments to be able to be passed in as an ANAF field correctly.
     @attachments = if params[:post_attachment]
-      params[:post_attachment].values.map { |attachment| @post.attachments.build(attachment) }
+      params[:post_attachment].values.map { |attachment| @post.attachments.build(attachment) if !attachment["file"].blank? }
     else
       []
     end
