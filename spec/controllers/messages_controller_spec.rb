@@ -10,7 +10,7 @@ describe MessagesController do
     @message = Message.create(:to => @moderator, :from => @plebian, :text => "PLZ BAN THIS GUY")
     @disallowed_message = Message.create(:to => @admin, :from => @moderator, :text => "registered_user is annoying.")
   end
-  
+
   describe MessagesController, "as a user" do
     before do
       login_as(:registered_user)

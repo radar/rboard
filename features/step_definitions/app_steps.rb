@@ -28,7 +28,7 @@ Given /^there is the usual setup$/ do
 
   # Configuration
    Configuration.create(:key => "subforums_display", :title => I18n.t(:subforums_display), :value => 3, :description => I18n.t(:subforums_display_description))
-   
+
   setup_user_base
   setup_forums
 end

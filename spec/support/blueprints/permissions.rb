@@ -14,6 +14,8 @@ Permission.blueprint(:moderators) do
   can_manage_posts true
   can_manage_topics true
   can_merge_topics true
+  # We would continue to add the rest here but it'd be best doing it as they're required.
+  # This is to ensure that we've covered all scenarios.
   group { Group.ensure("Moderators") }
 end
 

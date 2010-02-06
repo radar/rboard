@@ -11,7 +11,7 @@ describe EditsController do
     @post = @public.posts.first
     @edit = @post.edits.create
     @invisible_edit = @post.edits.create(:hidden => true)
-    
+
     @admin_forum = Forum("Admins Only")
     @admin_post = @admin_forum.posts.first
     @admin_edit = @admin_post.edits.create
@@ -28,7 +28,7 @@ describe EditsController do
       response.should redirect_to(root_path)
       flash[:notice].should_not be_nil
     end
-    
+
     it "should not be able to see an invisible edit" do
       get 'show', :id => @invisible_edit, :post_id => @admin_post
     end

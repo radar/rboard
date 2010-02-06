@@ -2,7 +2,7 @@ Feature: Forums
   In order to restrict people to the right forums
   Administrators
   want to ensure people are shown only the right forums
-  
+
   Background:
     Given there is the usual setup
     Given I am logged in as "administrator" with the password "godly"
@@ -17,7 +17,7 @@ Scenario: Administrators should be able to create new forums
   And I press "Create"
   Then I should see "Forum was created."
   And I should see "Test Forum"
-  
+
 Scenario: Administrators should be able to update forums
   And I follow "Edit"
   And I fill in "Title" with "Unmoderated"

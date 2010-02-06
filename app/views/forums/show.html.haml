@@ -60,7 +60,7 @@
           - if current_user.can?(:start_new_topics, @forum)
             = t(:Why_not)
             = link_to(t(:create_one?), new_forum_topic_path(@forum))
-  
+
     - if current_user.can_moderate_topics?
       %span#moderated_topics_count
         - unless @moderated_topics_count.zero?

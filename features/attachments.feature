@@ -2,10 +2,10 @@ Feature: Attachments
   In order to be able to attach files to posts
   As a user
   I want that functionality
-  
+
   Background:
     Given there is the usual setup
-  
+
   Scenario: Attaching a single file to a post
     Given I am logged in as "registered_user"
     When I follow "Public Forum"

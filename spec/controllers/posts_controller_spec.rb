@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe PostsController, "as plebian" do
-  
+
   before do
     setup_user_base
     setup_forums
@@ -11,12 +11,12 @@ describe PostsController, "as plebian" do
     @admin_topic = @admin_forum.topics.first
     @everybody = Forum("Public Forum")
     @topic = @everybody.topics.first
-    
+
     # Post is owned by the registered_user for this.
     @post = @topic.posts.first
     @post.user = @registered_user
     @post.save!
-    
+
     @other_user_topic = @everybody.topics.last
   end
 
@@ -86,17 +86,17 @@ describe PostsController, "as plebian" do
       @topic.posts.last.destroy
       @topic.reload
     end
-    
+
     # Ensure that the registered_user still owns this post.
     @post = @topic.posts.first
     @post.user = User(:registered_user)
     @post.save!
-    
+
     delete 'destroy', :id => @post.to_param, :topic_id => @topic.to_param
     flash[:notice].should eql(t(:deleted, :thing => "post") + t(:topic_too))
     response.should redirect_to(forum_path(@everybody))
   end
-  
+
   it "should not be able to destroy a post, and the topic if they do not own the post" do
     @post.user = User(:administrator)
     @post.save!

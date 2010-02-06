@@ -12,9 +12,9 @@ module Rboard::UserExtension
       validates_length_of       :email,    :within => 3..100
       validates_uniqueness_of   :login, :email, :case_sensitive => false
       validates_uniqueness_of   :display_name, :allow_nil => true
-      
+
       validate :display_name_is_not_other_login_name
-      
+
       has_many :group_users
 
       has_many :banned_ips, :foreign_key => "banned_by"
@@ -47,7 +47,7 @@ module Rboard::UserExtension
       before_create :set_permissions
       before_save :set_permalink
       before_save :logins_should_not_contain_commas
-      
+
       before_destroy :anonymous_cannot_be_deleted
 
       attr_protected :identifier
@@ -59,7 +59,7 @@ module Rboard::UserExtension
           indexes login, email, display_name
         end if User.table_exists?
       end
-      
+
       class << self
         def anonymous
           find_by_identifier("anonymous")
@@ -96,7 +96,7 @@ module Rboard::UserExtension
       end
 
       private
-      
+
       def anonymous_cannot_be_deleted
         if self == User.anonymous
           errors.add_to_base(t(:anonymous_stays))
@@ -104,7 +104,7 @@ module Rboard::UserExtension
         end
         return true
       end
-      
+
       def set_permalink
         self.permalink = to_s.parameterize
       end
@@ -127,11 +127,11 @@ module Rboard::UserExtension
       def set_theme
         self.theme = Theme.find(:first)
       end
-      
+
       def logins_should_not_contain_commas
         errors.add(:login, t(:cannot_contain_commas)) and return false if /,/.match(login)
       end
-      
+
       def display_name_is_not_other_login_name
         user = User.find_by_login(display_name)
         errors.add(:display_name, I18n.t(:taken, :scope => :'active_record.error_messages' )) if user  && user != self

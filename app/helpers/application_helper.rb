@@ -1,14 +1,14 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  
+
   # This could probably be done better.
   def bbcode(tag, start_piece, end_piece, &block)
     block.call.gsub!(%r{\[#{tag}\](.*?)\[\/#{tag}\]}) { "#{start_piece}#{$1}#{end_piece}" }
   end
-  
+
   def parse_text(text)
     # Code snippets
-    
+
     # All this sanitization is probably quite draining. Needs refactoring.
     if !text.include?("[code")
       # We would use h here but it escapes quotes, which we need for bbquotes.
@@ -20,7 +20,7 @@ module ApplicationHelper
 
     ## Quoting
     bbquote!(text)
-    
+
     # Parse all similar tags
     bbcode("img", "<img src='", "'>") { text }
     bbcode("gist", "<script src='http://gist.github.com/", '></script>') { text }
@@ -29,7 +29,7 @@ module ApplicationHelper
 
     # URLs
     text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a rel='nofollow' href='" << $1 << "'>" << $2 << "</a>" }
-    
+
     # handle newlines
     text.gsub!(/(.*)(\r)+?\n/) { $1 << "<br />\n" }
 
@@ -41,7 +41,7 @@ module ApplicationHelper
   def bbcode_ext(text)
     text
   end
-  
+
   def clean_code(text)
     text.gsub(/^\r\n/, '').gsub(/\r\n$/, '').gsub("<", "&lt;").gsub(">", "&gt;")
   end
@@ -60,7 +60,7 @@ module ApplicationHelper
       text
     end
   end
-  
+
   def theme_image_tag(f, html_options={})
     if !theme.nil?
       o = "<img src='#{ActionController::Base.relative_url_root}/themes/" + theme.name + "/#{f}'"
@@ -74,7 +74,7 @@ module ApplicationHelper
   def stripe
     cycle("odd", "even")
   end
-  
+
   def breadcrumb(forum, breadcrumb='')
     breadcrumb = ''
     if forum.parent.nil?

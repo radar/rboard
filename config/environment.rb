@@ -44,7 +44,7 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'RedCloth'
   config.gem 'thinking-sphinx', :lib => 'thinking_sphinx'
 
-  
+
   # lol actionwebservice
   # lol activeresource
   config.frameworks -= [:action_web_service, :activeresource]

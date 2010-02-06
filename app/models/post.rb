@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   default_scope :order => "posts.created_at ASC"
-  
+
   acts_as_list :column => "number", :scope => :topic_id
 
   # For distance_of_time_in_words
@@ -18,7 +18,7 @@ class Post < ActiveRecord::Base
 
   validates_length_of :text, :minimum => 4
   validates_presence_of :text
-  
+
   accepts_nested_attributes_for :attachments
 
   if SEARCHING

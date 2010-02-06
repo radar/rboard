@@ -11,7 +11,7 @@ def setup_user_base
   # Create the users
   User.make_with_group(:registered_user, "Registered Users")
   User.make_with_group(:banned_noob, "Registered Users")
-  
+
   # And the people who control it all
   moderator     = User.make_with_group(:moderator, "Moderators")
   administrator = User.make_with_group(:administrator, "Administrators")
@@ -20,7 +20,7 @@ def setup_user_base
 
   registered_user_group.owner = administrator
   registered_user_group.save
-  
+
   Permission.make(:administrators)
   Permission.make(:moderators)
 end
@@ -40,7 +40,7 @@ def setup_forums
   # A couple of topics for forum
 
   3.times { valid_topic_for(forum, 3) }
-  
+
 
   # Decategorized forum
 
@@ -53,15 +53,15 @@ def setup_forums
   # Admin forum
 
   admin_forum = admins_only_category.forums.make(:title => "Admins Only")
-  
+
   valid_topic_for(admin_forum)
-  
+
   # Moderator forum
-  
+
   moderator_forum = Forum.make(:title => "Moderators Only")
-  
+
   valid_topic_for(moderator_forum)
-  
+
   # Various permissions
   Permission.make(:administrators, :forum => admin_forum)
   Permission.make(:anonymous, :forum => admin_forum, :can_see_forum => false)
@@ -74,7 +74,7 @@ end
 
 def valid_topic_for(forum, posts_count=1)
   topic = forum.topics.make_unsaved
-  
+
   posts_count.to_i.times do
     post = topic.posts.build(Post.plan)
     post.user = User.ensure(:administrator)

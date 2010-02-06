@@ -5,7 +5,7 @@ describe Admin::IndexController do
     setup_user_base
     setup_forums
   end
-  
+
   it "should show the admin page" do
    login_as(:administrator)
    get 'index'

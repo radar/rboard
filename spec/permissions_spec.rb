@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe User do
-  
+
   before do
     setup_user_base
     setup_forums

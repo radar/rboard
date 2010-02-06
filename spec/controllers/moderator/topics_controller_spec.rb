@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Moderator::TopicsController do
-  
+
   before do
     setup_user_base
     setup_forums

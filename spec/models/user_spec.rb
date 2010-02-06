@@ -24,7 +24,7 @@ describe User, "with users" do
 
     @banned_noob = User.ensure("banned_noob")
     @moderator = User.ensure("moderator")
-    
+
 
     @god = Rank.make(:god)
   end
@@ -63,7 +63,7 @@ describe User, "with users" do
   it "should see that the user was recently online" do
     @registered_user.online?.should be_true
   end
-  
+
   it "should not be able to delete the anonymous user" do
     @registered_user.destroy.should be_true
     # TODO: Figure out why this isn't being set in blueprints.
@@ -80,12 +80,12 @@ describe User, "valid login names" do
   before do
     @user = User.make_unsaved
   end
-  
+
   it "should not be able to contain commas" do
     @user.login = "radar,"
     @user.save.should be_false
     @user.login = "radar"
     @user.save.should be_true
   end
-    
+
 end

@@ -18,7 +18,7 @@ class Group < ActiveRecord::Base
   def to_s
     name
   end
-  
+
   def set_identifier
     self.identifier = name.downcase.gsub(' ', '_')
   end

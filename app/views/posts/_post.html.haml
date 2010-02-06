@@ -1,6 +1,6 @@
 .post{:id => "post_#{post.id}", :class => stripe}
   = render :partial => "posts/actions", :locals => { :post => post }
-  
+
   .details
     %a{:href => forum_topic_path(post.topic.forum, post.topic) + "/#{(params[:page] || 1)}" + "#post_#{post.id}", :name => "post_#{post.id}"}
       \#

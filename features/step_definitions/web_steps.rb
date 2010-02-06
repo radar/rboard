@@ -134,7 +134,7 @@ When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   when "gif"
     type = "image/gif"
   end
-  
+
   attach_file(field, path, type)
 end
 

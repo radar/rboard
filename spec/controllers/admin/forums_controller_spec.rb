@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::ForumsController do
-  
+
   before do
     setup_user_base
     setup_forums

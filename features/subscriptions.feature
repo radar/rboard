@@ -16,7 +16,7 @@ Feature: Managing Subscriptions
     When I press "Create"
     When I follow "Subscriptions"
     Then I should see "Tribute"
-    
+
   Scenario: User with subscriptions turned off should not be automatically subscribed to topics
     Given I am logged in as "registered_user"
     And I have auto subscriptions turned off
@@ -28,7 +28,7 @@ Feature: Managing Subscriptions
     When I press "Create"
     When I follow "Subscriptions"
     Then I should not see "Tribute"
-    
+
   Scenario: User who has auto subscriptions turned off should be able to subscribe to them
     Given I am logged in as "registered_user"
     And I have auto subscriptions turned off

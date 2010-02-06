@@ -5,7 +5,7 @@ describe Admin::PostsController do
     setup_user_base
     setup_forums
   end
-  
+
   describe "non-admins" do
     it "should not be allowed in if not logged in" do
       get 'index'

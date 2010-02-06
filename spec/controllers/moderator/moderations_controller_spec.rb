@@ -25,7 +25,7 @@ describe Moderator::ModerationsController do
       @forum = Forum("Public Forum")
       @topic = @forum.topics.first
     end
-    
+
    def create_moderation
      @topic.moderations.create!(:user => @moderator)
    end

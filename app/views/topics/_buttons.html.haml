@@ -7,10 +7,10 @@
 - if current_user.can?(:lock_topics, @forum)
   = submit_tag(t(:Lock))
   = submit_tag(t(:Unlock))
-  
+
 - if current_user.can?(:merge_topics, @forum)
   = submit_tag(t(:Merge))
-  
+
 - if current_user.can?(:delete_topics, @forum)
   = submit_tag(t(:Delete))
 

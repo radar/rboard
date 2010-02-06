@@ -11,4 +11,4 @@ Feature: Categories
     When I follow "Logout"
     Given I am logged in as "administrator" with the password "godly"
     Then I should see "Admin Walled Garden"
-  
+

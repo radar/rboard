@@ -4,7 +4,7 @@
 = error_messages_for :category
 - form_for [:admin, @category] do |f|
   %h2= t(:Creating_a_category)
-  
+
   = render :partial => "form", :locals => { :f => f }
-  
+
   = f.submit t(:Create)

@@ -63,7 +63,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
       @topics = Topic.find(params[:moderation_ids])
       session[:moderation_ids] = params[:moderation_ids]
     end
-    
+
     # If the user has AJAX turned off (or a cucumber test) this will need to happen.
     params[:new_subject] ||= Topic.find(params[:master_topic_id]).subject if params[:master_topic_id]
 
@@ -132,7 +132,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
         flash[:notice] = t(:not_found, :thing => "topic")
         redirect_to moderator_moderations_path
     end
-    
+
     # With any of these following methods..
     # We want the system to first detect if there's any moderations they shouldn't be able to do.
     # If there is some, then we'll remove them and redirect them back to... somewhere.

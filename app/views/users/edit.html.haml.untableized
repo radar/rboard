@@ -1,54 +1,54 @@
 - form_for current_user, :html => { :multipart => true } do |f|
   %h2= t(:Editing_your_profile)
-  
+
   %p
     = f.label "display_name", t(:Display_Name)
     = f.text_field :display_name
-  
+
   %h3= t(:New, :thing => "Password")
   = t(:Changing_your_password)
-  
+
   %p
     = f.label "password", t(:New, :thing => "Password")
     = f.password_field "password", :value => ""
-    
+
   %p
     = f.label "password_confirmation", t(:New_Password_Confirmation)
     = f.password_field "password_confirmation", :value => ""
-  
+
   %h3= t(:Forum_information)
-  
+
   %p
     = f.label "signature", t(:Signature)
     = f.text_area "signature", :cols => 80, :rows => 5
-    
+
   %p
     = f.label "email", t(:Email)
     = f.text_field "email"
-  
+
   %p
     = f.label "time_zone", t(:Time_Zone)
     = f.time_zone_select "time_zone"
-  
+
   %p
     = f.label "date_display", t(:Date_and_Time_Display)
     = f.text_field "date_display", :size => 10
     = f.text_field "time_display", :size => 10
     = link_to t(:read_this_for_more_information), "http://noobkit.com/show/ruby/ruby/ruby-core/time/strftime.html"
-  
+
   %p 
     = label_tag "example_time_display", t(:Example_time_display)
     = Time.now.strftime(date_display + " " + time_display)
-  
+
   - if @themes.size > 1
     %p 
       = f.label 'theme_id', t(:Theme)
       = f.select "theme_id", @themes.map { |t| [t.name, t.id] }
-  
+
   %p
     = f.label 'per_page', t(:Items_per_page)
     = f.text_field 'per_page', :size => 3
-  
+
   - if current_user.email
     %p 
       = label_tag t(:Current) + " " + link_to(t(:Gravatar), "http://gravatar.com")
@@ -57,9 +57,9 @@
     %p
       = label_tag "current_avatar", t(:Current_avatar)
       = image_tag current_user.avatar(:thumbnail)
-  
+
   %p
     = label_tag "upload_avatar", t(:Upload_new_avatar)
     = f.file_field :avatar
-      
+
   %p= submit_tag t(:Update)

@@ -12,5 +12,5 @@ describe "installation" do
     User.count.should eql(2)
     Theme.find_by_name("blue").is_default?.should be_true
   end
-  
+
 end
