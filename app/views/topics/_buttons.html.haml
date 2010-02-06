@@ -1,11 +1,19 @@
-- unless @all_forums.empty?
-  = submit_tag(t(:Move))
-  = select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title"))
-  = check_box_tag "leave_redirect"
-  = label_tag "leave_redirect", t(:Leave_redirect?)
-= submit_tag(t(:Lock))
-= submit_tag(t(:Unlock))
-= submit_tag(t(:Merge))
-= submit_tag(t(:Delete))
-= submit_tag(t(:Sticky))
-= submit_tag(t(:Unsticky))
+- if current_user.can?(:move_topics, @forum)
+  - unless @all_forums.empty?
+    = submit_tag(t(:Move))
+    = select_tag("new_forum_id", options_from_collection_for_select(@all_forums, "id", "title"))
+    = check_box_tag "leave_redirect"
+    = label_tag "leave_redirect", t(:Leave_redirect?)
+- if current_user.can?(:lock_topics, @forum)
+  = submit_tag(t(:Lock))
+  = submit_tag(t(:Unlock))
+  
+- if current_user.can?(:merge_topics, @forum)
+  = submit_tag(t(:Merge))
+  
+- if current_user.can?(:delete_topics, @forum)
+  = submit_tag(t(:Delete))
+
+- if current_user.can?(:sticky_topics, @forum)
+  = submit_tag(t(:Sticky))
+  = submit_tag(t(:Unsticky))

@@ -7,6 +7,7 @@ Given /^I am logged in as "([^\"]*)"$/ do |user|
   Then "I should see \"Logged in successfully.\""
   # To get the latest user
   @user = User.first(:order => "updated_at DESC")
+  @global_permission = @user.permissions.global
 end
 
 Given /^I am logged in as "([^\"]*)" with the password "([^\"]*)"$/ do |user, password|
@@ -18,6 +19,7 @@ Given /^I am logged in as "([^\"]*)" with the password "([^\"]*)"$/ do |user, pa
   Then "I should see \"Logged in successfully.\""
   # To get the latest user
   @user = User.first(:order => "updated_at DESC")
+  @global_permission = @user.permissions.global
 end
 
 Given /^there is the usual setup$/ do

@@ -45,6 +45,7 @@ Permission.blueprint(:administrators) do
   can_merge_topics true
   can_move_topics true
   can_split_topics true
+  can_sticky_topics true
   can_send_multiple_messages true
   can_send_messages_to_groups true
   can_read_private_messages true
