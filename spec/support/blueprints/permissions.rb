@@ -13,6 +13,7 @@ Permission.blueprint(:moderators) do
   can_manage_moderations true
   can_manage_posts true
   can_manage_topics true
+  can_merge_topics true
   group { Group.ensure("Moderators") }
 end
 
