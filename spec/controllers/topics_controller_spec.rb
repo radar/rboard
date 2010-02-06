@@ -84,6 +84,16 @@ describe TopicsController do
         get 'new', :forum_id => @everybody.id
         response.should render_template("new")
       end
+      
+      it "should be able to create a topic with an attachment" do
+        post 'create', { :forum_id => @everybody.id, :topic => { :subject => "This is a topic" }, :post => { :text => "And this is a post"}, :post_attachment => { "0" => { :file => File.open(Rails.root.join("spec", "fixtures", "photo.jpg")) } } }
+        flash[:notice].should eql(t(:created_with_attachments, :thing => "Topic", :count => 1))
+      end
+      
+      it "should be able to create a topic" do
+        post 'create', { :forum_id => @everybody.id, :topic => { :subject => "This is a topic" }, :post => { :text => "And this is a post"} }
+        flash[:notice].should eql(t(:created, :thing => "Topic"))
+      end
 
       it "should be able to edit a topic that belongs to itself" do
         @everybody_topic.user = User("registered_user")
