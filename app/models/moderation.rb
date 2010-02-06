@@ -42,6 +42,6 @@ class Moderation < ActiveRecord::Base
   
   # JIC: Forum may not be set, use this as as fallback.
   def forum
-    Forum.find(self["forum_id"]) || topic.forum
+    Forum.find_by_id(self["forum_id"]) || topic.forum
   end
 end

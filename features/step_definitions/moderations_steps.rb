@@ -1,8 +1,6 @@
-When /^I select "([^\"]*)" for moderation$/ do |title|
-  # All of this just to get the ID of the corresponding topic.
-  # Sure we could do a find, but that doesn't *prove* that the topic is on the page.
-  # We want proof. Gorgeous, proof.
-  id = Nokogiri::HTML(response.body).xpath("//a").detect { |a| a.text == title }["href"].split("/").last
+When /^I select "([^\"]*)" for moderation$/ do |subject|
+  Then "I should see \"#{subject}\""
+  id = Topic.find_by_subject(subject).id
   When "I check \"topic_#{id}_moderated\""
 end
 

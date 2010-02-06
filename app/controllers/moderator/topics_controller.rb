@@ -14,7 +14,7 @@ class Moderator::TopicsController < Moderator::ApplicationController
   # The second comes from forums/show which will use all the currently selected moderations as the objects.
   def moderate
     # Topics
-    @moderations = Topic.find(params[:moderated_topics], :include => :moderations).each do |topic|
+    @moderations = Topic.find(params[:moderated_topics], :include => :moderations).map do |topic|
       topic.moderations.find_or_create_by_user_id(current_user.id)
     end if params[:moderated_topics]
     # Moderation objects
@@ -63,18 +63,20 @@ class Moderator::TopicsController < Moderator::ApplicationController
       @topics = Topic.find(params[:moderation_ids])
       session[:moderation_ids] = params[:moderation_ids]
     end
+    
+    # If the user has AJAX turned off (or a cucumber test) this will need to happen.
+    params[:new_subject] ||= Topic.find(params[:master_topic_id]).subject if params[:master_topic_id]
 
     @topics ||= Topic.find(session[:moderation_ids])
     if request.put? && params[:new_subject]
-
       # Check if user has access to all topics
-      if @topics.any? { |topic| !current_user.can?(:see_forum, topic.forum) }
+      if @topics.any? { |topic| !current_user.can?(:see_forum, topic.forum) || !current_user.can?(:merge_topics, topic.forum)}
         flash[:notice] = t(:topics_not_accessible_by_you)
         redirect_back_or_default(forums_path)
         return false
-      else      
+      else
         @topic = Topic.find(params[:master_topic_id])
-        @topic.merge!(session[:moderation_ids], params[:new_subject])
+        @topic.merge!(session[:moderation_ids], current_user, params[:new_subject])
         flash[:notice] = t(:topics_merged)
         redirect_back_or_default(forums_path)
       end

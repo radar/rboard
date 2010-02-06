@@ -118,13 +118,13 @@ class Topic < ActiveRecord::Base
     update_attribute("sticky", false)
   end
 
-  def merge!(moderation_ids, new_subject=nil)
-    other_moderation_ids = moderation_ids - [id.to_s]
+  def merge!(moderation_ids, user, new_subject=nil)
+    other_moderation_ids = moderation_ids - [id] - [id.to_s]
     self.subject = new_subject unless new_subject.blank?
     self.posts += Topic.find(other_moderation_ids, :include => :posts).map(&:posts).flatten!.sort_by(&:created_at)
     Topic.find(other_moderation_ids).map(&:destroy)
     self.last_post = posts.last
-    moderations.delete_all
+    moderations.for_user(user).delete_all
     save!
   end
 
