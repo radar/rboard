@@ -101,7 +101,7 @@ describe Topic, "in general" do
     topic.posts.size.should eql(2)
     other_topic.posts.size.should eql(1)
     Topic.count.should eql(4)
-    topic.merge!([other_topic.id])
+    topic.merge!([other_topic.id], User("administrator"))
     topic.posts.size.should eql(3)
     Topic.count.should eql(3)
   end
