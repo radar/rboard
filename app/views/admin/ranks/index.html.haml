@@ -15,8 +15,8 @@
       - for rank in @ranks
         %tr{ :class => stripe }
           %td.icon
-            = link_to(theme_image_tag("edit.jpg"), edit_admin_rank_path(rank))
-            = link_to(theme_image_tag("delete.jpg"), admin_rank_path(rank), :method => "delete", :confirm => t(:confirm_deletion, :thing => "rank"))
+            = link_to(theme_image_tag("edit.png"), edit_admin_rank_path(rank))
+            = link_to(theme_image_tag("delete.png"), admin_rank_path(rank), :method => "delete", :confirm => t(:confirm_deletion, :thing => "rank"))
           %td= rank.name
           %td= rank.posts_required.nil? ? t(:none) : rank.posts_required
           %td= rank.custom ? t(:yes) : t(:no)

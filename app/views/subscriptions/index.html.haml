@@ -11,7 +11,7 @@
       - for subscription in @subscriptions
         %tr{ :class => stripe}
           %td
-            = link_to theme_image_tag("delete.jpg"), subscription, :method => :delete
+            = link_to theme_image_tag("delete.png"), subscription, :method => :delete
             %td= link_to subscription.topic, [subscription.topic.forum, subscription.topic]
             %td{:align => "center"}= subscription.updated_at.strftime(date_time_display)
             %td{:align => "center"}= subscription.posts_count

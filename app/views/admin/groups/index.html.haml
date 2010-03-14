@@ -14,8 +14,8 @@
     - for group in @groups
       %tr{ :class => stripe }
         %td
-          = link_to theme_image_tag("edit.jpg", :alt => t(:Edit), :title => t(:Edit)), edit_admin_group_path(group)
-          = link_to theme_image_tag("delete.jpg", :alt => t(:Delete), :title => t(:Delete)), admin_group_path(group), :method => "delete", :confirm => t(:confirm_deletion, :thing => "group")
+          = link_to theme_image_tag("edit.png", :alt => t(:Edit), :title => t(:Edit)), edit_admin_group_path(group)
+          = link_to theme_image_tag("delete.png", :alt => t(:Delete), :title => t(:Delete)), admin_group_path(group), :method => "delete", :confirm => t(:confirm_deletion, :thing => "group")
         %td= group.name
         %td= link_to group.owner, admin_user_path(group.owner) unless group.owner.nil?
         %td= link_to pluralize(group.users.count, "member"), admin_group_users_path(group), :id => "members_for_#{group.identifier}"

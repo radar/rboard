@@ -17,7 +17,7 @@
       - if @reportable
         - for report in @reports
           %tr
-            %td= link_to theme_image_tag("delete.jpg"), moderator_report_path(report), :confirm => t(:confirm_deletion, :thing => "report")
+            %td= link_to theme_image_tag("delete.png"), moderator_report_path(report), :confirm => t(:confirm_deletion, :thing => "report")
             %td= truncate(report.text, 100)
             %td= report.user
             %td= report.created_at.strftime(date_time_display)
