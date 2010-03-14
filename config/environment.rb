@@ -34,7 +34,7 @@ STANDALONE = true
 
 CONFIG = Rails::Initializer.run do |config|
 
-  config.gem 'by_star', :version => '0.6.1'
+  config.gem 'by_star', :version => '0.6.3'
   config.gem 'chronic'
   config.gem 'coderay'
   config.gem 'dotiw'
