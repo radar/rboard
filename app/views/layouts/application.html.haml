@@ -7,11 +7,12 @@
       = t(:rBoard)
     %link{:href => "#{ActionController::Base.relative_url_root}/themes/#{theme.name}/style.css", :rel => "stylesheet"}
       = javascript_include_tag 'jquery'
-      %script
-        jQuery.noConflict();
-      = javascript_include_tag :defaults
-      = yield :feed
-      = yield :head
+    %script
+      jQuery.noConflict();
+    = javascript_include_tag :defaults
+    = yield :feed
+    = yield :head
+
   %body
     .title-bar
       = link_to theme_image_tag("logo.jpg"), forums_path
@@ -46,7 +47,7 @@
         \:
         = text_field_tag :search, params[:search]
       .clear
-    .content
+    .content  
       - unless flash[:notice].blank?
         .flash#flash= flash[:notice]
       .forums_container

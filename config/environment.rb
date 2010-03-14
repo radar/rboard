@@ -38,7 +38,7 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'chronic'
   config.gem 'coderay'
   config.gem 'dotiw'
-  config.gem 'haml', :version => "2.2.8"
+  config.gem 'haml', :version => "2.2.21"
   config.gem 'highline'
   config.gem 'paperclip', :version => '2.3.1.1'
   config.gem 'RedCloth'
