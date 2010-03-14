@@ -3,7 +3,7 @@ class Category < ActiveRecord::Base
   acts_as_tree
   acts_as_list
 
-  has_many :forums
+  has_many :forums, :dependent => :nullify
   has_many :permissions
   has_many :groups, :through => :permissions
 
