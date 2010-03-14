@@ -42,7 +42,9 @@ class Topic < ActiveRecord::Base
   end
 
   def log_ip
-    IpUser.create(:user => user, :ip => ip)
+    unless IpUser.find(:first, :conditions => ["user_id = ? AND ip_id = ?", user.id, ip.id])
+      IpUser.create(:user => user, :ip => ip)
+    end
   end
 
 
