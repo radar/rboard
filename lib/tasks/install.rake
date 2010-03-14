@@ -1,4 +1,4 @@
-f def highline
+def highline
   @highline ||= begin
     require "highline"
     HighLine.new
