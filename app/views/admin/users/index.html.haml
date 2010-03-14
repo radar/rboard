@@ -37,7 +37,7 @@
         %tr{ :class => stripe }
           %td.icon
             - if @object.is_a?(Group)
-              = link_to theme_image_tag("remove.jpg", :alt => t(:Remove_user_from_group), :title => t(:Remove_user_from_group)), admin_group_member_path(@object, user), :method => :delete,  :confirm => t(:confirm_user_removal_from_group, :group => @object.to_s, :user => user)
+              = link_to theme_image_tag("delete.png", :alt => t(:Remove_user_from_group), :title => t(:Remove_user_from_group)), admin_group_member_path(@object, user), :method => :delete,  :confirm => t(:confirm_user_removal_from_group, :group => @object.to_s, :user => user)
             = link_to theme_image_tag("delete.png", :alt => t(:Delete_user), :title => t(:Delete_user)), admin_user_path(user), :method => :delete, :confirm => t(:confirm_deletion, :thing => "user")
             = link_to theme_image_tag("edit.png", :alt => t(:Edit_user), :title => t(:Delete_user)), edit_admin_user_path(user)
             = link_to theme_image_tag("ban.jpg", :alt => t(:Ban_user), :title => t(:Ban_user)), ban_admin_user_path(user), :confirm => t(:confirm_user_ban)
