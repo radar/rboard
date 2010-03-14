@@ -304,6 +304,7 @@
    :Master_topic => "Master topic",
    :Member_for => "Member for",
    :Member_List => "Member List",
+   :Member_since => "Member since",
    :Merge => "Merge",
    :Merging => "Merging",
    :message_does_not_belong_to_you => "That message does not belong to you.",
