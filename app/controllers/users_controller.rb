@@ -27,7 +27,6 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       if current_user.update_attributes(params[:user])
-        current_user.update_attributes!(params[:user])
         flash[:notice] ||= t(:profile_has_been_updated)
         redirect_to edit_user_path(current_user)
       else
