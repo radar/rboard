@@ -1,3 +1,4 @@
+= error_messages_for :user, :object => current_user
 - form_for current_user, :html => { :multipart => true } do |f|
   %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
     %thead
@@ -35,7 +36,7 @@
         %td.input
           = f.text_field "date_display", :size => 10
           = f.text_field "time_display", :size => 10
-          = link_to "read this for more information", "http://noobkit.com/show/ruby/ruby/ruby-core/time/strftime.html"
+          = link_to "read this for more information", "http://www.wetware.co.nz/blog/2009/07/rails-date-formats-strftime/"
       %tr
         %td.label{:valign => "top"}
           = label_tag "example_time_display", t(:Example_time_display)

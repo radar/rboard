@@ -25,9 +25,15 @@ class UsersController < ApplicationController
       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])
       flash[:notice] = t(:password_has_been_changed)
     end
-    current_user.update_attributes!(params[:user])
-    flash[:notice] ||= t(:profile_has_been_updated)
-    redirect_to edit_user_path(current_user)
+    respond_to do |format|
+      if current_user.update_attributes(params[:user])
+        flash[:notice] ||= t(:profile_has_been_updated)
+        redirect_to edit_user_path(current_user)
+      else
+        @themes = Theme.all
+        format.html { render :action => "edit" }
+      end
+    end
   end
 
 
