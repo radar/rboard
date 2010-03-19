@@ -34,7 +34,7 @@ class Moderator::PostsController < Moderator::ApplicationController
         else
           @topic.subject
       end
-      @new_topic = @topic.forum.topics.build(:subject => @subject, :user => @posts.first.user)
+      @new_topic = @topic.forum.topics.build(:subject => @subject, :user => @posts.first.user, :ip => @posts.first.ip)
       @new_topic.posts = @split_posts
       @new_topic.locked = @topic.locked
       @new_topic.sticky = @topic.sticky

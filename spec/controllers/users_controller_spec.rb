@@ -10,6 +10,7 @@ describe UsersController do
     end
 
     it "should be able to see a list of users" do
+      User.expects(:paginate)
       get 'index'
       response.should render_template("index")
     end

@@ -7,7 +7,5 @@ production:
   database: db/production.sqlite3
 
 test:
-  username: root
-  password:
-  adapter: mysql
-  database: rboard_test
+  adapter: sqlite3
+  database: db/test.sqlite3

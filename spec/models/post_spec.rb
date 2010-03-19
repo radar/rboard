@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Post, "validations" do
-  fixtures :posts
   before(:each) do
     @post = Post.new
   end
@@ -27,6 +26,7 @@ describe Post, "general" do
     @sub_post = @sub_topic.posts.first
     @registered_user = User("registered_user")
     @administrator = User("administrator")
+    @ip = Ip.make(:localhost)
   end
 
   it "should be able to find its forum" do
@@ -37,7 +37,7 @@ describe Post, "general" do
     # Because we limit users, by default, to one post per minute
     two_minutes_into_the_future = Time.now + 2.minutes
     Time.stub!(:now).and_return(two_minutes_into_the_future)
-    @new_post = @topic.posts.build(:user => @registered_user, :text => "Woot")
+    @new_post = @topic.posts.build(:user => @registered_user, :text => "Woot", :ip => @ip)
     @new_post.forum.last_post.should eql(@sub_post)
     @new_post.save
     @new_post.forum.last_post.should eql(@new_post)
@@ -48,7 +48,7 @@ describe Post, "general" do
     two_minutes_into_the_future = Time.now + 2.minutes
     Time.stub!(:now).and_return(two_minutes_into_the_future)
     @sub_topic.forum.sub?.should be_true
-    @new_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
+    @new_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot", :ip => @ip)
     @new_post.forum.last_post.should eql(@sub_post)
     @sub_topic.save.should be_true
     @sub_topic.posts.should_not be_empty
@@ -78,9 +78,9 @@ describe Post, "general" do
 
   it "should not be able to be flooded" do
     TIME_BETWEEN_POSTS = 1.minute
-    @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
+    @sub_topic.posts.build(:user => @registered_user, :text => "Woot", :ip => @ip)
     @sub_topic.save.should be_true
-    other_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot")
+    other_post = @sub_topic.posts.build(:user => @registered_user, :text => "Woot", :ip => @ip)
     other_post.save.should be_false
   end
 

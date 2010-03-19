@@ -15,6 +15,8 @@ describe Topic, "in general" do
     @administrator = User("administrator")
     # Remove the call to reverse for an interesting failing test
     @posts = @valid_topic.posts.reverse
+    
+    @ip = Ip.make(:localhost)
   end
 
   it "should validate everything" do
@@ -90,12 +92,12 @@ describe Topic, "in general" do
 
   it "should be able to merge two topics" do
     Topic.count.should eql(2)
-    topic = @everybody.topics.build(:subject => "subject", :user => @administrator)
-    post = topic.posts.build(:text => "First post", :user => @administrator)
+    topic = @everybody.topics.build(:subject => "subject", :user => @administrator, :ip => @ip)
+    post = topic.posts.build(:text => "First post", :user => @administrator, :ip => @ip)
     topic.save
-    other_topic = @everybody.topics.build(:subject => "second subject", :user => @administrator)
-    other_post = other_topic.posts.build(:text => "Second post", :user => @administrator)
-    yet_another_post = topic.posts.build(:text => "Third post", :user => @administrator)
+    other_topic = @everybody.topics.build(:subject => "second subject", :user => @administrator, :ip => @ip)
+    other_post = other_topic.posts.build(:text => "Second post", :user => @administrator, :ip => @ip)
+    yet_another_post = topic.posts.build(:text => "Third post", :user => @administrator, :ip => @ip)
     topic.save(false)
     other_topic.save(false)
     topic.posts.size.should eql(2)

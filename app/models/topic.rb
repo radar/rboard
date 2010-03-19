@@ -83,7 +83,7 @@ class Topic < ActiveRecord::Base
     old_forum.decrement!(:posts_count, posts.count)
 
     if leave_redirect
-      redirect = old_forum.topics.build(:subject => subject, :created_at => created_at, :user => user)
+      redirect = old_forum.topics.build(:subject => subject, :created_at => created_at, :user => user, :ip => ip)
       redirect.moved = true
       redirect.moved_to = self
       redirect.save!
