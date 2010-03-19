@@ -73,9 +73,10 @@ module Rboard
          f = Forum.create(:title => I18n.t(:Welcome_to_rBoard), :description => I18n.t(:example_forum_description))
 
          puts "Creating first topic..."
-         t = f.topics.build(:subject => I18n.t(:Your_first_topic), :user => u)
-         puts "... and first topic..."
-         t.posts.build(:text => I18n.t(:Welcome_to_rBoard_post), :user => u)
+         ip = Ip.create(:ip => "127.0.0.1")
+         t = f.topics.build(:subject => I18n.t(:Your_first_topic), :user => u, :ip => ip)
+         puts "... and first post..."
+         t.posts.build(:text => I18n.t(:Welcome_to_rBoard_post), :user => u, :ip => ip)
          t.save
          puts "Done!"
          Theme.find_by_name("blue").update_attribute("is_default", true)
