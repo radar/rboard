@@ -1,6 +1,6 @@
 # rBoard
 
-rBoard is a kick-ass forum system built in Ruby on Rails. One of it's primary goals is being able to set it up quickly and easily, and still have it blow your mind with an awesome and stable feature set. It's now one year old as of March 10th, 2009.
+rBoard is a kick-ass forum system built in Ruby on Rails. One of it's primary goals is being able to set it up quickly and easily, and still have it blow your mind with an awesome and stable feature set. It's now two years old as of March 10th, 2010.
 
 If you're looking to integrate it into a site, please read the Integration section below.
 
