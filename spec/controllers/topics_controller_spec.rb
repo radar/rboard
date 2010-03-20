@@ -86,7 +86,7 @@ describe TopicsController do
       end
 
       it "should be able to create a topic with an attachment" do
-        post 'create', { :forum_id => @everybody.id, :topic => { :subject => "This is a topic" }, :post => { :text => "And this is a post"}, :post_attachment => { "0" => { :file => File.open(Rails.root.join("spec", "fixtures", "photo.jpg")) } } }
+        post 'create', { :forum_id => @everybody.id, :topic => { :subject => "This is a topic" }, :post => { :text => "And this is a post"}, :post_attachment => { "0" => { :file => File.open(::Rails.root.join("spec", "fixtures", "photo.jpg")) } } }
         flash[:notice].should eql(t(:created_with_attachments, :thing => "Topic", :count => 1))
       end
 
