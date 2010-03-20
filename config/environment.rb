@@ -43,6 +43,7 @@ CONFIG = Rails::Initializer.run do |config|
   config.gem 'paperclip', :version => '2.3.1.1'
   config.gem 'RedCloth'
   config.gem 'thinking-sphinx', :lib => 'thinking_sphinx'
+  config.gem 'will_paginate'
 
 
   # lol actionwebservice
