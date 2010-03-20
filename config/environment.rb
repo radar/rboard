@@ -1,5 +1,7 @@
 # Be sure to restart your web server when you modify this file.
 require File.join(File.dirname(__FILE__), 'boot')
+require 'fileutils'
+
 database = File.join(RAILS_ROOT, "config/database.yml")
 if !File.exist?(database)
   puts "You don't have a config/database.yml. Let us create that for you..."
