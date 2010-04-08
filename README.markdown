@@ -12,6 +12,7 @@ In order to start using rBoard you should only have to clone the repository
 
     git clone git://github.com/radar/rboard.git rBoard
     cd rBoard
+    sudo rake gems:install
     rake install
 
 ## Requirements
