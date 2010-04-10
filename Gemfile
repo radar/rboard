@@ -8,7 +8,7 @@ gem 'chronic'
 gem 'coderay'
 gem 'i18n'
 gem 'dotiw'
-gem 'haml', "2.2.21"
+gem 'haml', "2.2.24"
 gem 'highline'
 gem 'paperclip', :git => 'git://github.com/lmumar/paperclip.git', :branch => 'rails3'
 gem 'RedCloth'
