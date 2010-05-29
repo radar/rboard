@@ -1,4 +1,4 @@
-ActionController::Routing::Routes.draw do |map|
+RBoard::Application.routes.draw do |map|
   map.root :controller => "forums"
   map.login 'login', :controller => 'users', :action => 'login'
   map.logout 'logout', :controller => 'users', :action => 'logout'
@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
       topic.resources :reports
     end
 
-    moderator.resources :posts do |post| 
+    moderator.resources :posts do |post|
       post.resources :moderations
       post.resources :reports
     end

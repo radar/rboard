@@ -2,7 +2,7 @@ module Rboard::UserExtension
 
   def self.included(klass)
     klass.class_eval do
-      named_scope :recent, lambda { { :conditions => ["login_time > ?", 15.minutes.ago] } }
+      scope :recent, lambda { { :conditions => ["login_time > ?", 15.minutes.ago] } }
       validates_presence_of     :login, :email
       validates_presence_of     :password,                   :if => :password_required?
       validates_presence_of     :password_confirmation,      :if => :password_required?

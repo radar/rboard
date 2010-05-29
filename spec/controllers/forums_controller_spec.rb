@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ForumsController do
-  fixtures :users, :forums, :categories, :groups, :group_users, :permissions 
 
   before do
     setup_user_base

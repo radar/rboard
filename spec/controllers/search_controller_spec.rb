@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe SearchController do
-  fixtures :posts
   before do
     @post = mock_model(Post)
     @posts = [@post]

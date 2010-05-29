@@ -5,14 +5,14 @@ class Forum < ActiveRecord::Base
   acts_as_tree :order => :position
 
   includes = [:children, :permissions, { :last_post => [:topic, :user] }, :last_post_forum]
-  named_scope :without_category, :conditions => { :category_id => nil }, :include => includes, :order => "position"
-  named_scope :without_parent, :conditions => { :parent_id => nil }, :include => includes, :order => "position" 
-  named_scope :active, :conditions => { :active => true }
+  scope :without_category, :conditions => { :category_id => nil }, :include => includes, :order => "position"
+  scope :without_parent, :conditions => { :parent_id => nil }, :include => includes, :order => "position"
+  scope :active, :conditions => { :active => true }
 
 
   has_many :moderations
   has_many :posts, :through => :topics, :source => :posts, :order => "posts.created_at desc"
-  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy
   has_many :permissions
   has_many :groups, :through => :permissions
 

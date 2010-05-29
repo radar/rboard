@@ -5,6 +5,8 @@
 # files.
 
 
+require 'uri'
+require 'cgi'
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "paths"))
 
 # Commonly used webrat steps
@@ -134,12 +136,12 @@ When /^(?:|I )attach the file "([^\"]*)" to "([^\"]*)"$/ do |path, field|
   when "gif"
     type = "image/gif"
   end
-
+  
   attach_file(field, path, type)
 end
 
 Then /^(?:|I )should see "([^\"]*)"$/ do |text|
-  if defined?(Spec::Rails::Matchers)
+  if response.respond_to? :should
     response.should contain(text)
   else
     assert_contain text
@@ -148,109 +150,129 @@ end
 
 Then /^(?:|I )should see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
   within(selector) do |content|
-    if defined?(Spec::Rails::Matchers)
+    if content.respond_to? :should
       content.should contain(text)
     else
-      assert content.include?(text)
+      hc = Webrat::Matchers::HasContent.new(text)
+      assert hc.matches?(content), hc.failure_message
     end
   end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
-  if defined?(Spec::Rails::Matchers)
+  if response.respond_to? :should
     response.should contain(regexp)
   else
-    assert_contain regexp
+    assert_match(regexp, response_body)
   end
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
   within(selector) do |content|
     regexp = Regexp.new(regexp)
-    if defined?(Spec::Rails::Matchers)
+    if content.respond_to? :should
       content.should contain(regexp)
     else
-      assert content =~ regexp
+      assert_match(regexp, content)
     end
   end
 end
 
 Then /^(?:|I )should not see "([^\"]*)"$/ do |text|
-  if defined?(Spec::Rails::Matchers)
+  if response.respond_to? :should_not
     response.should_not contain(text)
   else
-    assert_not_contain text
+    assert_not_contain(text)
   end
 end
 
 Then /^(?:|I )should not see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
   within(selector) do |content|
-    if defined?(Spec::Rails::Matchers)
-        content.should_not contain(text)
+    if content.respond_to? :should_not
+      content.should_not contain(text)
     else
-        assert !content.include?(text)
+      hc = Webrat::Matchers::HasContent.new(text)
+      assert !hc.matches?(content), hc.negative_failure_message
     end
   end
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/$/ do |regexp|
   regexp = Regexp.new(regexp)
-  if defined?(Spec::Rails::Matchers)
+  if response.respond_to? :should_not
     response.should_not contain(regexp)
   else
-    assert_not_contain regexp
+    assert_not_contain(regexp)
   end
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
   within(selector) do |content|
     regexp = Regexp.new(regexp)
-    if defined?(Spec::Rails::Matchers)
+    if content.respond_to? :should_not
       content.should_not contain(regexp)
     else
-      assert content !~ regexp
+      assert_no_match(regexp, content)
     end
   end
 end
 
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
-  if defined?(Spec::Rails::Matchers)
-    field_labeled(field).value.should =~ /#{value}/
+  field_value = field_labeled(field).value
+  if field_value.respond_to? :should
+    field_value.should =~ /#{value}/
   else
-    assert_match(/#{value}/, field_labeled(field).value)
+    assert_match(/#{value}/, field_value)
   end
 end
 
 Then /^the "([^\"]*)" field should not contain "([^\"]*)"$/ do |field, value|
-  if defined?(Spec::Rails::Matchers)
-    field_labeled(field).value.should_not =~ /#{value}/
+  field_value = field_labeled(field).value
+  if field_value.respond_to? :should_not
+    field_value.should_not =~ /#{value}/
   else
-    assert_no_match(/#{value}/, field_labeled(field).value)
+    assert_no_match(/#{value}/, field_value)
   end
 end
 
 Then /^the "([^\"]*)" checkbox should be checked$/ do |label|
-  if defined?(Spec::Rails::Matchers)
-    field_labeled(label).should be_checked
+  field = field_labeled(label)
+  if field.respond_to? :should
+    field.should be_checked
   else
-    assert field_labeled(label).checked?
+    assert field.checked?
   end
 end
 
 Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
-  if defined?(Spec::Rails::Matchers)
-    field_labeled(label).should_not be_checked
+  field = field_labeled(label)
+  if field.respond_to? :should_not
+    field.should_not be_checked
   else
-    assert !field_labeled(label).checked?
+    assert !field.checked?
   end
 end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
-  if defined?(Spec::Rails::Matchers)
-    URI.parse(current_url).path.should == path_to(page_name)
+  current_path = URI.parse(current_url).path
+  if current_path.respond_to? :should
+    current_path.should == path_to(page_name)
   else
-    assert_equal path_to(page_name), URI.parse(current_url).path
+    assert_equal path_to(page_name), current_path
+  end
+end
+
+Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
+  query = URI.parse(current_url).query
+  actual_params = query ? CGI.parse(query) : {}
+  expected_params = {}
+  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')} 
+
+  if actual_params.respond_to? :should
+    actual_params.should == expected_params
+  else
+    assert_equal expected_params, actual_params
   end
 end
 

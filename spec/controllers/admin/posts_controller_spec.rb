@@ -14,7 +14,6 @@ describe Admin::PostsController do
   end
 
   describe "admins" do
-    fixtures :users, :posts, :ips, :permissions, :group_users, :groups
 
     before do
       login_as(:administrator)

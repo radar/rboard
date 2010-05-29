@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Topic, "in general" do
-  fixtures :topics, :forums, :users
   before do
     setup_user_base
     @invalid_topic = Topic.new.tap(&:save)
@@ -15,7 +14,7 @@ describe Topic, "in general" do
     @administrator = User("administrator")
     # Remove the call to reverse for an interesting failing test
     @posts = @valid_topic.posts.reverse
-    
+
     @ip = Ip.make(:localhost)
   end
 

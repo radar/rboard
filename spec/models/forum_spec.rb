@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe Forum, "creation" do
-  fixtures :forums, :categories
   before(:each) do
     @invalid = Forum.new
   end
@@ -18,7 +17,6 @@ describe Forum, "creation" do
 end
 
 describe Forum, "in general" do
-  fixtures :forums, :topics, :posts, :users, :categories
 
   before do
     setup_user_base
