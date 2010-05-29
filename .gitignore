@@ -5,8 +5,6 @@ tmp/*
 db/*.sqlite3*
 db/sphinx/*
 config/*sphinx*
-# Because of config/migration_hack
-config/environment.rb
 config/database.yml
 nbproject/**/*
 nbproject/project.*
