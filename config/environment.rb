@@ -38,7 +38,7 @@ Dir.glob("#{Rails.root}/lib/rboard/*") { |f| require f }
 
 require 'find'
 themes = []
-Find.find(RAILS_ROOT + "/public/themes") do |path|
+Find.find(Rails.root + "/public/themes") do |path|
   themes << [path, path] if File.directory?(path)
   Find.prune
 end

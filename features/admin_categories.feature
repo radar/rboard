@@ -1,4 +1,5 @@
-Background:
+Feature: Categories
+  Background:
   Given there is the usual setup
   Given I am logged in as "administrator" with the password "godly"
   When I am on the homepage
