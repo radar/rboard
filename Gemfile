@@ -15,7 +15,7 @@ gem 'coderay'
 #gem 'dotiw'
 gem 'haml', "2.2.21"
 gem 'highline'
-gem 'paperclip', '2.3.1.1'
+gem 'paperclip', :git => 'git://github.com/lmumar/paperclip.git', :branch => 'rails3'
 gem 'RedCloth'
 gem 'thinking-sphinx', :require => 'thinking_sphinx'
 gem 'will_paginate'

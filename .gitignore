@@ -1,3 +1,4 @@
+.bundle/config
 log/*.log
 log/searchd*
 tmp/*
