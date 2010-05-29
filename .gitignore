@@ -2,7 +2,7 @@
 log/*.log
 log/searchd*
 tmp/*
-db/*.sqlite3
+db/*.sqlite3*
 db/sphinx/*
 config/*sphinx*
 # Because of config/migration_hack

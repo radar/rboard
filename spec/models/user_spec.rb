@@ -14,7 +14,6 @@ describe User, "firstly..." do
 end
 
 describe User, "with users" do
-  fixtures :themes, :users, :ranks, :groups
 
   before do
     setup_user_base
