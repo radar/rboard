@@ -12,7 +12,7 @@ gem 'rails', '3.0.0.beta3'
 gem 'by_star', '0.6.3'
 gem 'chronic'
 gem 'coderay'
-gem 'dotiw'
+#gem 'dotiw'
 gem 'haml', "2.2.21"
 gem 'highline'
 gem 'paperclip', '2.3.1.1'
