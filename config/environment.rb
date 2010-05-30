@@ -1,18 +1,4 @@
-# Be sure to restart your web server when you modify this file.
-require File.join(File.dirname(__FILE__), 'boot')
-require 'fileutils'
-
-database = File.join(RAILS_ROOT, "config/database.yml")
-if !File.exist?(database)
-  puts "You don't have a config/database.yml. Let us create that for you..."
-  FileUtils.cp("#{RAILS_ROOT}/config/database.yml.sample", "#{RAILS_ROOT}/config/database.yml")
-end
-
-if File.readlines(database).empty?
-  raise "Your database.yml file is empty. Please add your database information."
-end
-
-# Application specific variables MUST be set before the initializer is ran.
+# Application specific variables MUST be set before the initializer is run.
 # Standard settings for rboard.
 
 # Display 25 items per page.
@@ -34,33 +20,17 @@ THEMES_DIRECTORY = Proc.new { File.join(Rails.public_path, "themes") }
 # This determines if rake db:create:all is ran when running the install script.
 STANDALONE = true
 
-CONFIG = Rails::Initializer.run do |config|
-
-  config.gem 'by_star', :version => '0.6.3'
-  config.gem 'chronic'
-  config.gem 'coderay'
-  config.gem 'dotiw'
-  config.gem 'haml', :version => "2.2.21"
-  config.gem 'highline'
-  config.gem 'paperclip', :version => '2.3.1.1'
-  config.gem 'RedCloth'
-  config.gem 'thinking-sphinx', :lib => 'thinking_sphinx'
-  config.gem 'will_paginate'
 
 
-  # lol actionwebservice
-  # lol activeresource
-  config.frameworks -= [:action_web_service, :activeresource]
+# Load the rails application
+require File.expand_path('../application', __FILE__)
 
-  config.action_controller.session = { :session_key => "rboard_secret", :secret => "this is a super secret passphrase that protects rboard and you should probably change it" }
+# Initialize the rails application
+RBoard::Application.initialize!
 
-  config.active_record.default_timezone = :utc
-  config.time_zone = "UTC"
 
-end
 
-# Change this if your locale is not english
-# I18n.default_locale = "en"
+
 require 'class_ext'
 require 'array_ext'
 require 'themes_loader'
