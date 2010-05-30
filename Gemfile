@@ -2,6 +2,8 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta3'
 
+gem 'sqlite3-ruby', :require => 'sqlite3'
+
 # TODO: In order to ignore parts of the Rails framework, we need to instead explicitly require only the parts we want/need.
 # May need to do this in application.rb
 # lol actionwebservice
