@@ -16,7 +16,8 @@ gem 'RedCloth'
 gem 'will_paginate'
 
 group :test do
-  gem "rspec-rails", "2.0.0.beta.8"
+  gem "rspec", "2.0.0.beta.10"
+  gem "rspec-rails", "2.0.0.beta.10"
   gem "faker"
 
   gem "machinist", :require => 'machinist/active_record'
