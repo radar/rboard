@@ -72,6 +72,13 @@ def setup_forums
   Permission.make(:registered_users, :category => admins_only_category, :can_see_category => false)
 end
 
+def login_as(name)
+  # If the user has been created already they probably have a group.
+  # If not, assume the group is whatever their name is.
+  # It makes the most sense in this universe.
+  request.session[:user] = (User(name.to_s) || User.make_with_group(name, name.to_s.titleize.pluralize)).id
+end
+
 def valid_topic_for(forum, posts_count=1)
   topic = forum.topics.make_unsaved
 
