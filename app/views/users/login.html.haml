@@ -7,7 +7,7 @@
     %tr
       %td{:align => "left"}
         = link_to t(:Do_not_have_a_user_account?), signup_path
-        - form_tag do
+        = form_tag do
           %p
             %label{:for => "login"}= t(:Login)
             %br

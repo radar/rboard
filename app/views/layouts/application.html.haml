@@ -5,7 +5,7 @@
       = @title || params[:action].gsub("_", " ").titleize + " - " + params[:controller].split("/").reverse.map(&:capitalize).join(" - ")
       \-
       = t(:rBoard)
-    %link{:href => "#{ActionController::Base.relative_url_root}/themes/#{theme.name}/style.css", :rel => "stylesheet"}
+    %link{:href => "/themes/#{theme.name}/style.css", :rel => "stylesheet"}
       = javascript_include_tag 'jquery'
     %script
       jQuery.noConflict();
@@ -47,7 +47,7 @@
         \:
         = text_field_tag :search, params[:search]
       .clear
-    .content  
+    .content
       - unless flash[:notice].blank?
         .flash#flash= flash[:notice]
       .forums_container

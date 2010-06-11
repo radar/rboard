@@ -63,12 +63,12 @@ module ApplicationHelper
 
   def theme_image_tag(f, html_options={})
     if !theme.nil?
-      o = "<img src='#{ActionController::Base.relative_url_root}/themes/" + theme.name + "/#{f}'"
+      o = "<img src='#/themes/" + theme.name + "/#{f}'"
       html_options.each { |option| o << "#{option.first}='#{option.last}'"}
       o << " />"
     else
-      image_tag "/#{f}", html_options 
-    end
+      image_tag "/#{f}", html_options
+    end.html_safe
   end
 
   def stripe
@@ -95,34 +95,34 @@ module ApplicationHelper
       buttons << render(:partial => "topics/new_button")
 
       if (@topic.locked? && current_user.can?(:reply_to_locked_topics)) || (!@topic.locked? && current_user.can?(:reply_to_topics)) &&
-         (!@forum.open? && current_user.can?(:post_in_closed_forums) || @forum.open?)  
+         (!@forum.open? && current_user.can?(:post_in_closed_forums) || @forum.open?)
         buttons << link_to(t(:New, :thing => "Reply"), new_topic_post_path(@topic), :class => "button")
-      end 
+      end
 
-      if current_user.can?(:lock_topics, @forum) || (current_user.can?(:lock_own_topics, @forum) && @topic.belongs_to?(current_user)) 
-     	 links << if @topic.locked?  
+      if current_user.can?(:lock_topics, @forum) || (current_user.can?(:lock_own_topics, @forum) && @topic.belongs_to?(current_user))
+     	 links << if @topic.locked?
           link_to(t(:Unlock_this_topic), unlock_forum_topic_path(@forum, @topic), :method => :put)
-     	 else 
+     	 else
        	 link_to(t(:Lock_this_topic), lock_forum_topic_path(@forum, @topic), :method => :put)
-        end 
-      end 
+        end
+      end
 
-      if current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user)) 
+      if current_user.can?(:edit_topics, @forum) || (current_user.can?(:edit_own_topics, @forum) && @topic.belongs_to?(current_user))
         links << link_to(t(:Edit_topic), edit_forum_topic_path(@forum))
-      end 
+      end
 
-      if current_user.can?(:subscribe, @forum) 
-     	  links << if @subscription 
+      if current_user.can?(:subscribe, @forum)
+     	  links << if @subscription
            link_to(t(:Unsubscribe), topic_subscription_path(@topic, @subscription), :method => :delete)
-         else 
+         else
            link_to(t(:Subscribe), topic_subscriptions_path(@topic), :method => :post)
-     	  end 
-      end 
+     	  end
+      end
     '<div class="buttons">' + buttons.join(" / ") + ' </div><div class="actions">' + links.join(" / ") + '</div>'
-    else 
-      if @topic.locked? 
-        t(:Locked!) 
-      end 
-    end 
+    else
+      if @topic.locked?
+        t(:Locked!)
+      end
+    end
   end
 end
