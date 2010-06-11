@@ -49,7 +49,8 @@ class Post < ActiveRecord::Base
 
   def stop_spam
     if (!user.posts.last.nil? && user.posts.last.created_at > Time.now - TIME_BETWEEN_POSTS) && !user.can?(:ignore_flood_limit)
-      errors.add_to_base("You can only post once every #{distance_of_time_in_words(Time.now, Time.now - TIME_BETWEEN_POSTS)}") and return false
+      errors[:base] << "You can only post once every #{distance_of_time_in_words(Time.now, Time.now - TIME_BETWEEN_POSTS)}"
+      return false
     end
   end
 

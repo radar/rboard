@@ -99,7 +99,7 @@ module Rboard::UserExtension
 
       def anonymous_cannot_be_deleted
         if self == User.anonymous
-          errors.add_to_base(t(:anonymous_stays))
+          errors[:base] << t(:anonymous_stays)
           return false
         end
         return true
