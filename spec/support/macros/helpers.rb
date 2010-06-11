@@ -79,6 +79,10 @@ def login_as(name)
   request.session[:user] = (User(name.to_s) || User.make_with_group(name, name.to_s.titleize.pluralize)).id
 end
 
+def t(key, options = nil)
+  (options.is_a? Hash) ? I18n.t(key, options) : I18n.t(key)
+end
+
 def valid_topic_for(forum, posts_count=1)
   topic = forum.topics.make_unsaved
 
