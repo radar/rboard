@@ -1,2 +1,2 @@
-module StylesHelper
+module ThemesHelper
 end
