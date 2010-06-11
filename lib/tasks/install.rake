@@ -8,10 +8,9 @@ end
 desc "Install rBoard database for the current RAILS_ENV"
 task :install => :environment do
   ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV])
-  if STANDALONE
-    puts "Creating #{RAILS_ENV} database..."
-    Rake::Task["db:create"].invoke
-  end
+
+  puts "Creating #{RAILS_ENV} database..."
+  Rake::Task["db:create"].invoke
 
   puts "Setting up the #{RAILS_ENV} database"
   Rake::Task["db:migrate"].invoke
