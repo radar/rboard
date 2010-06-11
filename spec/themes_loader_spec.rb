@@ -5,7 +5,7 @@ describe ThemesLoader do
     Theme.delete_all
     Theme.count.should eql(0)
     ThemesLoader.new
-    Theme.count.should eql(Dir["#{RAILS_ROOT}/public/themes/*"].size)
+    Theme.count.should eql(Dir["#{Rails.root}/public/themes/*"].size)
   end
 
 end
