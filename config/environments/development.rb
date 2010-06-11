@@ -27,4 +27,4 @@ end
 TIME_BETWEEN_POSTS = 1.minute
 
 ## Set this to false if you don't want to use thinking sphinx.
-SEARCHING = true
+SEARCHING = false
