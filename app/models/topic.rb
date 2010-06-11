@@ -19,7 +19,7 @@ class Topic < ActiveRecord::Base
   has_many :subscribers, :through => :subscriptions, :class_name => "User"
   has_many :users, :through => :posts
 
-  named_scope :sorted, :order => "posts.created_at DESC, sticky DESC", :include => [:last_post, :readers]
+  scope :sorted, :order => "posts.created_at DESC, sticky DESC", :include => [:last_post, :readers]
 
   #makes error_messages_for return the wrong number of errors.
   validates_associated :posts, :message => nil
