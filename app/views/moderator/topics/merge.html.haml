@@ -1,7 +1,7 @@
 .breadcrumbs
   = link_to(t(:rBoard), moderator_root_path)
   \&raquo; #{link_to t(:Topics), moderator_topics_path} &raquo; #{t(:Merging)}
-- form_tag merge_moderator_topics_path, :method => :put do
+= form_tag merge_moderator_topics_path, :method => :put do
   %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
     %thead
       %tr

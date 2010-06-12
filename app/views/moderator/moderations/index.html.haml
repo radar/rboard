@@ -1,5 +1,5 @@
 %h2= t(:Your_topic_moderation_queue)
-- form_tag moderate_moderator_topics_path do
+= form_tag moderate_moderator_topics_path do
   %table.list-table{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
     - unless @topic_moderations.empty?
       %thead

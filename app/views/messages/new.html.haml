@@ -1,5 +1,5 @@
 %h2= t(:Sending_a_message)
-- form_for :message, @message, :url => messages_path do |f|
+= form_for :message, @message, :url => messages_path do |f|
   %table.action-box{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
     %tbody
       %tr

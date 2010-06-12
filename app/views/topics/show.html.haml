@@ -17,7 +17,7 @@
   - if current_user.can?(:reply)
     #quick-reply{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
       %h3= t(:Quick_Reply)
-      - form_for [@topic, @post] do |f|
+      = form_for [@topic, @post] do |f|
         = render :partial => "posts/form", :locals => { :f => f, :rows => 10, :cols => 70, :submit => "Reply", :label => false }
   = menu_for_topic
   = pagination

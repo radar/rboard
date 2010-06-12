@@ -1,4 +1,4 @@
-- form_for current_user, :html => { :multipart => true } do |f|
+= form_for current_user, :html => { :multipart => true } do |f|
   %h2= t(:Editing_your_profile)
 
   %p

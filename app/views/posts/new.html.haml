@@ -1,5 +1,5 @@
 = error_messages_for 'post'
-- form_for [@topic, @post] do |f|
+= form_for [@topic, @post] do |f|
   = hidden_field_tag("quote", params[:quote])
   %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
     %thead

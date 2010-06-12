@@ -15,7 +15,7 @@
   %h2= t(:Viewing_forum, :forum => @forum)
   = will_paginate @topics
   = render :partial => "topics/new_button"
-  - form_tag moderate_moderator_topics_path do
+  = form_tag moderate_moderator_topics_path do
     %ul.topics.listing
       - if @forum.topics.exists?
         - for topic in @topics

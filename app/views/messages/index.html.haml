@@ -2,7 +2,7 @@
 = link_to t(:Send_new_message), new_message_path
 | #{link_to t(:Sent_Messages), sent_messages_path}
 - unless @messages.empty?
-  - form_for @messages, :url => change_messages_path do |f|
+  = form_for @messages, :url => change_messages_path do |f|
     %ul.messages.listing{:cellpadding => "5", :cellspacing => "0", :rules => "groups", :width => "100%"}
       = render :partial => @messages, :locals => { :f => f }
 - else

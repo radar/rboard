@@ -1,7 +1,7 @@
 .breadcrumbs
   = link_to t(:Administration_Section), admin_root_path
   \&raquo; #{link_to(t(:users), admin_users_path)} &raquo; #{t(:Editing_a_user)}: #{@user.login}
-- form_for [:admin, @user] do |f|
+= form_for [:admin, @user] do |f|
   %table.action-box{:cellpadding => "2", :cellspacing => "0", :width => "100%"}
     %thead
       %tr

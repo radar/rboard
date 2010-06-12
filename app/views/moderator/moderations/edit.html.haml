@@ -3,4 +3,4 @@
     %tr
       %td{:colspan => "2"}= t(:Editing_moderation_item_for, :thing => @moderation.thing)
   %tbody
-    - form_for [:moderator, @moderation] do |f|
+    = form_for [:moderator, @moderation] do |f|

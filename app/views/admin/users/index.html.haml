@@ -10,7 +10,7 @@
     = javascript_include_tag 'jquery.autocomplete'
   = link_to_function t(:Add_new_user), "jQuery('#assign_user').show()"
   %span#assign_user{:style => "display:none;"}
-    - form_tag admin_group_members_path do
+    = form_tag admin_group_members_path do
       = text_field_tag :user
       = submit_tag t(:Add_to_group)
       :javascript

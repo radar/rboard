@@ -42,7 +42,7 @@
             = link_to current_user, current_user
 
     .search
-      - form_tag :controller => "search" do
+      = form_tag :controller => "search" do
         = t(:Search)
         \:
         = text_field_tag :search, params[:search]
