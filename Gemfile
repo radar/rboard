@@ -24,7 +24,7 @@ group :test do
 end
 
 group :cucumber do
-  gem "cucumber-rails"
-  gem "cucumber"
-  gem "capybara"
+  gem "cucumber-rails", "0.3.2"
+  gem "cucumber", "0.8.0"
+  gem "capybara", "0.3.8"
 end
