@@ -24,7 +24,10 @@ group :test do
 end
 
 group :cucumber do
+  gem "capybara", "0.3.8"
   gem "cucumber-rails", "0.3.2"
   gem "cucumber", "0.8.0"
-  gem "capybara", "0.3.8"
+  # gem "rspec-rails", "2.0.0.beta.10"
+  gem "spork"
+  gem "launchy"
 end
