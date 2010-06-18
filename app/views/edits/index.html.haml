@@ -1,5 +1,5 @@
 .breadcrumbs
-  == #{breadcrumb(@post.forum)}
+  == #{raw breadcrumb(@post.forum)}
   &raquo;
   = link_to(@post.topic.subject, [@post.forum])
 %h2== #{t(:Edit_history_for, :number => @post.number, :subject => @post.topic.subject)}

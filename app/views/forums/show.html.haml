@@ -4,7 +4,7 @@
 %span.breadcrumbs
 
   = link_to(t(:rBoard), forums_path)
-  \&raquo; #{breadcrumb(@forum)}
+  \&raquo; #{raw breadcrumb(@forum)}
   - unless @forums.empty?
     %h2
       = t(:Subforums)

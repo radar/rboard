@@ -5,7 +5,7 @@
     .topic
       %h2
         = t(:In)
-        = breadcrumb(topic.forum)
+        = raw breadcrumb(topic.forum)
         \&raquo;
         = link_to topic, [topic.forum, topic]
       .posts.listing
