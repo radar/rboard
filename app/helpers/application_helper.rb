@@ -1,5 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def inside_layout layout = 'application', &block
+    render :inline => capture_haml(&block), :layout => "layouts/#{layout}"
+  end
 
   # This could probably be done better.
   def bbcode(tag, start_piece, end_piece, &block)
