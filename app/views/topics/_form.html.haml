@@ -2,7 +2,7 @@
   %tr
     %td{:width => "100px"}= f.label 'subject', t(:Subject)
     %td= f.text_field 'subject'
-  - fields_for @post do |post|
+  = fields_for @post do |post|
     %tr
       %td{:valign => "top"}= post.label 'text', t(:Text)
       %td= post.text_area "text", :cols => "80"
