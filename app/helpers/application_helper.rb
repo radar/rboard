@@ -118,7 +118,7 @@ module ApplicationHelper
            link_to(t(:Subscribe), topic_subscriptions_path(@topic), :method => :post)
      	  end
       end
-    '<div class="buttons">' + buttons.join(" / ") + ' </div><div class="actions">' + links.join(" / ") + '</div>'
+    ('<div class="buttons">' + buttons.join(" / ") + ' </div><div class="actions">' + links.join(" / ") + '</div>').html_safe
     else
       if @topic.locked?
         t(:Locked!)
