@@ -83,7 +83,7 @@ module ApplicationHelper
     else
       breadcrumb += " #{breadcrumb(forum.parent)} &raquo; " + link_to(forum.title, forum_path(forum))
     end
-    breadcrumb.strip
+    breadcrumb.html_safe.strip
   end
 
   def menu_for_topic
