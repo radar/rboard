@@ -41,7 +41,7 @@
                   - if !topic.reports.empty?
                     = theme_image_tag("report.jpg", :title => t(:report, :count => topic.reports.count), :alt => "Reports")
               = link_to(h(topic.subject), topic.moved? ? forum_topic_path(topic.moved_to.forum, topic.moved_to) : forum_topic_path(topic.forum, topic))
-            %span.author= t(:Posted_by) + " " + link_to(h(topic.user), topic.user)
+            %span.author= (t(:Posted_by) + " " + link_to(h(topic.user), topic.user)).html_safe
             \-
             = t(:replies_count, :count => (topic.moved? ? topic.moved_to.posts.count : topic.posts.count) - 1) + ","
             = t(:views_count, :count => topic.views)
