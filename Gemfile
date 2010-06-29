@@ -9,7 +9,7 @@ gem 'i18n'
 gem 'dotiw'
 gem 'haml', "3.0.12"
 gem 'highline'
-gem 'paperclip', "2.3.3"
+gem 'paperclip', :git => 'git://github.com/lmumar/paperclip.git', :branch => 'rails3'
 gem 'RedCloth'
 #gem 'thinking-sphinx', :require => 'thinking_sphinx'
 gem 'will_paginate'
