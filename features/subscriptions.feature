@@ -11,7 +11,7 @@ Feature: Managing Subscriptions
     And I am on the homepage
     When I follow "Public Forum"
     When I follow "New Topic"
-    When I fill in "subject" with "Tribute"
+    When I fill in "Subject" with "Tribute"
     When I fill in "Text" with "This is just a tribute"
     When I press "Create"
     When I follow "Subscriptions"
@@ -23,7 +23,7 @@ Feature: Managing Subscriptions
     And I am on the homepage
     When I follow "Public Forum"
     When I follow "New Topic"
-    When I fill in "subject" with "Tribute"
+    When I fill in "Subject" with "Tribute"
     When I fill in "Text" with "This is just a tribute"
     When I press "Create"
     When I follow "Subscriptions"
