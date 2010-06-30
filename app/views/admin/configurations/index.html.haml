@@ -16,7 +16,7 @@
             %strong= configuration.title
             %br
               = configuration.description
-          - fields_for "configurations[]", configuration do |c|
+          = fields_for "configurations[]", configuration do |c|
             %td
               = c.text_field :value
           %td= submit_tag "Update"

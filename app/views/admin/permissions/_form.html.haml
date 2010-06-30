@@ -6,7 +6,7 @@
   %tr
     %td{:class => stripe }= f.label "forum_id", t(:Forum)
     %td{:class => stripe, :colspan => "9"}= f.select "forum_id", @forums.map { |c| [c.title, c.id] }
-- fields_for @permission do |permission|
+= fields_for @permission do |permission|
   - ## Global only permissions
   - if !params[:type]
     %tr
