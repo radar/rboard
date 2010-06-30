@@ -22,9 +22,9 @@
           %li{:id => "topic_#{topic.id}", :class => stripe + " row"}
             - if current_user.can_moderate_topics?
               - if !topic.moved?
-                = link_to check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), moderator_topic_moderations_path(topic), :remote => true
+                = link_to check_box_tag("moderated_topics[]", topic.id, !topic.moderations.for_user(current_user).empty?, :id => "topic_#{topic.id}_moderated"), moderator_topic_moderations_path(topic), :remote => true, :method => :post
               - else
-                = link_to check_box_tag("moderated_topics[]", topic.moved_to.id, !topic.moved_to.moderations.for_user(current_user).empty?, :id => "topic_#{topic.moved_to.id}_moderated"), moderator_topic_moderations_path(topic.moved_to), :remote => true
+                = link_to check_box_tag("moderated_topics[]", topic.moved_to.id, !topic.moved_to.moderations.for_user(current_user).empty?, :id => "topic_#{topic.moved_to.id}_moderated"), moderator_topic_moderations_path(topic.moved_to), :remote => true, :method => :post
             %h3
               %div.status
                 - if topic.sticky?
