@@ -5,6 +5,6 @@ When /^I select "([^\"]*)" for moderation$/ do |subject|
 end
 
 Then /^I should (not )?see the button to "([^\"]*)"$/ do |no, name|
-  Nokogiri::HTML(response.body).xpath("//input[@type='submit']").detect { |input| input["value"] == name }.send(no ? "should" : "should_not", be_nil)
+  Nokogiri::HTML(body).xpath("//input[@type='submit']").detect { |input| input["value"] == name }.send(no ? "should" : "should_not", be_nil)
 end
 
