@@ -66,7 +66,7 @@ module ApplicationHelper
 
   def theme_image_tag(f, html_options={})
     if !theme.nil?
-      o = "<img src='#/themes/" + theme.name + "/#{f}'"
+      o = "<img src='/themes/" + theme.name + "/#{f}'"
       html_options.each { |option| o << "#{option.first}='#{option.last}'"}
       o << " />"
     else
