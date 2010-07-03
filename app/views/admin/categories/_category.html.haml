@@ -9,10 +9,10 @@
   %td= link_to(pluralize(category.forums.count, "forum"), admin_category_path(category))
   %td
     - unless category.first?
-      = link_to theme_image_tag("top.jpg"), move_to_top_admin_category_path(category), :method => :put
-      = link_to theme_image_tag("up.jpg"), move_up_admin_category_path(category), :method => :put
+      = link_to theme_image_tag("top.jpg", :alt => t(:Top), :title => t(:Top)), move_to_top_admin_category_path(category), :method => :put
+      = link_to theme_image_tag("up.jpg", :alt => t(:Up), :title => t(:Up)), move_up_admin_category_path(category), :method => :put
     = category.position
     - unless category.last?
-      = link_to theme_image_tag("down.jpg"), move_down_admin_category_path(category), :method => :put
-      = link_to theme_image_tag("bottom.jpg"), move_to_bottom_admin_category_path(category), :method => :put
+      = link_to theme_image_tag("down.jpg", :alt => t(:Down), :title => t(:Down)), move_down_admin_category_path(category), :method => :put
+      = link_to theme_image_tag("bottom.jpg", :alt => t(:Bottom), :title => t(:Bottom)), move_to_bottom_admin_category_path(category), :method => :put
 = render :partial => category.children.sort_by(&:position), :locals => { :extender => true, :depth => depth+1 }

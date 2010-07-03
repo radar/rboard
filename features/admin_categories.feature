@@ -35,17 +35,17 @@ Scenario: Deleting categories
   Then I should see "The category has been deleted."
 
 Scenario: Moving a category to the top
-  And I follow "top"
+  And I follow "Top"
   Then I should see "Category has been moved to the top."
 
 Scenario: Moving a category to the bottom
-  And I follow "bottom"
+  And I follow "Bottom"
   Then I should see "Category has been moved to the bottom."
 
 Scenario: Moving a category up
-  And I follow "up"
+  And I follow "Up"
   Then I should see "Category has been moved higher."
 
 Scenario: Moving a category down
-  And I follow "down"
+  And I follow "Down"
   Then I should see "Category has been moved lower."

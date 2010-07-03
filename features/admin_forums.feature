@@ -26,17 +26,17 @@ Scenario: Administrators should be able to update forums
   And I should see "Unmoderated"
 
 Scenario: Moving a forum to the top
-  And I follow "top"
+  And I follow "Top"
   Then I should see "Forum has been moved to the top."
 
 Scenario: Moving a forum to the bottom
-  And I follow "bottom"
+  And I follow "Bottom"
   Then I should see "Forum has been moved to the bottom."
 
 Scenario: Moving a forum up
-  And I follow "up"
+  And I follow "Up"
   Then I should see "Forum has been moved higher."
 
 Scenario: Moving a forum down
-  And I follow "down"
+  And I follow "Down"
   Then I should see "Forum has been moved lower."
