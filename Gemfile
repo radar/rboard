@@ -27,6 +27,7 @@ group :cucumber do
   gem "cucumber-rails", "0.3.2"
   gem "cucumber", "0.8.0"
   # gem "rspec-rails", "2.0.0.beta.10"
+  gem "mocha"
   gem "spork"
   gem "launchy"
 end
