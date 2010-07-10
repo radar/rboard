@@ -52,6 +52,9 @@ module ApplicationHelper
   def bbquote!(text)
     if md = text.match( /\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\](.*)\[\s*\/\s*quote\s*\]/i )
       name, content = md[2], md[4]
+      before, after = text.split(md[0])
+      text.gsub!(before, h(before)) if before
+      text.gsub!(after, h(after)) if after
       text.gsub!(md[0], content_tag(:div,
                                    content_tag(:strong,"%s wrote:" % name) +
                                    tag(:br) +
