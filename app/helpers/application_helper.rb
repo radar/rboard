@@ -56,12 +56,12 @@ module ApplicationHelper
       text[first..last] = content_tag(:div,
                                       content_tag(:strong,"%s wrote:" % name) +
                                       tag(:br) +
-                                      content_tag(:span, content),
+                                      content_tag(:span, content.html_safe),
                                       :class => 'quote')
       bbquote!(text)
     else
       text
-    end
+    end.html_safe
   end
 
   def theme_image_tag(f, html_options={})
