@@ -42,6 +42,16 @@ describe ApplicationHelper, "general" do
       @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad & awesome: ' + @javascript + '[/quote]')
       @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad &amp; awesome: ' + @escaped + '</span></div>')
     end
+    
+    it "should be prevented in the content after a nested quote" do
+      @endquote = parse_text('So I\'m just gonna leave this here... [quote="Lol"][quote="John"]I think this is great![/quote]Me too!' + @javascript + '[/quote]')
+      @endquote.should eql('So I\'m just gonna leave this here... <div class="quote"><strong>Lol wrote:</strong><br /><span><div class="quote"><strong>John wrote:</strong><br /><span>I think this is great!</span></div>Me too!' + @escaped + '</span></div>')
+    end
+    
+    it "should be prevented in the content before a nested quote" do
+      @startquote = parse_text('So I\'m just gonna leave this here... [quote="Lol"]' + @javascript + '[quote="John"]I think this is great![/quote]Me too![/quote]')
+      @startquote.should eql('So I\'m just gonna leave this here... <div class="quote"><strong>Lol wrote:</strong><br /><span>' + @escaped + '<div class="quote"><strong>John wrote:</strong><br /><span>I think this is great!</span></div>Me too!</span></div>')
+    end
   end
 
   it "correctly formats the bbcode when it contains some code blocks" do
