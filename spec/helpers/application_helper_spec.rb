@@ -29,14 +29,14 @@ describe ApplicationHelper, "general" do
   end
   
   it "should prevent javascript injection attacks" do
-    javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards');</script>)
-    escaped = %q(&lt;script type=&quot;text/javascript&quot;&gt;window.alert('lol I hacked ur boards');&lt;/script&gt;)
+    javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards & stuff');</script>)
+    escaped = %q(&lt;script type=&quot;text/javascript&quot;&gt;window.alert('lol I hacked ur boards &amp; stuff');&lt;/script&gt;)
     
     @normal = parse_text(javascript)
     @normal.should eql(escaped)
     
-    @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad: ' + javascript + '[/quote]')
-    @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad: ' + escaped + '</span></div>')
+    @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad & awesome: ' + javascript + '[/quote]')
+    @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad &amp; awesome: ' + escaped + '</span></div>')
   end
 
   it "correctly formats the bbcode when it contains some code blocks" do
