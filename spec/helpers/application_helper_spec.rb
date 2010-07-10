@@ -28,15 +28,20 @@ describe ApplicationHelper, "general" do
     parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class=\"quote\"><strong>Kitten wrote:</strong><br /><span><div class=\"quote\"><strong>Dog wrote:</strong><br /><span><div class=\"quote\"><strong>Turtle wrote:</strong><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
   end
   
-  it "should prevent javascript injection attacks" do
-    javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards & stuff');</script>)
-    escaped = %q(&lt;script type=&quot;text/javascript&quot;&gt;window.alert('lol I hacked ur boards &amp; stuff');&lt;/script&gt;)
+  context "javascript injection attacks" do
+    before(:each) do
+      @javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards & stuff');</script>)
+      @escaped = %q(&lt;script type=&quot;text/javascript&quot;&gt;window.alert('lol I hacked ur boards &amp; stuff');&lt;/script&gt;)
+    end
     
-    @normal = parse_text(javascript)
-    @normal.should eql(escaped)
+    it "should be prevented in normal posts" do
+      parse_text(@javascript).should eql(@escaped)
+    end
     
-    @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad & awesome: ' + javascript + '[/quote]')
-    @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad &amp; awesome: ' + escaped + '</span></div>')
+    it "should be prevented in quote body text" do
+      @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad & awesome: ' + @javascript + '[/quote]')
+      @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad &amp; awesome: ' + @escaped + '</span></div>')
+    end
   end
 
   it "correctly formats the bbcode when it contains some code blocks" do
