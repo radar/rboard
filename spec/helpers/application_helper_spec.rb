@@ -27,6 +27,17 @@ describe ApplicationHelper, "general" do
   it "should correctly display multiple nested quotes" do
     parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class=\"quote\"><strong>Kitten wrote:</strong><br /><span><div class=\"quote\"><strong>Dog wrote:</strong><br /><span><div class=\"quote\"><strong>Turtle wrote:</strong><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
   end
+  
+  it "should prevent javascript injection attacks" do
+    javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards');</script>)
+    escaped = %q(&lt;script type=&quot;text/javascript&quot;&gt;window.alert('lol I hacked ur boards');&lt;/script&gt;)
+    
+    @normal = parse_text(javascript)
+    @normal.should eql(escaped)
+    
+    @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad: ' + javascript + '[/quote]')
+    @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad: ' + escaped + '</span></div>')
+  end
 
   it "correctly formats the bbcode when it contains some code blocks" do
     parse_text("[img]http://www.google.com.au/intl/en_au/images/logo.gif[/img]
