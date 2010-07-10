@@ -81,10 +81,11 @@ module ApplicationHelper
   def breadcrumb(forum, breadcrumb='')
     breadcrumb = ''
     if forum.parent.nil?
-      breadcrumb += link_to(forum.category.name, category_forums_path(forum.category)) + ' &raquo;' if forum.category
+      breadcrumb += link_to(forum.category.name, category_forums_path(forum.category)) + raw(" &raquo;") if forum.category
       breadcrumb += ' ' + link_to(forum.title, forum_path(forum))
     else
-      breadcrumb += " #{breadcrumb(forum.parent)} &raquo; " + link_to(forum.title, forum_path(forum))
+      breadcrumb += " #{breadcrumb(forum.parent)}" + raw(" &raquo;")
+      breadcrumb += ' ' + link_to(forum.title, forum_path(forum))
     end
     breadcrumb.html_safe.strip
   end

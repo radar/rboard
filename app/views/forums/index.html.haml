@@ -26,10 +26,10 @@
                 = link_to t(:you_should_create_forum), new_admin_category_forum_path(category)
     %br
 - else
-  = link_to(t(:rBoard), forums_path)
-  \raquo;
-  = link_to @category.name, [@category, :forums]
-  %br
+  .breadcrumbs
+    = link_to(t(:rBoard), forums_path)
+    \&raquo;
+    = link_to @category.name, [@category, :forums]
   %h2= @category.name
 - unless @forums.empty?
   %ul.forums.listing

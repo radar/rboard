@@ -2,9 +2,9 @@
 - content_for :feed do
   %link{:href => forum_url(@forum, :format => :rss), :rel => "alternate", :title => "#{@forum.title} Feed", :type => "application/rss+xml"}/
 %span.breadcrumbs
-
   = link_to(t(:rBoard), forums_path)
-  \&raquo; #{raw breadcrumb(@forum)}
+  \&raquo;
+  =raw breadcrumb(@forum)
   - unless @forums.empty?
     %h2
       = t(:Subforums)
