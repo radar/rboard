@@ -50,17 +50,15 @@ module ApplicationHelper
   end
 
   def bbquote!(text)
-    if md = text.match( /\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\](?!\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\])(.*?)\[\s*\/\s*quote\s*\]/i )
-      first, last = md.offset(0)[0], md.offset(0)[1]-1
-      name, content = md[2], md[7]
-      text[first..last] = content_tag(:div,
-                                      content_tag(:strong,"%s wrote:" % name) +
-                                      tag(:br) +
-                                      content_tag(:span, content.html_safe),
-                                      :class => 'quote')
-      bbquote!(text)
+    if md = text.match( /\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\](.*)\[\s*\/\s*quote\s*\]/i )
+      name, content = md[2], md[4]
+      text.gsub!(md[0], content_tag(:div,
+                                   content_tag(:strong,"%s wrote:" % name) +
+                                   tag(:br) +
+                                   content_tag(:span, bbquote!(content)),
+                                   :class => 'quote'))
     else
-      text
+      h(text)
     end.html_safe
   end
 
