@@ -28,10 +28,17 @@ describe ApplicationHelper, "general" do
     parse_text('[quote="Kitten"][quote="Dog"][quote="Turtle"]turtle, turtle[/quote]QUOTE INSIDE[/quote]QUOTE OUTSIDE[/quote]').should eql("<div class=\"quote\"><strong>Kitten wrote:</strong><br /><span><div class=\"quote\"><strong>Dog wrote:</strong><br /><span><div class=\"quote\"><strong>Turtle wrote:</strong><br /><span>turtle, turtle</span></div>QUOTE INSIDE</span></div>QUOTE OUTSIDE</span></div>")
   end
   
+  context "html injection attacks" do
+    it "should be prevented when the user manually escapes HTML" do
+      @lolscaped = %q(I'm not doing anything bad, honest! &lt;/div&gt;Ok, well maybe I am.)
+      @escaped = %q(I'm not doing anything bad, honest! &amp;lt;/div&amp;gt;Ok, well maybe I am.)
+    end
+  end
+  
   context "javascript injection attacks" do
     before(:each) do
-      @javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards & stuff');</script>)
-      @escaped = %q(&lt;script type=&quot;text/javascript&quot;&gt;window.alert('lol I hacked ur boards &amp; stuff');&lt;/script&gt;)
+      @javascript = %q(<script type="text/javascript">window.alert('lol I hacked ur boards');</script>)
+      @escaped = %q(&lt;script type="text/javascript"&gt;window.alert('lol I hacked ur boards');&lt;/script&gt;)
     end
     
     it "should be prevented in normal posts" do
@@ -39,8 +46,8 @@ describe ApplicationHelper, "general" do
     end
     
     it "should be prevented in quote body text" do
-      @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad & awesome: ' + @javascript + '[/quote]')
-      @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad &amp; awesome: ' + @escaped + '</span></div>')
+      @quoted = parse_text('[quote="Hacker"]I\'m gonna do something bad: ' + @javascript + '[/quote]')
+      @quoted.should eql('<div class="quote"><strong>Hacker wrote:</strong><br /><span>I\'m gonna do something bad: ' + @escaped + '</span></div>')
     end
     
     it "should be prevented in the content after a nested quote" do
