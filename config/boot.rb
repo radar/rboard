@@ -62,7 +62,10 @@ module Rails
         gem 'rails'
       end
     rescue Gem::LoadError => load_error
-      $stderr.puts %(Missing the Rails #{version} gem. Please `gem install -v=#{version} rails`, update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed, or comment out RAILS_GEM_VERSION to use the latest version installed.)
+      error = (version) ? %(Missing the Rails #{version} gem. Please `gem install rails -v=#{version}`) : %(Missing the Rails gem. Please `gem install rails`)
+      error << ", update your RAILS_GEM_VERSION setting in config/environment.rb for the Rails version you do have installed"
+      error << ", or comment out RAILS_GEM_VERSION to use the latest version installed."
+      $stderr.puts error
       exit 1
     end
 
