@@ -4,17 +4,20 @@ describe ApplicationHelper, "general" do
   include ApplicationHelper
   extend ActionView::Helpers::SanitizeHelper::ClassMethods
 
-  before do
-    setup_user_base
-    setup_forums
-    @everybody = Forum("Public Forum")
-    @sub_of_everybody = @everybody.children.first
+  context "every page" do
+    before do
+      setup_user_base
+      setup_forums
+      @everybody = Forum("Public Forum")
+      @sub_of_everybody = @everybody.children.first
+    end
+
+    it "should correctly output breadcrumbs" do
+      breadcrumb(@everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">Public Category</a> &raquo; <a href=\"/forums/#{@everybody.id}\">Public Forum</a>")
+      breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">Public Category</a> &raquo; <a href=\"/forums/#{@everybody.id}\">Public Forum</a> &raquo; <a href=\"/forums/#{@sub_of_everybody.id}\">Sub of Public Forum</a>")
+    end
   end
 
-  it "should correctly output breadcrumbs" do
-    breadcrumb(@everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">Public Category</a> &raquo; <a href=\"/forums/#{@everybody.id}\">Public Forum</a>")
-    breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">Public Category</a> &raquo; <a href=\"/forums/#{@everybody.id}\">Public Forum</a> &raquo; <a href=\"/forums/#{@sub_of_everybody.id}\">Sub of Public Forum</a>")
-  end
 
   it "discerns between paragraphs and line breaks" do
     @paras = parse_text("So this line is part of the first paragraph.\nThis line is too, but it's on a new line!\n\nNow I'm in the second paragraph.\n \n And I'm a couple of lines down in the second para.")
