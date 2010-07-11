@@ -16,6 +16,11 @@ describe ApplicationHelper, "general" do
     breadcrumb(@sub_of_everybody).should eql("<a href=\"/categories/#{@everybody.category.id}/forums\">Public Category</a> &raquo; <a href=\"/forums/#{@everybody.id}\">Public Forum</a> &raquo; <a href=\"/forums/#{@sub_of_everybody.id}\">Sub of Public Forum</a>")
   end
 
+  it "discerns between paragraphs and line breaks" do
+    @paras = parse_text("So this line is part of the first paragraph.\nThis line is too, but it's on a new line!\n\nNow I'm in the second paragraph.\n \n And I'm a couple of lines down in the second para.")
+    @paras.should eql("<p>So this line is part of the first paragraph.<br/>This line is too, but it's on a new line!</p><p>Now I'm in the second paragraph.<br/> <br/> And I'm a couple of lines down in the second para.</p>")
+  end
+
   it "should accept quotes with single quotes around the name" do
     parse_text("[quote='Radar']This is a quote[/quote]").should eql("<div class=\"quote\"><strong>Radar wrote:</strong><br /><span>This is a quote</span></div>")
   end
@@ -42,7 +47,7 @@ describe ApplicationHelper, "general" do
     end
     
     it "should be prevented in normal posts" do
-      parse_text(@javascript).should eql(@escaped)
+      parse_text(@javascript).should eql("<p>#{@escaped}</p>")
     end
     
     it "should be prevented in quote body text" do
@@ -52,12 +57,17 @@ describe ApplicationHelper, "general" do
     
     it "should be prevented in the content after a nested quote" do
       @endquote = parse_text('So I\'m just gonna leave this here... [quote="Lol"][quote="John"]I think this is great![/quote]Me too!' + @javascript + '[/quote]')
-      @endquote.should eql('So I\'m just gonna leave this here... <div class="quote"><strong>Lol wrote:</strong><br /><span><div class="quote"><strong>John wrote:</strong><br /><span>I think this is great!</span></div>Me too!' + @escaped + '</span></div>')
+      @endquote.should eql('<p>So I\'m just gonna leave this here... </p><div class="quote"><strong>Lol wrote:</strong><br /><span><div class="quote"><strong>John wrote:</strong><br /><span>I think this is great!</span></div>Me too!' + @escaped + '</span></div>')
     end
     
     it "should be prevented in the content before a nested quote" do
       @startquote = parse_text('So I\'m just gonna leave this here... [quote="Lol"]' + @javascript + '[quote="John"]I think this is great![/quote]Me too![/quote]')
-      @startquote.should eql('So I\'m just gonna leave this here... <div class="quote"><strong>Lol wrote:</strong><br /><span>' + @escaped + '<div class="quote"><strong>John wrote:</strong><br /><span>I think this is great!</span></div>Me too!</span></div>')
+      @startquote.should eql('<p>So I\'m just gonna leave this here... </p><div class="quote"><strong>Lol wrote:</strong><br /><span>' + @escaped + '<div class="quote"><strong>John wrote:</strong><br /><span>I think this is great!</span></div>Me too!</span></div>')
+    end
+    
+    it "should be prevented in a url" do
+      @url = parse_text('[url=javascript:function(){window.alert("lol I hacked ur boards");return false;}]Somewhere amazing[/url]')
+      @url.should eql('<p><a href="">Somewhere amazing</a></p>')
     end
   end
 
@@ -69,6 +79,6 @@ describe ApplicationHelper, "general" do
     <div class='posts listing'>Hi!</div>
 
     <div class='posts listing'>Hi!</div>
-    [/code]").should eql("<img src='http://www.google.com.au/intl/en_au/images/logo.gif'>\n    &lt;Radar&gt; *egotripping*\n    <strong>Code:</strong><pre>\n    &lt;div class='posts listing'&gt;Hi!&lt;/div&gt;\n    &lt;div class='posts listing'&gt;Hi!&lt;/div&gt;\n\n    &lt;div class='posts listing'&gt;Hi!&lt;/div&gt;\n    </pre>")
+    [/code]").should eql("<p><img src=\"http://www.google.com.au/intl/en_au/images/logo.gif\" alt=\"\"/><br/>    &lt;Radar&gt; *egotripping*<br/>    <pre><code>\n    &lt;div class='posts listing'&gt;Hi!&lt;/div&gt;\n    &lt;div class='posts listing'&gt;Hi!&lt;/div&gt;\n\n    &lt;div class='posts listing'&gt;Hi!&lt;/div&gt;\n    </code></pre></p>")
   end
 end  

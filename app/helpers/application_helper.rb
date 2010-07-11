@@ -4,37 +4,9 @@ module ApplicationHelper
     render :inline => capture_haml(&block), :layout => "layouts/#{layout}"
   end
 
-  # This could probably be done better.
-  def bbcode(tag, start_piece, end_piece, &block)
-    block.call.gsub!(%r{\[#{tag}\](.*?)\[\/#{tag}\]}) { "#{start_piece}#{$1}#{end_piece}" }
-  end
-
   def parse_text(text)
-    # Code snippets
-
-    # All this sanitization is probably quite draining. Needs refactoring.
-    if !text.include?("[code")
-      # We would use h here but it escapes quotes, which we need for bbquotes.
-      # This is the code it uses anyway.
-      text = text.gsub(/&/, "&amp;").gsub(/>/, "&gt;").gsub(/</, "&lt;")
-    end
-    text.gsub!(/(.*?)\[code=?["']?(.*?)["']?\](.*?)\[\/code\](.*?)/mis) { h($1.to_s) + "[code='#{$2}']#{$3}[/code]" + h($4)}
-    text.gsub!(/\[code=?["']?(.*?)["']?\](.*?)\[\/code\]/mis) { "<strong>#{t(:Code)}:</strong><pre>#{clean_code($2)}</pre>"}
-
-    ## Quoting
-    bbquote!(text)
-
-    # Parse all similar tags
-    bbcode("img", "<img src='", "'>") { text }
-    bbcode("gist", "<script src='http://gist.github.com/", '></script>') { text }
-    bbcode("quote", "<strong>Quote:</strong><div class='quote'>", "</div>") { text }
-    bbcode("term", "<span class='term'>", "</span>") { text }
-
-    # URLs
-    text.gsub!(/\[url=["']?(.*?)["']?\](.*?)\[\/url\]/mis) { "<a rel='nofollow' href='" << $1 << "'>" << $2 << "</a>" }
-
-    # handle newlines
-    text.gsub!(/(.*)(\r)+?\n/) { $1 << "<br />\n" }
+    parser = RbbCode::Parser.new(:html_maker => RboardHtmlMaker.new)
+    text = parser.parse(text).html_safe
 
     # handle with care...
     bbcode_ext(text)
@@ -43,26 +15,6 @@ module ApplicationHelper
   # Dummy method so that people can extend bbcode method without having to alias it.
   def bbcode_ext(text)
     text
-  end
-
-  def clean_code(text)
-    text.gsub(/^\r\n/, '').gsub(/\r\n$/, '').gsub("<", "&lt;").gsub(">", "&gt;")
-  end
-
-  def bbquote!(text)
-    if md = text.match( /\[\s*quote=(["'])?([^\1\]]+)(\1)\s*\](.*)\[\s*\/\s*quote\s*\]/i )
-      name, content = md[2], md[4]
-      before, after = text.split(md[0])
-      text.gsub!(before, h(before)) if before
-      text.gsub!(after, h(after)) if after
-      text.gsub!(md[0], content_tag(:div,
-                                   content_tag(:strong,"%s wrote:" % name) +
-                                   tag(:br) +
-                                   content_tag(:span, bbquote!(content)),
-                                   :class => 'quote'))
-    else
-      h(text)
-    end.html_safe
   end
 
   def theme_image_tag(f, html_options={})

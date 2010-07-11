@@ -13,6 +13,7 @@ gem 'paperclip', :git => 'git://github.com/lmumar/paperclip.git', :branch => 'ra
 gem 'RedCloth'
 #gem 'thinking-sphinx', :require => 'thinking_sphinx'
 gem 'will_paginate'
+gem 'rbbcode'
 
 group :test do
   gem "rspec", "2.0.0.beta.10"
