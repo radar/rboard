@@ -79,7 +79,7 @@ describe Admin::RanksController do
     end
 
     it "should be able to show all ranks" do
-      Rank.should_receive(:find).with(:all).and_return(@ranks)
+      Rank.should_receive(:all).and_return(@ranks)
       get 'index'
     end
 
