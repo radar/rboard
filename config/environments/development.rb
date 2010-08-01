@@ -13,7 +13,7 @@ RBoard::Application.configure do
   #config.breakpoint_server = true
 
   # Show full error reports and disable caching
-  config.action_controller.consider_all_requests_local = true
+  config.consider_all_requests_local                   = true
   config.action_controller.perform_caching             = false
   config.action_view.debug_rjs                         = true
 
@@ -24,7 +24,7 @@ RBoard::Application.configure do
   config.action_mailer.raise_delivery_errors = false
 end
 
-TIME_BETWEEN_POSTS = 1.minute
+TIME_BETWEEN_POSTS = 60
 
 ## Set this to false if you don't want to use thinking sphinx.
 SEARCHING = false
