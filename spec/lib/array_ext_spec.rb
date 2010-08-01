@@ -1,4 +1,5 @@
-require File.dirname(__FILE__) + '/spec_helper'
+require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../../lib/array_ext'
 
 describe Array do
   it "should be able to find the previous elements in an array" do
