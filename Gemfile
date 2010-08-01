@@ -10,7 +10,7 @@ gem 'highline'
 gem 'paperclip', "~>2.3.3"
 gem 'RedCloth'
 #gem 'thinking-sphinx', :require => 'thinking_sphinx'
-gem 'will_paginate'
+gem 'will_paginate', :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem 'rbbcode'
 
 group :test do
