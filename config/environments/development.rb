@@ -24,7 +24,7 @@ RBoard::Application.configure do
   config.action_mailer.raise_delivery_errors = false
 end
 
-TIME_BETWEEN_POSTS = 1.minute
+TIME_BETWEEN_POSTS = 60
 
 ## Set this to false if you don't want to use thinking sphinx.
 SEARCHING = false
