@@ -13,7 +13,7 @@ RBoard::Application.configure do
   #config.breakpoint_server = true
 
   # Show full error reports and disable caching
-  config.action_controller.consider_all_requests_local = true
+  config.consider_all_requests_local                   = true
   config.action_controller.perform_caching             = false
   config.action_view.debug_rjs                         = true
 
