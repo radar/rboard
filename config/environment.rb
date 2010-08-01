@@ -31,10 +31,6 @@ RBoard::Application.initialize!
 
 
 
-require 'class_ext'
-require 'array_ext'
-require 'themes_loader'
-Dir.glob("#{Rails.root}/lib/rboard/*") { |f| require f }
 
 require 'find'
 themes = []
