@@ -13,6 +13,8 @@ gem 'RedCloth'
 gem 'will_paginate', :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem 'rbbcode'
 
+gem "ruby-debug", :group => "development"
+
 group :test do
   gem "rspec", "2.0.0.beta.10"
   gem "rspec-rails", "2.0.0.beta.10"
