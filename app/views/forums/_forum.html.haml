@@ -5,8 +5,8 @@
     %br
     = t(:Subforums)
     \:
-    - forum.children(Configuration['subforums_display'].to_i).each do |forum|
-      = link_to(h(forum.title), forum_path(forum))
+    - forum.children(Configuration['subforums_display'].to_i).each do |subforum|
+      = link_to(h(subforum.title), forum_path(subforum))
   %br
   == #{t(:topics_count, :count => forum.topics.count)}, #{t(:posts_count, :count => forum.posts.count)}
   %br
