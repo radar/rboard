@@ -31,10 +31,9 @@ class Post < ActiveRecord::Base
   attr_protected :forum_id, :user_id
 
   after_create :log_ip
-  after_create :update_forum
   before_create :stop_spam
-  after_create :find_latest_post
-  after_destroy :find_latest_post
+  after_create :update_last_post
+  after_destroy :update_last_post
 
   before_create :increment_counter
   before_destroy :decrement_counter
@@ -58,37 +57,10 @@ class Post < ActiveRecord::Base
     IpUser.find_or_create_by_user_id_and_ip_id(user.id, ip.id)
   end
 
-  def update_forum
-    forum.last_post = self
-    Post.update_latest_post(self)
-  end
-
-  def self.update_latest_post(post)
-    post.forum.last_post = post
-    if post.forum.sub? 
-      for ancestor in post.forum.ancestors
-        ancestor.last_post = post
-        ancestor.last_post_forum = post.forum
-        ancestor.save
-      end
-    end
-    post.forum.last_post = post
-    post.forum.last_post_forum = nil
-    post.forum.increment(:posts_count)
-    post.forum.save
-  end
-
   # Finds the latest post and updates the forum accordingly.
   # Called after create and destroy of posts.
-  def find_latest_post
-    # Posts for a forum are ordered in reverse.
-    if last = forum.posts.first
-      Post.update_latest_post(last)
-    else
-      forum.last_post = nil
-      forum.last_post_forum = nil
-      forum.save
-    end
+  def update_last_post
+    topic.update_last_post
   end
 
   def editor

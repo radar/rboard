@@ -26,24 +26,14 @@ class Forum < ActiveRecord::Base
     title
   end
 
-  def update_last_post(new_forum, post=nil)
-    post ||= posts.last
-    self.last_post = post
-    self.last_post_forum = nil
-    save
-    for ancestor in (ancestors - [new_forum])
-      if !post.nil?
-        if ancestor.last_post.nil? || (ancestor.last_post.created_at < post.created_at)
-          ancestor.last_post = post
-          ancestor.last_post_forum = self
-        end
-      else
-        # does this ever get called? Test it and find out.
-        ancestor.last_post = nil
-        ancestor.last_post_forum = nil
-      end
-      ancestor.save
+  def update_last_post
+    unless frozen?
+      post = posts.empty? ? nil : posts.first
+      self.last_post = post
+      self.last_post_forum = post.try(:forum)
+      save!
     end
+    ancestors.each { |ancestor| ancestor.update_last_post }
   end
 
   def descendants
