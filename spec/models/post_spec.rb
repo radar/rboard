@@ -60,16 +60,6 @@ describe Post, "general" do
     end
   end
 
-  it "should be able to find the latest post" do
-    @post.destroy
-    @post.find_latest_post
-  end
-
-  it "should be able to destroy a lone post and set the last post to nil" do
-    @sub_post.destroy
-    @sub_post.find_latest_post
-  end
-
   it "should belong to a user" do
     @post.belongs_to?(@administrator).should be_true
     @post.belongs_to?(@registered_user).should be_false
