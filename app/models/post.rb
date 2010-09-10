@@ -100,9 +100,7 @@ class Post < ActiveRecord::Base
     user == other_user
   end
 
-  def forum
-    topic.forum
-  end
+  delegate :forum, :to => :topic
 
   def page_for(user)
     (topic.posts.count.to_f / (user.per_page || PER_PAGE)).ceil
