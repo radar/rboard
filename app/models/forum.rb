@@ -28,9 +28,10 @@ class Forum < ActiveRecord::Base
 
   def update_last_post
     unless frozen?
-      post = posts.empty? ? nil : posts.first
+      post = latest_descendant_post || nil
+      post_forum = post.try(:forum)
       self.last_post = post
-      self.last_post_forum = post.try(:forum)
+      self.last_post_forum = post_forum
       save!
     end
     ancestors.each { |ancestor| ancestor.update_last_post }
@@ -42,5 +43,17 @@ class Forum < ActiveRecord::Base
 
   def sub?
     !parent_id.nil?
+  end
+
+private
+  def latest_descendant_post
+    forums = [self] + self.descendants
+    forum_ids = forums.map(&:id)
+    Post.find_by_sql("SELECT `posts`.* FROM `posts`
+      INNER JOIN `topics` 
+      ON `posts`.`topic_id` = `topics`.`id`
+      WHERE `topics`.`forum_id` IN (#{forum_ids.join(', ')})
+      ORDER BY `posts`.`created_at` DESC
+      LIMIT 1").first
   end
 end
