@@ -10,6 +10,7 @@
     %script
       jQuery.noConflict();
     = javascript_include_tag :defaults
+    = csrf_meta_tag
     = yield :feed
     = yield :head
 
