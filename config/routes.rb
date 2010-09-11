@@ -1,4 +1,4 @@
-RBoard::Application.routes.draw do |map|
+Rboard::Application.routes.draw do |map|
   map.root :controller => "forums"
   map.login 'login', :controller => 'users', :action => 'login'
   map.logout 'logout', :controller => 'users', :action => 'logout'
