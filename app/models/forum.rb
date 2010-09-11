@@ -31,7 +31,7 @@ class Forum < ActiveRecord::Base
       post = latest_descendant_post || nil
       post_forum = post.try(:forum)
       self.last_post = post
-      self.last_post_forum = post_forum
+      self.last_post_forum = (post_forum == self) ? nil : post_forum
       save!
     end
     ancestors.each { |ancestor| ancestor.update_last_post }
