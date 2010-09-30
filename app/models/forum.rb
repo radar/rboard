@@ -26,31 +26,34 @@ class Forum < ActiveRecord::Base
     title
   end
 
-  def update_last_post(new_forum, post=nil)
-    post ||= posts.last
-    self.last_post = post
-    self.last_post_forum = nil
-    save
-    for ancestor in (ancestors - [new_forum])
-      if !post.nil?
-        if ancestor.last_post.nil? || (ancestor.last_post.created_at < post.created_at)
-          ancestor.last_post = post
-          ancestor.last_post_forum = self
-        end
-      else
-        # does this ever get called? Test it and find out.
-        ancestor.last_post = nil
-        ancestor.last_post_forum = nil
-      end
-      ancestor.save
+  def update_last_post
+    unless frozen?
+      post = latest_descendant_post || nil
+      post_forum = post.try(:forum)
+      self.last_post = post
+      self.last_post_forum = (post_forum == self) ? nil : post_forum
+      save!
     end
+    ancestors.each { |ancestor| ancestor.update_last_post }
   end
 
   def descendants
-    children.map { |f| !f.children.empty? ? f.children + [f]: f }.flatten
+    children.map { |f| !f.children.empty? ? f.descendants + [f] : f }.flatten
   end
 
   def sub?
     !parent_id.nil?
+  end
+
+private
+  def latest_descendant_post
+    forums = [self] + self.descendants
+    forum_ids = forums.map(&:id)
+    Post.find_by_sql("SELECT `posts`.* FROM `posts`
+      INNER JOIN `topics` 
+      ON `posts`.`topic_id` = `topics`.`id`
+      WHERE `topics`.`forum_id` IN (#{forum_ids.join(', ')})
+      ORDER BY `posts`.`created_at` DESC
+      LIMIT 1").first
   end
 end

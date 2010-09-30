@@ -31,6 +31,8 @@ class Topic < ActiveRecord::Base
   # Instead of using a counter_cache on the belongs_to we do this
   # because counter_cache doesn't take into account funky move! methods
   after_create :set_last_post
+  after_create :update_last_post
+  after_destroy :update_last_post
   after_create :log_ip
   after_create :increment_counters
   before_destroy :decrement_counters
@@ -55,9 +57,17 @@ class Topic < ActiveRecord::Base
 
   def set_last_post
     readers.clear
-    update_attribute("last_post_id", posts.last.id) unless moved
     # TODO: May be intensive if a lot of people have all subscribed to the same topic.
     subscriptions.map { |s| s.increment!(:posts_count) }
+  end
+
+  def update_last_post
+    unless frozen? || moved
+      post = posts.last
+      self.last_post = post
+      save!
+    end
+    forum.update_last_post
   end
 
   def increment_counters
@@ -94,11 +104,11 @@ class Topic < ActiveRecord::Base
       end
     end
     is_new_last_post = new_forum.last_post.nil? || (new_forum.last_post.created_at <= posts.last.created_at)
-    new_forum.update_last_post(new_forum, posts.last) if is_new_last_post
+    new_forum.update_last_post if is_new_last_post
 
     if was_old_last_post
       old_forum.reload
-      old_forum.update_last_post(new_forum)
+      old_forum.update_last_post
     end
   end
 
@@ -129,11 +139,10 @@ class Topic < ActiveRecord::Base
   end
 
   def last_10_posts
-    posts.last(10).reverse
+    posts.last(10).reject { |p| p.new_record? }.reverse
   end
 
   def belongs_to?(other_user)
     user == other_user
   end
-
 end
