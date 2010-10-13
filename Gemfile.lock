@@ -39,6 +39,9 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     builder (2.1.2)
+    by_star (1.0.0)
+      activerecord (>= 2.0.0)
+      chronic
     capybara (0.3.8)
       culerity (>= 0.2.4)
       mime-types (>= 1.16)
@@ -150,6 +153,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
+  by_star (~> 1.0.0)
   capybara (= 0.3.8)
   chronic
   coderay
