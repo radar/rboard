@@ -10,5 +10,6 @@ Given /^there is a closed forum$/ do
 end
 
 Then /^I should be in the "([^\"]*)" forum$/ do |title|
-  Forum.find(ActionController::Routing::Routes.recognize_path(request.path, { :method => :get })[:forum_id]).title.should eql(title)
+  forum = Forum.find_by_title(title)
+  current_url.should include forum_path(forum)
 end
