@@ -18,5 +18,6 @@
     %tfoot
       %tr
         %td{:colspan => "2"}= submit_tag(t(:Create))
-%table.posts{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
-  = render @posts
+- if @posts.present?
+  %table.posts{:cellpadding => "5", :cellspacing => "0", :width => "100%"}
+    = render @posts
