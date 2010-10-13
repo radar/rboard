@@ -44,7 +44,8 @@ Feature: Topics moderation
     And I select "Sub of Public Forum" from "new_forum_id"
     And I press "Move"
     Then I should see "All selected topics have been moved."
-    Then I should not see "Posted in the wrong forum"
+    Then I should not see "Posted in the wrong forum" within ".topics.listing"
+    But I should see "Last post was less than a minute ago by administrator in Posted in the wrong forum"
     When I follow "Sub of Public Forum"
     Then I should see "Posted in the wrong forum"
 
