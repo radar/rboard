@@ -35,11 +35,11 @@ Feature: Topics
   Scenario: Admins should be able to edit topics
     Given I am logged in as "administrator" with the password "godly"
     When I follow "Admins Only"
-    And I follow "Default Topic"
+    And I follow "Default topic"
     When I follow "Edit topic"
     And I fill in "Subject" with "Not the default anymore"
     And I press "Update"
-    Then I should not see "Default Topic"
+    Then I should not see "Default topic"
     And I should see "Not the default anymore"
 
   Scenario: Admins should be able to create a new topic in the admin forum
