@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
-require File.dirname(__FILE__) + '/../../../lib/rboard'
 
 describe "installation" do
   it "installs everything" do
