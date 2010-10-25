@@ -55,3 +55,7 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
+
+After do |scenario|
+  Capybara.save_and_open_page if scenario.failed? && ENV['SAVE_AND_OPEN']
+end
