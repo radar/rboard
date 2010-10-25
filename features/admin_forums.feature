@@ -19,7 +19,7 @@ Scenario: Administrators should be able to create new forums
   And I should see "Test Forum"
 
 Scenario: Administrators should be able to update forums
-  And I follow "Edit"
+  And I follow "Edit" within ".forums.listing"
   And I fill in "Title" with "Unmoderated"
   And I press "Update"
   Then I should see "The forum was updated."
