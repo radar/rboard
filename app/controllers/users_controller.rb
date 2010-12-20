@@ -25,6 +25,15 @@ class UsersController < ApplicationController
       params[:user][:crypted_password] = current_user.encrypt(params[:user][:password])
       flash[:notice] = t(:password_has_been_changed)
     end
+    
+    @user = User.find_by_permalink!(params[:id]) 
+    if @user.update_attributes(params[:user])
+      flash[:notice] = t(:updated, :thing => "profile")
+      redirect_to @user
+    else
+      flash.now[:notice] = t(:not_updated, :thing => "profile")
+      render :action => "edit"
+    end 
   end
 
 

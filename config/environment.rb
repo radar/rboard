@@ -32,11 +32,9 @@ Rboard::Application.initialize!
 
 
 
-require 'find'
 themes = []
-Find.find(Rails.root + "/public/themes") do |path|
+Dir.glob(File.join(Rails.root, "/public/themes",'*')) do |path|
   themes << [path, path] if File.directory?(path)
-  Find.prune
 end
 
 # Needs to be set for paperclip to find the identify command with Passenger.
