@@ -63,9 +63,7 @@ class Topic < ActiveRecord::Base
 
   def update_last_post
     unless frozen? || moved
-      post = posts.last
-      self.last_post = post
-      save!
+      update_attributes(:last_post_id => posts.last.id)
     end
     forum.update_last_post
   end
