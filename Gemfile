@@ -14,7 +14,9 @@ gem 'RedCloth'
 gem 'will_paginate', :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem 'rbbcode'
 
-gem "ruby-debug", :group => "development"
+
+gem "ruby-debug19", :group => "development", :platforms => :ruby_19
+gem "ruby-debug", :group => "development", :platforms => :ruby_18
 
 group :test do
   gem "rspec", "~>2.0.0.beta.10"
