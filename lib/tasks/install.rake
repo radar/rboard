@@ -7,11 +7,14 @@ end
 
 desc "Install rBoard database for the current RAILS_ENV"
 task :install => :environment do
+  
+  require "#{Rails.root}/app/lib/rboard"
+  
   ActiveRecord::Base.establish_connection(ActiveRecord::Base.configurations[RAILS_ENV])
 
   puts "Creating #{RAILS_ENV} database..."
   Rake::Task["db:create"].invoke
-
+                                                      g
   puts "Setting up the #{RAILS_ENV} database"
   Rake::Task["db:migrate"].invoke
 
