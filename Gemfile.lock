@@ -67,6 +67,7 @@ GEM
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    escape_utils (0.1.9)
     faker (0.3.1)
     ffi (0.6.3)
       rake (>= 0.8.7)
@@ -172,6 +173,7 @@ DEPENDENCIES
   coderay
   cucumber (= 0.8.5)
   cucumber-rails (= 0.3.2)
+  escape_utils
   faker
   haml
   highline

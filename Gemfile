@@ -13,7 +13,7 @@ gem 'RedCloth'
 #gem 'thinking-sphinx', :require => 'thinking_sphinx'
 gem 'will_paginate', :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem 'rbbcode'
-
+gem "escape_utils"
 
 gem "ruby-debug19", :group => "development", :platforms => :ruby_19
 gem "ruby-debug", :group => "development", :platforms => :ruby_18
