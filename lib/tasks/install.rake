@@ -14,7 +14,7 @@ task :install => :environment do
 
   puts "Creating #{RAILS_ENV} database..."
   Rake::Task["db:create"].invoke
-                                                      g
+  
   puts "Setting up the #{RAILS_ENV} database"
   Rake::Task["db:migrate"].invoke
 
