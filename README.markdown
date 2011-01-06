@@ -81,31 +81,31 @@ Puppies, Kittens, Rainbows and Unicorns sold separately.
 
   1. Why?
 
-    Why not? I use forum systems every day and I figured the best way to learn more about Rails was to build one in it. rBoard's evolved into much, much more now and is my favourite project to work on.
+  Why not? I use forum systems every day and I figured the best way to learn more about Rails was to build one in it. rBoard's evolved into much, much more now and is my favourite project to work on.
 
   2. Who?
 
-    One developer, so far. My name's Radar, but sometimes people call me Ryan or "dickhead". I wrote all of the code you see before you today.
+  One developer, so far. My name's Radar, but sometimes people call me Ryan or "dickhead". I wrote all of the code you see before you today.
 
   3. What?
 
-    This is rBoard, a forum system built in Rails.
+  This is rBoard, a forum system built in Rails.
 
   4. How?
 
-    To install it, go through the integrated installer inside the application itself. (Found at /install)
+  To install it, go through the integrated installer inside the application itself. (Found at /install)
 
   5. When (is it stable)?
 
-    The `master` branch is usually kept in a stable manner. I try to anyway. No guarantees about that.
+  The `master` branch is usually kept in a stable manner. I try to anyway. No guarantees about that.
 
   6. OMG it is broken -- why!?!?
 
-    If you have any problems, you can log them in [the issue tracker](http://github.com/radar/rboard/issues) or you can contact me, either [through GitHub](http://github.com/inbox/new/radar) or by [emailing me](mailto:radarlistener@gmail.com).
+  If you have any problems, you can log them in [the issue tracker](http://github.com/radar/rboard/issues) or you can contact me, either [through GitHub](http://github.com/inbox/new/radar) or by [emailing me](mailto:radarlistener@gmail.com).
 
   7. I love you.
 
-    You can send money to `radarlistener@gmail.com` on Paypal or click the donate link and I will love you back.
+  You can send money to `radarlistener@gmail.com` on Paypal or click the donate link and I will love you back.
 
 ## Integration
 
