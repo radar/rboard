@@ -1,7 +1,0 @@
-.breadcrumbs
-  = link_to t(:Administration_Section), admin_root_path
-  %span &raquo; #{link_to(t(:Groups), admin_groups_path)} &raquo; #{t(:Editing_a_group)}
-= error_messages_for :group
-- form_for [:admin, @group] do |f|
-  = render :partial => "form", :locals => { :f => f }
-  = submit_tag t(:Update)

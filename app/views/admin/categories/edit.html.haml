@@ -1,9 +1,0 @@
-.breadcrumbs
-  = link_to t(:Administration_Section), admin_root_path
-  %span &raquo; #{link_to(t(:Categories), admin_categories_path)} &raquo; #{t(:Editing, :thing => @category.name)}
-= error_messages_for :category
-- form_for [:admin, @category] do |f|
-  %h2
-    = t(:Editing, :thing => @category.name)
-  = render :partial => "form", :locals => { :f => f }
-  = f.submit t(:Update)

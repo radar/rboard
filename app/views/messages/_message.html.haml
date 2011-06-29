@@ -1,7 +1,0 @@
-- link_to message_path(message) do
-  %li{ :class => message.to_read? ? "read" : "unread" }
-    - f.fields_for message do |message_fields|
-      = message_fields.check_box "selected"
-      %strong== From #{message.from.login} #{time_ago_in_words(message.created_at)} #{t(:ago)}
-      \-
-      = truncate(parse_text(message.text.split("\n")[0]), 140)

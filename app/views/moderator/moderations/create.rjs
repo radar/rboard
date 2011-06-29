@@ -1,4 +1,0 @@
-if @thing.class == Topic
-  page["topic_#{@thing.id}_moderated"].checked = true 
-  page.replace_html 'moderated_topics_count', t(:topics_count, :count => @moderated_topics_count)  + t(:selected_for_moderation)
-end 

@@ -1,8 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'rubygems'
-require 'plist'
-require 'yaml'
-
-result = Plist::parse_xml( ARGV[0] )
-YAML.dump( result, STDOUT )

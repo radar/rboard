@@ -1,3 +1,0 @@
-Moderation.blueprint do
-
-end
